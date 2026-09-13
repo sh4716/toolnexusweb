@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | 纯本地免排队</title>
+  <meta name="description" content="纯前端在线 PDF 转图片工具。基于 PDF.js 引擎，将 PDF 文档每一页高清渲染导出为 JPG、PNG、WebP 图片，支持单页下载与一键打包 ZIP 下载。">
+  <meta name="keywords" content="PDF转图片,PDF转JPG,PDF转PNG,提取PDF页面图片,在线PDF转图片">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/pdf-to-image/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/pdf-to-image/">
+  <meta property="og:title" content="PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | 纯本地免排队">
+  <meta property="og:description" content="纯前端在线 PDF 转图片工具。基于 PDF.js 引擎，将 PDF 文档每一页高清渲染导出为 JPG、PNG、WebP 图片，支持单页下载与一键打包 ZIP 下载。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | 纯本地免排队">
+  <meta name="twitter:description" content="纯前端在线 PDF 转图片工具。基于 PDF.js 引擎，将 PDF 文档每一页高清渲染导出为 JPG、PNG、WebP 图片，支持单页下载与一键打包 ZIP 下载。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .pdf-render-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .page-render-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .page-render-card canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-xs);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 0.65rem;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-to-image/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-to-image/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-to-image/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/pdf-to-image/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF与文档</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF 转图片</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🖼️ PDF 转图片工具</h1>
+        <span class="badge-tag badge-privacy">纯本地 Canvas 逐页高清渲染</span>
+        <span class="badge-tag badge-hot">高频刚需</span>
+      </div>
+      <p class="tool-desc">纯本地将 PDF 文档的每一页渲染为高清 JPG 或 PNG 图片。支持单张下载或一键打包 ZIP，合同资料零上传。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">📑</div>
+        <div class="dropzone-title">拖拽 PDF 文件至此处，或点击上传</div>
+        <div class="dropzone-hint">单机内存高清渲染，不限制文档页数</div>
+        <input type="file" id="file-input" accept="application/pdf">
+      </div>
+
+      <div id="pdf-to-img-controls" style="display: none; margin-top: 1.5rem; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div style="font-weight: 700; color: var(--text-main);" id="doc-meta">共 0 页</div>
+          <select class="form-select" id="img-format" style="width: 140px; padding: 0.45rem 0.75rem;">
+            <option value="image/png">PNG 高清无损</option>
+            <option value="image/jpeg" selected>JPG 格式</option>
+            <option value="image/webp">WebP 新一代</option>
+          </select>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" class="btn btn-primary" id="btn-download-all-zip">📦 打包下载全部图片 (ZIP)</button>
+        </div>
+      </div>
+
+      <div class="pdf-render-grid" id="pages-grid"></div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/vendor/pdf.min.js"></script>
+  <script src="../../../assets/vendor/jszip.min.js"></script>
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '../../assets/vendor/pdf.worker.min.js';
+    }
+
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const controls = document.getElementById('pdf-to-img-controls');
+    const docMeta = document.getElementById('doc-meta');
+    const pagesGrid = document.getElementById('pages-grid');
+    const btnZip = document.getElementById('btn-download-all-zip');
+    const formatSelect = document.getElementById('img-format');
+
+    let pdfDocument = null;
+    let pageBlobs = [];
+    let currentDocName = 'document';
+
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    async function handleFile(file) {
+      if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) return;
+      currentDocName = file.name.replace(/\.pdf$/i, '');
+      const arrayBuffer = await file.arrayBuffer();
+
+      try {
+        pdfDocument = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const total = pdfDocument.numPages;
+        docMeta.textContent = file.name + ' · 共 ' + total + ' 页';
+        controls.style.display = 'flex';
+        pagesGrid.innerHTML = '';
+        pageBlobs = [];
+
+        for (let i = 1; i <= total; i++) {
+          await renderPage(i);
+        }
+      } catch (err) {
+        Utils.showToast('加载 PDF 失败: ' + err.message, 'error');
+      }
+    }
+
+    async function renderPage(pageNum) {
+      const page = await pdfDocument.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1.5 });
+
+      const card = document.createElement('div');
+      card.className = 'page-render-card';
+
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d');
+
+      await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+      card.appendChild(canvas);
+
+      const title = document.createElement('div');
+      title.style.fontSize = '0.82rem';
+      title.style.color = 'var(--text-muted)';
+      title.style.marginBottom = '0.5rem';
+      title.textContent = '第 ' + pageNum + ' 页';
+      card.appendChild(title);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-secondary btn-sm';
+      btn.textContent = '下载此页';
+      btn.onclick = () => {
+        const mime = formatSelect.value;
+        const ext = mime === 'image/png' ? 'png' : (mime === 'image/jpeg' ? 'jpg' : 'webp');
+        canvas.toBlob(blob => {
+          Utils.downloadBlob(blob, currentDocName + '_page_' + pageNum + '.' + ext);
+        }, mime, 0.9);
+      };
+      card.appendChild(btn);
+
+      pagesGrid.appendChild(card);
+    }
+
+    btnZip.addEventListener('click', async () => {
+      if (!window.JSZip) {
+        Utils.showToast('ZIP 库加载中，请稍候', 'warning');
+        return;
+      }
+      if (!pdfDocument) {
+        Utils.showToast('请先上传并解析 PDF 文档', 'warning');
+        return;
+      }
+      btnZip.disabled = true;
+      btnZip.textContent = '正在打包全部图片...';
+
+      try {
+        const zip = new JSZip();
+        const canvases = pagesGrid.querySelectorAll('canvas');
+        const mime = formatSelect.value;
+        const ext = mime === 'image/png' ? 'png' : (mime === 'image/jpeg' ? 'jpg' : 'webp');
+
+        for (let i = 0; i < canvases.length; i++) {
+          const c = canvases[i];
+          const blob = await new Promise(res => c.toBlob(res, mime, 0.9));
+          zip.file(currentDocName + '_page_' + (i + 1) + '.' + ext, blob);
+        }
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        Utils.downloadBlob(zipBlob, currentDocName + '_all_images.zip');
+        Utils.showToast('全部图片打包完成！', 'success');
+      } catch (err) {
+        Utils.showToast('打包失败: ' + err.message, 'error');
+      } finally {
+        btnZip.disabled = false;
+        btnZip.textContent = '📦 打包下载全部图片 (ZIP)';
+      }
+    });
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

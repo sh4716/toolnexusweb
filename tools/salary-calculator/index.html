@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hourly to Salary Wage Calculator - Convert Hourly Pay to Annual, Monthly, Weekly | ToolNexus</title>
+  <meta name="description" content="Free online Hourly to Salary Wage Calculator. Convert hourly pay to annual salary, monthly, bi-weekly, and weekly earnings with overtime multiplier and custom work hours.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/salary-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/salary-calculator/">
+  <meta property="og:title" content="Hourly to Salary Wage Calculator - Convert Hourly Pay to Annual, Monthly, Weekly | ToolNexus">
+  <meta property="og:description" content="Free online Hourly to Salary Wage Calculator. Convert hourly pay to annual salary, monthly, bi-weekly, and weekly earnings with overtime multiplier and custom work hours.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hourly to Salary Wage Calculator - Convert Hourly Pay to Annual, Monthly, Weekly | ToolNexus">
+  <meta name="twitter:description" content="Free online Hourly to Salary Wage Calculator. Convert hourly pay to annual salary, monthly, bi-weekly, and weekly earnings with overtime multiplier and custom work hours.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/salary-calculator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/salary-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/salary-calculator/">
+  <script src="/assets/js/utils.js"></script>
+  <style>
+    /* Premium Fintech Design for Salary Calculator */
+    .salary-calc-wrapper {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+
+    /* Segmented Mode Switcher */
+    .mode-tab-group {
+      display: inline-flex;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 1.5rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mode-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .mode-tab-btn:hover {
+      color: var(--text-main);
+    }
+    .mode-tab-btn.active {
+      background: var(--bg-surface);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Currency Pill Bar */
+    .currency-pill-bar {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .curr-btn {
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-xs);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .curr-btn:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .curr-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Quick Preset Chips */
+    .preset-chips-row {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .chip-btn {
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+/* Modern Form Controls & Fintech Inputs */
+    .form-group-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .form-group-title .form-label {
+      margin: 0;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Hero Input Card */
+    .hero-input-card {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .hero-input-card:hover {
+      border-color: var(--border-base);
+    }
+    .hero-input-card:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light), 0 4px 16px rgba(99, 102, 241, 0.12);
+    }
+    .hero-currency-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      padding: 0 0.9rem;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--bg-surface-alt);
+      border-right: 1px solid var(--border-subtle);
+      user-select: none;
+    }
+    .hero-input-field {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      padding: 0.75rem 0.9rem;
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: var(--font-mono, monospace);
+      color: var(--text-main);
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    .hero-input-field::-webkit-outer-spin-button,
+    .hero-input-field::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .hero-unit-tag {
+      display: flex;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      margin: auto 0.65rem auto 0;
+      border-radius: var(--radius-xs);
+      background: var(--bg-surface-alt);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .hero-stepper-col {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border-subtle);
+    }
+    .hero-stepper-btn {
+      flex: 1;
+      border: none;
+      background: var(--bg-surface-alt);
+      color: var(--text-muted);
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .hero-stepper-btn:first-child {
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .hero-stepper-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .hero-stepper-btn:active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Range Sliders */
+    .custom-range-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      margin-top: 0.75rem;
+      border-radius: 999px;
+      background: var(--border-subtle);
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .custom-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      border: 2.5px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(99, 102, 241, 0.2);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .custom-range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.18);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(99, 102, 241, 0.25);
+    }
+    .custom-range-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      border: 2.5px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+    }
+
+    /* Modern Stepper Input Box (for Hours, Weeks, OT Hours) */
+    .modern-stepper-box {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      height: 44px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .modern-stepper-box:hover {
+      border-color: var(--border-base);
+    }
+    .modern-stepper-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light), 0 4px 12px rgba(99, 102, 241, 0.1);
+    }
+    .stepper-btn {
+      border: none;
+      background: var(--bg-surface-alt);
+      color: var(--text-main);
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .stepper-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .stepper-btn:active {
+      transform: scale(0.92);
+    }
+    .stepper-num-input {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: var(--font-mono, monospace);
+      color: var(--text-main);
+      padding: 0 0.4rem;
+      -moz-appearance: textfield;
+    }
+    .stepper-num-input::-webkit-outer-spin-button,
+    .stepper-num-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .stepper-unit-label {
+      display: flex;
+      align-items: center;
+      padding-right: 0.75rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Modern Dropdown & Wrapper */
+    .modern-select-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .modern-select {
+      width: 100%;
+      height: 44px;
+      padding: 0 2.5rem 0 1rem;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 0.92rem;
+      font-weight: 600;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .modern-select:hover {
+      border-color: var(--border-base);
+      background: var(--bg-surface-alt);
+    }
+    .modern-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light), 0 4px 12px rgba(99, 102, 241, 0.1);
+    }
+    .select-arrow-icon {
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      width: 16px;
+      height: 16px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .modern-select:focus + .select-arrow-icon {
+      color: var(--primary);
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Overtime Multiplier Quick Pills */
+    .ot-pills-wrap {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+      margin-top: 0.45rem;
+    }
+    .ot-pill-btn {
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      padding: 0.25rem 0.55rem;
+      border-radius: var(--radius-xs);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .ot-pill-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .ot-pill-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Modern iOS/Fintech Toggle Switch */
+    .modern-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .modern-toggle-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+    }
+    .modern-toggle-track {
+      width: 40px;
+      height: 22px;
+      background: var(--border-color);
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .modern-toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .modern-toggle-input:checked + .modern-toggle-track {
+      background: var(--primary);
+    }
+    .modern-toggle-input:checked + .modern-toggle-track::after {
+      transform: translateX(18px);
+    }
+    .modern-toggle-input:focus-visible + .modern-toggle-track {
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    /* Overtime Card */
+    .overtime-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    /* Fintech Dashboard Results Card */
+    .fintech-result-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 2rem;
+    }
+    [data-theme="dark"] .fintech-result-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5);
+    }
+
+    .hero-metric-box {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .hero-metric-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .hero-metric-val {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      margin-top: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+    .copy-result-btn {
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-xs);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .copy-result-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* 4-Box Metrics Grid */
+    .metric-tiles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .metric-tile {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .metric-tile:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-border);
+    }
+    .metric-tile-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.35rem;
+    }
+    .metric-tile-amount {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    /* Visual Distribution Bar */
+    .progress-bar-wrap {
+      display: flex;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--border-subtle);
+      margin: 0.65rem 0;
+    }
+    .progress-bar-fill-base {
+      background: linear-gradient(90deg, #6366f1, #818cf8);
+      transition: width 0.3s ease;
+    }
+    .progress-bar-fill-ot {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      transition: width 0.3s ease;
+    }
+
+    @media (max-width: 860px) {
+      .salary-calc-wrapper {
+        grid-template-columns: 1fr !important;
+      }
+      .fintech-result-card {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/salary-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container" style="max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem;">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#calculator">Calculators</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Salary Calculator</span>
+      </nav>
+    </div>
+    <div class="tool-layout">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Calculators & Finance</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">💰 Hourly to Salary Wage Calculator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Convert hourly pay rates into annual salary, monthly, bi-weekly, weekly, and daily earnings. Supports overtime multipliers, custom work hours, and bi-directional wage calculations.
+        </p>
+
+        <!-- Main Calculator Layout -->
+        <div class="salary-calc-wrapper">
+          <!-- Left Column: Inputs & Controls -->
+          <div>
+            <!-- Mode Switcher -->
+            <div class="mode-tab-group">
+              <button type="button" class="mode-tab-btn active" id="tab-hourly-mode" onclick="switchCalcMode('hourly')">
+                <span>⏱️</span>
+                <span>Hourly to Annual Salary</span>
+              </button>
+              <button type="button" class="mode-tab-btn" id="tab-salary-mode" onclick="switchCalcMode('salary')">
+                <span>💼</span>
+                <span>Annual Salary to Hourly Wage</span>
+              </button>
+            </div>
+
+            <!-- Currency Selector Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Currency:</span>
+              <div class="currency-pill-bar">
+                <button type="button" class="curr-btn active" data-symbol="$" onclick="setCurrency('$', this)">$ USD</button>
+                <button type="button" class="curr-btn" data-symbol="€" onclick="setCurrency('€', this)">€ EUR</button>
+                <button type="button" class="curr-btn" data-symbol="£" onclick="setCurrency('£', this)">£ GBP</button>
+                <button type="button" class="curr-btn" data-symbol="¥" onclick="setCurrency('¥', this)">¥ CNY</button>
+                <button type="button" class="curr-btn" data-symbol="C$" onclick="setCurrency('C$', this)">C$ CAD</button>
+                <button type="button" class="curr-btn" data-symbol="A$" onclick="setCurrency('A$', this)">A$ AUD</button>
+              </div>
+            </div>
+
+            <!-- Panel 1: Hourly Input Mode -->
+            <div id="panel-hourly-input">
+              <div class="form-group" style="margin-bottom: 1.5rem;">
+                <div class="form-group-title">
+                  <label class="form-label"><span>⏱️</span> Hourly Wage Rate</label>
+                  <span id="rate-display-hint" style="font-size: 0.82rem; color: var(--primary); font-weight: 700;">$35.00 /hr</span>
+                </div>
+                <div class="hero-input-card">
+                  <div class="hero-currency-badge" id="curr-symbol-hourly">$</div>
+                  <input type="number" id="wage-rate" class="hero-input-field" value="35" min="0" step="0.5" oninput="onHourlyInput(this.value)">
+                  <div class="hero-unit-tag">/ hour</div>
+                  <div class="hero-stepper-col">
+                    <button type="button" class="hero-stepper-btn" onclick="stepVal('wage-rate', 1)" title="Increase rate by 1">+</button>
+                    <button type="button" class="hero-stepper-btn" onclick="stepVal('wage-rate', -1)" title="Decrease rate by 1">−</button>
+                  </div>
+                </div>
+                <input type="range" id="wage-rate-slider" class="custom-range-slider" min="5" max="250" value="35" step="1" oninput="onHourlySlider(this.value)">
+                
+                <!-- Quick Wage Chips -->
+                <div class="preset-chips-row">
+                  <span style="font-size: 0.75rem; color: var(--text-subtle); align-self: center;">Quick Rate:</span>
+                  <button type="button" class="chip-btn" onclick="setWageRate(15)">$15</button>
+                  <button type="button" class="chip-btn" onclick="setWageRate(25)">$25</button>
+                  <button type="button" class="chip-btn" onclick="setWageRate(35)">$35</button>
+                  <button type="button" class="chip-btn" onclick="setWageRate(50)">$50</button>
+                  <button type="button" class="chip-btn" onclick="setWageRate(75)">$75</button>
+                  <button type="button" class="chip-btn" onclick="setWageRate(100)">$100</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 2: Annual Salary Input Mode (Initially Hidden) -->
+            <div id="panel-salary-input" style="display: none;">
+              <div class="form-group" style="margin-bottom: 1.5rem;">
+                <div class="form-group-title">
+                  <label class="form-label"><span>💼</span> Annual Base Salary</label>
+                  <span id="salary-display-hint" style="font-size: 0.82rem; color: var(--primary); font-weight: 700;">$75,000 /year</span>
+                </div>
+                <div class="hero-input-card">
+                  <div class="hero-currency-badge" id="curr-symbol-salary">$</div>
+                  <input type="number" id="input-annual-salary" class="hero-input-field" value="75000" min="0" step="1000" oninput="onAnnualSalaryInput(this.value)">
+                  <div class="hero-unit-tag">/ year</div>
+                  <div class="hero-stepper-col">
+                    <button type="button" class="hero-stepper-btn" onclick="stepVal('input-annual-salary', 1000)" title="Increase salary by 1,000">+</button>
+                    <button type="button" class="hero-stepper-btn" onclick="stepVal('input-annual-salary', -1000)" title="Decrease salary by 1,000">−</button>
+                  </div>
+                </div>
+                <input type="range" id="salary-rate-slider" class="custom-range-slider" min="20000" max="300000" value="75000" step="2500" oninput="onAnnualSalarySlider(this.value)">
+                
+                <!-- Quick Salary Chips -->
+                <div class="preset-chips-row">
+                  <span style="font-size: 0.75rem; color: var(--text-subtle); align-self: center;">Quick Salary:</span>
+                  <button type="button" class="chip-btn" onclick="setAnnualSalary(45000)">$45k</button>
+                  <button type="button" class="chip-btn" onclick="setAnnualSalary(65000)">$65k</button>
+                  <button type="button" class="chip-btn" onclick="setAnnualSalary(85000)">$85k</button>
+                  <button type="button" class="chip-btn" onclick="setAnnualSalary(100000)">$100k</button>
+                  <button type="button" class="chip-btn" onclick="setAnnualSalary(130000)">$130k</button>
+                  <button type="button" class="chip-btn" onclick="setAnnualSalary(175000)">$175k</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Working Hours Schedule Configuration -->
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">📅 Working Schedule Baseline</span>
+                <span style="font-size: 0.8rem; color: var(--primary); font-weight: 600;" id="badge-total-hours">2,080 Hours / Year</span>
+              </div>
+
+              <!-- Quick Workweek Presets -->
+              <div class="preset-chips-row" style="margin-bottom: 0.85rem;">
+                <button type="button" class="chip-btn" onclick="setSchedule(40, 52)">Full-Time (40h · 52wks)</button>
+                <button type="button" class="chip-btn" onclick="setSchedule(32, 52)">4-Day Week (32h)</button>
+                <button type="button" class="chip-btn" onclick="setSchedule(20, 52)">Part-Time (20h)</button>
+                <button type="button" class="chip-btn" onclick="setSchedule(35, 48)">Freelancer (35h · 48wks)</button>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Hours Worked per Week</label>
+                  <div class="modern-stepper-box">
+                    <button type="button" class="stepper-btn" onclick="stepVal('wage-hours', -1)" title="Minus 1 hour">−</button>
+                    <input type="number" id="wage-hours" class="stepper-num-input" value="40" min="1" max="168" oninput="calcSalary()">
+                    <span class="stepper-unit-label">hrs/wk</span>
+                    <button type="button" class="stepper-btn" onclick="stepVal('wage-hours', 1)" title="Plus 1 hour">+</button>
+                  </div>
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Working Weeks per Year</label>
+                  <div class="modern-stepper-box">
+                    <button type="button" class="stepper-btn" onclick="stepVal('wage-weeks', -1)" title="Minus 1 week">−</button>
+                    <input type="number" id="wage-weeks" class="stepper-num-input" value="52" min="1" max="52" oninput="calcSalary()">
+                    <span class="stepper-unit-label">wks/yr</span>
+                    <button type="button" class="stepper-btn" onclick="stepVal('wage-weeks', 1)" title="Plus 1 week">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Overtime Calculation Settings -->
+            <div class="overtime-box">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">⚡ Overtime Earnings (Optional)</span>
+                <label class="modern-toggle-label">
+                  <input type="checkbox" id="check-enable-ot" class="modern-toggle-input" onchange="toggleOvertime(this.checked)" checked>
+                  <span class="modern-toggle-track"></span>
+                  <span style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted);">Enable Overtime</span>
+                </label>
+              </div>
+              <div id="ot-controls-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Weekly Overtime Hours</label>
+                  <div class="modern-stepper-box">
+                    <button type="button" class="stepper-btn" onclick="stepVal('wage-ot-hours', -1)" title="Minus 1 hour">−</button>
+                    <input type="number" id="wage-ot-hours" class="stepper-num-input" value="0" min="0" oninput="calcSalary()">
+                    <span class="stepper-unit-label">hrs/wk</span>
+                    <button type="button" class="stepper-btn" onclick="stepVal('wage-ot-hours', 1)" title="Plus 1 hour">+</button>
+                  </div>
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Overtime Multiplier</label>
+                  <div class="modern-select-wrap">
+                    <select id="wage-ot-mult" class="modern-select" onchange="syncOtPills(this.value); calcSalary()">
+                      <option value="1.5" selected>1.5x (Time and a half)</option>
+                      <option value="2.0">2.0x (Double time)</option>
+                      <option value="1.0">1.0x (Straight time)</option>
+                    </select>
+                    <svg class="select-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </div>
+                  <div class="ot-pills-wrap">
+                    <button type="button" class="ot-pill-btn active" data-mult="1.5" onclick="setOtMultiplier(1.5)">1.5× Standard</button>
+                    <button type="button" class="ot-pill-btn" data-mult="2.0" onclick="setOtMultiplier(2.0)">2.0× Double</button>
+                    <button type="button" class="ot-pill-btn" data-mult="1.0" onclick="setOtMultiplier(1.0)">1.0× Straight</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Fintech Dashboard Results -->
+          <div>
+            <div class="fintech-result-card">
+              <!-- Hero Metric Display -->
+              <div class="hero-metric-box">
+                <div>
+                  <div class="hero-metric-label" id="hero-output-label">Total Annual Salary</div>
+                  <div class="hero-metric-val" id="out-annual">$72,800</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" id="hero-subtext">Based on 2,080 annual base hours</div>
+                </div>
+                <button type="button" class="copy-result-btn" onclick="copySalaryResult()">
+                  <span>Copy</span>
+                  <span>📋</span>
+                </button>
+              </div>
+
+              <!-- 4-Grid Breakdown Cards -->
+              <div class="metric-tiles-grid">
+                <div class="metric-tile">
+                  <div class="metric-tile-title">
+                    <span>📅</span>
+                    <span>Monthly Salary</span>
+                  </div>
+                  <div class="metric-tile-amount" id="out-monthly">$6,066</div>
+                </div>
+                <div class="metric-tile">
+                  <div class="metric-tile-title">
+                    <span>🗓️</span>
+                    <span>Bi-Weekly Pay</span>
+                  </div>
+                  <div class="metric-tile-amount" style="color: var(--accent-cyan);" id="out-biweekly">$2,800</div>
+                </div>
+                <div class="metric-tile">
+                  <div class="metric-tile-title">
+                    <span>⏰</span>
+                    <span>Weekly Pay</span>
+                  </div>
+                  <div class="metric-tile-amount" id="out-weekly">$1,400</div>
+                </div>
+                <div class="metric-tile">
+                  <div class="metric-tile-title">
+                    <span>☀️</span>
+                    <span>Daily Pay (8h)</span>
+                  </div>
+                  <div class="metric-tile-amount" id="out-daily">$280</div>
+                </div>
+              </div>
+
+              <!-- Earnings Structure Breakdown -->
+              <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text-main);">
+                  <span>Earnings Distribution</span>
+                  <span id="badge-effective-hourly" style="color: var(--primary);">Effective: $35.00/hr</span>
+                </div>
+                <div class="progress-bar-wrap">
+                  <div id="bar-base" class="progress-bar-fill-base" style="width: 100%;"></div>
+                  <div id="bar-ot" class="progress-bar-fill-ot" style="width: 0%;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                  <span>🔵 Regular Base Pay: <b id="out-base-pay" style="color: var(--text-main);">$72,800</b></span>
+                  <span>🟠 Overtime Pay: <b id="out-ot-pay" style="color: var(--text-main);">$0</b></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Salary Calculations & Working Hours FAQ</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: What is the 2,080 working hours rule?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">A full-time standard schedule of 40 hours per week across 52 weeks equals exactly 2,080 hours per year. This is the official baseline used by HR, payroll, and the US Department of Labor.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: What is the difference between Bi-Weekly and Semi-Monthly pay?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Bi-weekly pay occurs every two weeks (26 paychecks per year, with two months containing three paychecks). Semi-monthly pay occurs twice per month (24 paychecks per year, usually on the 15th and last day).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    let currentCurrency = '$';
+    let currentMode = 'hourly';
+
+    function setCurrency(symbol, el) {
+      currentCurrency = symbol;
+      document.querySelectorAll('.curr-btn').forEach(b => b.classList.remove('active'));
+      if (el) el.classList.add('active');
+      document.getElementById('curr-symbol-hourly').textContent = symbol;
+      document.getElementById('curr-symbol-salary').textContent = symbol;
+      calcSalary();
+    }
+
+    function switchCalcMode(mode) {
+      currentMode = mode;
+      const tabHourly = document.getElementById('tab-hourly-mode');
+      const tabSalary = document.getElementById('tab-salary-mode');
+      const pHourly = document.getElementById('panel-hourly-input');
+      const pSalary = document.getElementById('panel-salary-input');
+
+      if (mode === 'hourly') {
+        tabHourly.classList.add('active');
+        tabSalary.classList.remove('active');
+        pHourly.style.display = 'block';
+        pSalary.style.display = 'none';
+        document.getElementById('hero-output-label').textContent = 'Total Annual Salary';
+      } else {
+        tabSalary.classList.add('active');
+        tabHourly.classList.remove('active');
+        pHourly.style.display = 'none';
+        pSalary.style.display = 'block';
+        document.getElementById('hero-output-label').textContent = 'Effective Hourly Wage';
+      }
+      calcSalary();
+    }
+
+    function onHourlyInput(val) {
+      document.getElementById('wage-rate-slider').value = val || 0;
+      calcSalary();
+    }
+
+    function onHourlySlider(val) {
+      document.getElementById('wage-rate').value = val;
+      calcSalary();
+    }
+
+    function setWageRate(rate) {
+      document.getElementById('wage-rate').value = rate;
+      document.getElementById('wage-rate-slider').value = rate;
+      calcSalary();
+    }
+
+    function onAnnualSalaryInput(val) {
+      document.getElementById('salary-rate-slider').value = val || 0;
+      calcSalary();
+    }
+
+    function onAnnualSalarySlider(val) {
+      document.getElementById('input-annual-salary').value = val;
+      calcSalary();
+    }
+
+    function setAnnualSalary(salary) {
+      document.getElementById('input-annual-salary').value = salary;
+      document.getElementById('salary-rate-slider').value = salary;
+      calcSalary();
+    }
+
+    function setSchedule(hours, weeks) {
+      document.getElementById('wage-hours').value = hours;
+      document.getElementById('wage-weeks').value = weeks;
+      calcSalary();
+    }
+function stepVal(id, delta) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      let val = parseFloat(el.value) || 0;
+      val = Math.round((val + delta) * 100) / 100;
+      if (el.min !== '') val = Math.max(parseFloat(el.min), val);
+      if (el.max !== '') val = Math.min(parseFloat(el.max), val);
+      el.value = val;
+      if (id === 'wage-rate') onHourlyInput(val);
+      else if (id === 'input-annual-salary') onAnnualSalaryInput(val);
+      else calcSalary();
+    }
+
+    function setOtMultiplier(val) {
+      const sel = document.getElementById('wage-ot-mult');
+      if (sel) {
+        sel.value = String(val);
+        syncOtPills(String(val));
+        calcSalary();
+      }
+    }
+
+    function syncOtPills(val) {
+      document.querySelectorAll('.ot-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-mult') === String(val));
+      });
+    }
+
+    function toggleOvertime(enabled) {
+      const el = document.getElementById('ot-controls-grid');
+      el.style.opacity = enabled ? '1' : '0.4';
+      el.style.pointerEvents = enabled ? 'auto' : 'none';
+      if (!enabled) {
+        document.getElementById('wage-ot-hours').value = 0;
+      }
+      calcSalary();
+    }
+
+    function copySalaryResult() {
+      const annual = document.getElementById('out-annual').textContent;
+      const monthly = document.getElementById('out-monthly').textContent;
+      const text = 'Salary Breakdown: Annual Total ' + annual + ', Monthly ' + monthly + ' with ' + document.getElementById('wage-hours').value + ' hrs/wk (Calculated via ToolNexus)';
+      copyToClipboard(text, 'Salary breakdown copied to clipboard!');
+    }
+
+    function calcSalary() {
+      const hours = parseFloat(document.getElementById('wage-hours').value) || 0;
+      const weeks = parseFloat(document.getElementById('wage-weeks').value) || 0;
+      const otHours = parseFloat(document.getElementById('wage-ot-hours').value) || 0;
+      const otMult = parseFloat(document.getElementById('wage-ot-mult').value) || 1.5;
+      const totalRegularHours = hours * weeks;
+      document.getElementById('badge-total-hours').textContent = Math.round(totalRegularHours).toLocaleString() + ' Hours / Year';
+
+      let rate = 0;
+      let totalAnnual = 0;
+      let baseAnnual = 0;
+      let otAnnual = 0;
+
+      if (currentMode === 'hourly') {
+        rate = parseFloat(document.getElementById('wage-rate').value) || 0;
+        document.getElementById('rate-display-hint').textContent = currentCurrency + rate.toFixed(2) + ' /hr';
+
+        const baseWeekly = rate * hours;
+        const otWeekly = rate * otMult * otHours;
+        const totalWeekly = baseWeekly + otWeekly;
+
+        baseAnnual = baseWeekly * weeks;
+        otAnnual = otWeekly * weeks;
+        totalAnnual = baseAnnual + otAnnual;
+      } else {
+        totalAnnual = parseFloat(document.getElementById('input-annual-salary').value) || 0;
+        document.getElementById('salary-display-hint').textContent = currentCurrency + Math.round(totalAnnual).toLocaleString() + ' /year';
+
+        const totalEffectiveHours = totalRegularHours + (otHours * otMult * weeks);
+        rate = totalEffectiveHours > 0 ? (totalAnnual / totalEffectiveHours) : 0;
+
+        baseAnnual = rate * totalRegularHours;
+        otAnnual = totalAnnual - baseAnnual;
+      }
+
+      const monthly = totalAnnual / 12;
+      const biweekly = totalAnnual / 26;
+      const totalWeekly = totalAnnual / (weeks > 0 ? weeks : 52);
+      const daily = (rate * hours) / (hours > 0 ? (hours / 8) : 5);
+      const effectiveRate = (totalRegularHours + otHours * weeks) > 0 ? 
+        (totalAnnual / (totalRegularHours + otHours * weeks)) : rate;
+
+      if (currentMode === 'hourly') {
+        document.getElementById('out-annual').textContent = currentCurrency + Math.round(totalAnnual).toLocaleString();
+        document.getElementById('hero-subtext').textContent = 'Based on ' + Math.round(totalRegularHours).toLocaleString() + ' annual base hours';
+      } else {
+        document.getElementById('out-annual').textContent = currentCurrency + rate.toFixed(2) + ' /hr';
+        document.getElementById('hero-subtext').textContent = 'From ' + currentCurrency + Math.round(totalAnnual).toLocaleString() + ' annual compensation';
+      }
+
+      document.getElementById('out-monthly').textContent = currentCurrency + Math.round(monthly).toLocaleString();
+      document.getElementById('out-biweekly').textContent = currentCurrency + Math.round(biweekly).toLocaleString();
+      document.getElementById('out-weekly').textContent = currentCurrency + Math.round(totalWeekly).toLocaleString();
+      document.getElementById('out-daily').textContent = currentCurrency + Math.round(daily).toLocaleString();
+
+      document.getElementById('out-base-pay').textContent = currentCurrency + Math.round(baseAnnual).toLocaleString();
+      document.getElementById('out-ot-pay').textContent = currentCurrency + Math.round(otAnnual).toLocaleString();
+      document.getElementById('badge-effective-hourly').textContent = 'Effective: ' + currentCurrency + effectiveRate.toFixed(2) + '/hr';
+
+      if (totalAnnual > 0) {
+        const basePct = Math.min(100, Math.max(0, (baseAnnual / totalAnnual) * 100));
+        const otPct = 100 - basePct;
+        document.getElementById('bar-base').style.width = basePct + '%';
+        document.getElementById('bar-ot').style.width = otPct + '%';
+      } else {
+        document.getElementById('bar-base').style.width = '100%';
+        document.getElementById('bar-ot').style.width = '0%';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      calcSalary();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | 极速响应</title>
+  <meta name="description" content="纯前端在线全能单位换算工具。涵盖长度、面积、体积、重量、温度、数据存储等多品类换算。输入任一数值，全矩阵所有单位实时同步换算并支持一键复制。">
+  <meta name="keywords" content="单位换算,长度换算,重量换算,温度换算,数据容量换算,在线换算器">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/unit-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/unit-converter/">
+  <meta property="og:title" content="全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | 极速响应">
+  <meta property="og:description" content="纯前端在线全能单位换算工具。涵盖长度、面积、体积、重量、温度、数据存储等多品类换算。输入任一数值，全矩阵所有单位实时同步换算并支持一键复制。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | 极速响应">
+  <meta name="twitter:description" content="纯前端在线全能单位换算工具。涵盖长度、面积、体积、重量、温度、数据存储等多品类换算。输入任一数值，全矩阵所有单位实时同步换算并支持一键复制。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .unit-category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.5rem;
+    }
+    .unit-cat-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .unit-cat-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .unit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .unit-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      transition: border-color var(--transition-fast);
+    }
+    .unit-card:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+    .unit-card-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .unit-card-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .unit-card-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/unit-converter/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/unit-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/unit-converter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/unit-converter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>实用计算器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>全能单位换算器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">📐 全能单位换算器</h1>
+        <span class="badge-tag badge-privacy">纯前端实时联动</span>
+        <span class="badge-tag badge-dev">长尾自然流量核弹</span>
+      </div>
+      <p class="tool-desc">纯本地高精度单位换算。包含长度、重量、面积、数据存储、温度等核心类别。任意改变一个单位的数值，其它所有单位毫秒级自动联动换算，并支持一键复制结果。</p>
+    </div>
+
+    <!-- 类别切换与换算矩阵 -->
+    <div class="tool-card">
+      <div class="unit-category-tabs" id="category-tabs">
+        <button class="unit-cat-btn active" data-cat="length">📏 长度 (Length)</button>
+        <button class="unit-cat-btn" data-cat="weight">⚖️ 重量 (Weight)</button>
+        <button class="unit-cat-btn" data-cat="data">💾 数据存储 (Data)</button>
+        <button class="unit-cat-btn" data-cat="area">📐 面积 (Area)</button>
+        <button class="unit-cat-btn" data-cat="temperature">🌡️ 温度 (Temperature)</button>
+      </div>
+
+      <div class="unit-grid" id="unit-grid"></div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const UNITS = {
+      length: {
+        base: 'm',
+        units: [
+          { key: 'm', name: '米 (Meter)', rate: 1 },
+          { key: 'km', name: '千米 / 公里 (Kilometer)', rate: 1000 },
+          { key: 'cm', name: '厘米 (Centimeter)', rate: 0.01 },
+          { key: 'mm', name: '毫米 (Millimeter)', rate: 0.001 },
+          { key: 'in', name: '英寸 (Inch)', rate: 0.0254 },
+          { key: 'ft', name: '英尺 (Foot)', rate: 0.3048 },
+          { key: 'yd', name: '码 (Yard)', rate: 0.9144 },
+          { key: 'mi', name: '英里 (Mile)', rate: 1609.344 }
+        ]
+      },
+      weight: {
+        base: 'kg',
+        units: [
+          { key: 'kg', name: '千克 / 公斤 (Kilogram)', rate: 1 },
+          { key: 'g', name: '克 (Gram)', rate: 0.001 },
+          { key: 'mg', name: '毫克 (Milligram)', rate: 0.000001 },
+          { key: 't', name: '吨 (Tonne)', rate: 1000 },
+          { key: 'jin', name: '市斤', rate: 0.5 },
+          { key: 'lb', name: '磅 (Pound)', rate: 0.45359237 },
+          { key: 'oz', name: '盎司 (Ounce)', rate: 0.028349523 }
+        ]
+      },
+      data: {
+        base: 'MB',
+        units: [
+          { key: 'B', name: '字节 (Bytes)', rate: 1 / (1024 * 1024) },
+          { key: 'KB', name: '千字节 (KB)', rate: 1 / 1024 },
+          { key: 'MB', name: '兆字节 (MB)', rate: 1 },
+          { key: 'GB', name: '吉字节 (GB)', rate: 1024 },
+          { key: 'TB', name: '太字节 (TB)', rate: 1024 * 1024 },
+          { key: 'PB', name: '拍字节 (PB)', rate: 1024 * 1024 * 1024 }
+        ]
+      },
+      area: {
+        base: 'm2',
+        units: [
+          { key: 'm2', name: '平方米 (sq m)', rate: 1 },
+          { key: 'km2', name: '平方千米 (sq km)', rate: 1000000 },
+          { key: 'mu', name: '亩 (Chinese Mu)', rate: 666.6667 },
+          { key: 'ha', name: '公顷 (Hectare)', rate: 10000 },
+          { key: 'sqft', name: '平方英尺 (sq ft)', rate: 0.092903 }
+        ]
+      }
+    };
+
+    let currentCat = 'length';
+    const grid = document.getElementById('unit-grid');
+    const tabBtns = document.querySelectorAll('.unit-cat-btn');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCat = btn.getAttribute('data-cat');
+        renderGrid();
+      });
+    });
+
+    function renderGrid() {
+      if (currentCat === 'temperature') {
+        renderTemperature();
+        return;
+      }
+      const data = UNITS[currentCat];
+      grid.innerHTML = data.units.map((u, idx) => `
+        <div class="unit-card">
+          <div class="unit-card-label">
+            <span>${u.name}</span>
+            <button type="button" class="btn btn-secondary btn-sm" style="padding:1px 6px;font-size:0.75rem;" onclick="copyVal('${u.key}')">复制</button>
+          </div>
+          <div class="unit-card-input-wrap">
+            <input type="number" class="unit-card-input" id="input-${u.key}" data-key="${u.key}" value="${idx === 0 ? 1 : (1 * data.units[0].rate / u.rate)}">
+          </div>
+        </div>
+      `).join('');
+
+      bindInputs();
+    }
+
+    function bindInputs() {
+      const data = UNITS[currentCat];
+      const inputs = grid.querySelectorAll('.unit-card-input');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          const val = parseFloat(input.value);
+          if (isNaN(val)) return;
+          const currentKey = input.getAttribute('data-key');
+          const currentUnit = data.units.find(u => u.key === currentKey);
+          const baseVal = val * currentUnit.rate;
+
+          inputs.forEach(other => {
+            if (other === input) return;
+            const otherKey = other.getAttribute('data-key');
+            const otherUnit = data.units.find(u => u.key === otherKey);
+            const res = baseVal / otherUnit.rate;
+            other.value = parseFloat(res.toPrecision(8));
+          });
+        });
+      });
+    }
+
+    function renderTemperature() {
+      grid.innerHTML = `
+        <div class="unit-card">
+          <div class="unit-card-label">
+            <span>摄氏度 (°C)</span>
+            <button type="button" class="btn btn-secondary btn-sm" style="padding:1px 6px;font-size:0.75rem;" onclick="copyVal('c')">复制</button>
+          </div>
+          <div class="unit-card-input-wrap">
+            <input type="number" class="unit-card-input" id="input-c" value="0">
+          </div>
+        </div>
+        <div class="unit-card">
+          <div class="unit-card-label">
+            <span>华氏度 (°F)</span>
+            <button type="button" class="btn btn-secondary btn-sm" style="padding:1px 6px;font-size:0.75rem;" onclick="copyVal('f')">复制</button>
+          </div>
+          <div class="unit-card-input-wrap">
+            <input type="number" class="unit-card-input" id="input-f" value="32">
+          </div>
+        </div>
+        <div class="unit-card">
+          <div class="unit-card-label">
+            <span>开氏度 (K)</span>
+            <button type="button" class="btn btn-secondary btn-sm" style="padding:1px 6px;font-size:0.75rem;" onclick="copyVal('k')">复制</button>
+          </div>
+          <div class="unit-card-input-wrap">
+            <input type="number" class="unit-card-input" id="input-k" value="273.15">
+          </div>
+        </div>
+      `;
+
+      const c = document.getElementById('input-c');
+      const f = document.getElementById('input-f');
+      const k = document.getElementById('input-k');
+
+      c.addEventListener('input', () => {
+        const val = parseFloat(c.value);
+        if (isNaN(val)) return;
+        f.value = parseFloat((val * 9 / 5 + 32).toFixed(2));
+        k.value = parseFloat((val + 273.15).toFixed(2));
+      });
+      f.addEventListener('input', () => {
+        const val = parseFloat(f.value);
+        if (isNaN(val)) return;
+        c.value = parseFloat(((val - 32) * 5 / 9).toFixed(2));
+        k.value = parseFloat((((val - 32) * 5 / 9) + 273.15).toFixed(2));
+      });
+      k.addEventListener('input', () => {
+        const val = parseFloat(k.value);
+        if (isNaN(val)) return;
+        c.value = parseFloat((val - 273.15).toFixed(2));
+        f.value = parseFloat(((val - 273.15) * 9 / 5 + 32).toFixed(2));
+      });
+    }
+
+    window.copyVal = function(key) {
+      const el = document.getElementById('input-' + key);
+      if (el) Utils.copyToClipboard(el.value);
+    };
+
+    renderGrid();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

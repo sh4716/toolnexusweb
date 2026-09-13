@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>强密码生成器 - 安全随机密码在线生成 | 100%本地运算防泄露</title>
+  <meta name="description" content="基于浏览器加密级 Web Crypto API 的安全随机强密码在线生成器。支持自定义密码长度、大小写字母、数字、特殊字符及易混淆字符排除。纯本地运算，绝不上报。">
+  <meta name="keywords" content="密码生成器,强密码生成,随机密码生成,在线密码生成器,安全密码生成">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/password-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/password-generator/">
+  <meta property="og:title" content="强密码生成器 - 安全随机密码在线生成 | 100%本地运算防泄露">
+  <meta property="og:description" content="基于浏览器加密级 Web Crypto API 的安全随机强密码在线生成器。支持自定义密码长度、大小写字母、数字、特殊字符及易混淆字符排除。纯本地运算，绝不上报。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="强密码生成器 - 安全随机密码在线生成 | 100%本地运算防泄露">
+  <meta name="twitter:description" content="基于浏览器加密级 Web Crypto API 的安全随机强密码在线生成器。支持自定义密码长度、大小写字母、数字、特殊字符及易混淆字符排除。纯本地运算，绝不上报。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .pwd-display-box {
+      background: var(--bg-surface-alt);
+      border: 2px solid var(--border-base);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all var(--transition-fast);
+    }
+    .pwd-display-box:hover {
+      border-color: var(--primary-border);
+    }
+    .pwd-text {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      word-break: break-all;
+      letter-spacing: 0.05em;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      user-select: all;
+    }
+    .strength-meter-wrap {
+      margin-top: 1rem;
+    }
+    .strength-bar {
+      height: 6px;
+      background: var(--bg-badge);
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      gap: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .strength-segment {
+      flex: 1;
+      height: 100%;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+      transition: background var(--transition-fast);
+    }
+    .strength-status {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .char-options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .option-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      transition: border-color var(--transition-fast);
+    }
+    .option-card:hover {
+      border-color: var(--border-base);
+    }
+    .batch-box {
+      margin-top: 1.5rem;
+      display: none;
+    }
+    .batch-textarea {
+      width: 100%;
+      height: 140px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      padding: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      resize: vertical;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/password-generator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/password-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/password-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/password-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>强密码生成器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🔑 强密码生成器</h1>
+        <span class="badge-tag badge-privacy">🔒 Web Crypto 加密级真随机</span>
+        <span class="badge-tag badge-hot">Top 1 刚需工具</span>
+      </div>
+      <p class="tool-desc">纯本地浏览器加密随机数生成强密码。可完全定制长度、大小写、数字、特殊符号及排除易混淆字符（如 1, l, 0, O 等），绝不上报服务器，彻底防范撞库与泄密。</p>
+    </div>
+
+    <!-- 密码展示与快捷控制面板 -->
+    <div class="tool-card">
+      <div class="pwd-display-box">
+        <div class="pwd-text" id="password-output">正在生成中...</div>
+        
+        <div class="strength-meter-wrap">
+          <div class="strength-bar" id="strength-bar">
+            <div class="strength-segment"></div>
+            <div class="strength-segment"></div>
+            <div class="strength-segment"></div>
+            <div class="strength-segment"></div>
+          </div>
+          <div class="strength-status">
+            <span>密码强度：<strong id="strength-text" style="color: var(--accent-emerald);">极强</strong></span>
+            <span id="entropy-text">信息熵: ~96 bits</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <button type="button" class="btn btn-primary btn-lg" id="btn-copy">📋 一键复制密码</button>
+        <button type="button" class="btn btn-secondary btn-lg" id="btn-refresh">🔄 重新生成</button>
+        <button type="button" class="btn btn-secondary btn-lg" id="btn-toggle-batch">📦 批量生成 (多条)</button>
+      </div>
+
+      <!-- 参数调节 -->
+      <div class="form-group" style="margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <label class="form-label" style="margin-bottom: 0;">密码长度 (4 - 64 位)</label>
+          <span class="slider-badge" id="length-val">16 位</span>
+        </div>
+        <div class="slider-container">
+          <input type="range" class="slider-range" id="slider-length" min="6" max="64" value="16">
+        </div>
+      </div>
+
+      <div class="char-options-grid">
+        <div class="option-card">
+          <label class="switch-label">
+            <span>大写字母 (A-Z)</span>
+            <input type="checkbox" class="switch-input" id="opt-upper" checked>
+          </label>
+        </div>
+        <div class="option-card">
+          <label class="switch-label">
+            <span>小写字母 (a-z)</span>
+            <input type="checkbox" class="switch-input" id="opt-lower" checked>
+          </label>
+        </div>
+        <div class="option-card">
+          <label class="switch-label">
+            <span>数字 (0-9)</span>
+            <input type="checkbox" class="switch-input" id="opt-num" checked>
+          </label>
+        </div>
+        <div class="option-card">
+          <label class="switch-label">
+            <span>特殊符号 (!@#$%^&*)</span>
+            <input type="checkbox" class="switch-input" id="opt-symbols" checked>
+          </label>
+        </div>
+        <div class="option-card">
+          <label class="switch-label">
+            <span>排除易混淆字符 (1, l, I, 0, O)</span>
+            <input type="checkbox" class="switch-input" id="opt-ambiguous">
+          </label>
+        </div>
+        <div class="option-card">
+          <label class="switch-label">
+            <span>排除繁复标点 ({}[]()/`~)</span>
+            <input type="checkbox" class="switch-input" id="opt-strict-sym">
+          </label>
+        </div>
+      </div>
+
+      <!-- 批量生成折叠区 -->
+      <div class="batch-box" id="batch-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="font-weight: 600; font-size: 0.9rem;">批量生成的密码列表 (10 条)：</span>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-batch">复制全部列表</button>
+        </div>
+        <textarea class="batch-textarea" id="batch-output" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">关于强密码生成与安全规范</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">什么样的密码才算足够安全？ <span>▼</span></div>
+          <div class="faq-answer">根据现代密码学与 NIST（美国国家标准技术研究所）建议，一个强密码应当具备以下特征：长度至少 12~16 位以上、混合大小写字母、数字及特殊标点符号。长度在防暴力破解中起决定性作用，16 位以上的复杂密码使用现代超级计算机穷举需数万年。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">为什么在浏览器纯本地生成更安全？ <span>▼</span></div>
+          <div class="faq-answer">许多云端密码生成器在服务器生成并通过 HTTP 传输返回，可能存在中间人劫持、服务端日志记录或撞库泄露的风险。本工具调用浏览器原生的 <code>window.crypto.getRandomValues()</code>，随机熵直接由计算机操作系统的熵池采集，数据仅在您当前电脑内存中存在，绝无泄密可能。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const CHARS = {
+      upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      lower: 'abcdefghijklmnopqrstuvwxyz',
+      num: '0123456789',
+      symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+      symbolsSimple: '!@#$%^&*-+=?'
+    };
+    const AMBIGUOUS = /[il1Lo0O]/g;
+
+    const sliderLength = document.getElementById('slider-length');
+    const lengthVal = document.getElementById('length-val');
+    const optUpper = document.getElementById('opt-upper');
+    const optLower = document.getElementById('opt-lower');
+    const optNum = document.getElementById('opt-num');
+    const optSymbols = document.getElementById('opt-symbols');
+    const optAmbiguous = document.getElementById('opt-ambiguous');
+    const optStrictSym = document.getElementById('opt-strict-sym');
+
+    const pwdOutput = document.getElementById('password-output');
+    const strengthBar = document.getElementById('strength-bar');
+    const strengthText = document.getElementById('strength-text');
+    const entropyText = document.getElementById('entropy-text');
+
+    function getCryptoRandomInt(max) {
+      const array = new Uint32Array(1);
+      window.crypto.getRandomValues(array);
+      return array[0] % max;
+    }
+
+    function generateSinglePassword() {
+      const len = parseInt(sliderLength.value, 10);
+      let pool = '';
+      let mustInclude = [];
+
+      let symSet = optStrictSym.checked ? CHARS.symbolsSimple : CHARS.symbols;
+
+      if (optUpper.checked) {
+        pool += CHARS.upper;
+        mustInclude.push(CHARS.upper[getCryptoRandomInt(CHARS.upper.length)]);
+      }
+      if (optLower.checked) {
+        pool += CHARS.lower;
+        mustInclude.push(CHARS.lower[getCryptoRandomInt(CHARS.lower.length)]);
+      }
+      if (optNum.checked) {
+        pool += CHARS.num;
+        mustInclude.push(CHARS.num[getCryptoRandomInt(CHARS.num.length)]);
+      }
+      if (optSymbols.checked) {
+        pool += symSet;
+        mustInclude.push(symSet[getCryptoRandomInt(symSet.length)]);
+      }
+
+      if (optAmbiguous.checked) {
+        pool = pool.replace(AMBIGUOUS, '');
+      }
+
+      if (!pool) {
+        return '请至少勾选一种字符类型';
+      }
+
+      let res = [...mustInclude];
+      while (res.length < len) {
+        res.push(pool[getCryptoRandomInt(pool.length)]);
+      }
+
+      // 洗牌
+      for (let i = res.length - 1; i > 0; i--) {
+        const j = getCryptoRandomInt(i + 1);
+        [res[i], res[j]] = [res[j], res[i]];
+      }
+
+      return res.slice(0, len).join('');
+    }
+
+    function evaluateStrength(pwd) {
+      if (!pwd || pwd.startsWith('请至少')) {
+        return { score: 0, text: '无', color: '#6b7280', bits: 0 };
+      }
+      let poolSize = 0;
+      if (/[A-Z]/.test(pwd)) poolSize += 26;
+      if (/[a-z]/.test(pwd)) poolSize += 26;
+      if (/[0-9]/.test(pwd)) poolSize += 10;
+      if (/[^A-Za-z0-9]/.test(pwd)) poolSize += 30;
+
+      const entropy = Math.round(pwd.length * (Math.log2(poolSize || 1)));
+
+      if (pwd.length < 8 || entropy < 40) {
+        return { score: 1, text: '较弱', color: '#f43f5e', bits: entropy };
+      } else if (pwd.length < 12 || entropy < 60) {
+        return { score: 2, text: '一般', color: '#f59e0b', bits: entropy };
+      } else if (pwd.length < 16 || entropy < 85) {
+        return { score: 3, text: '安全', color: '#06b6d4', bits: entropy };
+      } else {
+        return { score: 4, text: '极强', color: '#10b981', bits: entropy };
+      }
+    }
+
+    function update() {
+      lengthVal.textContent = sliderLength.value + ' 位';
+      const pwd = generateSinglePassword();
+      pwdOutput.textContent = pwd;
+
+      const evalRes = evaluateStrength(pwd);
+      strengthText.textContent = evalRes.text;
+      strengthText.style.color = evalRes.color;
+      entropyText.textContent = '信息熵: ~' + evalRes.bits + ' bits';
+
+      const segs = strengthBar.children;
+      for (let i = 0; i < segs.length; i++) {
+        segs[i].style.background = i < evalRes.score ? evalRes.color : 'rgba(255,255,255,0.1)';
+      }
+
+      if (document.getElementById('batch-box').style.display === 'block') {
+        renderBatch();
+      }
+    }
+
+    function renderBatch() {
+      const list = [];
+      for (let i = 0; i < 10; i++) {
+        list.push(generateSinglePassword());
+      }
+      document.getElementById('batch-output').value = list.join('\n');
+    }
+
+    sliderLength.addEventListener('input', update);
+    [optUpper, optLower, optNum, optSymbols, optAmbiguous, optStrictSym].forEach(el => {
+      el.addEventListener('change', update);
+    });
+
+    document.getElementById('btn-refresh').addEventListener('click', update);
+
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      Utils.copyToClipboard(pwdOutput.textContent, '密码已复制到剪贴板！');
+    });
+
+    document.getElementById('btn-toggle-batch').addEventListener('click', () => {
+      const box = document.getElementById('batch-box');
+      if (box.style.display === 'block') {
+        box.style.display = 'none';
+      } else {
+        box.style.display = 'block';
+        renderBatch();
+      }
+    });
+
+    document.getElementById('btn-copy-batch').addEventListener('click', () => {
+      Utils.copyToClipboard(document.getElementById('batch-output').value, '批量密码列表已复制！');
+    });
+
+    // 初始化
+    update();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

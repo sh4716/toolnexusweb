@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lorem Ipsum Generator - Dummy Text Generator | ToolNexus</title>
+  <meta name="description" content="Free in-browser Lorem Ipsum Generator. Generate placeholder dummy text by paragraphs, sentences, or words.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/lorem-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/lorem-generator/">
+  <meta property="og:title" content="Lorem Ipsum Generator - Dummy Text Generator | ToolNexus">
+  <meta property="og:description" content="Free in-browser Lorem Ipsum Generator. Generate placeholder dummy text by paragraphs, sentences, or words.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lorem Ipsum Generator - Dummy Text Generator | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Lorem Ipsum Generator. Generate placeholder dummy text by paragraphs, sentences, or words.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/lorem-generator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/lorem-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/lorem-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/lorem-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#text">Text Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Lorem Ipsum Generator</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Text & Design</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">📄 Lorem Ipsum Placeholder Generator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Generate classic Latin dummy text (Lorem Ipsum) for mockups, prototypes, and typography design. Customize paragraphs, sentences, and words.
+        </p>
+
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; background: var(--bg-surface-alt); padding: 1.25rem; border-radius: var(--radius-md);">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label style="font-weight: 600;">Count:</label>
+            <input type="number" id="lorem-count" class="input-text" value="3" min="1" max="50" style="width: 80px;" oninput="generateLorem()">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label style="font-weight: 600;">Type:</label>
+            <select id="lorem-type" class="input-text" onchange="generateLorem()">
+              <option value="paragraphs">Paragraphs</option>
+              <option value="sentences">Sentences</option>
+              <option value="words">Words</option>
+            </select>
+          </div>
+
+          <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+            <input type="checkbox" id="lorem-start" checked onchange="generateLorem()"> Start with "Lorem ipsum..."
+          </label>
+
+          <button type="button" class="btn btn-primary btn-sm" onclick="generateLorem()">Regenerate</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="copyToClipboard(document.getElementById('lorem-out').value)">Copy All</button>
+        </div>
+
+        <div class="form-group">
+          <textarea id="lorem-out" class="input-text" rows="12" readonly style="font-size: 0.95rem; line-height: 1.7;"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const LOREM_WORDS = [
+        'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'curabitur',
+        'vel', 'hendrerit', 'libero', 'eleifend', 'blandit', 'nunc', 'ornare', 'odio', 'ut',
+        'orci', 'gravida', 'imperdiet', 'nullam', 'purus', 'lacinia', 'a', 'pretium', 'quis',
+        'congue', 'praesent', 'sagittis', 'laoreet', 'auctor', 'mauris', 'non', 'velit', 'eros',
+        'dictum', 'proin', 'accumsan', 'sapien', 'nec', 'massa', 'volutpat', 'venenatis', 'sed',
+        'eu', 'molestie', 'lacus', 'quisque', 'porttitor', 'ligula', 'dui', 'mollis', 'tempus',
+        'at', 'magna', 'vestibulum', 'turpis', 'ac', 'diam', 'tincidunt', 'id', 'condimentum'
+      ];
+
+      function getRandomSentence() {
+        const len = Math.floor(Math.random() * 10) + 8;
+        const words = [];
+        for (let i = 0; i < len; i++) {
+          words.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
+        }
+        words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+        return words.join(' ') + '.';
+      }
+
+      function generateLorem() {
+        const count = parseInt(document.getElementById('lorem-count').value) || 3;
+        const type = document.getElementById('lorem-type').value;
+        const startWith = document.getElementById('lorem-start').checked;
+
+        let res = [];
+        if (type === 'words') {
+          for (let i = 0; i < count; i++) {
+            res.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
+          }
+          if (startWith && res.length >= 2) {
+            res[0] = 'lorem'; res[1] = 'ipsum';
+          }
+          document.getElementById('lorem-out').value = res.join(' ');
+        } else if (type === 'sentences') {
+          for (let i = 0; i < count; i++) {
+            res.push(getRandomSentence());
+          }
+          if (startWith && res.length > 0) {
+            res[0] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+          }
+          document.getElementById('lorem-out').value = res.join(' ');
+        } else {
+          // Paragraphs
+          for (let p = 0; p < count; p++) {
+            const pSentences = [];
+            const numS = Math.floor(Math.random() * 4) + 4;
+            for (let s = 0; s < numS; s++) {
+              pSentences.push(getRandomSentence());
+            }
+            if (p === 0 && startWith) {
+              pSentences[0] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+            }
+            res.push(pSentences.join(' '));
+          }
+          document.getElementById('lorem-out').value = res.join('\n\n');
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        generateLorem();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

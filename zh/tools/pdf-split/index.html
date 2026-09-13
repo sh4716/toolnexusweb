@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF 极速拆分 - 提取指定页面/按页抽取另存 | 纯本地无限制</title>
+  <meta name="description" content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
+  <meta name="keywords" content="PDF拆分,PDF提取页面,PDF按页拆分,在线PDF分割">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/pdf-split/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/pdf-split/">
+  <meta property="og:title" content="PDF 极速拆分 - 提取指定页面/按页抽取另存 | 纯本地无限制">
+  <meta property="og:description" content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PDF 极速拆分 - 提取指定页面/按页抽取另存 | 纯本地无限制">
+  <meta name="twitter:description" content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-split/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-split/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-split/">
+
+  <style>
+    .pdf-pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .page-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+    }
+    .page-card:active {
+      cursor: grabbing;
+    }
+    .page-card:hover {
+      border-color: var(--primary-border);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+    .page-card.dragging {
+      opacity: 0.4;
+      transform: scale(0.96);
+      border: 2px dashed var(--primary);
+    }
+    .page-card.drag-over {
+      border: 2px solid var(--primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+    .page-card-thumb-wrap {
+      width: 100%;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.12);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .page-card-thumb-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .page-card-fallback-doc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .page-card-top-bar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+    .page-order-pill {
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .page-del-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(244, 63, 94, 0.9);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: transform var(--transition-fast), background var(--transition-fast);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .page-del-btn:hover {
+      background: #e11d48;
+      transform: scale(1.15);
+    }
+    .page-card-orig-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      text-align: center;
+    }
+    .page-card-actions {
+      display: flex;
+      gap: 0.35rem;
+      width: 100%;
+      justify-content: center;
+    }
+    .page-card-actions button {
+      flex: 1;
+      padding: 0.25rem 0.4rem;
+      font-size: 0.8rem;
+    }
+    .pdf-reorder-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+    .pdf-loading-box {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-top: 1.5rem;
+    }
+  </style>
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/pdf-split/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF与文档</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF 极速拆分</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">✂️ PDF 极速拆分</h1>
+        <span class="badge-tag badge-privacy">🔒 本地内存抽取 · 零数据上传</span>
+      </div>
+      <p class="tool-desc">纯本地抽取 PDF 中的任意页码另存为新文件，支持按范围（如 1-5, 8）提取，或全部拆解为单页打包下载。隐私文档零泄露。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">✂️</div>
+        <div class="dropzone-title">拖拽 PDF 文件至此处，或点击上传</div>
+        <div class="dropzone-hint">上传后将直观展示每一页，支持自由拖拽排序、删除不需要的页面及另存新 PDF</div>
+        <input type="file" id="file-input" accept="application/pdf">
+      </div>
+
+      <!-- 解析加载状态 -->
+      <div id="pdf-loading-box" class="pdf-loading-box" style="display: none;">
+        <div style="font-size: 2.2rem; margin-bottom: 0.65rem;">⏳</div>
+        <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-loading-text">正在解析并生成页面缩略图...</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;">纯前端内存渲染，大文件请稍候片刻</div>
+      </div>
+
+      <!-- 工作区面板 -->
+      <div id="split-controls" style="display: none; margin-top: 1.5rem;">
+        <!-- 头部文件摘要与操作 -->
+        <div style="background: var(--bg-surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-filename">-</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;" id="pdf-meta">-</div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-restore-all" style="display: none;" onclick="restoreDeletedPages()">🔄 恢复被删页面 (<span id="deleted-count">0</span>)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-file" onclick="resetFile()">🗑️ 更换文件</button>
+          </div>
+        </div>
+
+        <!-- 导出动作栏 -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center;">
+          <button type="button" class="btn btn-primary btn-lg" id="btn-save-reordered">⚡ 保存新 PDF (已排版与剔除)</button>
+          <button type="button" class="btn btn-secondary btn-lg" id="btn-split-all-zip">📦 每页单独拆分为 ZIP</button>
+        </div>
+
+        <!-- 提示横幅 -->
+        <div class="pdf-reorder-hint">
+          <span>💡</span>
+          <span>支持<strong>按住卡片自由拖拽排序</strong>；点击卡片右上角 <strong>✕ 删除/排除</strong>页面；亦可点击卡片底部的 <strong>← / → 箭头</strong>微调先后顺序。</span>
+        </div>
+
+        <!-- 快速范围筛选工具 -->
+        <div style="margin-top: 1.25rem; background: var(--bg-surface-alt); padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin: 0;">快速按页码范围筛选：</label>
+          <input type="text" class="form-input" id="page-range-input" placeholder="例如: 1-3, 5, 8-10" style="flex: 1; min-width: 180px; font-size: 0.85rem; padding: 0.35rem 0.65rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="applyRangeFilter()">仅保留指定页</button>
+        </div>
+
+        <!-- 页面可视化缩略图网格 -->
+        <div class="pdf-pages-grid" id="pdf-pages-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/vendor/pdf-lib.min.js"></script>
+  <script src="/assets/vendor/pdf.min.js"></script>
+  <script src="../../../assets/vendor/jszip.min.js"></script>
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const loadingBox = document.getElementById('pdf-loading-box');
+    const loadingText = document.getElementById('pdf-loading-text');
+    const controls = document.getElementById('split-controls');
+    const filenameEl = document.getElementById('pdf-filename');
+    const metaEl = document.getElementById('pdf-meta');
+    const pagesGrid = document.getElementById('pdf-pages-grid');
+    const btnSavePdf = document.getElementById('btn-save-reordered');
+    const btnSplitAll = document.getElementById('btn-split-all-zip');
+    const btnRestore = document.getElementById('btn-restore-all');
+    const deletedCountEl = document.getElementById('deleted-count');
+    const rangeInput = document.getElementById('page-range-input');
+
+    let currentBuffer = null;
+    let currentName = 'document';
+    let totalPages = 0;
+    let activePages = [];
+    let deletedPages = [];
+    let draggedIndex = null;
+
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    async function handleFile(file) {
+      if (!file) return;
+      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        Utils.showToast('请选择有效的 PDF 文件', 'warning');
+        return;
+      }
+      currentName = file.name.replace(/\.[^/.]+$/, '');
+      dropzone.style.display = 'none';
+      loadingBox.style.display = 'block';
+      controls.style.display = 'none';
+      activePages = [];
+      deletedPages = [];
+
+      try {
+        currentBuffer = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(currentBuffer, { ignoreEncryption: true });
+        totalPages = pdfDoc.getPageCount();
+
+        loadingText.textContent = `正在解析并生成页面缩略图 (0 / ${totalPages})...`;
+
+        // 加载 PDF.js 生成缩略图
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdf.worker.min.js';
+        let pdf = null;
+        try {
+          pdf = await pdfjsLib.getDocument({ data: currentBuffer.slice(0) }).promise;
+        } catch (pdfJsErr) {
+          console.warn('PDF.js 解析缩略图异常，启用占位渲染:', pdfJsErr);
+        }
+
+        for (let i = 1; i <= totalPages; i++) {
+          loadingText.textContent = `正在解析并生成页面缩略图 (${i} / ${totalPages})...`;
+          let thumb = null;
+          if (pdf) {
+            try {
+              const page = await pdf.getPage(i);
+              const viewport = page.getViewport({ scale: 0.32 });
+              const canvas = document.createElement('canvas');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              const ctx = canvas.getContext('2d');
+              await page.render({ canvasContext: ctx, viewport }).promise;
+              thumb = canvas.toDataURL('image/jpeg', 0.8);
+            } catch (err) {
+              console.warn('渲染第 ' + i + ' 页缩略图失败', err);
+            }
+          }
+          activePages.push({
+            id: 'p_' + i + '_' + Math.random().toString(36).substring(2),
+            originalIndex: i - 1,
+            originalPageNum: i,
+            thumb: thumb
+          });
+        }
+
+        loadingBox.style.display = 'none';
+        controls.style.display = 'block';
+        filenameEl.textContent = file.name;
+        renderGrid();
+        Utils.showToast(`已成功载入全部 ${totalPages} 个页面`, 'success');
+      } catch (err) {
+        console.error(err);
+        loadingBox.style.display = 'none';
+        dropzone.style.display = 'block';
+        Utils.showToast('PDF 解析失败: ' + err.message, 'error');
+      }
+    }
+
+    function renderGrid() {
+      metaEl.textContent = `文件大小: ${Utils.formatBytes(currentBuffer.byteLength)} · 当前保留 ${activePages.length} 页 (共 ${totalPages} 页)`;
+
+      if (deletedPages.length > 0) {
+        btnRestore.style.display = 'inline-flex';
+        deletedCountEl.textContent = deletedPages.length;
+      } else {
+        btnRestore.style.display = 'none';
+      }
+
+      if (activePages.length === 0) {
+        pagesGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted); background: var(--bg-surface-alt); border-radius: var(--radius-md);">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🗑️</div>
+            <div style="font-weight: 600; color: var(--text-main);">所有页面均已被删除</div>
+            <button type="button" class="btn btn-secondary btn-sm" style="margin-top: 1rem;" onclick="restoreDeletedPages()">🔄 恢复所有被删页面</button>
+          </div>
+        `;
+        return;
+      }
+
+      pagesGrid.innerHTML = activePages.map((item, idx) => `
+        <div class="page-card" draggable="true" data-index="${idx}">
+          <div class="page-card-top-bar" onmousedown="event.stopPropagation()">
+            <span class="page-order-pill">第 ${idx + 1} 页</span>
+            <button type="button" class="page-del-btn" onclick="deletePage(${idx})" title="删除此页">✕</button>
+          </div>
+          <div class="page-card-thumb-wrap">
+            ${item.thumb ? `<img src="${item.thumb}" alt="第 ${idx + 1} 页预览" draggable="false">` : `<div class="page-card-fallback-doc"><span style="font-size:2.5rem;">📄</span><span>第 ${item.originalPageNum} 页</span></div>`}
+          </div>
+          <div class="page-card-orig-label">原文档第 ${item.originalPageNum} 页</div>
+          <div class="page-card-actions" onmousedown="event.stopPropagation()">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="movePage(${idx}, -1)" title="向前移动" ${idx === 0 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : ''}>←</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="movePage(${idx}, 1)" title="向后移动" ${idx === activePages.length - 1 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : ''}>→</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="deletePage(${idx})" title="删除此页">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      bindDragAndDropEvents();
+    }
+
+    function bindDragAndDropEvents() {
+      const cards = pagesGrid.querySelectorAll('.page-card');
+      cards.forEach(card => {
+        card.addEventListener('dragstart', e => {
+          draggedIndex = parseInt(card.getAttribute('data-index'));
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(draggedIndex));
+          setTimeout(() => card.classList.add('dragging'), 0);
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('dragging');
+          cards.forEach(c => c.classList.remove('drag-over'));
+          draggedIndex = null;
+        });
+
+        card.addEventListener('dragenter', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (draggedIndex === null) return;
+          const targetIndex = parseInt(card.getAttribute('data-index'));
+          if (targetIndex !== draggedIndex) {
+            card.classList.add('drag-over');
+          }
+        });
+
+        card.addEventListener('dragover', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          e.dataTransfer.dropEffect = 'move';
+          if (draggedIndex === null) return;
+          const targetIndex = parseInt(card.getAttribute('data-index'));
+          if (targetIndex !== draggedIndex) {
+            card.classList.add('drag-over');
+          }
+        });
+
+        card.addEventListener('dragleave', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!card.contains(e.relatedTarget)) {
+            card.classList.remove('drag-over');
+          }
+        });
+
+        card.addEventListener('drop', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          card.classList.remove('drag-over');
+          if (draggedIndex === null) return;
+          const targetIndex = parseInt(card.getAttribute('data-index'));
+          if (targetIndex !== draggedIndex && targetIndex >= 0 && targetIndex < activePages.length) {
+            const [moved] = activePages.splice(draggedIndex, 1);
+            activePages.splice(targetIndex, 0, moved);
+            renderGrid();
+            Utils.showToast(`已将原第 ${moved.originalPageNum} 页移至第 ${targetIndex + 1} 页`, 'info');
+          }
+          draggedIndex = null;
+        });
+      });
+    }
+
+    window.movePage = function(index, dir) {
+      const target = index + dir;
+      if (target < 0 || target >= activePages.length) return;
+      const tmp = activePages[index];
+      activePages[index] = activePages[target];
+      activePages[target] = tmp;
+      renderGrid();
+    };
+
+    window.deletePage = function(index) {
+      if (activePages.length <= 1) {
+        Utils.showToast('至少需要保留 1 个页面', 'warning');
+        return;
+      }
+      const [removed] = activePages.splice(index, 1);
+      deletedPages.push(removed);
+      renderGrid();
+      Utils.showToast(`已删除第 ${index + 1} 页 (原第 ${removed.originalPageNum} 页)`, 'info');
+    };
+
+    window.restoreDeletedPages = function() {
+      if (deletedPages.length === 0) return;
+      activePages.push(...deletedPages);
+      activePages.sort((a, b) => a.originalIndex - b.originalIndex);
+      const count = deletedPages.length;
+      deletedPages = [];
+      renderGrid();
+      Utils.showToast(`已恢复 ${count} 个被删页面`, 'success');
+    };
+
+    window.resetFile = function() {
+      currentBuffer = null;
+      activePages = [];
+      deletedPages = [];
+      fileInput.value = '';
+      controls.style.display = 'none';
+      dropzone.style.display = 'block';
+    };
+
+    function parseRange(str, max) {
+      if (!str.trim()) {
+        return Array.from({ length: max }, (_, i) => i);
+      }
+      const parts = str.split(',');
+      const set = new Set();
+      for (const part of parts) {
+        const trimmed = part.trim();
+        if (trimmed.includes('-')) {
+          const [start, end] = trimmed.split('-').map(x => parseInt(x, 10));
+          if (!isNaN(start) && !isNaN(end)) {
+            for (let i = Math.min(start, end); i <= Math.max(start, end); i++) {
+              if (i >= 1 && i <= max) set.add(i - 1);
+            }
+          }
+        } else {
+          const num = parseInt(trimmed, 10);
+          if (!isNaN(num) && num >= 1 && num <= max) set.add(num - 1);
+        }
+      }
+      return Array.from(set).sort((a, b) => a - b);
+    }
+
+    window.applyRangeFilter = function() {
+      const rangeStr = rangeInput.value.trim();
+      if (!rangeStr) {
+        Utils.showToast('请输入页码范围，例如: 1-3, 5', 'warning');
+        return;
+      }
+      const indices = parseRange(rangeStr, totalPages);
+      if (indices.length === 0) {
+        Utils.showToast('未找到匹配的有效页码', 'warning');
+        return;
+      }
+      const set = new Set(indices);
+      const allKnown = activePages.concat(deletedPages);
+      const remaining = [];
+      const newDeleted = [];
+
+      allKnown.forEach(p => {
+        if (set.has(p.originalIndex)) {
+          if (!remaining.some(r => r.originalIndex === p.originalIndex)) {
+            remaining.push(p);
+          }
+        } else {
+          if (!newDeleted.some(d => d.originalIndex === p.originalIndex)) {
+            newDeleted.push(p);
+          }
+        }
+      });
+
+      activePages = remaining;
+      deletedPages = newDeleted;
+      renderGrid();
+      Utils.showToast(`已按范围筛选出 ${activePages.length} 个页面`, 'info');
+    };
+
+    btnSavePdf.addEventListener('click', async () => {
+      if (activePages.length === 0) {
+        Utils.showToast('没有可保存的页面', 'warning');
+        return;
+      }
+      btnSavePdf.disabled = true;
+      btnSavePdf.textContent = '正在本地重新生成 PDF...';
+
+      try {
+        const srcDoc = await PDFLib.PDFDocument.load(currentBuffer, { ignoreEncryption: true });
+        const newDoc = await PDFLib.PDFDocument.create();
+        const indices = activePages.map(p => p.originalIndex);
+        const copiedPages = await newDoc.copyPages(srcDoc, indices);
+        copiedPages.forEach(p => newDoc.addPage(p));
+
+        const bytes = await newDoc.save();
+        Utils.downloadBlob(new Blob([bytes], { type: 'application/pdf' }), currentName + '_organized.pdf');
+        Utils.showToast('已成功保存并下载重组后的 PDF！', 'success');
+      } catch (err) {
+        console.error(err);
+        Utils.showToast('保存失败: ' + err.message, 'error');
+      } finally {
+        btnSavePdf.disabled = false;
+        btnSavePdf.textContent = '⚡ 保存新 PDF (已排版与剔除)';
+      }
+    });
+
+    btnSplitAll.addEventListener('click', async () => {
+      if (activePages.length === 0 || !window.JSZip) return;
+      btnSplitAll.disabled = true;
+      btnSplitAll.textContent = '正在拆分打包 ZIP...';
+
+      try {
+        const srcDoc = await PDFLib.PDFDocument.load(currentBuffer, { ignoreEncryption: true });
+        const zip = new JSZip();
+
+        for (let idx = 0; idx < activePages.length; idx++) {
+          const item = activePages[idx];
+          const singleDoc = await PDFLib.PDFDocument.create();
+          const [copiedPage] = await singleDoc.copyPages(srcDoc, [item.originalIndex]);
+          singleDoc.addPage(copiedPage);
+          const bytes = await singleDoc.save();
+          zip.file(`${currentName}_p${idx + 1}_orig${item.originalPageNum}.pdf`, bytes);
+        }
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        Utils.downloadBlob(zipBlob, currentName + '_pages.zip');
+        Utils.showToast('所有页面已打包为 ZIP 并自动下载！', 'success');
+      } catch (err) {
+        console.error(err);
+        Utils.showToast('打包失败: ' + err.message, 'error');
+      } finally {
+        btnSplitAll.disabled = false;
+        btnSplitAll.textContent = '📦 每页单独拆分为 ZIP';
+      }
+    });
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

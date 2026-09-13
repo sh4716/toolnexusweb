@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>身份证防盗水印制作 - 证件照片加防盗水印 | 纯本地绝不泄密</title>
+  <meta name="description" content="安全防冒用的在线身份证及证件防盗水印添加工具。支持在身份证、户口本、营业执照上添加满屏斜排半透明防盗文字（如“仅供办理XX使用，他用无效”）。纯前端运算，绝对安全。">
+  <meta name="keywords" content="身份证水印,证件防盗水印,身份证加水印,防冒用水印,营业执照水印">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/id-watermark/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/id-watermark/">
+  <meta property="og:title" content="身份证防盗水印制作 - 证件照片加防盗水印 | 纯本地绝不泄密">
+  <meta property="og:description" content="安全防冒用的在线身份证及证件防盗水印添加工具。支持在身份证、户口本、营业执照上添加满屏斜排半透明防盗文字（如“仅供办理XX使用，他用无效”）。纯前端运算，绝对安全。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="身份证防盗水印制作 - 证件照片加防盗水印 | 纯本地绝不泄密">
+  <meta name="twitter:description" content="安全防冒用的在线身份证及证件防盗水印添加工具。支持在身份证、户口本、营业执照上添加满屏斜排半透明防盗文字（如“仅供办理XX使用，他用无效”）。纯前端运算，绝对安全。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .preset-chip {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 0.25rem 0.75rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all var(--transition-fast);
+    }
+    .preset-chip:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+    .canvas-preview-wrap {
+      margin-top: 1.5rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+      overflow: auto;
+      max-height: 520px;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-xs);
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/id-watermark/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/id-watermark/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/id-watermark/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/id-watermark/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>图像与媒体</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>身份证防盗水印器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🛡️ 身份证防盗水印器</h1>
+        <span class="badge-tag badge-privacy">🔒 100% 本地运算 · 绝不上报照片</span>
+        <span class="badge-tag badge-hot">自媒体与办事刚需</span>
+      </div>
+      <p class="tool-desc">办理入职、租房、办银行卡、营业执照开户时，给证件一键覆盖倾斜半透明水印（“仅供XX办理使用，他用无效”），有效防止证件被冒用贷款或注册公司。纯本地 Canvas 渲染，绝无外泄风险。</p>
+    </div>
+
+    <!-- 工作区 -->
+    <div class="tool-card">
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">🪪</div>
+        <div class="dropzone-title">拖拽身份证或证件照片至此处，或点击上传</div>
+        <div class="dropzone-hint">支持 JPG、PNG、WebP 照片，安全保护每一张私人证件</div>
+        <input type="file" id="file-input" accept="image/*">
+      </div>
+
+      <div id="watermark-controls" style="display: none; margin-top: 1.5rem;">
+        <div class="form-group">
+          <label class="form-label">水印文字内容：</label>
+          <input type="text" class="form-input" id="watermark-text" value="仅供办理入职使用 他用无效">
+          <div class="preset-chips">
+            <span class="preset-chip" onclick="setPreset('仅供办理入职使用 他用无效')">仅供办理入职使用</span>
+            <span class="preset-chip" onclick="setPreset('仅供办理银行卡使用 他用无效')">仅供办理银行卡使用</span>
+            <span class="preset-chip" onclick="setPreset('仅供办理租房合同备案使用')">仅供办理租房使用</span>
+            <span class="preset-chip" onclick="setPreset('仅供实名认证使用 复印无效')">仅供实名认证使用</span>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top: 1.25rem;">
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+              <span class="form-label" style="margin: 0;">文字大小：</span>
+              <span class="slider-badge" id="val-fontsize">32px</span>
+            </div>
+            <input type="range" class="slider-range" id="slider-fontsize" min="16" max="72" value="32">
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+              <span class="form-label" style="margin: 0;">透明度：</span>
+              <span class="slider-badge" id="val-opacity">30%</span>
+            </div>
+            <input type="range" class="slider-range" id="slider-opacity" min="0.05" max="0.8" step="0.05" value="0.3">
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+              <span class="form-label" style="margin: 0;">水印密度/间距：</span>
+              <span class="slider-badge" id="val-spacing">中</span>
+            </div>
+            <input type="range" class="slider-range" id="slider-spacing" min="80" max="260" step="10" value="160">
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 0.9rem; font-weight: 600;">水印颜色：</span>
+            <input type="color" id="watermark-color" value="#ffffff" style="border: none; width: 34px; height: 34px; border-radius: 4px; cursor: pointer; background: transparent;">
+          </div>
+          <button type="button" class="btn btn-primary btn-lg" id="btn-download">💾 下载已加水印的高清证件图</button>
+        </div>
+
+        <!-- 实时 Canvas 预览 -->
+        <div class="canvas-preview-wrap">
+          <canvas id="watermark-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">证件加水印安全科普</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">为什么给身份证加防盗水印至关重要？ <span>▼</span></div>
+          <div class="faq-answer">在日常生活中，各类平台、租房中介、兼职公司常常要求提交身份证正反面照片。一旦无防伪标识的照片遭到泄露或倒卖，不法分子可利用它冒名开办手机号、注册皮包公司或网贷申请。覆盖倾斜文字水印后，可让冒用者无法通过正规审核。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">水印应该怎么写才有效？ <span>▼</span></div>
+          <div class="faq-answer">有效的水印应满足三个要素：<br>1. <strong>限定用途</strong>：如“仅供XX机构办理XX业务使用”；<br>2. <strong>防伪声明</strong>：必须加上“他用无效”或“复印无效”；<br>3. <strong>覆盖关键信息</strong>：水印文字应部分覆盖到身份证人像和号码上，但不能遮挡关键数字字迹。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const controls = document.getElementById('watermark-controls');
+    const watermarkTextInput = document.getElementById('watermark-text');
+    const sliderFontsize = document.getElementById('slider-fontsize');
+    const sliderOpacity = document.getElementById('slider-opacity');
+    const sliderSpacing = document.getElementById('slider-spacing');
+    const colorInput = document.getElementById('watermark-color');
+    const canvas = document.getElementById('watermark-canvas');
+    const ctx = canvas.getContext('2d');
+    const btnDownload = document.getElementById('btn-download');
+
+    let loadedImage = null;
+    let originalFilename = 'id_card';
+
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) return;
+      originalFilename = file.name.replace(/\.[^/.]+$/, '');
+      const img = new Image();
+      img.onload = () => {
+        loadedImage = img;
+        controls.style.display = 'block';
+        renderWatermark();
+      };
+      img.src = URL.createObjectURL(file);
+    }
+
+    window.setPreset = function(text) {
+      watermarkTextInput.value = text;
+      renderWatermark();
+    };
+
+    function renderWatermark() {
+      if (!loadedImage) return;
+
+      canvas.width = loadedImage.naturalWidth;
+      canvas.height = loadedImage.naturalHeight;
+
+      // 绘制原图
+      ctx.drawImage(loadedImage, 0, 0);
+
+      const text = watermarkTextInput.value || '仅供办理业务使用 他用无效';
+      const fontSize = parseInt(sliderFontsize.value, 10);
+      const opacity = parseFloat(sliderOpacity.value);
+      const spacing = parseInt(sliderSpacing.value, 10);
+      const color = colorInput.value;
+
+      document.getElementById('val-fontsize').textContent = fontSize + 'px';
+      document.getElementById('val-opacity').textContent = Math.round(opacity * 100) + '%';
+      document.getElementById('val-spacing').textContent = spacing < 120 ? '密集' : (spacing > 200 ? '稀疏' : '适中');
+
+      ctx.save();
+      ctx.font = 'bold ' + fontSize + 'px sans-serif';
+      ctx.fillStyle = color;
+      ctx.globalAlpha = opacity;
+
+      // 倾斜 -25度
+      const angle = -25 * Math.PI / 180;
+      const textWidth = ctx.measureText(text).width;
+      const stepX = textWidth + spacing;
+      const stepY = spacing * 0.85;
+
+      const diagonal = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height);
+
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate(angle);
+      ctx.translate(-diagonal, -diagonal);
+
+      for (let y = 0; y < diagonal * 2; y += stepY) {
+        for (let x = 0; x < diagonal * 2; x += stepX) {
+          ctx.fillText(text, x, y);
+        }
+      }
+
+      ctx.restore();
+    }
+
+    [watermarkTextInput, sliderFontsize, sliderOpacity, sliderSpacing, colorInput].forEach(el => {
+      el.addEventListener('input', renderWatermark);
+    });
+
+    btnDownload.addEventListener('click', () => {
+      canvas.toBlob(blob => {
+        Utils.downloadBlob(blob, originalFilename + '_watermarked.png');
+        Utils.showToast('防盗水印证件图已安全下载！', 'success');
+      }, 'image/png');
+    });
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

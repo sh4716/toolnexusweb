@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotate PDF - Rotate PDF Pages 90, 180 Degrees Online Free | ToolNexus</title>
+  <meta name="description" content="Free in-browser Rotate PDF tool. Rotate all pages or individual upside-down pages clockwise or counter-clockwise (90°, 180°). 100% private, zero uploads.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-rotate/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-rotate/">
+  <meta property="og:title" content="Rotate PDF - Rotate PDF Pages 90, 180 Degrees Online Free | ToolNexus">
+  <meta property="og:description" content="Free in-browser Rotate PDF tool. Rotate all pages or individual upside-down pages clockwise or counter-clockwise (90°, 180°). 100% private, zero uploads.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Rotate PDF - Rotate PDF Pages 90, 180 Degrees Online Free | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Rotate PDF tool. Rotate all pages or individual upside-down pages clockwise or counter-clockwise (90°, 180°). 100% private, zero uploads.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-rotate/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-rotate/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-rotate/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/pdf-rotate/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#pdf">PDF Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Rotate PDF</span>
+      </nav>
+    </div>
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">PDF Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🔄 Rotate PDF Pages Online</h1>
+          </div>
+        </div>
+        <p class="tool-desc">Fix upside-down or sideways scanned PDF pages. Rotate all pages together or rotate specific pages individually. Fast, lossless, and 100% private.</p>
+
+        <!-- Dropzone -->
+        <div class="dropzone" id="rotate-dropzone" style="padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer; margin-bottom: 1.5rem;" onclick="document.getElementById('rotate-file-input').click()">
+          <input type="file" id="rotate-file-input" accept="application/pdf" style="display: none;" onchange="handleRotatePdf(this.files[0])">
+          <div style="font-size: 2.8rem; margin-bottom: 0.5rem;">🔄</div>
+          <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-main);">Click or Drag & Drop PDF File Here</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Supports multi-page PDFs · 100% In-Browser Execution</div>
+        </div>
+
+        <!-- Rotate Workspace Controls -->
+        <div id="rotate-workspace" style="display: none;">
+          <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; align-items: center; justify-content: space-between; background: var(--bg-surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1.5rem;">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="rotateAll(90)">Rotate All Clockwise 90° ↻</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="rotateAll(-90)">Rotate All Counter-Clockwise 90° ↺</button>
+              <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="rotateAll(180)">Rotate All 180°</button>
+              <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="resetAllRotations()">Reset All</button>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="saveRotatedPdf()">
+              <span>Save & Download Rotated PDF</span>
+              <span>💾</span>
+            </button>
+          </div>
+
+          <!-- Page Cards Grid -->
+          <div id="rotate-pages-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;"></div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Does rotating a PDF reduce text clarity or image quality?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Not at all. The tool modifies the internal PDF viewport rotation matrix metadata without re-encoding text, vectors, or graphics, ensuring 100% lossless output.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Are my private documents uploaded to a remote server?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. ToolNexus runs entirely in your device's local memory via WebAssembly and HTML5 Canvas. Your documents never leave your computer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/pdf-lib.min.js"></script>
+  <script src="/assets/vendor/pdf.min.js"></script>
+  <script>
+    let rotatePdfBytes = null;
+    let rotatePdfDoc = null;
+    let rotateFileName = '';
+    let pageRotations = []; // Array of extra degrees: 0, 90, 180, 270
+
+    async function handleRotatePdf(file) {
+      if (!file) return;
+      rotateFileName = file.name;
+      rotatePdfBytes = await file.arrayBuffer();
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdf.worker.min.js';
+      const pdf = await pdfjsLib.getDocument({ data: rotatePdfBytes }).promise;
+      const numPages = pdf.numPages;
+
+      pageRotations = new Array(numPages).fill(0);
+      document.getElementById('rotate-workspace').style.display = 'block';
+
+      const grid = document.getElementById('rotate-pages-grid');
+      grid.innerHTML = '';
+
+      for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 0.4 });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const card = document.createElement('div');
+        card.id = 'page-card-' + i;
+        card.style = 'background:var(--bg-surface-alt); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:0.75rem; text-align:center; display:flex; flex-direction:column; align-items:center;';
+
+        const wrapper = document.createElement('div');
+        wrapper.style = 'width:100%; height:180px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:0.5rem;';
+        canvas.id = 'canvas-page-' + i;
+        canvas.style = 'max-width:100%; max-height:100%; border-radius:3px; box-shadow:var(--shadow-sm); transition:transform 0.25s ease;';
+        wrapper.appendChild(canvas);
+        card.appendChild(wrapper);
+
+        const label = document.createElement('div');
+        label.style = 'font-size:0.85rem; font-weight:600; color:var(--text-main); margin-bottom:0.5rem;';
+        label.textContent = `Page ${i} `;
+        card.appendChild(label);
+
+        const btnRow = document.createElement('div');
+        btnRow.style = 'display:flex; gap:0.4rem; justify-content:center; width:100%;';
+        btnRow.innerHTML = `
+          <button type="button" class="btn-ghost btn-sm" style="border:1px solid var(--border-color); padding:2px 8px;" onclick="rotateSinglePage(${i}, -90)" title="↺ 90°">↺</button>
+          <button type="button" class="btn-ghost btn-sm" style="border:1px solid var(--border-color); padding:2px 8px;" onclick="rotateSinglePage(${i}, 90)" title="↻ 90°">↻</button>
+        `;
+        card.appendChild(btnRow);
+
+        grid.appendChild(card);
+      }
+      showToast('PDF loaded! You can now rotate pages.', 'info');
+    }
+
+    function rotateSinglePage(pageNum, delta) {
+      const idx = pageNum - 1;
+      pageRotations[idx] = (pageRotations[idx] + delta) % 360;
+      if (pageRotations[idx] < 0) pageRotations[idx] += 360;
+      updatePageCanvas(pageNum);
+    }
+
+    function rotateAll(delta) {
+      for (let i = 1; i <= pageRotations.length; i++) {
+        const idx = i - 1;
+        pageRotations[idx] = (pageRotations[idx] + delta) % 360;
+        if (pageRotations[idx] < 0) pageRotations[idx] += 360;
+        updatePageCanvas(i);
+      }
+      showToast('All pages rotated!', 'success');
+    }
+
+    function resetAllRotations() {
+      for (let i = 1; i <= pageRotations.length; i++) {
+        pageRotations[i - 1] = 0;
+        updatePageCanvas(i);
+      }
+      showToast('All rotations reset.', 'info');
+    }
+
+    function updatePageCanvas(pageNum) {
+      const canvas = document.getElementById('canvas-page-' + pageNum);
+      if (canvas) {
+        canvas.style.transform = `rotate(${pageRotations[pageNum - 1]}deg)`;
+      }
+    }
+
+    async function saveRotatedPdf() {
+        if (!rotatePdfBytes) {
+          showToast('Please upload a PDF file first', 'warning');
+          return;
+        }
+      const pdfDoc = await PDFLib.PDFDocument.load(rotatePdfBytes);
+      const pages = pdfDoc.getPages();
+
+      pages.forEach((page, idx) => {
+        const extraDeg = pageRotations[idx] || 0;
+        if (extraDeg !== 0) {
+          const currentRotation = page.getRotation().angle;
+          page.setRotation(PDFLib.degrees((currentRotation + extraDeg) % 360));
+        }
+      });
+
+      const modifiedBytes = await pdfDoc.save();
+      const blob = new Blob([modifiedBytes], { type: 'application/pdf' });
+      downloadBlob(blob, 'rotated_' + rotateFileName);
+      showToast('Rotated PDF downloaded successfully!', 'success');
+    }
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/pdf-rotate/">Rotate PDF Pages</a></li>
+            <li><a href="/tools/pdf-sign/">Sign PDF Document</a></li>
+            <li><a href="/tools/pdf-page-numbers/">Add Page Numbers</a></li>
+            <li><a href="/tools/pdf-merge/">PDF Merger</a></li>
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

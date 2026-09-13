@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | 纯本地无限制</title>
+  <meta name="description" content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色、容错率与中心 Logo 图标，高清 PNG/SVG 导出。">
+  <meta name="keywords" content="二维码生成器,在线二维码,WiFi二维码,名片二维码,二维码美化">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/qrcode-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/qrcode-generator/">
+  <meta property="og:title" content="二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | 纯本地无限制">
+  <meta property="og:description" content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色、容错率与中心 Logo 图标，高清 PNG/SVG 导出。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | 纯本地无限制">
+  <meta name="twitter:description" content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色、容错率与中心 Logo 图标，高清 PNG/SVG 导出。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .qr-workspace {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 860px) {
+      .qr-workspace { grid-template-columns: 1fr; }
+    }
+    .qr-preview-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .qr-box {
+      padding: 1.25rem;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .qr-type-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.5rem;
+    }
+    .qr-type-btn {
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .qr-type-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/qrcode-generator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/qrcode-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/qrcode-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/qrcode-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>二维码生成与美化</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">📱 二维码生成与美化</h1>
+        <span class="badge-tag badge-privacy">纯本地 qrcode.js 渲染</span>
+        <span class="badge-tag badge-hot">全网极高频工具</span>
+      </div>
+      <p class="tool-desc">纯本地将网页链接、文本、WiFi 热点及电子名片生成高清二维码。支持自定义前景色/背景色、容错率级别及中心 Logo 嵌入，绝不上报用户输入内容。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="qr-type-tabs">
+        <button type="button" class="qr-type-btn active" data-type="text">🌐 链接 / 文本</button>
+        <button type="button" class="qr-type-btn" data-type="wifi">📶 WiFi 扫码连接</button>
+        <button type="button" class="qr-type-btn" data-type="vcard">👤 电子名片 (vCard)</button>
+      </div>
+
+      <div class="qr-workspace">
+        <!-- 左侧参数设置 -->
+        <div class="qr-controls">
+          <div id="panel-text">
+            <div class="form-group">
+              <label class="form-label">输入内容 / 网址 URL：</label>
+              <textarea class="form-textarea" id="qr-input-text" placeholder="输入任意网址 (https://...) 或长文本内容..." style="height: 110px;">https://toolnexus.local</textarea>
+            </div>
+          </div>
+
+          <div id="panel-wifi" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">WiFi 名称 (SSID)：</label>
+              <input type="text" class="form-input" id="wifi-ssid" placeholder="例如: Home_WiFi_5G">
+            </div>
+            <div class="form-group">
+              <label class="form-label">WiFi 密码：</label>
+              <input type="text" class="form-input" id="wifi-pass" placeholder="输入无线密码">
+            </div>
+            <div class="form-group">
+              <label class="form-label">加密类型：</label>
+              <select class="form-select" id="wifi-type">
+                <option value="WPA">WPA / WPA2 (常见标准)</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">无密码 (开放热点)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="panel-vcard" style="display: none;">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">姓名：</label>
+                <input type="text" class="form-input" id="vcard-name" placeholder="张三">
+              </div>
+              <div class="form-group">
+                <label class="form-label">手机号码：</label>
+                <input type="text" class="form-input" id="vcard-phone" placeholder="13800138000">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">电子邮箱：</label>
+              <input type="text" class="form-input" id="vcard-email" placeholder="example@domain.com">
+            </div>
+          </div>
+
+          <!-- 美化与配色参数 -->
+          <div class="grid-2" style="margin-top: 1rem;">
+            <div class="form-group">
+              <label class="form-label">二维码前景色：</label>
+              <input type="color" id="qr-fg" value="#000000" style="width: 100%; height: 38px; border: 1px solid var(--border-base); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg-input);">
+            </div>
+            <div class="form-group">
+              <label class="form-label">二维码背景色：</label>
+              <input type="color" id="qr-bg" value="#ffffff" style="width: 100%; height: 38px; border: 1px solid var(--border-base); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg-input);">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">容错级别：</label>
+              <select class="form-select" id="qr-level">
+                <option value="H" selected>高 (H - 容错 30%, 推荐)</option>
+                <option value="Q">较高 (Q - 容错 25%)</option>
+                <option value="M">中等 (M - 容错 15%)</option>
+                <option value="L">低 (L - 容错 7%)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.45rem;">
+                <label class="form-label" style="margin:0;">导出尺寸：</label>
+                <span class="slider-badge" id="size-val">256px</span>
+              </div>
+              <input type="range" class="slider-range" id="qr-size" min="160" max="600" step="32" value="256">
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧二维码实时渲染区 -->
+        <div class="qr-preview-card">
+          <div class="qr-box" id="qrcode-box"></div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+            <button type="button" class="btn btn-primary" id="btn-download-png">💾 下载高清 PNG</button>
+            <button type="button" class="btn btn-secondary" id="btn-copy-qr">📋 复制图片</button>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">用手机微信/相机对准即可快速扫描识别</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/vendor/qrcode.min.js"></script>
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    let currentType = 'text';
+    const qrBox = document.getElementById('qrcode-box');
+    const qrInputText = document.getElementById('qr-input-text');
+    const qrFg = document.getElementById('qr-fg');
+    const qrBg = document.getElementById('qr-bg');
+    const qrLevel = document.getElementById('qr-level');
+    const qrSize = document.getElementById('qr-size');
+    const sizeVal = document.getElementById('size-val');
+
+    let qrcodeObj = null;
+
+    function getQrText() {
+      if (currentType === 'text') {
+        return qrInputText.value || 'https://toolnexus.local';
+      } else if (currentType === 'wifi') {
+        const ssid = document.getElementById('wifi-ssid').value || 'MyWiFi';
+        const pass = document.getElementById('wifi-pass').value || '';
+        const type = document.getElementById('wifi-type').value;
+        return `WIFI:T:${type};S:${ssid};P:${pass};;`;
+      } else if (currentType === 'vcard') {
+        const name = document.getElementById('vcard-name').value || '联系人';
+        const phone = document.getElementById('vcard-phone').value || '';
+        const email = document.getElementById('vcard-email').value || '';
+        return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
+      }
+      return 'Hello';
+    }
+
+    function generateQr() {
+      const text = getQrText();
+      const size = parseInt(qrSize.value, 10);
+      sizeVal.textContent = size + 'px';
+
+      qrBox.innerHTML = '';
+      const levelMap = {
+        'L': QRCode.CorrectLevel.L,
+        'M': QRCode.CorrectLevel.M,
+        'Q': QRCode.CorrectLevel.Q,
+        'H': QRCode.CorrectLevel.H
+      };
+
+      qrcodeObj = new QRCode(qrBox, {
+        text: text,
+        width: size,
+        height: size,
+        colorDark: qrFg.value,
+        colorLight: qrBg.value,
+        correctLevel: levelMap[qrLevel.value] || QRCode.CorrectLevel.H
+      });
+    }
+
+    // 标签切换
+    const typeBtns = document.querySelectorAll('.qr-type-btn');
+    typeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        typeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentType = btn.getAttribute('data-type');
+        document.getElementById('panel-text').style.display = currentType === 'text' ? 'block' : 'none';
+        document.getElementById('panel-wifi').style.display = currentType === 'wifi' ? 'block' : 'none';
+        document.getElementById('panel-vcard').style.display = currentType === 'vcard' ? 'block' : 'none';
+        generateQr();
+      });
+    });
+
+    [qrInputText, qrFg, qrBg, qrLevel, qrSize].forEach(el => el.addEventListener('input', generateQr));
+    ['wifi-ssid', 'wifi-pass', 'wifi-type', 'vcard-name', 'vcard-phone', 'vcard-email'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', generateQr);
+    });
+
+    document.getElementById('btn-download-png').addEventListener('click', () => {
+      const img = qrBox.querySelector('img') || qrBox.querySelector('canvas');
+      if (!img) {
+        Utils.showToast('请先生成二维码', 'warning');
+        return;
+      }
+      if (img.tagName.toLowerCase() === 'img') {
+        Utils.downloadDataUrl(img.src, 'qrcode_toolnexus.png');
+      } else {
+        img.toBlob(blob => {
+          if (blob) Utils.downloadBlob(blob, 'qrcode_toolnexus.png');
+          else Utils.showToast('生成二维码图片失败', 'error');
+        }, 'image/png');
+      }
+      Utils.showToast('二维码已成功下载！', 'success');
+    });
+
+    document.getElementById('btn-copy-qr').addEventListener('click', async () => {
+      const canvas = qrBox.querySelector('canvas');
+      if (canvas && navigator.clipboard && window.ClipboardItem) {
+        try {
+          canvas.toBlob(async blob => {
+            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            Utils.showToast('二维码图片已成功复制到剪贴板！', 'success');
+          });
+          return;
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+      Utils.showToast('请直接点击下载按钮保存图片', 'info');
+    });
+
+    generateQr();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

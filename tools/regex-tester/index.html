@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Tester - Test Regular Expressions Live | ToolNexus</title>
+  <meta name="description" content="Free in-browser Regex Tester. Test regular expressions with instant match highlighting, capture groups, and preset templates.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/regex-tester/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/regex-tester/">
+  <meta property="og:title" content="Regex Tester - Test Regular Expressions Live | ToolNexus">
+  <meta property="og:description" content="Free in-browser Regex Tester. Test regular expressions with instant match highlighting, capture groups, and preset templates.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Regex Tester - Test Regular Expressions Live | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Regex Tester. Test regular expressions with instant match highlighting, capture groups, and preset templates.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/regex-tester/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/regex-tester/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/regex-tester/">
+
+  <style>
+    .match-highlight {
+      background: rgba(99, 102, 241, 0.35);
+      border-bottom: 2px solid var(--primary);
+      border-radius: 2px;
+      color: var(--text-main);
+    }
+    .regex-preset-btn {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .regex-preset-btn:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+    .regex-preset-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+      box-shadow: 0 0 0 1px var(--primary-border), 0 2px 8px var(--primary-glow);
+    }
+    .rendered-preview-box {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      min-height: 140px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.6;
+    }
+  </style>
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/regex-tester/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Regex Tester</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <!-- Preset Templates Card -->
+      <div class="tool-card" style="padding: 1.25rem;">
+        <div style="font-weight: 600; font-size: 0.88rem; margin-bottom: 0.65rem; color: var(--text-main);">Quick Regex Templates (Click to load pattern & test sample):</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="preset-list">
+          <button type="button" class="regex-preset-btn" data-reg="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" data-flag="g" data-sample="Common Email Samples:\nsupport@toolnexusweb.com\nuser.name+tag@company.com\ninvalid@email">Email (Practical / Common)</button>
+          <button type="button" class="regex-preset-btn" data-reg="[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?" data-flag="g" data-sample="RFC 5322 Extended Characters:\nuser!def#99@example.com\nteam.alpha@sub.domain.org\nplain@domain.co">Email (RFC 5322 Spec)</button>
+          <button type="button" class="regex-preset-btn" data-reg="\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b" data-flag="g" data-sample="Valid IPv4 (0-255 range):\n192.168.1.1\n10.0.0.254\n127.0.0.1\n0.0.0.0\n255.255.255.255\n\nOut-of-Range / Invalid (strictly rejected):\n300.1.2.3\n192.168.1.256\n999.999.999.999">IPv4 (Strict 0-255)</button>
+          <button type="button" class="regex-preset-btn" data-reg="\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b" data-flag="g" data-sample="IPv6 Addresses:\n2001:0db8:85a3:0000:0000:8a2e:0370:7334\nfe80:0000:0000:0000:0204:61ff:fe9d:f156">IPv6 Address</button>
+          <button type="button" class="regex-preset-btn" data-reg="https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+" data-flag="g" data-sample="Visit https://toolnexusweb.com or http://127.0.0.1:3000/tools/">URL / Web Link</button>
+          <button type="button" class="regex-preset-btn" data-reg="\+?[1-9]\d{1,14}" data-flag="g" data-sample="Phone Numbers (E.164):\n+14155552671\n+442071838750\n+8613800138000">Phone (E.164)</button>
+          <button type="button" class="regex-preset-btn" data-reg="\b(?:\d{4}([-/.])(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|[12]\d|3[01])|(?:0?[1-9]|1[0-2])([-/.])(?:0?[1-9]|[12]\d|3[01])\2\d{4}|(?:0?[1-9]|[12]\d|3[01])([-/.])(?:0?[1-9]|1[0-2])\3\d{4})\b" data-flag="g" data-sample="Multi-format Dates:\n2025/01/08 (Slash YYYY/MM/DD)\n01/08/2025 (US MM/DD/YYYY)\n31/12/2024 (UK DD/MM/YYYY)\n2025-01-08 (ISO format)\n2025.01.08 (Dot format)\n2025/1/8 (Single digits)\n\nInvalid Dates (Excluded):\n2025/13/01 (Invalid month)\n32/01/2025 (Invalid day)\n2025-01/08 (Mismatched delimiters)">Date (Multi-Format: YYYY/MM/DD, MM/DD/YYYY)</button>
+          <button type="button" class="regex-preset-btn" data-reg="\b\d{4}([-/.])(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|[12]\d|3[01])\b" data-flag="g" data-sample="ISO Date Formats:\n2025/01/08\n2025-01-08\n2025.01.08\n2024-12-31\n2025/1/8">ISO Date (YYYY-MM-DD / YYYY/MM/DD)</button>
+          <button type="button" class="regex-preset-btn" data-reg="\d+" data-flag="g" data-sample="Order #89421 processed in 150ms.">Only Digits</button>
+        </div>
+      </div>
+
+      <!-- Regex Editor Card -->
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🎯 Regex Tester & Matcher</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Test and debug regular expressions in real time with instant match highlighting, capture analysis, and preset templates.
+        </p>
+
+        <!-- Pattern Input -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label" style="font-weight: 600;">Regular Expression (Pattern & Flags):</label>
+          <div style="display: flex; align-items: center; background: var(--bg-surface-alt); border: 1px solid var(--border-base); border-radius: var(--radius-sm); padding: 0.2rem 0.5rem;">
+            <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 1.1rem; padding: 0 0.5rem;">/</span>
+            <input type="text" id="regex-pattern" value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" style="flex: 1; border: none; outline: none; background: transparent; color: var(--text-main); font-family: var(--font-mono); font-size: 1rem;">
+            <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 1.1rem; padding: 0 0.5rem;">/</span>
+            <input type="text" id="regex-flags" value="g" style="width: 50px; border: none; outline: none; background: transparent; color: var(--primary); font-family: var(--font-mono); font-weight: 700;">
+          </div>
+          <div style="display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+            <label><input type="checkbox" id="flag-g" checked> g (global)</label>
+            <label><input type="checkbox" id="flag-i"> i (ignore case)</label>
+            <label><input type="checkbox" id="flag-m"> m (multiline)</label>
+            <label><input type="checkbox" id="flag-s"> s (dotAll)</label>
+          </div>
+        </div>
+
+        <!-- Test String Input -->
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label" style="font-weight: 600;">Test String</label>
+          <textarea id="regex-input" class="input-text" rows="5" style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6;" placeholder="Enter test string here...">Contact us at support@toolnexusweb.com or legal@company.org. Don't email invalid@test.</textarea>
+        </div>
+
+        <!-- Matches Visualizer -->
+        <div style="margin-bottom: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="form-label" style="margin: 0; font-weight: 600;">Live Highlighted Matches:</span>
+            <span id="regex-match-count" style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">0 matches</span>
+          </div>
+          <div id="regex-highlights" class="rendered-preview-box"></div>
+        </div>
+      </div>
+
+      <!-- Deep Dive Card -->
+      <div class="tool-card" style="margin-top: 1.5rem; padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main);">
+          <span>💡</span> Deep Dive: Strict IP Ranges, RFC 5322 vs. Practical Email, & Multi-Format Date Parsing
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; font-size: 0.9rem; line-height: 1.7; color: var(--text-muted);">
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem 1.25rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+              1. Why naive IPv4 regexes fail and how strict (0-255) validation works
+            </h4>
+            <p style="margin-bottom: 0.5rem;">
+              Naive expressions such as <code>(?:\d{1,3}\.){3}\d{1,3}</code> merely check digit counts, completely missing numerical range limits and incorrectly matching invalid IPs like <code>999.999.999.999</code> or <code>256.0.0.1</code>.
+            </p>
+            <p style="margin-bottom: 0.5rem;">
+              Without word boundaries <code>\b</code>, an invalid string like <code>300.1.2.3</code> will erroneously match its substring <code>00.1.2.3</code> as a false positive.
+            </p>
+            <p style="margin: 0;">
+              Our preset <code>\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b</code> categorizes each octet into <code>250-255</code>, <code>200-249</code>, <code>100-199</code>, and <code>0-99</code>, strictly bounded by <code>\b</code> to guarantee 100% accurate IPv4 parsing.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem 1.25rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+              2. Why production software uses practical email regex over 100% RFC 5322
+            </h4>
+            <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem;">
+              <li>
+                <strong>RFC 5322 Extreme Complexity:</strong> The full standard permits quoted strings (e.g., <code>"john..doe"@example.com</code>, containing spaces or escaped quotes), IP domain literals (e.g., <code>user@[192.168.1.1]</code>), and nested comments. A regex covering 100% of RFC 5322 spans thousands of characters and is virtually unmaintainable.
+              </li>
+              <li>
+                <strong>ReDoS Vulnerability:</strong> Overly complex regexes with nested greedy quantifiers can cause catastrophic backtracking (ReDoS), locking up browser or Node.js CPU threads on hostile inputs.
+              </li>
+              <li>
+                <strong>Provider Reality:</strong> Modern email providers (Google Gmail, Microsoft Outlook, Apple iCloud) forbid quoted-string usernames or bizarre characters during account registration anyway.
+              </li>
+              <li>
+                <strong>The Golden Rule of Email Verification:</strong> The only reliable way to verify if an email address genuinely exists and is accessible by the user is to send a <strong>confirmation email, one-time password (OTP), or magic sign-in link</strong>.
+              </li>
+            </ul>
+          </div>
+
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem 1.25rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+              3. Date Regex: Multi-format parsing and backreference delimiter consistency
+            </h4>
+            <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem;">
+              <li>
+                <strong>Multi-Format Handling:</strong> Hardcoded <code>YYYY-MM-DD</code> fails on ubiquitous formats such as slash-delimited <code>2025/01/08</code>, US <code>01/08/2025</code> (MM/DD/YYYY), UK <code>31/12/2024</code> (DD/MM/YYYY), or dot-delimited <code>2025.01.08</code>.
+              </li>
+              <li>
+                <strong>Delimiter Consistency with Backreferences:</strong> Capturing delimiters with <code>([-/.])</code> and enforcing symmetry via backreference <code>\1</code> ensures consistent date formatting (matching <code>2025/01/08</code> and <code>2025-01-08</code>, while strictly rejecting mixed delimiters like <code>2025-01/08</code>).
+              </li>
+              <li>
+                <strong>Range Validation & Single-Digit Support:</strong> Months are bounded to 1–12 with <code>(0?[1-9]|1[0-2])</code> and days to 1–31 with <code>(0?[1-9]|[12]\d|3[01])</code>, accommodating unpadded inputs like <code>2025/1/8</code> without false matches.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const regPattern = document.getElementById('regex-pattern');
+      const regFlags = document.getElementById('regex-flags');
+      const testInput = document.getElementById('regex-input');
+      const matchCount = document.getElementById('regex-match-count');
+      const highlights = document.getElementById('regex-highlights');
+
+      const flagG = document.getElementById('flag-g');
+      const flagI = document.getElementById('flag-i');
+      const flagM = document.getElementById('flag-m');
+      const flagS = document.getElementById('flag-s');
+
+      function syncFlagsFromCheckboxes() {
+        let f = '';
+        if (flagG.checked) f += 'g';
+        if (flagI.checked) f += 'i';
+        if (flagM.checked) f += 'm';
+        if (flagS.checked) f += 's';
+        regFlags.value = f;
+        testRegex();
+      }
+
+      function syncCheckboxesFromFlags() {
+        const f = regFlags.value;
+        flagG.checked = f.includes('g');
+        flagI.checked = f.includes('i');
+        flagM.checked = f.includes('m');
+        flagS.checked = f.includes('s');
+        testRegex();
+      }
+
+      [flagG, flagI, flagM, flagS].forEach(el => el.addEventListener('change', syncFlagsFromCheckboxes));
+      regFlags.addEventListener('input', syncCheckboxesFromFlags);
+
+      function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function testRegex() {
+        const pat = regPattern.value;
+        const flags = regFlags.value;
+        const text = testInput.value;
+
+        if (!pat || !text) {
+          highlights.innerHTML = escapeHtml(text);
+          matchCount.textContent = '0 matches';
+          matchCount.style.color = 'var(--text-muted)';
+          return;
+        }
+
+        try {
+          const re = new RegExp(pat, flags.includes('g') ? flags : (flags + 'g'));
+          let match;
+          let count = 0;
+          let lastIndex = 0;
+          let html = '';
+
+          while ((match = re.exec(text)) !== null) {
+            count++;
+            html += escapeHtml(text.substring(lastIndex, match.index));
+            html += '<span class="match-highlight">' + escapeHtml(match[0]) + '</span>';
+            lastIndex = match.index + match[0].length;
+            if (match[0].length === 0) {
+              re.lastIndex++;
+            }
+          }
+          html += escapeHtml(text.substring(lastIndex));
+          highlights.innerHTML = html;
+          matchCount.textContent = count + (count === 1 ? ' match found' : ' matches found');
+          matchCount.style.color = count > 0 ? 'var(--primary)' : 'var(--text-muted)';
+        } catch (e) {
+          matchCount.textContent = 'Syntax Error';
+          matchCount.style.color = 'var(--error)';
+          highlights.innerHTML = `<span style="color:var(--error);">Regex Syntax Error: ${escapeHtml(e.message)}</span>`;
+        }
+      }
+
+      const presetBtns = document.querySelectorAll('.regex-preset-btn');
+
+      function updateActivePreset() {
+        const currentPattern = regPattern.value;
+        presetBtns.forEach(btn => {
+          if (btn.getAttribute('data-reg') === currentPattern) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      regPattern.addEventListener('input', () => {
+        testRegex();
+        updateActivePreset();
+      });
+      testInput.addEventListener('input', testRegex);
+
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          regPattern.value = btn.getAttribute('data-reg');
+          regFlags.value = btn.getAttribute('data-flag') || 'g';
+          testInput.value = (btn.getAttribute('data-sample') || '').replace(/\\n/g, '\n');
+          syncCheckboxesFromFlags();
+          updateActivePreset();
+          if (typeof Utils !== 'undefined' && Utils.showToast) {
+            Utils.showToast('Preset and test sample loaded', 'info');
+          }
+        });
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        testRegex();
+        updateActivePreset();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

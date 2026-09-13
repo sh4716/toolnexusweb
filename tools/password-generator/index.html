@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strong Password Generator - Secure Random Passwords | ToolNexus</title>
+  <meta name="description" content="Free in-browser Strong Password Generator using hardware Web Crypto API. Customize length, symbols, letters, and numbers. 100% private, zero server transmission.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/password-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/password-generator/">
+  <meta property="og:title" content="Strong Password Generator - Secure Random Passwords | ToolNexus">
+  <meta property="og:description" content="Free in-browser Strong Password Generator using hardware Web Crypto API. Customize length, symbols, letters, and numbers. 100% private, zero server transmission.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Strong Password Generator - Secure Random Passwords | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Strong Password Generator using hardware Web Crypto API. Customize length, symbols, letters, and numbers. 100% private, zero server transmission.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/password-generator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/password-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/password-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/password-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Strong Password Generator</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer & Security</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🔑 Strong Password Generator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Generate cryptographically secure, uncrackable random passwords using your browser's hardware-backed <code>crypto.getRandomValues()</code>. 100% offline, zero server transmission.
+        </p>
+
+        <!-- Password Display -->
+        <div style="background: var(--bg-surface-alt); border: 2px solid var(--border-base); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+            <div id="pwd-output" style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; color: var(--primary); word-break: break-all; min-height: 44px; display: flex; align-items: center; user-select: all;"></div>
+            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+              <button type="button" class="btn btn-primary" onclick="copyPassword()">Copy</button>
+              <button type="button" class="btn btn-secondary" onclick="generatePassword()">Refresh 🔄</button>
+            </div>
+          </div>
+          
+          <div style="margin-top: 1rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+              <span style="color: var(--text-muted);">Strength Score: <strong id="strength-label" style="color: var(--success);">Very Strong</strong></span>
+              <span id="entropy-label" style="color: var(--text-subtle);">~96 bits entropy</span>
+            </div>
+            <div style="height: 6px; background: var(--border-subtle); border-radius: 3px; overflow: hidden; display: flex; gap: 4px;">
+              <div id="bar-1" style="flex: 1; height: 100%; border-radius: 3px; background: var(--success);"></div>
+              <div id="bar-2" style="flex: 1; height: 100%; border-radius: 3px; background: var(--success);"></div>
+              <div id="bar-3" style="flex: 1; height: 100%; border-radius: 3px; background: var(--success);"></div>
+              <div id="bar-4" style="flex: 1; height: 100%; border-radius: 3px; background: var(--success);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <label style="font-weight: 600;">Password Length: <span id="len-val" style="color: var(--primary); font-weight: 700;">16</span></label>
+            </div>
+            <input type="range" id="len-slider" min="6" max="64" value="16" style="width: 100%; accent-color: var(--primary); cursor: pointer;" oninput="onLenChange(this.value)">
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.85rem;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="opt-upper" checked onchange="generatePassword()"> Uppercase Letters (A-Z)
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="opt-lower" checked onchange="generatePassword()"> Lowercase Letters (a-z)
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="opt-num" checked onchange="generatePassword()"> Numbers (0-9)
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="opt-sym" checked onchange="generatePassword()"> Symbols (!@#$%^&*)
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="opt-exclude-similar" onchange="generatePassword()"> Exclude Similar (i, l, 1, L, o, 0, O)
+            </label>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">Why is this generator more secure?</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+            Standard <code>Math.random()</code> is pseudo-random and predictable. ToolNexus utilizes the native browser <code>window.crypto.getRandomValues()</code> API, which pulls true hardware entropy from CPU thermal noise and hardware timing. Because this page runs completely client-side, your generated password is never sent over the Internet.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const LOWER = 'abcdefghijklmnopqrstuvwxyz';
+      const NUMS = '0123456789';
+      const SYMS = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+      const SIMILAR = /[il1Lo0O]/g;
+
+      function onLenChange(val) {
+        document.getElementById('len-val').textContent = val;
+        generatePassword();
+      }
+
+      function generatePassword() {
+        const len = parseInt(document.getElementById('len-slider').value) || 16;
+        let upper = document.getElementById('opt-upper').checked ? UPPER : '';
+        let lower = document.getElementById('opt-lower').checked ? LOWER : '';
+        let nums = document.getElementById('opt-num').checked ? NUMS : '';
+        let syms = document.getElementById('opt-sym').checked ? SYMS : '';
+        const excludeSimilar = document.getElementById('opt-exclude-similar').checked;
+
+        if (excludeSimilar) {
+          upper = upper.replace(SIMILAR, '');
+          lower = lower.replace(SIMILAR, '');
+          nums = nums.replace(SIMILAR, '');
+        }
+
+        const chars = upper + lower + nums + syms;
+        if (!chars) {
+          document.getElementById('pwd-output').textContent = 'Please select at least one option';
+          return;
+        }
+
+        const array = new Uint32Array(len);
+        window.crypto.getRandomValues(array);
+        let pwd = '';
+        for (let i = 0; i < len; i++) {
+          pwd += chars[array[i] % chars.length];
+        }
+
+        document.getElementById('pwd-output').textContent = pwd;
+        evalStrength(pwd, chars.length);
+      }
+
+      function evalStrength(pwd, poolSize) {
+        const len = pwd.length;
+        const entropy = Math.round(len * Math.log2(poolSize));
+        document.getElementById('entropy-label').textContent = '~' + entropy + ' bits entropy';
+
+        let score = 0;
+        if (entropy >= 80) score = 4;
+        else if (entropy >= 60) score = 3;
+        else if (entropy >= 40) score = 2;
+        else score = 1;
+
+        const labels = ['', 'Very Weak', 'Fair', 'Strong', 'Very Strong'];
+        const colors = ['', 'var(--error)', 'var(--accent-amber)', 'var(--accent-cyan)', 'var(--success)'];
+
+        document.getElementById('strength-label').textContent = labels[score];
+        document.getElementById('strength-label').style.color = colors[score];
+
+        for (let i = 1; i <= 4; i++) {
+          const bar = document.getElementById('bar-' + i);
+          if (i <= score) {
+            bar.style.background = colors[score];
+            bar.style.opacity = '1';
+          } else {
+            bar.style.opacity = '0.2';
+          }
+        }
+      }
+
+      function copyPassword() {
+        const text = document.getElementById('pwd-output').textContent;
+        if (!text || text.startsWith('Please')) return;
+        copyToClipboard(text);
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        generatePassword();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator - Create Custom QR Codes Online | ToolNexus</title>
+  <meta name="description" content="Free in-browser QR Code Generator. Create QR codes for URLs, text, and Wi-Fi networks with custom colors. Download high-res PNG.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/qrcode-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/qrcode-generator/">
+  <meta property="og:title" content="QR Code Generator - Create Custom QR Codes Online | ToolNexus">
+  <meta property="og:description" content="Free in-browser QR Code Generator. Create QR codes for URLs, text, and Wi-Fi networks with custom colors. Download high-res PNG.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QR Code Generator - Create Custom QR Codes Online | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser QR Code Generator. Create QR codes for URLs, text, and Wi-Fi networks with custom colors. Download high-res PNG.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/qrcode-generator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/qrcode-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/qrcode-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/qrcode-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>QR Code Generator</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer & Graphics</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">📱 QR Code Generator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Generate custom, high-resolution QR codes for websites, plain text, Wi-Fi network credentials, and contacts. Customize foreground & background colors, and download as PNG.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem;" class="qr-grid">
+          <div>
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+              <label class="form-label" style="font-weight: 600;">Content Type</label>
+              <select id="qr-type" class="input-text" onchange="onQrTypeChange()">
+                <option value="url">Website URL</option>
+                <option value="text">Plain Text</option>
+                <option value="wifi">Wi-Fi Network</option>
+              </select>
+            </div>
+
+            <!-- URL/Text Input -->
+            <div id="qr-input-standard" class="form-group" style="margin-bottom: 1.25rem;">
+              <label class="form-label" style="font-weight: 600;">Text or URL</label>
+              <textarea id="qr-text" class="input-text" rows="4" placeholder="https://example.com" oninput="renderQrCode()">https://toolnexusweb.com</textarea>
+            </div>
+
+            <!-- WiFi Input -->
+            <div id="qr-input-wifi" style="display: none; margin-bottom: 1.25rem;">
+              <div class="form-group" style="margin-bottom: 0.75rem;">
+                <label class="form-label">Network Name (SSID)</label>
+                <input type="text" id="wifi-ssid" class="input-text" placeholder="MyWiFi" oninput="renderQrCode()">
+              </div>
+              <div class="form-group" style="margin-bottom: 0.75rem;">
+                <label class="form-label">Password</label>
+                <input type="text" id="wifi-pass" class="input-text" placeholder="SecretPassword" oninput="renderQrCode()">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label">Encryption</label>
+                <select id="wifi-auth" class="input-text" onchange="renderQrCode()">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass">None (Open)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Color Options -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label" style="font-weight: 600;">Foreground Color</label>
+                <input type="color" id="qr-fg" class="input-text" value="#000000" style="height: 42px; padding: 4px;" onchange="renderQrCode()">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label" style="font-weight: 600;">Background Color</label>
+                <input type="color" id="qr-bg" class="input-text" value="#ffffff" style="height: 42px; padding: 4px;" onchange="renderQrCode()">
+              </div>
+            </div>
+          </div>
+
+          <!-- QR Preview Box -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem;">
+            <div id="qrcode-container" style="background: #ffffff; padding: 1rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; min-width: 200px; min-height: 200px;"></div>
+
+            <button type="button" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%; max-width: 240px; justify-content: center;" onclick="downloadQrPng()">
+              <span>Download PNG</span>
+              <span>💾</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/assets/vendor/qrcode.min.js"></script>
+    <script>
+      let qrObj = null;
+
+      function onQrTypeChange() {
+        const type = document.getElementById('qr-type').value;
+        if (type === 'wifi') {
+          document.getElementById('qr-input-wifi').style.display = 'block';
+          document.getElementById('qr-input-standard').style.display = 'none';
+        } else {
+          document.getElementById('qr-input-wifi').style.display = 'none';
+          document.getElementById('qr-input-standard').style.display = 'block';
+        }
+        renderQrCode();
+      }
+
+      function getQrString() {
+        const type = document.getElementById('qr-type').value;
+        if (type === 'wifi') {
+          const ssid = document.getElementById('wifi-ssid').value || '';
+          const pass = document.getElementById('wifi-pass').value || '';
+          const auth = document.getElementById('wifi-auth').value || 'WPA';
+          return `WIFI:T:${auth};S:${ssid};P:${pass};;`;
+        }
+        return document.getElementById('qr-text').value.trim() || 'https://toolnexusweb.com';
+      }
+
+      function renderQrCode() {
+        const str = getQrString();
+        const fg = document.getElementById('qr-fg').value;
+        const bg = document.getElementById('qr-bg').value;
+
+        const container = document.getElementById('qrcode-container');
+        container.innerHTML = '';
+
+        qrObj = new QRCode(container, {
+          text: str,
+          width: 220,
+          height: 220,
+          colorDark: fg,
+          colorLight: bg,
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+
+      function downloadQrPng() {
+        const img = document.querySelector('#qrcode-container img');
+        if (img && img.src && img.src.startsWith('data:')) {
+          downloadDataUrl(img.src, 'qrcode-' + Date.now() + '.png');
+          showToast('QR code downloaded successfully!', 'success');
+          return;
+        }
+        const canvas = document.querySelector('#qrcode-container canvas');
+        if (canvas) {
+          canvas.toBlob(function(blob) {
+            if (blob) {
+              downloadBlob(blob, 'qrcode-' + Date.now() + '.png');
+              showToast('QR code downloaded successfully!', 'success');
+            } else {
+              showToast('Failed to generate image', 'error');
+            }
+          }, 'image/png');
+          return;
+        }
+        showToast('Please generate QR code first', 'warning');
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        renderQrCode();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

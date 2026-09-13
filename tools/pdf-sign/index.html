@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign PDF - Free Online PDF Signature Tool | ToolNexus</title>
+  <meta name="description" content="Free in-browser Sign PDF tool. Draw your handwritten signature or type a stylish cursive name, position it anywhere on your contract, and download privately.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-sign/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-sign/">
+  <meta property="og:title" content="Sign PDF - Free Online PDF Signature Tool | ToolNexus">
+  <meta property="og:description" content="Free in-browser Sign PDF tool. Draw your handwritten signature or type a stylish cursive name, position it anywhere on your contract, and download privately.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Sign PDF - Free Online PDF Signature Tool | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Sign PDF tool. Draw your handwritten signature or type a stylish cursive name, position it anywhere on your contract, and download privately.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-sign/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-sign/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-sign/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/pdf-sign/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#pdf">PDF Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Sign PDF</span>
+      </nav>
+    </div>
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">PDF Tools & Legal</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">✍️ Sign PDF Document Online</h1>
+          </div>
+        </div>
+        <p class="tool-desc">Sign contracts, lease agreements, and invoices without printing or scanning. Draw or type your signature, position it with precision, and burn it directly into your PDF.</p>
+
+        <!-- Dropzone -->
+        <div class="dropzone" id="sign-dropzone" style="padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer; margin-bottom: 1.5rem;" onclick="document.getElementById('sign-file-input').click()">
+          <input type="file" id="sign-file-input" accept="application/pdf" style="display: none;" onchange="handleSignPdf(this.files[0])">
+          <div style="font-size: 2.8rem; margin-bottom: 0.5rem;">✍️</div>
+          <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-main);">Upload PDF Document to Sign</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Ideal for NDA, contracts, and lease agreements · 100% Client-Side Privacy</div>
+        </div>
+
+        <!-- Signing Workspace -->
+        <div id="sign-workspace" style="display: none;">
+          <div style="display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;" class="sign-grid">
+            
+            <!-- Left Panel: Signature Creator -->
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">Step 1: Create Your Signature</h3>
+              
+              <!-- Tab switch -->
+              <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem;">
+                <button type="button" class="btn-sm btn-primary" id="sig-tab-draw" onclick="switchSigTab('draw')">Draw Signature</button>
+                <button type="button" class="btn-sm btn-ghost" id="sig-tab-type" style="border:1px solid var(--border-color);" onclick="switchSigTab('type')">Type Name (Cursive)</button>
+              </div>
+
+              <!-- Draw Pad -->
+              <div id="sig-panel-draw">
+                <div style="border: 2px dashed var(--border-base); border-radius: var(--radius-sm); background: #ffffff; margin-bottom: 0.75rem; touch-action: none;">
+                  <canvas id="sig-canvas" width="300" height="130" style="display:block; cursor:crosshair; width:100%; height:130px;"></canvas>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn-ghost" style="width:24px; height:24px; border-radius:50%; background:#000000; border:2px solid var(--border-color);" onclick="setPenColor('#000000')"></button>
+                    <button type="button" class="btn-ghost" style="width:24px; height:24px; border-radius:50%; background:#1e3a8a; border:2px solid var(--border-color);" onclick="setPenColor('#1e3a8a')"></button>
+                  </div>
+                  <button type="button" class="btn-ghost btn-sm" style="font-size:0.8rem; border:1px solid var(--border-subtle);" onclick="clearSignature()">Clear</button>
+                </div>
+              </div>
+
+              <!-- Type Pad -->
+              <div id="sig-panel-type" style="display: none; margin-bottom: 1rem;">
+                <input type="text" id="sig-typed-input" class="input-text" placeholder="Type your full name (e.g. John Doe)..." style="margin-bottom: 0.5rem;" oninput="renderTypedSig()">
+                <div style="height: 100px; background: #ffffff; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border-subtle);">
+                  <span id="typed-preview" style="font-family: 'Caveat', cursive; font-size: 2.2rem; color: #1e3a8a;">Your Signature</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center; margin-bottom: 1rem;" onclick="placeSignatureOnPage()">
+                <span>Place Signature on Page ➔</span>
+              </button>
+
+              <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+                <button type="button" class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="burnAndDownloadPdf()">
+                  <span>Burn Signature & Download Signed PDF</span>
+                  <span>💾</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Panel: PDF Viewer & Positioning Canvas -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; background: var(--bg-surface-alt); padding: 0.5rem 1rem; border-radius: var(--radius-sm);">
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="changePage(-1)">Previous</button>
+                  <button type="button" class="btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="changePage(1)">Next</button>
+                </div>
+                <span id="page-counter-text" style="font-weight: 600; font-size: 0.9rem;">Page 1 of 1</span>
+              </div>
+
+              <div style="font-size: 0.8rem; color: var(--accent-amber); margin-bottom: 0.5rem;">💡 Tip: Click and drag the dotted signature box to position it anywhere on the page. Drag the handle to resize.</div>
+
+              <!-- Viewport Container -->
+              <div id="pdf-view-wrapper" style="position: relative; background: #525659; border-radius: var(--radius-md); padding: 1rem; overflow: auto; display: flex; justify-content: center; min-height: 480px;">
+                <div style="position: relative; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                  <canvas id="pdf-render-canvas" style="display: block; background: #fff;"></canvas>
+                  
+                  <!-- Movable Signature Element -->
+                  <div id="signature-stamp" style="display: none; position: absolute; left: 100px; top: 100px; width: 160px; height: 65px; border: 2px dashed #3b82f6; background: rgba(59, 130, 246, 0.08); cursor: move; user-select: none; z-index: 10;">
+                    <img id="stamp-img" style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;">
+                    <div id="resize-handle" style="position: absolute; right: -4px; bottom: -4px; width: 10px; height: 10px; background: #3b82f6; cursor: nwse-resize; border-radius: 2px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Is an in-browser electronic signature legally binding?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Yes. Under the US ESIGN Act, the EU eIDAS regulation, and common contract law, an electronic symbol or signature adopted by a person with the intent to sign a document is legally recognized for most agreements.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Is my signature or document sent to any server?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. ToolNexus operates entirely in your browser memory. Your contract and handwritten signature never leave your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/pdf-lib.min.js"></script>
+  <script src="/assets/vendor/pdf.min.js"></script>
+  <script>
+    let signPdfBytes = null;
+    let signPdfDoc = null;
+    let signPdfFileName = '';
+    let currentPageNum = 1;
+    let totalPdfPages = 1;
+    let currentPdfViewport = null;
+
+    // Signature Pad logic
+    const sigCanvas = document.getElementById('sig-canvas');
+    const sigCtx = sigCanvas.getContext('2d');
+    let isDrawing = false;
+    let penColor = '#000000';
+
+    sigCtx.lineWidth = 2.5;
+    sigCtx.lineCap = 'round';
+    sigCtx.lineJoin = 'round';
+
+    function setPenColor(color) {
+      penColor = color;
+      sigCtx.strokeStyle = color;
+    }
+
+    function clearSignature() {
+      sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+    }
+
+    function getCanvasCoords(e) {
+      const rect = sigCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: (clientX - rect.left) * (sigCanvas.width / rect.width),
+        y: (clientY - rect.top) * (sigCanvas.height / rect.height)
+      };
+    }
+
+    sigCanvas.addEventListener('mousedown', e => {
+      isDrawing = true;
+      const { x, y } = getCanvasCoords(e);
+      sigCtx.beginPath();
+      sigCtx.moveTo(x, y);
+    });
+    sigCanvas.addEventListener('mousemove', e => {
+      if (!isDrawing) return;
+      const { x, y } = getCanvasCoords(e);
+      sigCtx.lineTo(x, y);
+      sigCtx.stroke();
+    });
+    window.addEventListener('mouseup', () => isDrawing = false);
+
+    sigCanvas.addEventListener('touchstart', e => {
+      e.preventDefault();
+      isDrawing = true;
+      const { x, y } = getCanvasCoords(e);
+      sigCtx.beginPath();
+      sigCtx.moveTo(x, y);
+    });
+    sigCanvas.addEventListener('touchmove', e => {
+      e.preventDefault();
+      if (!isDrawing) return;
+      const { x, y } = getCanvasCoords(e);
+      sigCtx.lineTo(x, y);
+      sigCtx.stroke();
+    });
+    sigCanvas.addEventListener('touchend', () => isDrawing = false);
+
+    function switchSigTab(tab) {
+      if (tab === 'draw') {
+        document.getElementById('sig-tab-draw').classList.replace('btn-ghost', 'btn-primary');
+        document.getElementById('sig-tab-type').classList.replace('btn-primary', 'btn-ghost');
+        document.getElementById('sig-panel-draw').style.display = 'block';
+        document.getElementById('sig-panel-type').style.display = 'none';
+      } else {
+        document.getElementById('sig-tab-type').classList.replace('btn-ghost', 'btn-primary');
+        document.getElementById('sig-tab-draw').classList.replace('btn-primary', 'btn-ghost');
+        document.getElementById('sig-panel-type').style.display = 'block';
+        document.getElementById('sig-panel-draw').style.display = 'none';
+        renderTypedSig();
+      }
+    }
+
+    function renderTypedSig() {
+      const val = document.getElementById('sig-typed-input').value.trim() || 'Your Signature';
+      document.getElementById('typed-preview').textContent = val;
+    }
+
+    // PDF View & Page Render
+    async function handleSignPdf(file) {
+      if (!file) return;
+      signPdfFileName = file.name;
+      signPdfBytes = await file.arrayBuffer();
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdf.worker.min.js';
+      signPdfDoc = await pdfjsLib.getDocument({ data: signPdfBytes }).promise;
+      totalPdfPages = signPdfDoc.numPages;
+      currentPageNum = 1;
+
+      document.getElementById('sign-workspace').style.display = 'block';
+      renderCurrentPdfPage();
+    }
+
+    async function renderCurrentPdfPage() {
+      if (!signPdfDoc) return;
+      document.getElementById('page-counter-text').textContent = `Page ${currentPageNum} of ${totalPdfPages} `;
+
+      const page = await signPdfDoc.getPage(currentPageNum);
+      const scale = 1.0;
+      currentPdfViewport = page.getViewport({ scale });
+
+      const canvas = document.getElementById('pdf-render-canvas');
+      canvas.width = currentPdfViewport.width;
+      canvas.height = currentPdfViewport.height;
+
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport: currentPdfViewport }).promise;
+    }
+
+    function changePage(delta) {
+      const target = currentPageNum + delta;
+      if (target >= 1 && target <= totalPdfPages) {
+        currentPageNum = target;
+        renderCurrentPdfPage();
+      }
+    }
+
+    // Placing and Dragging Signature Stamp
+    let currentSigDataUrl = '';
+    let placedPageNum = 1;
+
+    function placeSignatureOnPage() {
+      let dataUrl = '';
+      if (document.getElementById('sig-panel-draw').style.display !== 'none') {
+        dataUrl = sigCanvas.toDataURL('image/png');
+      } else {
+        // Render typed signature into canvas
+        const c = document.createElement('canvas');
+        c.width = 400;
+        c.height = 120;
+        const ctx = c.getContext('2d');
+        ctx.font = '54px "Caveat", cursive';
+        ctx.fillStyle = '#1e3a8a';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(document.getElementById('typed-preview').textContent, 200, 60);
+        dataUrl = c.toDataURL('image/png');
+      }
+
+      currentSigDataUrl = dataUrl;
+      placedPageNum = currentPageNum;
+
+      const stamp = document.getElementById('signature-stamp');
+      const img = document.getElementById('stamp-img');
+      img.src = dataUrl;
+      stamp.style.display = 'block';
+      stamp.style.left = '80px';
+      stamp.style.top = '120px';
+
+      showToast('Signature placed! Drag to desired position.', 'info');
+    }
+
+    // Drag & Resize logic
+    (function initDragAndDrop() {
+      const stamp = document.getElementById('signature-stamp');
+      const handle = document.getElementById('resize-handle');
+      let isDragging = false;
+      let isResizing = false;
+      let startX, startY, startLeft, startTop, startWidth, startHeight;
+
+      stamp.addEventListener('mousedown', e => {
+        if (e.target === handle) return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = stamp.offsetLeft;
+        startTop = stamp.offsetTop;
+        e.preventDefault();
+      });
+
+      handle.addEventListener('mousedown', e => {
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = stamp.offsetWidth;
+        startHeight = stamp.offsetHeight;
+        e.stopPropagation();
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', e => {
+        if (isDragging) {
+          stamp.style.left = (startLeft + (e.clientX - startX)) + 'px';
+          stamp.style.top = (startTop + (e.clientY - startY)) + 'px';
+        } else if (isResizing) {
+          stamp.style.width = Math.max(50, startWidth + (e.clientX - startX)) + 'px';
+          stamp.style.height = Math.max(25, startHeight + (e.clientY - startY)) + 'px';
+        }
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+        isResizing = false;
+      });
+    })();
+
+    async function burnAndDownloadPdf() {
+        if (!signPdfBytes) {
+          showToast('Please upload a PDF document first', 'warning');
+          return;
+        }
+        const stamp = document.getElementById('signature-stamp');
+      if (stamp.style.display === 'none' || !currentSigDataUrl) {
+        showToast('Please create and place your signature first', 'warning');
+        return;
+      }
+
+      const pdfDoc = await PDFLib.PDFDocument.load(signPdfBytes);
+      const targetPage = pdfDoc.getPage(placedPageNum - 1);
+      const pageWidth = targetPage.getWidth();
+      const pageHeight = targetPage.getHeight();
+
+      const canvas = document.getElementById('pdf-render-canvas');
+      const scaleX = pageWidth / canvas.width;
+      const scaleY = pageHeight / canvas.height;
+
+      // Extract stamp coordinates
+      const stampLeft = stamp.offsetLeft;
+      const stampTop = stamp.offsetTop;
+      const stampW = stamp.offsetWidth;
+      const stampH = stamp.offsetHeight;
+
+      // PDF coordinates have origin (0,0) at bottom-left!
+      const pdfX = stampLeft * scaleX;
+      const pdfY = pageHeight - ((stampTop + stampH) * scaleY);
+      const pdfW = stampW * scaleX;
+      const pdfH = stampH * scaleY;
+
+      // Embed signature PNG
+      const pngImageBytes = await fetch(currentSigDataUrl).then(res => res.arrayBuffer());
+      const pngImage = await pdfDoc.embedPng(pngImageBytes);
+
+      targetPage.drawImage(pngImage, {
+        x: pdfX,
+        y: pdfY,
+        width: pdfW,
+        height: pdfH
+      });
+
+      const signedBytes = await pdfDoc.save();
+      const blob = new Blob([signedBytes], { type: 'application/pdf' });
+      downloadBlob(blob, 'signed_' + signPdfFileName);
+      showToast('Document signed and downloaded successfully!', 'success');
+    }
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/pdf-rotate/">Rotate PDF Pages</a></li>
+            <li><a href="/tools/pdf-sign/">Sign PDF Document</a></li>
+            <li><a href="/tools/pdf-page-numbers/">Add Page Numbers</a></li>
+            <li><a href="/tools/pdf-merge/">PDF Merger</a></li>
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

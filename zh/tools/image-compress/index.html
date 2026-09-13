@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>极速图片压缩 - 在线图片压缩瘦身工具 | 纯本地不限大小</title>
+  <meta name="description" content="纯前端在线极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能画质调节、尺寸等比缩放与无损减容。本地高速运算，绝不上传任何隐私图片。">
+  <meta name="keywords" content="图片压缩,在线图片压缩,图片瘦身,JPG压缩,PNG压缩,无损压缩">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/image-compress/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/image-compress/">
+  <meta property="og:title" content="极速图片压缩 - 在线图片压缩瘦身工具 | 纯本地不限大小">
+  <meta property="og:description" content="纯前端在线极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能画质调节、尺寸等比缩放与无损减容。本地高速运算，绝不上传任何隐私图片。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="极速图片压缩 - 在线图片压缩瘦身工具 | 纯本地不限大小">
+  <meta name="twitter:description" content="纯前端在线极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能画质调节、尺寸等比缩放与无损减容。本地高速运算，绝不上传任何隐私图片。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .compress-stat-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .stat-box {
+      text-align: center;
+    }
+    .stat-val-big {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+    }
+    .saved-badge {
+      color: var(--accent-emerald);
+      background: var(--accent-emerald-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .preview-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .preview-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .preview-box {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+    }
+    .preview-img-box {
+      max-height: 280px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-input);
+      border-radius: var(--radius-sm);
+    }
+    .preview-img-box img {
+      max-width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/image-compress/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/image-compress/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/image-compress/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/image-compress/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>图像与媒体</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>极速图片压缩</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🗜️ 极速图片压缩</h1>
+        <span class="badge-tag badge-privacy">🔒 本地 Canvas 算力 · 零数据上传</span>
+        <span class="badge-tag badge-hot">替代收费商业工具</span>
+      </div>
+      <p class="tool-desc">纯本地高精度压缩 JPG、PNG、WebP 图片，自由调节质量比例与尺寸缩放。实时对比压缩前后体积与肉眼画质，支持一键下载瘦身后的图片。</p>
+    </div>
+
+    <!-- 工作面板 -->
+    <div class="tool-card">
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">📥</div>
+        <div class="dropzone-title">拖拽单张或多张图片到此处，或点击选择</div>
+        <div class="dropzone-hint">支持 JPG、PNG、WebP 等任意大图，无体积大小限制</div>
+        <input type="file" id="file-input" accept="image/*">
+      </div>
+
+      <div id="compress-controls" style="display: none; margin-top: 1.75rem;">
+        <div class="grid-2">
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.45rem;">
+              <label class="form-label" style="margin: 0;">压缩质量控制：</label>
+              <span class="slider-badge" id="quality-val">80%</span>
+            </div>
+            <input type="range" class="slider-range" id="quality-slider" min="0.1" max="1" step="0.05" value="0.8">
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem;">建议 75%~85%，能在保证画质几乎无损的前提下缩小 50%~80% 体积</div>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.45rem;">
+              <label class="form-label" style="margin: 0;">尺寸缩放比例：</label>
+              <span class="slider-badge" id="scale-val">100% (原始尺寸)</span>
+            </div>
+            <input type="range" class="slider-range" id="scale-slider" min="0.2" max="1" step="0.1" value="1">
+          </div>
+        </div>
+
+        <div class="compress-stat-card">
+          <div class="stat-box">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">原始体积</div>
+            <div class="stat-val-big" id="orig-size">-</div>
+          </div>
+          <div style="font-size: 1.5rem; color: var(--text-subtle);">➔</div>
+          <div class="stat-box">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">压缩后体积</div>
+            <div class="stat-val-big" id="comp-size" style="color: var(--accent-emerald);">-</div>
+          </div>
+          <div class="stat-box">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">瘦身体积比例</div>
+            <div><span class="saved-badge" id="saved-pct">-</span></div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+          <button type="button" class="btn btn-primary btn-lg" id="btn-download">💾 下载压缩后的图片</button>
+        </div>
+
+        <!-- 视觉对比区 -->
+        <div class="preview-container">
+          <div class="preview-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--text-main);">原图预览</h4>
+            <div class="preview-img-box"><img id="orig-img-el" alt="原图"></div>
+          </div>
+          <div class="preview-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent-emerald);">压缩后效果预览</h4>
+            <div class="preview-img-box"><img id="comp-img-el" alt="压缩后图片"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">图片压缩常见问答</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">为什么本站图片压缩没有 5MB 或 10MB 的上限？ <span>▼</span></div>
+          <div class="faq-answer">商业工具站（如 TinyPNG）之所以限制 5MB，是因为它们需要将您的图片上传到云端服务器消耗其带宽和 CPU。而本站的压缩算法 100% 运行在您本机的浏览器内存中，消耗的是您的本机性能，因此完全不存在文件大小或张数限制。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">压缩后的图片画质会模糊吗？ <span>▼</span></div>
+          <div class="faq-answer">在默认推荐的 80% 质量下，由于去除了冗余的元数据（EXIF 信息、色彩空间标记等）并对人眼不敏感的高频色度进行了微调，肉眼几乎无法察觉任何差异，但文件体积通常可缩减 50%~75% 以上。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const controls = document.getElementById('compress-controls');
+    const qualitySlider = document.getElementById('quality-slider');
+    const qualityVal = document.getElementById('quality-val');
+    const scaleSlider = document.getElementById('scale-slider');
+    const scaleVal = document.getElementById('scale-val');
+    const origSizeEl = document.getElementById('orig-size');
+    const compSizeEl = document.getElementById('comp-size');
+    const savedPctEl = document.getElementById('saved-pct');
+    const origImgEl = document.getElementById('orig-img-el');
+    const compImgEl = document.getElementById('comp-img-el');
+    const btnDownload = document.getElementById('btn-download');
+
+    let currentFile = null;
+    let currentCompressedBlob = null;
+
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) processFile(e.target.files[0]);
+    });
+
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]);
+    });
+
+    function processFile(file) {
+      if (!file.type.startsWith('image/')) {
+        Utils.showToast('请选择有效的图片文件', 'warning');
+        return;
+      }
+      currentFile = file;
+      origSizeEl.textContent = Utils.formatBytes(file.size);
+      origImgEl.src = URL.createObjectURL(file);
+      controls.style.display = 'block';
+      compressImage();
+    }
+
+    async function compressImage() {
+      if (!currentFile) return;
+      const q = parseFloat(qualitySlider.value);
+      const scale = parseFloat(scaleSlider.value);
+
+      qualityVal.textContent = Math.round(q * 100) + '%';
+      scaleVal.textContent = Math.round(scale * 100) + '%';
+
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.naturalWidth * scale);
+        canvas.height = Math.round(img.naturalHeight * scale);
+        const ctx = canvas.getContext('2d');
+
+        const mime = currentFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
+        if (mime === 'image/jpeg') {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(blob => {
+          currentCompressedBlob = blob;
+          compSizeEl.textContent = Utils.formatBytes(blob.size);
+          const savedBytes = currentFile.size - blob.size;
+          const pct = Math.round((savedBytes / currentFile.size) * 100);
+          savedPctEl.textContent = (pct >= 0 ? '-' + pct : '+' + Math.abs(pct)) + '%';
+          compImgEl.src = URL.createObjectURL(blob);
+        }, mime, q);
+      };
+      img.src = URL.createObjectURL(currentFile);
+    }
+
+    qualitySlider.addEventListener('input', compressImage);
+    scaleSlider.addEventListener('input', compressImage);
+
+    btnDownload.addEventListener('click', () => {
+      if (!currentCompressedBlob) {
+        Utils.showToast('请先选择并压缩图片', 'warning');
+        return;
+      }
+      const ext = currentFile.name.split('.').pop() || 'jpg';
+      const newName = currentFile.name.replace(/\.[^/.]+$/, '') + '_compressed.' + ext;
+      Utils.downloadBlob(currentCompressedBlob, newName);
+      Utils.showToast('已成功下载压缩文件！', 'success');
+    });
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

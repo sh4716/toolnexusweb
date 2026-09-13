@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Image Converter - Render PDF to JPG/PNG | ToolNexus</title>
+  <meta name="description" content="Free in-browser PDF to Image Converter. Convert PDF pages to high-resolution JPG or PNG images with ZIP download.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-to-image/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-to-image/">
+  <meta property="og:title" content="PDF to Image Converter - Render PDF to JPG/PNG | ToolNexus">
+  <meta property="og:description" content="Free in-browser PDF to Image Converter. Convert PDF pages to high-resolution JPG or PNG images with ZIP download.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PDF to Image Converter - Render PDF to JPG/PNG | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser PDF to Image Converter. Convert PDF pages to high-resolution JPG or PNG images with ZIP download.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-to-image/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-to-image/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-to-image/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/pdf-to-image/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#pdf">PDF Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF to Image Converter</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">PDF Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🖼️ PDF to High-Resolution Images</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Render and extract all PDF document pages into high-resolution JPG or PNG images. Download individual pages or a single ZIP.
+        </p>
+
+        <div class="dropzone" style="padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer; margin-bottom: 1.5rem;" onclick="document.getElementById('pdf-img-input').click()">
+          <input type="file" id="pdf-img-input" accept="application/pdf" style="display: none;" onchange="handlePdfToImage(this.files[0])">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📄</div>
+          <div style="font-weight: 600; color: var(--text-main);">Click or Drag & Drop PDF to Render</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Renders pages to JPG/PNG using local canvas</div>
+        </div>
+
+        <div id="pdf-img-controls" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <span style="font-weight: 600;">Rendered Pages: <strong id="rendered-count" style="color:var(--primary);">0</strong></span>
+            <button type="button" class="btn btn-primary" onclick="downloadPdfImagesZip()">
+              <span>Download All as ZIP</span>
+              <span>📦</span>
+            </button>
+          </div>
+          <div id="pdf-canvas-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/assets/vendor/pdf.min.js"></script>
+    <script src="/assets/vendor/jszip.min.js"></script>
+    <script>
+      let renderedBlobs = [];
+
+      async function handlePdfToImage(file) {
+        if (!file) return;
+        renderedBlobs = [];
+        const container = document.getElementById('pdf-canvas-list');
+        container.innerHTML = '';
+        document.getElementById('pdf-img-controls').style.display = 'block';
+
+        const arrayBuffer = await file.arrayBuffer();
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdf.worker.min.js';
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+        document.getElementById('rendered-count').textContent = pdf.numPages;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          const ctx = canvas.getContext('2d');
+
+          await page.render({ canvasContext: ctx, viewport }).promise;
+
+          const card = document.createElement('div');
+          card.style = 'background:var(--bg-surface-alt); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:0.75rem; text-align:center;';
+          canvas.style = 'width:100%; height:auto; border-radius:3px; box-shadow:var(--shadow-sm);';
+          card.appendChild(canvas);
+
+          const dlBtn = document.createElement('button');
+          dlBtn.className = 'btn btn-secondary btn-sm';
+          dlBtn.style = 'margin-top:0.5rem; width:100%;';
+          dlBtn.textContent = 'Download Page ' + i;
+          
+          canvas.toBlob(blob => {
+            renderedBlobs.push({ name: `page_${i}.png`, blob });
+            dlBtn.onclick = () => downloadBlob(blob, `page_${i}.png`);
+          }, 'image/png');
+
+          card.appendChild(dlBtn);
+          container.appendChild(card);
+        }
+      }
+
+      async function downloadPdfImagesZip() {
+        if (!window.JSZip) {
+          showToast('ZIP library not loaded', 'error');
+          return;
+        }
+        if (renderedBlobs.length === 0) {
+          showToast('Please upload and convert a PDF first', 'warning');
+          return;
+        }
+        const zip = new JSZip();
+        renderedBlobs.forEach(item => {
+          zip.file(item.name, item.blob);
+        });
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        downloadBlob(zipBlob, 'pdf_pages_' + Date.now() + '.zip');
+        showToast('ZIP archive downloaded successfully!', 'success');
+      }
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

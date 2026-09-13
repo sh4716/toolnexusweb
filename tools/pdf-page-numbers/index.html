@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Page Numbers to PDF - Insert Page Numbers Online Free | ToolNexus</title>
+  <meta name="description" content="Free in-browser Add Page Numbers to PDF tool. Insert "Page X of Y", customize positions (header/footer), skip cover pages, and change font styles.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-page-numbers/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-page-numbers/">
+  <meta property="og:title" content="Add Page Numbers to PDF - Insert Page Numbers Online Free | ToolNexus">
+  <meta property="og:description" content="Free in-browser Add Page Numbers to PDF tool. Insert">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Add Page Numbers to PDF - Insert Page Numbers Online Free | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Add Page Numbers to PDF tool. Insert">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-page-numbers/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-page-numbers/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-page-numbers/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+  <script src="/assets/js/utils.js"></script>
+  <style>
+    /* Modern Beautified Styles for PDF Page Numbers */
+    .format-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .format-card {
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .format-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .format-card.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 2px var(--primary-border);
+    }
+    .format-preview {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      margin-bottom: 3px;
+      font-family: var(--font-mono, monospace);
+    }
+    .format-card.active .format-preview {
+      color: var(--primary);
+    }
+    .format-name {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Position Picker Sheet */
+    .position-sheet-picker {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .pos-picker-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .pos-target-btn {
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface-alt);
+      color: var(--text-muted);
+      padding: 0.5rem 0.35rem;
+      border-radius: var(--radius-xs);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+    .pos-target-btn:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .pos-target-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+    .pos-sheet-canvas-hint {
+      padding: 0.75rem 1rem;
+      background: var(--bg-surface-alt);
+      border-radius: 4px;
+      border: 1px dashed var(--border-subtle);
+      opacity: 0.6;
+    }
+    .mini-doc-lines .line {
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+    .mini-doc-lines .line:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Color Swatches */
+    .color-swatch-btn {
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      border-radius: 999px;
+      padding: 0.4rem 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .color-swatch-btn:hover {
+      border-color: var(--primary);
+    }
+    .color-swatch-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 700;
+      box-shadow: 0 0 0 2px var(--primary-border);
+    }
+    .swatch-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+
+    /* Custom Input & Selects */
+    .custom-select-wrapper {
+      position: relative;
+    }
+    .custom-styled-select, .custom-styled-input {
+      width: 100%;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    .custom-styled-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
+      cursor: pointer;
+    }
+    .custom-styled-select:focus, .custom-styled-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    /* Paper Preview */
+    .paper-preview-container {
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 310px;
+    }
+    .paper-sheet {
+      width: 200px;
+      height: 275px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.25);
+      position: relative;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+      box-sizing: border-box;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    [data-theme="dark"] .paper-sheet {
+      background: #1e293b;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.6);
+    }
+    .doc-sim-title {
+      height: 7px;
+      width: 55%;
+      background: #cbd5e1;
+      border-radius: 3px;
+      margin-bottom: 12px;
+    }
+    [data-theme="dark"] .doc-sim-title {
+      background: #475569;
+    }
+    .doc-sim-para {
+      height: 4px;
+      width: 100%;
+      background: #e2e8f0;
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+    [data-theme="dark"] .doc-sim-para {
+      background: #334155;
+    }
+    .doc-sim-para.short { width: 45%; }
+    .doc-sim-para.medium { width: 75%; }
+
+    .live-page-num-tag {
+      position: absolute;
+      font-weight: 600;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      white-space: nowrap;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px dashed var(--primary);
+    }
+    .preview-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+    }
+
+    @media (max-width: 860px) {
+      .num-layout-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+
+</head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/pdf-page-numbers/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#pdf">PDF Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Add Page Numbers to PDF</span>
+      </nav>
+    </div>
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">PDF Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🔢 Add Page Numbers to PDF</h1>
+          </div>
+        </div>
+        <p class="tool-desc">Number your PDF document pages automatically. Choose formats ("Page 1 of N", "1 / N", "1"), position (bottom center, bottom right), font size, and skip cover pages.</p>
+
+        <!-- Dropzone -->
+        <div class="dropzone" id="num-dropzone" style="padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer; margin-bottom: 1.5rem;" onclick="document.getElementById('num-file-input').click()">
+          <input type="file" id="num-file-input" accept="application/pdf" style="display: none;" onchange="handleNumberPdf(this.files[0])">
+          <div style="font-size: 2.8rem; margin-bottom: 0.5rem;">🔢</div>
+          <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-main);">Upload PDF to Add Page Numbers</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Ideal for legal briefs, university theses, and contracts · 100% In-Browser Privacy</div>
+        </div>
+
+        <!-- Options Configuration -->
+                <!-- Enhanced Modern Workspace -->
+        <div id="num-workspace" style="display: none; margin-top: 1.5rem;">
+          <!-- Document Status Banner -->
+          <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span style="font-size: 1.5rem;">📄</span>
+              <div>
+                <div id="pdf-file-name" style="font-weight: 600; color: var(--text-main); font-size: 0.95rem;">Document Ready</div>
+                <div id="pdf-page-count" style="font-size: 0.8rem; color: var(--text-muted);">0 Pages Total</div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById('num-file-input').click()" style="border: 1px solid var(--border-color); font-size: 0.8rem;">Change File ↺</button>
+          </div>
+
+          <div class="num-layout-grid" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; align-items: start;">
+            <!-- Left Column: Beautified Controls -->
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+              
+              <!-- 1. Format Option Cards -->
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.65rem; color: var(--text-main);">
+                  1. Page Number Format
+                </label>
+                <div class="format-cards-grid">
+                  <div class="format-card active" data-val="page_of" onclick="selectFormat('page_of')">
+                    <div class="format-preview">Page 1 of 12</div>
+                    <div class="format-name">Standard Total</div>
+                  </div>
+                  <div class="format-card" data-val="single" onclick="selectFormat('single')">
+                    <div class="format-preview">1, 2, 3...</div>
+                    <div class="format-name">Numbers Only</div>
+                  </div>
+                  <div class="format-card" data-val="slash" onclick="selectFormat('slash')">
+                    <div class="format-preview">1 / 12</div>
+                    <div class="format-name">Compact Slash</div>
+                  </div>
+                  <div class="format-card" data-val="dash" onclick="selectFormat('dash')">
+                    <div class="format-preview">- 1 -</div>
+                    <div class="format-name">Hyphenated</div>
+                  </div>
+                </div>
+                <select id="num-format" style="display: none;">
+                  <option value="page_of" selected>Page {n} of {total}</option>
+                  <option value="single">{n}</option>
+                  <option value="slash">{n} / {total}</option>
+                  <option value="dash">- {n} -</option>
+                </select>
+              </div>
+
+              <!-- 2. Interactive Position Selector -->
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.65rem; color: var(--text-main);">
+                  2. Position on Page
+                </label>
+                <div class="position-sheet-picker">
+                  <div class="pos-picker-row">
+                    <button type="button" class="pos-target-btn" data-pos="tl" onclick="selectPos('tl')">↖ Top Left</button>
+                    <button type="button" class="pos-target-btn" data-pos="tc" onclick="selectPos('tc')">↑ Top Center</button>
+                    <button type="button" class="pos-target-btn" data-pos="tr" onclick="selectPos('tr')">↗ Top Right</button>
+                  </div>
+                  <div class="pos-sheet-canvas-hint">
+                    <div class="mini-doc-lines">
+                      <div class="line" style="width: 75%;"></div>
+                      <div class="line" style="width: 90%;"></div>
+                      <div class="line" style="width: 60%;"></div>
+                    </div>
+                  </div>
+                  <div class="pos-picker-row">
+                    <button type="button" class="pos-target-btn" data-pos="bl" onclick="selectPos('bl')">↙ Bottom Left</button>
+                    <button type="button" class="pos-target-btn active" data-pos="bc" onclick="selectPos('bc')">↓ Bottom Center (Standard)</button>
+                    <button type="button" class="pos-target-btn" data-pos="br" onclick="selectPos('br')">↘ Bottom Right</button>
+                  </div>
+                </div>
+                <select id="num-pos" style="display: none;">
+                  <option value="bc" selected>Bottom Center</option>
+                  <option value="br">Bottom Right</option>
+                  <option value="bl">Bottom Left</option>
+                  <option value="tc">Top Center</option>
+                  <option value="tr">Top Right</option>
+                  <option value="tl">Top Left</option>
+                </select>
+              </div>
+
+              <!-- 3. Color & Typography Styling -->
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.65rem; color: var(--text-main);">
+                  3. Font Color
+                </label>
+                <div class="color-swatches-row" style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                  <button type="button" class="color-swatch-btn active" data-color="black" onclick="selectColor('black')">
+                    <span class="swatch-dot" style="background: #0f172a;"></span>
+                    <span>Classic Black</span>
+                  </button>
+                  <button type="button" class="color-swatch-btn" data-color="gray" onclick="selectColor('gray')">
+                    <span class="swatch-dot" style="background: #64748b;"></span>
+                    <span>Slate Gray</span>
+                  </button>
+                  <button type="button" class="color-swatch-btn" data-color="blue" onclick="selectColor('blue')">
+                    <span class="swatch-dot" style="background: #2563eb;"></span>
+                    <span>Royal Blue</span>
+                  </button>
+                  <button type="button" class="color-swatch-btn" data-color="red" onclick="selectColor('red')">
+                    <span class="swatch-dot" style="background: #dc2626;"></span>
+                    <span>Crimson Red</span>
+                  </button>
+                </div>
+                <select id="num-color" style="display: none;">
+                  <option value="black" selected>Classic Black</option>
+                  <option value="gray">Slate Gray</option>
+                  <option value="blue">Royal Blue</option>
+                  <option value="red">Crimson Red</option>
+                </select>
+              </div>
+
+              <!-- 4. Dimensions & Options -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.85rem; margin-bottom: 1.25rem;">
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Margin (pt)</label>
+                  <div class="custom-select-wrapper">
+                    <select id="num-margin" class="custom-styled-select" onchange="updateLivePreview()">
+                      <option value="15">15 pt (Tight)</option>
+                      <option value="20" selected>20 pt (Standard)</option>
+                      <option value="30">30 pt (Spacious)</option>
+                      <option value="40">40 pt (Wide)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Font Size</label>
+                  <div class="custom-select-wrapper">
+                    <select id="num-size" class="custom-styled-select" onchange="updateLivePreview()">
+                      <option value="9">9 pt (Small)</option>
+                      <option value="10" selected>10 pt (Default)</option>
+                      <option value="11">11 pt (Clear)</option>
+                      <option value="12">12 pt (Large)</option>
+                      <option value="14">14 pt (Extra)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Start at Number</label>
+                  <input type="number" id="num-start" class="custom-styled-input" value="1" min="1" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <!-- 5. Skip Cover -->
+              <div style="padding-top: 0.5rem;">
+                <label style="display: inline-flex; align-items: center; gap: 0.65rem; cursor: pointer; user-select: none;">
+                  <input type="checkbox" id="num-skip-cover" onchange="updateLivePreview()" style="width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;">
+                  <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-main);">Skip first page (Do not number cover page)</span>
+                </label>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Live Visual Preview & Download -->
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-subtle);">Live Layout Preview</span>
+                  <span class="preview-badge">Live Mockup</span>
+                </div>
+
+                <!-- Realistic Paper Mockup Container -->
+                <div class="paper-preview-container">
+                  <div class="paper-sheet" id="live-paper-sheet">
+                    <!-- Simulated page content lines -->
+                    <div class="paper-header-sim">
+                      <div class="doc-sim-title"></div>
+                    </div>
+                    <div class="paper-body-sim">
+                      <div class="doc-sim-para"></div>
+                      <div class="doc-sim-para short"></div>
+                      <div class="doc-sim-para"></div>
+                      <div class="doc-sim-para medium"></div>
+                      <div class="doc-sim-para"></div>
+                    </div>
+
+                    <!-- Floating Live Page Number Preview -->
+                    <div class="live-page-num-tag" id="live-page-num-tag">
+                      Page 1 of 12
+                    </div>
+                  </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 0.85rem; font-size: 0.78rem; color: var(--text-muted);">
+                  💡 Real-time preview. Output is rendered with crisp vector typography into the PDF.
+                </div>
+              </div>
+
+              <!-- Main Download Action Button -->
+              <button type="button" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 0.95rem; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);" onclick="processPageNumbers()">
+                <span>Insert Page Numbers & Download PDF</span>
+                <span>⚡</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Does this handle mixed landscape and portrait pages?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Yes. The algorithm measures the exact physical width and height of each individual page dynamically, positioning the page numbers consistently regardless of orientation.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Will my hyperlinks, bookmarks, or text formatting be affected?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. The page numbers are stamped in a non-destructive layer over the existing document, keeping all original text, vector graphics, and links intact.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/pdf-lib.min.js"></script>
+  <script>
+    let numPdfBytes = null;
+    let numPdfFileName = '';
+    let currentDocPages = 10;
+
+    // Visual Selector Handlers
+    function selectFormat(val) {
+      document.querySelectorAll('.format-card').forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-val') === val);
+      });
+      document.getElementById('num-format').value = val;
+      updateLivePreview();
+    }
+
+    function selectPos(pos) {
+      document.querySelectorAll('.pos-target-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-pos') === pos);
+      });
+      document.getElementById('num-pos').value = pos;
+      updateLivePreview();
+    }
+
+    function selectColor(col) {
+      document.querySelectorAll('.color-swatch-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-color') === col);
+      });
+      document.getElementById('num-color').value = col;
+      updateLivePreview();
+    }
+
+    function updateLivePreview(pages) {
+      if (pages) currentDocPages = pages;
+      const format = document.getElementById('num-format').value;
+      const pos = document.getElementById('num-pos').value;
+      const colorKey = document.getElementById('num-color').value;
+      const marginPt = parseFloat(document.getElementById('num-margin').value) || 20;
+      const fontSizePt = parseFloat(document.getElementById('num-size').value) || 10;
+      const startNum = parseInt(document.getElementById('num-start').value) || 1;
+
+      const tag = document.getElementById('live-page-num-tag');
+      if (!tag) return;
+
+      // Text format
+      let text = '';
+      const num = startNum;
+      const total = currentDocPages;
+
+      if (format === 'page_of') {
+        text = 'Page ' + num + ' of ' + total;
+      } else if (format === 'slash') {
+        text = num + ' / ' + total;
+      } else if (format === 'dash') {
+        text = '- ' + num + ' -';
+      } else {
+        text = '' + num;
+      }
+      tag.textContent = text;
+
+      // Color
+      const colorMap = {
+        'black': '#0f172a',
+        'gray': '#64748b',
+        'blue': '#2563eb',
+        'red': '#dc2626'
+      };
+      tag.style.color = colorMap[colorKey] || '#0f172a';
+
+      // Font size
+      tag.style.fontSize = Math.max(9, Math.min(15, fontSizePt)) + 'px';
+
+      // Position
+      tag.style.top = 'auto';
+      tag.style.bottom = 'auto';
+      tag.style.left = 'auto';
+      tag.style.right = 'auto';
+      tag.style.transform = 'none';
+
+      const previewMargin = Math.round(marginPt * 0.45) + 'px';
+
+      if (pos.startsWith('t')) {
+        tag.style.top = previewMargin;
+      } else {
+        tag.style.bottom = previewMargin;
+      }
+
+      if (pos.endsWith('c')) {
+        tag.style.left = '50%';
+        tag.style.transform = 'translateX(-50%)';
+      } else if (pos.endsWith('r')) {
+        tag.style.right = previewMargin;
+      } else if (pos.endsWith('l')) {
+        tag.style.left = previewMargin;
+      }
+    }
+
+    async function handleNumberPdf(file) {
+      if (!file || (file.type !== 'application/pdf' && !file.name.endsWith('.pdf'))) {
+        showToast('Please select a valid PDF document', 'warning');
+        return;
+      }
+      numPdfFileName = file.name;
+      numPdfBytes = await file.arrayBuffer();
+
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.load(numPdfBytes);
+        const count = pdfDoc.getPageCount();
+        document.getElementById('pdf-file-name').textContent = file.name;
+        document.getElementById('pdf-page-count').textContent = count + ' Pages · ' + formatBytes(file.size);
+        document.getElementById('num-dropzone').style.display = 'none';
+        document.getElementById('num-workspace').style.display = 'block';
+        updateLivePreview(count);
+        showToast('PDF loaded! Customize page numbers layout', 'success');
+      } catch (err) {
+        showToast('PDF parse error: ' + err.message, 'error');
+      }
+    }
+
+    async function processPageNumbers() {
+      if (!numPdfBytes) {
+        showToast('Please upload a PDF file first', 'warning');
+        return;
+      }
+
+      const format = document.getElementById('num-format').value;
+      const pos = document.getElementById('num-pos').value;
+      const margin = parseFloat(document.getElementById('num-margin').value) || 20;
+      const fontSize = parseFloat(document.getElementById('num-size').value) || 10;
+      const colorKey = document.getElementById('num-color').value;
+      const skipCover = document.getElementById('num-skip-cover').checked;
+      const startNum = parseInt(document.getElementById('num-start').value) || 1;
+
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.load(numPdfBytes);
+        const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+
+        let color = PDFLib.rgb(0, 0, 0);
+        if (colorKey === 'gray') color = PDFLib.rgb(0.35, 0.35, 0.35);
+        else if (colorKey === 'blue') color = PDFLib.rgb(0.12, 0.23, 0.54);
+        else if (colorKey === 'red') color = PDFLib.rgb(0.86, 0.15, 0.15);
+
+        const pages = pdfDoc.getPages();
+        const totalPages = pages.length;
+
+        for (let i = 0; i < totalPages; i++) {
+          if (skipCover && i === 0) continue;
+
+          const page = pages[i];
+          const { width, height } = page.getSize();
+          const currentNumber = (i + startNum) - (skipCover ? 1 : 0);
+
+          let text = '';
+          if (format === 'page_of') text = `Page ${currentNumber} of ${totalPages}`;
+          else if (format === 'slash') text = `${currentNumber} / ${totalPages}`;
+          else if (format === 'dash') text = `- ${currentNumber} -`;
+          else text = `${currentNumber}`;
+
+          const textWidth = font.widthOfTextAtSize(text, fontSize);
+
+          let x = 0;
+          let y = 0;
+
+          // X Coordinate
+          if (pos.endsWith('c')) {
+            x = (width - textWidth) / 2;
+          } else if (pos.endsWith('r')) {
+            x = width - margin - textWidth;
+          } else if (pos.endsWith('l')) {
+            x = margin;
+          }
+
+          // Y Coordinate
+          if (pos.startsWith('b')) {
+            y = margin;
+          } else if (pos.startsWith('t')) {
+            y = height - margin - fontSize;
+          }
+
+          page.drawText(text, {
+            x,
+            y,
+            size: fontSize,
+            font,
+            color
+          });
+        }
+
+        const modifiedBytes = await pdfDoc.save();
+        const blob = new Blob([modifiedBytes], { type: 'application/pdf' });
+        downloadBlob(blob, 'numbered_' + numPdfFileName);
+        showToast('Page numbers inserted and PDF downloaded!', 'success');
+      } catch (err) {
+        showToast('Error generating PDF: ' + err.message, 'error');
+      }
+    }
+
+    // Drag and Drop
+    const dropzone = document.getElementById('num-dropzone');
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleNumberPdf(e.dataTransfer.files[0]);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateLivePreview();
+    });
+  </script>
+</main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/pdf-rotate/">Rotate PDF Pages</a></li>
+            <li><a href="/tools/pdf-sign/">Sign PDF Document</a></li>
+            <li><a href="/tools/pdf-page-numbers/">Add Page Numbers</a></li>
+            <li><a href="/tools/pdf-merge/">PDF Merger</a></li>
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

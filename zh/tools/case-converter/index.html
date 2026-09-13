@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英文大小写与 Title Case 智能排版转换器 | ToolNexus</title>
+  <meta name="description" content="免费英文大小写转换器。支持智能 Title Case 英文标题首字母大写（遵循美联社/芝加哥格式）、camelCase、snake_case、kebab-case 及字数统计。">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/case-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/case-converter/">
+  <meta property="og:title" content="英文大小写与 Title Case 智能排版转换器 | ToolNexus">
+  <meta property="og:description" content="免费英文大小写转换器。支持智能 Title Case 英文标题首字母大写（遵循美联社/芝加哥格式）、camelCase、snake_case、kebab-case 及字数统计。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="英文大小写与 Title Case 智能排版转换器 | ToolNexus">
+  <meta name="twitter:description" content="免费英文大小写转换器。支持智能 Title Case 英文标题首字母大写（遵循美联社/芝加哥格式）、camelCase、snake_case、kebab-case 及字数统计。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/case-converter/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/case-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/case-converter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/case-converter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-badge badge-primary">文本 & 开发者效率</span>
+          <h1 class="tool-title">🔤 英文大小写与 Title Case 转换器</h1>
+          <p class="tool-desc">一键将英文文本快速转换为专业标题格式（Title Case）、全部大写、全部小写、句子首字母大写、或编程常用的驼峰与下划线变量名。</p>
+        </div>
+
+        <!-- Live Statistics Counter -->
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background: var(--bg-surface-alt); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1rem; font-size: 0.85rem;">
+          <div><span style="color: var(--text-muted);">单词数:</span> <strong id="stat-words" style="color: var(--primary);">0</strong></div>
+          <div><span style="color: var(--text-muted);">字符数 (含空格):</span> <strong id="stat-chars" style="color: var(--accent-cyan);">0</strong></div>
+          <div><span style="color: var(--text-muted);">纯字符 (无空格):</span> <strong id="stat-chars-nospace" style="color: var(--text-main);">0</strong></div>
+          <div><span style="color: var(--text-muted);">行数:</span> <strong id="stat-lines" style="color: var(--text-muted);">0</strong></div>
+        </div>
+
+        <!-- Input Textarea -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <textarea id="case-input" class="input-text" rows="8" placeholder="在此键入或粘贴需要转换的英文字段或文章标题 (如: the quick brown fox jumps over the lazy dog)..." style="font-size: 1rem; line-height: 1.6; resize: vertical;" oninput="handleCaseInput()">the quick brown fox jumps over the lazy dog</textarea>
+        </div>
+
+        <!-- Case Transformation Buttons Grid -->
+        <div class="case-btns">
+          <button type="button" class="btn-sm case-btn" data-mode="title" onclick="transformCase('title')">Title Case (专业标题大写)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="sentence" onclick="transformCase('sentence')">Sentence case (句首字母大写)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="upper" onclick="transformCase('upper')">UPPERCASE (全部大写)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="lower" onclick="transformCase('lower')">lowercase (全部小写)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="camel" onclick="transformCase('camel')">camelCase (小驼峰)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="pascal" onclick="transformCase('pascal')">PascalCase (大驼峰)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="snake" onclick="transformCase('snake')">snake_case (下划线)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="kebab" onclick="transformCase('kebab')">kebab-case (短横线)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="constant" onclick="transformCase('constant')">CONSTANT_CASE (常量大写)</button>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" onclick="copyCaseText()">
+            <span>复制结果</span>
+            <span>📋</span>
+          </button>
+          <button type="button" class="btn btn-ghost" style="border:1px solid var(--border-color);" onclick="clearCaseText()">
+            <span>清空内容</span>
+            <span>🗑️</span>
+          </button>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">关于英文排版大小写的规范与规则</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Title Case（标题大小写）是如何判定哪些词不该大写的？</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">遵循 AP（美联社）和芝加哥大学出版规范：虚词（冠词 a, an, the；并列连词 and, but, for, or, nor；短介词 in, on, at, to, by, of 等）默认保持小写，但位于标题首词或尾词时强制大写。</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 编程中 camelCase、snake_case 和 kebab-case 通常用在何处？</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">camelCase 常用于 JavaScript/Java 变量与函数名；snake_case 常用于 Python 变量及数据库字段；kebab-case 则常用于 URL Slug 和 CSS 类名。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .case-btns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+    .case-btns .case-btn {
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-alt);
+      color: var(--text-main);
+      padding: 0.55rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .case-btns .case-btn:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
+      background: var(--bg-surface);
+    }
+    .case-btns .case-btn.active {
+      background: linear-gradient(135deg, var(--primary), #4f46e5) !important;
+      color: #ffffff !important;
+      border-color: var(--primary) !important;
+      box-shadow: 0 3px 12px rgba(99, 102, 241, 0.4);
+      transform: translateY(-1px);
+    }
+  </style>
+
+  <script>
+    const MINOR_WORDS = new Set([
+      'a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 
+      'to', 'by', 'of', 'in', 'with', 'from', 'as', 'into', 'like', 'over'
+    ]);
+
+    function toTitleCase(str) {
+      return str.replace(/\b[\w']+\b/g, function(word, index, full) {
+        const lower = word.toLowerCase();
+        // Check if first word or last word
+        const isFirst = index === 0;
+        const isLast = index + word.length >= full.trim().length;
+
+        if (!isFirst && !isLast && MINOR_WORDS.has(lower)) {
+          return lower;
+        }
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+      });
+    }
+
+    function toSentenceCase(str) {
+      return str.toLowerCase().replace(/(^\s*|[.!?]\s+)([a-z])/g, function(m, p1, p2) {
+        return p1 + p2.toUpperCase();
+      });
+    }
+
+    function getWords(str) {
+      return str
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/[_-]+/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+    }
+
+    function updateActiveButton(activeMode) {
+      document.querySelectorAll('.case-btns .case-btn').forEach(btn => {
+        if (activeMode && btn.getAttribute('data-mode') === activeMode) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function handleCaseInput() {
+      updateActiveButton(null);
+      updateStats();
+    }
+
+    function transformCase(mode) {
+      const el = document.getElementById('case-input');
+      const val = el.value;
+      if (!val) {
+        showToast('请先输入需要转换的文本', 'warning');
+        return;
+      }
+
+      let result = val;
+      if (mode === 'title') {
+        result = toTitleCase(val);
+      } else if (mode === 'sentence') {
+        result = toSentenceCase(val);
+      } else if (mode === 'upper') {
+        result = val.toUpperCase();
+      } else if (mode === 'lower') {
+        result = val.toLowerCase();
+      } else if (mode === 'camel') {
+        const words = getWords(val);
+        result = words.map((w, idx) => {
+          const l = w.toLowerCase();
+          return idx === 0 ? l : l.charAt(0).toUpperCase() + l.slice(1);
+        }).join('');
+      } else if (mode === 'pascal') {
+        const words = getWords(val);
+        result = words.map(w => {
+          const l = w.toLowerCase();
+          return l.charAt(0).toUpperCase() + l.slice(1);
+        }).join('');
+      } else if (mode === 'snake') {
+        result = getWords(val).map(w => w.toLowerCase()).join('_');
+      } else if (mode === 'kebab') {
+        result = getWords(val).map(w => w.toLowerCase()).join('-');
+      } else if (mode === 'constant') {
+        result = getWords(val).map(w => w.toUpperCase()).join('_');
+      }
+
+      el.value = result;
+      updateActiveButton(mode);
+      updateStats();
+      showToast('已转换!', 'success');
+    }
+
+    function updateStats() {
+      const val = document.getElementById('case-input').value;
+      const chars = val.length;
+      const charsNoSpace = val.replace(/\s/g, '').length;
+      const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+      const lines = val ? val.split('\n').length : 0;
+
+      document.getElementById('stat-words').textContent = words;
+      document.getElementById('stat-chars').textContent = chars;
+      document.getElementById('stat-chars-nospace').textContent = charsNoSpace;
+      document.getElementById('stat-lines').textContent = lines;
+    }
+
+    function copyCaseText() {
+      const val = document.getElementById('case-input').value;
+      if (!val) return;
+      copyToClipboard(val);
+    }
+
+    function clearCaseText() {
+      document.getElementById('case-input').value = '';
+      updateActiveButton(null);
+      updateStats();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateStats();
+    });
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            纯本地极速实用工具箱。所有计算与转换均在您的浏览器内存中完成，零服务器上传，绝不保存任何用户文件，安全可信赖。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/age-calculator/">年龄与生日计算器</a></li>
+            <li><a href="/zh/tools/percentage-calculator/">百分比与折扣计算器</a></li>
+            <li><a href="/zh/tools/tip-calculator/">小费与分账计算器</a></li>
+            <li><a href="/zh/tools/salary-calculator/">时薪与年薪计算器</a></li>
+            <li><a href="/zh/tools/uuid-generator/">UUID / GUID 生成器</a></li>
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者工具</a></li>
+            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与条款</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策</a></li>
+            <li><a href="/zh/terms/">服务条款</a></li>
+            <li><a href="/zh/about/">关于我们</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. 100% 浏览器本地运算 · 零上传隐私保护
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          纯前端安全沙盒运行中
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JWT 令牌解码器 - JSON Web Token 在线解析 | 纯本地防秘钥泄露</title>
+  <meta name="description" content="纯前端在线 JWT 令牌解码工具。支持三段式 Header、Payload、Signature 彩色高亮解析，自动转换 exp 过期时间为可读时间并计算有效期状态。绝不向任何服务器发送 Token。">
+  <meta name="keywords" content="JWT解码,JWT在线解析,JSON Web Token,Token解析,JWT过期时间">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/jwt-decoder/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/jwt-decoder/">
+  <meta property="og:title" content="JWT 令牌解码器 - JSON Web Token 在线解析 | 纯本地防秘钥泄露">
+  <meta property="og:description" content="纯前端在线 JWT 令牌解码工具。支持三段式 Header、Payload、Signature 彩色高亮解析，自动转换 exp 过期时间为可读时间并计算有效期状态。绝不向任何服务器发送 Token。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JWT 令牌解码器 - JSON Web Token 在线解析 | 纯本地防秘钥泄露">
+  <meta name="twitter:description" content="纯前端在线 JWT 令牌解码工具。支持三段式 Header、Payload、Signature 彩色高亮解析，自动转换 exp 过期时间为可读时间并计算有效期状态。绝不向任何服务器发送 Token。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .jwt-color-header { color: #f43f5e; font-weight: 600; }
+    .jwt-color-payload { color: #a855f7; font-weight: 600; }
+    .jwt-color-sig { color: #06b6d4; font-weight: 600; }
+    .jwt-json-box {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 120px;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/jwt-decoder/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/jwt-decoder/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/jwt-decoder/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/jwt-decoder/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>JWT 令牌解码器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🎫 JWT 令牌解码器</h1>
+        <span class="badge-tag badge-privacy">纯本地 Base64URL 解码 · 绝对防泄露</span>
+        <span class="badge-tag badge-dev">开发者工具箱标配</span>
+      </div>
+      <p class="tool-desc">许多在线网站会将您的 JWT 提交给后台，导致内网身份令牌外泄。本工具 100% 在本地沙箱中解析 Header 与 Payload，并自动计算 Token 过期状态。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+          <label class="form-label" style="margin: 0;">输入加密的 JWT 字符串：</label>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-load-sample">载入示例 Token</button>
+        </div>
+        <textarea class="form-textarea" id="jwt-input" placeholder="粘贴类似 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... 的 JWT 字符串" style="height: 130px;"></textarea>
+      </div>
+
+      <!-- 状态与过期时间指示条 -->
+      <div id="exp-status-bar" style="display: none; padding: 0.85rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); align-items: center; justify-content: space-between;">
+        <div>
+          <span style="font-weight: 600; font-size: 0.9rem;" id="exp-badge">✅ Token 处于有效期内</span>
+          <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;" id="exp-time-desc">过期时间: -</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Header -->
+        <div>
+          <div class="tool-card-title jwt-color-header" style="margin-bottom: 0.5rem;">HEADER: 算法与类型 (Algorithm & Type)</div>
+          <div class="jwt-json-box" id="jwt-header-box">{}</div>
+        </div>
+
+        <!-- Payload -->
+        <div>
+          <div class="tool-card-title jwt-color-payload" style="margin-bottom: 0.5rem;">PAYLOAD: 载荷数据 (Data)</div>
+          <div class="jwt-json-box" id="jwt-payload-box">{}</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const jwtInput = document.getElementById('jwt-input');
+    const headerBox = document.getElementById('jwt-header-box');
+    const payloadBox = document.getElementById('jwt-payload-box');
+    const expStatusBar = document.getElementById('exp-status-bar');
+    const expBadge = document.getElementById('exp-badge');
+    const expTimeDesc = document.getElementById('exp-time-desc');
+
+    function base64UrlDecode(str) {
+      let b64 = str.replace(/-/g, '+').replace(/_/g, '/');
+      while (b64.length % 4) b64 += '=';
+      const binStr = atob(b64);
+      const bytes = Uint8Array.from(binStr, m => m.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    }
+
+    function parseJwt() {
+      const raw = jwtInput.value.trim();
+      if (!raw) {
+        headerBox.textContent = '{}';
+        payloadBox.textContent = '{}';
+        expStatusBar.style.display = 'none';
+        return;
+      }
+
+      const parts = raw.split('.');
+      if (parts.length < 2) {
+        headerBox.textContent = '❌ 无效的 JWT 格式（需包含至少两段点号分隔）';
+        payloadBox.textContent = '';
+        expStatusBar.style.display = 'none';
+        return;
+      }
+
+      try {
+        const headerObj = JSON.parse(base64UrlDecode(parts[0]));
+        headerBox.textContent = JSON.stringify(headerObj, null, 2);
+      } catch (e) {
+        headerBox.textContent = 'Header 解码失败: ' + e.message;
+      }
+
+      try {
+        const payloadObj = JSON.parse(base64UrlDecode(parts[1]));
+        payloadBox.textContent = JSON.stringify(payloadObj, null, 2);
+
+        // 检测 exp 过期时间
+        if (payloadObj.exp) {
+          expStatusBar.style.display = 'flex';
+          const expMs = payloadObj.exp * 1000;
+          const expDate = new Date(expMs);
+          const now = Date.now();
+          if (now > expMs) {
+            expBadge.textContent = '⚠️ Token 已过期 (Expired)';
+            expBadge.style.color = 'var(--accent-rose)';
+            expTimeDesc.textContent = '过期时间: ' + expDate.toLocaleString('zh-CN', { hour12: false }) + ' (已超时 ' + Math.round((now - expMs)/60000) + ' 分钟)';
+          } else {
+            expBadge.textContent = '✅ Token 处于有效期内 (Active)';
+            expBadge.style.color = 'var(--accent-emerald)';
+            expTimeDesc.textContent = '将于: ' + expDate.toLocaleString('zh-CN', { hour12: false }) + ' 过期 (还剩 ' + Math.round((expMs - now)/60000) + ' 分钟)';
+          }
+        } else {
+          expStatusBar.style.display = 'none';
+        }
+      } catch (e) {
+        payloadBox.textContent = 'Payload 解码失败: ' + e.message;
+        expStatusBar.style.display = 'none';
+      }
+    }
+
+    jwtInput.addEventListener('input', parseJwt);
+
+    document.getElementById('btn-load-sample').addEventListener('click', () => {
+      // 默认生成一个 24小时后过期的示例 Token
+      const expSec = Math.floor(Date.now() / 1000) + 86400;
+      const h = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" })).replace(/=/g, '');
+      const p = btoa(JSON.stringify({ sub: "1234567890", name: "John Doe", role: "admin", exp: expSec })).replace(/=/g, '');
+      const s = "TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ";
+      jwtInput.value = h + '.' + p + '.' + s;
+      parseJwt();
+      Utils.showToast('已载入示例 Token', 'info');
+    });
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 编解码器 - 文本与图片 Base64 在线互转 | 纯本地不乱码</title>
+  <meta name="description" content="纯前端在线 Base64 编解码工具。完整支持 UTF-8 中文双向不乱码转换；支持将 PNG/JPG 图片转换为 Base64 Data URL、HTML/CSS 代码及逆向还原下载。">
+  <meta name="keywords" content="Base64编码,Base64解码,Base64在线,图片转Base64,Base64转图片">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/base64-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/base64-converter/">
+  <meta property="og:title" content="Base64 编解码器 - 文本与图片 Base64 在线互转 | 纯本地不乱码">
+  <meta property="og:description" content="纯前端在线 Base64 编解码工具。完整支持 UTF-8 中文双向不乱码转换；支持将 PNG/JPG 图片转换为 Base64 Data URL、HTML/CSS 代码及逆向还原下载。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Base64 编解码器 - 文本与图片 Base64 在线互转 | 纯本地不乱码">
+  <meta name="twitter:description" content="纯前端在线 Base64 编解码工具。完整支持 UTF-8 中文双向不乱码转换；支持将 PNG/JPG 图片转换为 Base64 Data URL、HTML/CSS 代码及逆向还原下载。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .sub-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.5rem;
+    }
+    .sub-tab-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .sub-tab-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+    .panel-view {
+      display: none;
+    }
+    .panel-view.active {
+      display: block;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/base64-converter/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/base64-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/base64-converter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/base64-converter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>Base64 编解码器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">⚡ Base64 编解码器</h1>
+        <span class="badge-tag badge-privacy">🔒 UTF-8 完美支持 · 纯本地</span>
+        <span class="badge-tag badge-hot">开发者高频常用</span>
+      </div>
+      <p class="tool-desc">提供双向文本 Base64 实时编解码（原生解决中文乱码问题），以及图片转 Base64 Data URL / 逆向转换下载。纯前端内存完成，隐私零泄露。</p>
+    </div>
+
+    <!-- 选项卡切换 -->
+    <div class="sub-tabs">
+      <button class="sub-tab-btn active" data-tab="tab-text">📝 文本 Base64 编解码</button>
+      <button class="sub-tab-btn" data-tab="tab-img-to-base64">🖼️ 图片转 Base64</button>
+      <button class="sub-tab-btn" data-tab="tab-base64-to-img">🔄 Base64 转图片</button>
+    </div>
+
+    <!-- 1. 文本 Base64 编解码面板 -->
+    <div class="tool-card panel-view active" id="tab-text">
+      <div class="grid-2">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem;">
+            <label class="form-label" style="margin:0;">输入内容：</label>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-text">清空</button>
+          </div>
+          <textarea class="form-textarea" id="text-input" placeholder="输入待编码的普通文本，或粘贴待解码的 Base64 字符串..." style="height: 220px;"></textarea>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.85rem;">
+            <button type="button" class="btn btn-primary" id="btn-encode">编码 (Encode) →</button>
+            <button type="button" class="btn btn-secondary" id="btn-decode">← 解码 (Decode)</button>
+            <button type="button" class="btn btn-secondary" id="btn-swap">⇄ 交换</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem;">
+            <label class="form-label" style="margin:0;">转换结果：</label>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-copy-result">📋 复制结果</button>
+          </div>
+          <textarea class="form-textarea" id="text-output" readonly placeholder="转换后的结果将在此显示..." style="height: 220px;"></textarea>
+          <div style="margin-top: 0.85rem; font-size: 0.82rem; color: var(--text-muted);" id="char-stat">字符统计: 0 字符</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 图片转 Base64 面板 -->
+    <div class="tool-card panel-view" id="tab-img-to-base64">
+      <div class="dropzone" id="img-dropzone">
+        <div class="dropzone-icon">🖼️</div>
+        <div class="dropzone-title">拖拽图片至此处，或点击选择图片</div>
+        <div class="dropzone-hint">支持 PNG、JPG、WebP、SVG、GIF、ICO 等格式</div>
+        <input type="file" id="img-file-input" accept="image/*">
+      </div>
+
+      <div id="img-result-wrap" style="display: none; margin-top: 1.5rem;">
+        <div class="grid-2">
+          <div>
+            <span class="form-label">图片预览：</span>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-base); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+              <img id="preview-img" style="max-width: 100%; max-height: 220px; object-fit: contain;" alt="预览">
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+              <span class="form-label" style="margin: 0;">Data URL / Base64 代码：</span>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-copy-img-b64">复制 Data URL</button>
+            </div>
+            <textarea class="form-textarea" id="img-b64-output" readonly style="height: 180px;"></textarea>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-html-img">复制 &lt;img&gt; 标签代码</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-css-img">复制 CSS background 代码</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Base64 转图片面板 -->
+    <div class="tool-card panel-view" id="tab-base64-to-img">
+      <div class="form-group">
+        <label class="form-label">粘贴 Base64 字符串或 Data URL：</label>
+        <textarea class="form-textarea" id="input-b64-data" placeholder="例如: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA... 或纯 Base64 串" style="height: 140px;"></textarea>
+      </div>
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <button type="button" class="btn btn-primary" id="btn-render-img">🎨 还原并预览图片</button>
+        <button type="button" class="btn btn-secondary" id="btn-download-restored" style="display: none;">💾 保存下载图片</button>
+      </div>
+
+      <div id="restored-img-wrap" style="display: none; text-align: center; padding: 1.5rem; background: var(--bg-surface-alt); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        <img id="restored-img" style="max-width: 100%; max-height: 380px; border-radius: var(--radius-sm);" alt="还原的图片">
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">Base64 相关常见疑问</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">为什么本工具对中文能够完美编解码而不乱码？ <span>▼</span></div>
+          <div class="faq-answer">原生 JavaScript 的 <code>btoa</code> 与 <code>atob</code> 函数仅支持 Latin1（单字节）范围字符，遇到 UTF-8 多字节汉字或 Emoji 时会直接报错或产生乱码。本工具使用了 <code>TextEncoder</code> 与 <code>TextDecoder</code> 双向字节流转译管道，确保中文字符、特殊符号及表情包均能 100% 准确解码。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">网页开发中什么时候适合把图片转成 Base64？ <span>▼</span></div>
+          <div class="faq-answer">当图片体积非常微小（例如 5KB 以下的图标、小背景纹理、加载动图）时，将其内嵌为 Base64 Data URL 可以直接减少一次 HTTP 请求，降低网络握手耗时；但由于 Base64 会使体积增大约 33%，因此不建议将大照片嵌入为 Base64。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    // Tab 切换逻辑
+    const subTabBtns = document.querySelectorAll('.sub-tab-btn');
+    const panelViews = document.querySelectorAll('.panel-view');
+
+    subTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        subTabBtns.forEach(b => b.classList.remove('active'));
+        panelViews.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+      });
+    });
+
+    // 1. UTF-8 文本编解码实现
+    const textInput = document.getElementById('text-input');
+    const textOutput = document.getElementById('text-output');
+    const charStat = document.getElementById('char-stat');
+
+    function utf8ToBase64(str) {
+      const bytes = new TextEncoder().encode(str);
+      const binString = Array.from(bytes, (byte) => String.fromCharCode(byte)).join('');
+      return btoa(binString);
+    }
+
+    function base64ToUtf8(base64) {
+      try {
+        const cleanB64 = base64.trim().replace(/^data:.*?;base64,/, '');
+        const binString = atob(cleanB64);
+        const bytes = Uint8Array.from(binString, (m) => m.charCodeAt(0));
+        return new TextDecoder().decode(bytes);
+      } catch (err) {
+        throw new Error('无效的 Base64 字符串');
+      }
+    }
+
+    document.getElementById('btn-encode').addEventListener('click', () => {
+      const val = textInput.value;
+      if (!val) return;
+      textOutput.value = utf8ToBase64(val);
+      charStat.textContent = '字符统计: ' + textOutput.value.length + ' 字符';
+    });
+
+    document.getElementById('btn-decode').addEventListener('click', () => {
+      const val = textInput.value;
+      if (!val) return;
+      try {
+        textOutput.value = base64ToUtf8(val);
+        charStat.textContent = '字符统计: ' + textOutput.value.length + ' 字符';
+      } catch (err) {
+        Utils.showToast('解码失败：' + err.message, 'error');
+      }
+    });
+
+    document.getElementById('btn-swap').addEventListener('click', () => {
+      const temp = textInput.value;
+      textInput.value = textOutput.value;
+      textOutput.value = temp;
+      charStat.textContent = '字符统计: ' + textOutput.value.length + ' 字符';
+    });
+
+    document.getElementById('btn-clear-text').addEventListener('click', () => {
+      textInput.value = '';
+      textOutput.value = '';
+      charStat.textContent = '字符统计: 0 字符';
+    });
+
+    document.getElementById('btn-copy-result').addEventListener('click', () => {
+      if (!textOutput.value) return;
+      Utils.copyToClipboard(textOutput.value);
+    });
+
+    // 2. 图片转 Base64
+    const imgDropzone = document.getElementById('img-dropzone');
+    const imgFileInput = document.getElementById('img-file-input');
+    const imgResultWrap = document.getElementById('img-result-wrap');
+    const previewImg = document.getElementById('preview-img');
+    const imgB64Output = document.getElementById('img-b64-output');
+
+    imgFileInput.addEventListener('change', e => {
+      if (e.target.files[0]) handleImgFile(e.target.files[0]);
+    });
+
+    imgDropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      imgDropzone.classList.add('dragover');
+    });
+    imgDropzone.addEventListener('dragleave', () => imgDropzone.classList.remove('dragover'));
+    imgDropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      imgDropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleImgFile(e.dataTransfer.files[0]);
+    });
+
+    function handleImgFile(file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const dataUrl = e.target.result;
+        previewImg.src = dataUrl;
+        imgB64Output.value = dataUrl;
+        imgResultWrap.style.display = 'block';
+        Utils.showToast('图片已成功转换为 Base64！', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    document.getElementById('btn-copy-img-b64').addEventListener('click', () => {
+      Utils.copyToClipboard(imgB64Output.value, '已复制 Data URL！');
+    });
+
+    document.getElementById('btn-copy-html-img').addEventListener('click', () => {
+      const code = '<img src="' + imgB64Output.value + '" alt="embedded image" />';
+      Utils.copyToClipboard(code, '已复制 <img> 标签代码！');
+    });
+
+    document.getElementById('btn-copy-css-img').addEventListener('click', () => {
+      const code = 'background-image: url("' + imgB64Output.value + '");';
+      Utils.copyToClipboard(code, '已复制 CSS 代码！');
+    });
+
+    // 3. Base64 转图片
+    const inputB64Data = document.getElementById('input-b64-data');
+    const btnRenderImg = document.getElementById('btn-render-img');
+    const btnDownloadRestored = document.getElementById('btn-download-restored');
+    const restoredImgWrap = document.getElementById('restored-img-wrap');
+    const restoredImg = document.getElementById('restored-img');
+
+    btnRenderImg.addEventListener('click', () => {
+      let b64 = inputB64Data.value.trim();
+      if (!b64) {
+        Utils.showToast('请先输入 Base64 字符串', 'warning');
+        return;
+      }
+      if (!b64.startsWith('data:image/')) {
+        b64 = 'data:image/png;base64,' + b64;
+      }
+      restoredImg.src = b64;
+      restoredImgWrap.style.display = 'block';
+      btnDownloadRestored.style.display = 'inline-flex';
+      Utils.showToast('图片预览加载成功！', 'success');
+    });
+
+    btnDownloadRestored.addEventListener('click', () => {
+      Utils.downloadDataUrl(restoredImg.src, 'restored_image.png');
+    });
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

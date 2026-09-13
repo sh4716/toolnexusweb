@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 Encoder & Decoder - Online Text & Image Converter | ToolNexus</title>
+  <meta name="description" content="Free in-browser Base64 Encoder & Decoder. Convert UTF-8 text and images to Base64 and DataURL. 100% private, zero uploads.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/base64-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/base64-converter/">
+  <meta property="og:title" content="Base64 Encoder & Decoder - Online Text & Image Converter | ToolNexus">
+  <meta property="og:description" content="Free in-browser Base64 Encoder & Decoder. Convert UTF-8 text and images to Base64 and DataURL. 100% private, zero uploads.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Base64 Encoder & Decoder - Online Text & Image Converter | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Base64 Encoder & Decoder. Convert UTF-8 text and images to Base64 and DataURL. 100% private, zero uploads.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/base64-converter/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/base64-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/base64-converter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/base64-converter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Base64 Encoder & Decoder</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer & Encoders</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">⚡ Base64 Encoder & Decoder</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Encode and decode Base64 text and binary images. Supports multi-byte UTF-8 Unicode characters without garbling, DataURL formats, and file drag-and-drop.
+        </p>
+
+        <!-- Segmented Tab Controls -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary btn-sm" id="tab-text-btn" onclick="switchB64Tab('text')">Text Base64</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="tab-file-btn" style="border:1px solid var(--border-color);" onclick="switchB64Tab('file')">File to Base64</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="tab-restore-btn" style="border:1px solid var(--border-color);" onclick="switchB64Tab('restore')">Base64 to Image</button>
+        </div>
+
+        <!-- Text Panel -->
+        <div id="panel-text">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="encodeText()">Encode Text ➔</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="decodeText()">Decode Base64 ➔</button>
+            <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="clearB64()">Clear</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;" class="b64-grid">
+            <div class="form-group">
+              <label class="form-label" style="font-weight: 600;">Plain Text (UTF-8)</label>
+              <textarea id="b64-plain" class="input-text" rows="10" placeholder="Type plain text here...">Hello, ToolNexus! 🚀</textarea>
+            </div>
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <label class="form-label" style="margin: 0; font-weight: 600;">Base64 Output</label>
+                <button type="button" class="btn-ghost" style="font-size: 0.75rem; padding: 2px 6px; border: 1px solid var(--border-subtle); border-radius: 4px;" onclick="copyB64()">Copy</button>
+              </div>
+              <textarea id="b64-encoded" class="input-text" rows="10" placeholder="Base64 string..." style="font-family: var(--font-mono); font-size: 0.9rem;"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- File Panel -->
+        <div id="panel-file" style="display: none;">
+          <div class="dropzone" style="margin-bottom: 1.5rem; padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer;" onclick="document.getElementById('file-picker').click()">
+            <input type="file" id="file-picker" style="display: none;" onchange="handleFile(this.files[0])">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📁</div>
+            <div style="font-weight: 600; color: var(--text-main);">Click or Drag & Drop Any Image / File</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">100% processed locally in memory</div>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <label class="form-label" style="margin: 0; font-weight: 600;">DataURL / Base64</label>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="copyDataUrl()">Copy DataURL</button>
+            </div>
+            <textarea id="file-b64-out" class="input-text" rows="8" readonly style="font-family: var(--font-mono); font-size: 0.85rem;"></textarea>
+          </div>
+        </div>
+
+        <!-- Restore Image Panel -->
+        <div id="panel-restore" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" style="font-weight: 600;">Paste Base64 Image string or DataURL:</label>
+            <textarea class="input-text" id="input-b64-restore" placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA... or pure base64 string" style="font-family: var(--font-mono); font-size: 0.85rem; height: 120px;"></textarea>
+          </div>
+          <div style="display: flex; gap: 0.75rem; margin-bottom: 1.25rem;">
+            <button type="button" class="btn btn-primary" onclick="renderB64Image()"><span>Preview Image</span> <span>🎨</span></button>
+            <button type="button" class="btn btn-secondary" id="btn-dl-restored" style="display: none;" onclick="downloadRestoredImage()"><span>Save & Download Image</span> <span>💾</span></button>
+          </div>
+          <div id="restore-preview-box" style="display: none; text-align: center; padding: 1.5rem; background: var(--bg-surface-alt); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+            <img id="restore-img-el" style="max-width: 100%; max-height: 380px; border-radius: var(--radius-sm);" alt="Restored Image">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function switchB64Tab(tab) {
+        const tabs = ['text', 'file', 'restore'];
+        tabs.forEach(t => {
+          const btn = document.getElementById('tab-' + t + '-btn');
+          const p = document.getElementById('panel-' + t);
+          if (t === tab) {
+            btn.classList.replace('btn-ghost', 'btn-primary');
+            if (p) p.style.display = 'block';
+          } else {
+            btn.classList.replace('btn-primary', 'btn-ghost');
+            if (p) p.style.display = 'none';
+          }
+        });
+      }
+
+      function renderB64Image() {
+        let val = document.getElementById('input-b64-restore').value.trim();
+        if (!val) {
+          showToast('Please paste a Base64 string first', 'warning');
+          return;
+        }
+        if (!val.startsWith('data:image/')) {
+          val = 'data:image/png;base64,' + val;
+        }
+        const img = document.getElementById('restore-img-el');
+        img.onload = () => {
+          document.getElementById('restore-preview-box').style.display = 'block';
+          document.getElementById('btn-dl-restored').style.display = 'inline-flex';
+          showToast('Image rendered successfully!', 'success');
+        };
+        img.onerror = () => {
+          showToast('Invalid Base64 image data', 'error');
+        };
+        img.src = val;
+      }
+
+      function downloadRestoredImage() {
+        const img = document.getElementById('restore-img-el');
+        if (!img || !img.src) {
+          showToast('Please preview an image first', 'warning');
+          return;
+        }
+        downloadDataUrl(img.src, 'restored_image_' + Date.now() + '.png');
+        showToast('Image downloaded successfully!', 'success');
+      }
+
+      function encodeText() {
+        const text = document.getElementById('b64-plain').value;
+        try {
+          const bytes = new TextEncoder().encode(text);
+          let bin = '';
+          bytes.forEach(b => bin += String.fromCharCode(b));
+          document.getElementById('b64-encoded').value = btoa(bin);
+          showToast('Encoded to Base64!', 'success');
+        } catch (e) {
+          showToast('Encoding error: ' + e.message, 'error');
+        }
+      }
+
+      function decodeText() {
+        const b64 = document.getElementById('b64-encoded').value.trim();
+        try {
+          const bin = atob(b64);
+          const bytes = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+          document.getElementById('b64-plain').value = new TextDecoder().decode(bytes);
+          showToast('Decoded successfully!', 'success');
+        } catch (e) {
+          showToast('Invalid Base64 string', 'error');
+        }
+      }
+
+      function copyB64() {
+        copyToClipboard(document.getElementById('b64-encoded').value);
+      }
+
+      function clearB64() {
+        document.getElementById('b64-plain').value = '';
+        document.getElementById('b64-encoded').value = '';
+      }
+
+      function handleFile(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('file-b64-out').value = e.target.result;
+          showToast('File converted to DataURL!', 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function copyDataUrl() {
+        copyToClipboard(document.getElementById('file-b64-out').value);
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        encodeText();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

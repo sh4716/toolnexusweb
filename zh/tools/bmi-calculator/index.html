@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | 科学健身</title>
+  <meta name="description" content="纯前端在线 BMI 身体质量指数计算器。根据中国卫健委成人体质标准，精确测量身材偏瘦、正常、超重或肥胖状态，并计算您的理想健康体重区间。">
+  <meta name="keywords" content="BMI计算器,身体质量指数,体脂计算,理想体重计算,健康标准">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/bmi-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/bmi-calculator/">
+  <meta property="og:title" content="BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | 科学健身">
+  <meta property="og:description" content="纯前端在线 BMI 身体质量指数计算器。根据中国卫健委成人体质标准，精确测量身材偏瘦、正常、超重或肥胖状态，并计算您的理想健康体重区间。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | 科学健身">
+  <meta name="twitter:description" content="纯前端在线 BMI 身体质量指数计算器。根据中国卫健委成人体质标准，精确测量身材偏瘦、正常、超重或肥胖状态，并计算您的理想健康体重区间。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .bmi-gauge-wrap {
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    .bmi-bar {
+      height: 14px;
+      border-radius: 7px;
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+    .bmi-seg { height: 100%; }
+    .seg-under { background: #38bdf8; flex: 18.5; }
+    .seg-normal { background: #10b981; flex: 5.5; }
+    .seg-over { background: #f59e0b; flex: 4; }
+    .seg-obese { background: #f43f5e; flex: 7; }
+    .bmi-pointer {
+      position: absolute;
+      top: -6px;
+      width: 4px;
+      height: 26px;
+      background: #ffffff;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.8);
+      transform: translateX(-50%);
+      transition: left 0.3s ease;
+    }
+    .bmi-result-number {
+      font-size: 3rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      line-height: 1;
+      margin: 0.5rem 0;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/bmi-calculator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/bmi-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/bmi-calculator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/bmi-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>实用计算器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>BMI 健康计算器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🏃 BMI 健康体脂计算器</h1>
+        <span class="badge-tag badge-privacy">中国成人卫健委标准</span>
+        <span class="badge-tag badge-dev">健康长尾流量</span>
+      </div>
+      <p class="tool-desc">快速计算身体质量指数 (BMI) 与理想体重范围。纯本地毫秒级反馈健康区间与营养代谢建议。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="grid-2">
+        <div>
+          <div class="form-group">
+            <label class="form-label">身高 (cm)：</label>
+            <input type="number" class="form-input" id="bmi-height" value="175" min="50" max="250">
+          </div>
+          <div class="form-group">
+            <label class="form-label">体重 (kg)：</label>
+            <input type="number" class="form-input" id="bmi-weight" value="68" min="20" max="300" step="0.5">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">性别：</label>
+              <select class="form-select" id="bmi-gender">
+                <option value="male" selected>男士 (Male)</option>
+                <option value="female">女士 (Female)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">年龄：</label>
+              <input type="number" class="form-input" id="bmi-age" value="26" min="10" max="100">
+            </div>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-base); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+          <div style="font-size: 0.88rem; color: var(--text-muted);">您的 BMI 身体质量指数为</div>
+          <div class="bmi-result-number" id="bmi-val" style="color: var(--accent-emerald);">22.2</div>
+          <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;" id="bmi-status">标准健康身材</div>
+
+          <!-- 刻度条仪表 -->
+          <div class="bmi-gauge-wrap">
+            <div class="bmi-bar">
+              <div class="bmi-seg seg-under" title="偏瘦 < 18.5"></div>
+              <div class="bmi-seg seg-normal" title="正常 18.5~23.9"></div>
+              <div class="bmi-seg seg-over" title="超重 24~27.9"></div>
+              <div class="bmi-seg seg-obese" title="肥胖 >= 28"></div>
+            </div>
+            <div class="bmi-pointer" id="bmi-pointer" style="left: 45%;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-subtle);">
+            <span>偏瘦 (&lt;18.5)</span>
+            <span>标准 (18.5-23.9)</span>
+            <span>超重 (24-27.9)</span>
+            <span>肥胖 (≥28)</span>
+          </div>
+
+          <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); font-size: 0.85rem; color: var(--text-muted); text-align: left;" id="ideal-weight-box">
+            🎯 该身高下的理想健康体重范围为：<strong style="color: var(--text-main);" id="ideal-range">56.7 kg ~ 73.2 kg</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const bHeight = document.getElementById('bmi-height');
+    const bWeight = document.getElementById('bmi-weight');
+    const bmiVal = document.getElementById('bmi-val');
+    const bmiStatus = document.getElementById('bmi-status');
+    const bmiPointer = document.getElementById('bmi-pointer');
+    const idealRange = document.getElementById('ideal-range');
+
+    function calcBmi() {
+      const h = parseFloat(bHeight.value) / 100;
+      const w = parseFloat(bWeight.value);
+      if (!h || !w || h <= 0) return;
+
+      const bmi = parseFloat((w / (h * h)).toFixed(1));
+      bmiVal.textContent = bmi;
+
+      // 理想体重区间 (18.5 ~ 23.9)
+      const minW = (18.5 * h * h).toFixed(1);
+      const maxW = (23.9 * h * h).toFixed(1);
+      idealRange.textContent = minW + ' kg ~ ' + maxW + ' kg';
+
+      // 指针百分比映射 (0~35 映射为 0~100%)
+      const pct = Math.min(100, Math.max(0, (bmi / 35) * 100));
+      bmiPointer.style.left = pct + '%';
+
+      if (bmi < 18.5) {
+        bmiStatus.textContent = '体重过轻 (偏瘦)';
+        bmiStatus.style.color = '#38bdf8';
+        bmiVal.style.color = '#38bdf8';
+      } else if (bmi <= 23.9) {
+        bmiStatus.textContent = '标准体重 (非常健康)';
+        bmiStatus.style.color = 'var(--accent-emerald)';
+        bmiVal.style.color = 'var(--accent-emerald)';
+      } else if (bmi <= 27.9) {
+        bmiStatus.textContent = '超重 (注意饮食)';
+        bmiStatus.style.color = 'var(--accent-amber)';
+        bmiVal.style.color = 'var(--accent-amber)';
+      } else {
+        bmiStatus.textContent = '肥胖 (建议规律运动)';
+        bmiStatus.style.color = 'var(--accent-rose)';
+        bmiVal.style.color = 'var(--accent-rose)';
+      }
+    }
+
+    [bHeight, bWeight].forEach(el => el.addEventListener('input', calcBmi));
+    calcBmi();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON 校验与格式化沙盒 - JSON 在线美化/压缩/转义/纠错 | 纯本地极速</title>
+  <meta name="description" content="纯前端在线 JSON 格式化与美化校验工具。支持语法纠错高亮、一键压缩转义、反转义与快速复制。纯浏览器执行，绝不上报业务 JSON 数据。">
+  <meta name="keywords" content="JSON格式化,JSON美化,JSON校验,JSON在线,JSON压缩,JSON转义">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/json-formatter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/json-formatter/">
+  <meta property="og:title" content="JSON 校验与格式化沙盒 - JSON 在线美化/压缩/转义/纠错 | 纯本地极速">
+  <meta property="og:description" content="纯前端在线 JSON 格式化与美化校验工具。支持语法纠错高亮、一键压缩转义、反转义与快速复制。纯浏览器执行，绝不上报业务 JSON 数据。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSON 校验与格式化沙盒 - JSON 在线美化/压缩/转义/纠错 | 纯本地极速">
+  <meta name="twitter:description" content="纯前端在线 JSON 格式化与美化校验工具。支持语法纠错高亮、一键压缩转义、反转义与快速复制。纯浏览器执行，绝不上报业务 JSON 数据。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .json-editor-box {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/json-formatter/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/json-formatter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/json-formatter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/json-formatter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>JSON 校验与美化沙盒</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🌲 JSON 校验与美化沙盒</h1>
+        <span class="badge-tag badge-privacy">纯本地安全解析</span>
+        <span class="badge-tag badge-dev">开发者每日标配</span>
+      </div>
+      <p class="tool-desc">纯前端语法验证、高亮缩进格式化、一键压缩与转义反转义。隐私接口返回数据绝不外泄。</p>
+    </div>
+
+    <div class="tool-card">
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+        <button type="button" class="btn btn-primary btn-sm" id="btn-format">✨ 格式化美化 (2空格)</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-format-4">✨ 格式化 (4空格)</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-minify">🗜️ 压缩单行</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-escape">转义 \" 字符</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-unescape">去除转义字符</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-copy">📋 复制结果</button>
+        <button type="button" class="btn btn-danger btn-sm" id="btn-clear" style="margin-left: auto;">清空</button>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-textarea json-editor-box" id="json-input" placeholder="请在此粘贴您的 JSON 数据..." style="height: 380px;">{
+  "project": "ToolNexus",
+  "version": "1.0.0",
+  "features": [
+    "100% Client Side",
+    "Zero Server Cost",
+    "Extreme Privacy"
+  ],
+  "stats": {
+    "totalTools": 20,
+    "offlineCapable": true
+  }
+}</textarea>
+      </div>
+
+      <div id="json-status-bar" style="font-size: 0.85rem; color: var(--accent-emerald); font-weight: 600;">
+        ✅ JSON 语法验证通过
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const input = document.getElementById('json-input');
+    const statusEl = document.getElementById('json-status-bar');
+
+    function checkJson() {
+      const val = input.value.trim();
+      if (!val) {
+        statusEl.textContent = '待输入 JSON';
+        statusEl.style.color = 'var(--text-muted)';
+        return null;
+      }
+      try {
+        const obj = JSON.parse(val);
+        statusEl.textContent = '✅ JSON 语法验证通过';
+        statusEl.style.color = 'var(--accent-emerald)';
+        return obj;
+      } catch (err) {
+        statusEl.textContent = '❌ JSON 语法错误: ' + err.message;
+        statusEl.style.color = 'var(--accent-rose)';
+        return null;
+      }
+    }
+
+    document.getElementById('btn-format').addEventListener('click', () => {
+      const obj = checkJson();
+      if (obj) input.value = JSON.stringify(obj, null, 2);
+    });
+
+    document.getElementById('btn-format-4').addEventListener('click', () => {
+      const obj = checkJson();
+      if (obj) input.value = JSON.stringify(obj, null, 4);
+    });
+
+    document.getElementById('btn-minify').addEventListener('click', () => {
+      const obj = checkJson();
+      if (obj) input.value = JSON.stringify(obj);
+    });
+
+    document.getElementById('btn-escape').addEventListener('click', () => {
+      input.value = JSON.stringify(input.value);
+    });
+
+    document.getElementById('btn-unescape').addEventListener('click', () => {
+      try {
+        input.value = JSON.parse(input.value);
+      } catch (e) {
+        input.value = input.value.replace(/\\"/g, '"').replace(/\\n/g, '\n');
+      }
+    });
+
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      if (input.value) Utils.copyToClipboard(input.value);
+    });
+
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      input.value = '';
+      checkJson();
+    });
+
+    input.addEventListener('input', checkJson);
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator - Calculate Exact Age in Years, Months, Days | ToolNexus</title>
+  <meta name="description" content="Free in-browser Age Calculator. Find your exact age in years, months, days, total hours, minutes lived, next birthday countdown, and zodiac sign.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/age-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/age-calculator/">
+  <meta property="og:title" content="Age Calculator - Calculate Exact Age in Years, Months, Days | ToolNexus">
+  <meta property="og:description" content="Free in-browser Age Calculator. Find your exact age in years, months, days, total hours, minutes lived, next birthday countdown, and zodiac sign.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Age Calculator - Calculate Exact Age in Years, Months, Days | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Age Calculator. Find your exact age in years, months, days, total hours, minutes lived, next birthday countdown, and zodiac sign.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/age-calculator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/age-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/age-calculator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/age-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-badge badge-primary">Calculator & Lifestyle</span>
+          <h1 class="tool-title">🎂 Exact Age Calculator</h1>
+          <p class="tool-desc">Enter your date of birth to calculate your exact chronological age in years, months, and days, along with a live next birthday countdown and fun life milestone stats.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem;" class="dob-inputs">
+          <div class="form-group">
+            <label class="form-label" for="dob-input" style="font-weight: 600;">Date of Birth</label>
+            <input type="date" id="dob-input" class="input-text" style="font-size: 1.05rem;" value="2000-01-01">
+          </div>
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <label class="form-label" for="as-of-input" style="margin: 0; font-weight: 600;">Age as of Date (Default: Today)</label>
+              <button type="button" class="btn-ghost" style="font-size: 0.75rem; padding: 2px 6px; border: 1px solid var(--border-subtle); border-radius: 4px;" onclick="resetToToday()">Reset to Today</button>
+            </div>
+            <input type="date" id="as-of-input" class="input-text" style="font-size: 1.05rem;">
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 0.85rem;" onclick="calculateAge()">
+          <span>Calculate Age</span>
+          <span>⚡</span>
+        </button>
+
+        <!-- Main Results Box -->
+        <div id="age-results-container" style="margin-top: 2rem;">
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.1)); border: 1px solid var(--primary-border); border-radius: var(--radius-lg); padding: 1.75rem; text-align: center; margin-bottom: 1.5rem;">
+            <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Your Exact Age</div>
+            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+              <div>
+                <span id="res-years" style="font-size: 2.8rem; font-weight: 800; color: var(--primary);">26</span>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Years</div>
+              </div>
+              <div>
+                <span id="res-months" style="font-size: 2.8rem; font-weight: 800; color: var(--accent-cyan);">8</span>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Months</div>
+              </div>
+              <div>
+                <span id="res-days" style="font-size: 2.8rem; font-weight: 800; color: var(--accent-amber);">11</span>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Days</div>
+              </div>
+            </div>
+            <div id="res-summary-text" style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;"></div>
+          </div>
+
+          <!-- Birthday Countdown & Day born -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem;" class="bday-grid">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">🎯 Next Birthday Countdown</div>
+              <div style="font-size: 1.75rem; font-weight: 800; color: var(--primary);" id="next-bday-days">112</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);" id="next-bday-sub">days until your next birthday</div>
+              <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-main);" id="next-bday-date"></div>
+            </div>
+
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">🌟 You were born on a</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-cyan);" id="day-of-week">Saturday</div>
+              <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-main);">
+                <span>Zodiac Sign: </span>
+                <strong id="zodiac-sign" style="color: var(--accent-amber);">Capricorn ♑</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Life Stats -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">📊 Total Life Milestones & Stats</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem;">
+              <div style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-sm);">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Total Days Lived</div>
+                <div style="font-size: 1.35rem; font-weight: 700; color: var(--text-main);" id="stat-days">9,751</div>
+              </div>
+              <div style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-sm);">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Total Weeks Lived</div>
+                <div style="font-size: 1.35rem; font-weight: 700; color: var(--text-main);" id="stat-weeks">1,393</div>
+              </div>
+              <div style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-sm);">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Total Hours Lived</div>
+                <div style="font-size: 1.35rem; font-weight: 700; color: var(--text-main);" id="stat-hours">234,024</div>
+              </div>
+              <div style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-sm);">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Approx. Heartbeats (~75 bpm)</div>
+                <div style="font-size: 1.35rem; font-weight: 700; color: var(--text-main);" id="stat-heartbeats">1.05 Billion</div>
+              </div>
+              <div style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-sm);">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Approx. Breaths (~16 bpm)</div>
+                <div style="font-size: 1.35rem; font-weight: 700; color: var(--text-main);" id="stat-breaths">224.6 Million</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: How does the Age Calculator handle leap years and different month lengths?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">The tool uses strict Gregorian calendar math in your browser JavaScript runtime, tracking actual leap years (366 days) and 28/29/30/31-day months accurately for exact calendar-day precision.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Is my birth date uploaded or stored anywhere?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. ToolNexus operates 100% client-side in your browser memory. Your personal dates and calculations never leave your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function resetToToday() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      document.getElementById('as-of-input').value = `${y}-${m}-${d}`;
+      calculateAge();
+    }
+
+    const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    function getZodiac(month, day) {
+      // month is 1-12
+      const signs = [
+        { name: 'Capricorn ♑', m: 1, d: 19 },
+        { name: 'Aquarius ♒', m: 2, d: 18 },
+        { name: 'Pisces ♓', m: 3, d: 20 },
+        { name: 'Aries ♈', m: 4, d: 19 },
+        { name: 'Taurus ♉', m: 5, d: 20 },
+        { name: 'Gemini ♊', m: 6, d: 20 },
+        { name: 'Cancer ♋', m: 7, d: 22 },
+        { name: 'Leo ♌', m: 8, d: 22 },
+        { name: 'Virgo ♍', m: 9, d: 22 },
+        { name: 'Libra ♎', m: 10, d: 22 },
+        { name: 'Scorpio ♏', m: 11, d: 21 },
+        { name: 'Sagittarius ♐', m: 12, d: 21 },
+        { name: 'Capricorn ♑', m: 12, d: 31 }
+      ];
+      for (let s of signs) {
+        if (month === s.m && day <= s.d) return s.name;
+      }
+      return signs[0].name;
+    }
+
+    function calculateAge() {
+      const dobVal = document.getElementById('dob-input').value;
+      const asOfVal = document.getElementById('as-of-input').value;
+      if (!dobVal || !asOfVal) return;
+
+      const [by, bm, bd] = dobVal.split('-').map(Number);
+      const [ty, tm, td] = asOfVal.split('-').map(Number);
+
+      const bDate = new Date(by, bm - 1, bd);
+      const tDate = new Date(ty, tm - 1, td);
+
+      if (tDate < bDate) {
+        showToast('As-of date cannot be before date of birth', 'warning');
+        return;
+      }
+
+      // Calculate exact Year, Month, Day
+      let years = ty - by;
+      let months = tm - bm;
+      let days = td - bd;
+
+      if (days < 0) {
+        months -= 1;
+        // Days in previous month
+        const prevMonth = new Date(ty, tm - 1, 0);
+        days += prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      document.getElementById('res-years').textContent = years;
+      document.getElementById('res-months').textContent = months;
+      document.getElementById('res-days').textContent = days;
+
+      document.getElementById('res-summary-text').textContent = `Exact Chronological Age: ${years} Years, ${months} Months, ${days} Days`;
+
+      // Day of week born
+      const dow = DAYS_OF_WEEK[bDate.getDay()];
+      document.getElementById('day-of-week').textContent = dow;
+
+      // Zodiac
+      document.getElementById('zodiac-sign').textContent = getZodiac(bm, bd);
+
+      // Next birthday countdown
+      let nextBday = new Date(ty, bm - 1, bd);
+      if (nextBday < tDate) {
+        nextBday = new Date(ty + 1, bm - 1, bd);
+      }
+      const diffMs = nextBday - tDate;
+      const daysUntilBday = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+      document.getElementById('next-bday-days').textContent = daysUntilBday === 0 ? '🎂 Today!' : daysUntilBday;
+      document.getElementById('next-bday-date').textContent = `Next: ${nextBday.getFullYear()}-${String(nextBday.getMonth()+1).padStart(2,'0')}-${String(nextBday.getDate()).padStart(2,'0')} (${DAYS_OF_WEEK[nextBday.getDay()]})`;
+
+      // Total stats
+      const totalDiffMs = tDate - bDate;
+      const totalDays = Math.floor(totalDiffMs / (1000 * 60 * 60 * 24));
+      const totalWeeks = Math.floor(totalDays / 7);
+      const totalHours = totalDays * 24;
+
+      document.getElementById('stat-days').textContent = totalDays.toLocaleString();
+      document.getElementById('stat-weeks').textContent = totalWeeks.toLocaleString();
+      document.getElementById('stat-hours').textContent = totalHours.toLocaleString();
+
+      const totalMins = totalHours * 60;
+      const heartbeats = Math.round(totalMins * 75);
+      const breaths = Math.round(totalMins * 16);
+
+      document.getElementById('stat-heartbeats').textContent = heartbeats > 1000000000 
+        ? (heartbeats / 1000000000).toFixed(2) + ' Billion'
+        : (heartbeats / 1000000).toFixed(1) + ' Million';
+
+      document.getElementById('stat-breaths').textContent = breaths > 1000000000
+        ? (breaths / 1000000000).toFixed(2) + ' Billion'
+        : (breaths / 1000000).toFixed(1) + ' Million';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      resetToToday();
+    });
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

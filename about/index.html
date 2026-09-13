@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | ToolNexus</title>
+  <meta name="description" content="About Us - ToolNexus Free In-Browser Developer & Utility Toolkit. 100% Client-Side Privacy.">
+    <link rel="canonical" href="https://toolnexusweb.com/about/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/about/">
+  <meta property="og:title" content="About Us | ToolNexus">
+  <meta property="og:description" content="About Us - ToolNexus Free In-Browser Developer & Utility Toolkit. 100% Client-Side Privacy.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="About Us | ToolNexus">
+  <meta name="twitter:description" content="About Us - ToolNexus Free In-Browser Developer & Utility Toolkit. 100% Client-Side Privacy.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/about/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/about/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/about/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/about/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container" style="max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;">
+
+  <div class="tool-card" style="padding: 2.5rem; line-height: 1.8;">
+    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.5rem;">
+      <span class="badge badge-primary" style="margin-bottom: 0.75rem;">Our Mission</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem;">About ToolNexus</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Empowering creators, engineers, and everyday users with private, instant tools.</p>
+    </div>
+
+    <div style="font-size: 1.05rem; margin-bottom: 2rem;">
+      <p>
+        <strong>ToolNexus</strong> was created with a straightforward yet radical belief: <em>online utilities shouldn't spy on your files, force you to create an account, or make you wait for slow server queues.</em>
+      </p>
+      <p>
+        Most traditional online converter and utility websites require you to upload your sensitive PDFs, private photos, or passwords to remote cloud servers. This exposes you to data leaks, server hacks, and invasive tracking.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2.5rem 0;">
+      <div style="background: var(--bg-surface-alt); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">100% In-Browser Privacy</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+          All operations run right inside your browser memory using HTML5 Canvas, WebAssembly, and Web Crypto APIs. Your files never leave your computer.
+        </p>
+      </div>
+      <div style="background: var(--bg-surface-alt); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚡</div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">Zero Latency Speed</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+          No network uploading or downloading bottlenecks. Calculations, conversions, and formats happen instantaneously with native CPU performance.
+        </p>
+      </div>
+      <div style="background: var(--bg-surface-alt); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💎</div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">Always Free & Open</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+          No premium subscriptions, no daily limits, and no forced user registration. Simply open the page and get your job done instantly.
+        </p>
+      </div>
+    </div>
+
+    <h2 style="font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem;">Technology Stack</h2>
+    <p>
+      ToolNexus is built with vanilla modern web standards for lightweight efficiency. We leverage cutting-edge browser capabilities including Web Workers, Web Cryptography API, Canvas Rendering, and lightweight open-source engines like <code>pdf-lib</code> and <code>pdf.js</code>.
+    </p>
+
+    <h2 style="font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem;">Get in Touch</h2>
+    <p>
+      Have an idea for a new tool or noticed an issue? We'd love to hear from you. Visit our <a href="/contact/" style="color: var(--primary); text-decoration: underline;">Contact Page</a> or drop us an email at <strong>team@toolnexusweb.com</strong>.
+    </p>
+  </div>
+  </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

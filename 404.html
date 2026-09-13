@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | ToolNexus</title>
+  <meta name="description" content="Sorry, the page you were looking for could not be found. Explore 30+ free in-browser developer and productivity tools on ToolNexus.">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+
+  <style>
+    .error-container {
+      max-width: 680px;
+      margin: 4rem auto;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+    .error-code {
+      font-size: 6rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .error-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+    }
+    .error-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .error-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  </style>
+
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container" style="display:flex;align-items:center;justify-content:center;min-height:60vh;">
+    <div class="error-container">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Page Not Found / 页面未找到</h1>
+      <p class="error-desc">
+        The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.<br>
+        您所寻找的页面可能已被移除、更名或链接有误。
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary btn-lg">
+          <span>⚡ Return to Home</span>
+        </a>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="openSearchModal()">
+          <span>🔍 Search All Tools (Ctrl K)</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <div>© 2026 ToolNexus. All calculations execute client-side. Zero server logs.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/privacy/" style="color:inherit;">Privacy Policy</a>
+          <a href="/terms/" style="color:inherit;">Terms of Service</a>
+          <span>⚡ 100% In-Browser Privacy Verified</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

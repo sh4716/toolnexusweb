@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | 流量金矿</title>
+  <meta name="description" content="专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。">
+  <meta name="keywords" content="房贷计算器,房贷利率,等额本息,等额本金,公积金贷款计算,月供计算器">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/mortgage-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/mortgage-calculator/">
+  <meta property="og:title" content="房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | 流量金矿">
+  <meta property="og:description" content="专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | 流量金矿">
+  <meta name="twitter:description" content="专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .mortgage-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 860px) {
+      .mortgage-layout { grid-template-columns: 1fr; }
+    }
+    .summary-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+    }
+    .highlight-money {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-rose);
+      font-family: var(--font-mono);
+      margin: 0.35rem 0 1rem;
+    }
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.92rem;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/mortgage-calculator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/mortgage-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/mortgage-calculator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/mortgage-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>实用计算器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>房贷与利息计算器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🏠 房贷与利息计算器</h1>
+        <span class="badge-tag badge-privacy">纯本地离线精算</span>
+        <span class="badge-tag badge-hot">高价值金融流量金矿</span>
+      </div>
+      <p class="tool-desc">支持商业贷款、公积金贷款及组合贷款，智能对比等额本息与等额本金。毫秒级精算还款总额、利息支出与每月月供明细。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="mortgage-layout">
+        <!-- 左侧输入表单 -->
+        <div class="calc-inputs">
+          <div class="form-group">
+            <label class="form-label">贷款类型：</label>
+            <select class="form-select" id="loan-type">
+              <option value="business" selected>商业贷款</option>
+              <option value="fund">公积金贷款</option>
+              <option value="combo">组合贷款 (商贷 + 公积金)</option>
+            </select>
+          </div>
+
+          <!-- 商贷金额与利率 -->
+          <div id="box-biz">
+            <div class="form-group">
+              <label class="form-label">商业贷款金额 (万元)：</label>
+              <input type="number" class="form-input" id="biz-amount" value="100" min="1" step="5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">商贷年利率 (%)：</label>
+              <input type="number" class="form-input" id="biz-rate" value="3.15" step="0.05">
+            </div>
+          </div>
+
+          <!-- 公积金贷款金额与利率 -->
+          <div id="box-fund" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">公积金贷款金额 (万元)：</label>
+              <input type="number" class="form-input" id="fund-amount" value="60" min="1" step="5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">公积金年利率 (%)：</label>
+              <input type="number" class="form-input" id="fund-rate" value="2.85" step="0.05">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">贷款年限：</label>
+              <select class="form-select" id="loan-years">
+                <option value="30" selected>30 年 (360 期)</option>
+                <option value="25">25 年 (300 期)</option>
+                <option value="20">20 年 (240 期)</option>
+                <option value="15">15 年 (180 期)</option>
+                <option value="10">10 年 (120 期)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">还款方式：</label>
+              <select class="form-select" id="repay-type">
+                <option value="equal-installment" selected>等额本息 (每月月供固定)</option>
+                <option value="equal-principal">等额本金 (每月本金固定递减)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧还款测算汇总结果 -->
+        <div class="summary-card">
+          <div style="font-size: 0.9rem; color: var(--text-muted);" id="label-monthly">每月还款额 (月供)</div>
+          <div class="highlight-money" id="res-monthly">￥0.00</div>
+
+          <div class="data-row">
+            <span style="color: var(--text-muted);">贷款总本金</span>
+            <strong id="res-total-principal">￥0.00</strong>
+          </div>
+          <div class="data-row">
+            <span style="color: var(--text-muted);">支付利息总额</span>
+            <strong id="res-total-interest" style="color: var(--accent-amber);">￥0.00</strong>
+          </div>
+          <div class="data-row">
+            <span style="color: var(--text-muted);">还款总金额 (本息合计)</span>
+            <strong id="res-total-all">￥0.00</strong>
+          </div>
+          <div class="data-row" style="border-bottom: none;">
+            <span style="color: var(--text-muted);">贷款期数</span>
+            <span id="res-months">360 期</span>
+          </div>
+
+          <div style="margin-top: 1.5rem; padding: 0.85rem; background: var(--bg-card); border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;" id="method-tip">
+            💡 <strong>等额本息特点：</strong>每月还款额完全相同，前期利息占比大，适合收入稳定的工薪家庭。
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const loanType = document.getElementById('loan-type');
+    const boxBiz = document.getElementById('box-biz');
+    const boxFund = document.getElementById('box-fund');
+    const bizAmount = document.getElementById('biz-amount');
+    const bizRate = document.getElementById('biz-rate');
+    const fundAmount = document.getElementById('fund-amount');
+    const fundRate = document.getElementById('fund-rate');
+    const loanYears = document.getElementById('loan-years');
+    const repayType = document.getElementById('repay-type');
+
+    const resMonthly = document.getElementById('res-monthly');
+    const resTotalPrincipal = document.getElementById('res-total-principal');
+    const resTotalInterest = document.getElementById('res-total-interest');
+    const resTotalAll = document.getElementById('res-total-all');
+    const resMonths = document.getElementById('res-months');
+    const labelMonthly = document.getElementById('label-monthly');
+    const methodTip = document.getElementById('method-tip');
+
+    loanType.addEventListener('change', () => {
+      const v = loanType.value;
+      boxBiz.style.display = (v === 'business' || v === 'combo') ? 'block' : 'none';
+      boxFund.style.display = (v === 'fund' || v === 'combo') ? 'block' : 'none';
+      calculate();
+    });
+
+    function calculatePart(principalYuan, annualRatePct, totalMonths, isEqualInstallment) {
+      const monthlyRate = (annualRatePct / 100) / 12;
+      if (isEqualInstallment) {
+        // 等额本息
+        const pow = Math.pow(1 + monthlyRate, totalMonths);
+        const monthly = (principalYuan * monthlyRate * pow) / (pow - 1);
+        const totalPay = monthly * totalMonths;
+        const totalInterest = totalPay - principalYuan;
+        return {
+          firstMonthly: monthly,
+          isEqual: true,
+          totalInterest,
+          totalPay
+        };
+      } else {
+        // 等额本金
+        const monthlyPrincipal = principalYuan / totalMonths;
+        let totalInterest = 0;
+        let firstMonthly = 0;
+        let lastMonthly = 0;
+        for (let i = 1; i <= totalMonths; i++) {
+          const remainingPrincipal = principalYuan - (i - 1) * monthlyPrincipal;
+          const curInterest = remainingPrincipal * monthlyRate;
+          totalInterest += curInterest;
+          if (i === 1) firstMonthly = monthlyPrincipal + curInterest;
+          if (i === totalMonths) lastMonthly = monthlyPrincipal + curInterest;
+        }
+        return {
+          firstMonthly,
+          lastMonthly,
+          diff: (firstMonthly - lastMonthly) / (totalMonths - 1),
+          isEqual: false,
+          totalInterest,
+          totalPay: principalYuan + totalInterest
+        };
+      }
+    }
+
+    function calculate() {
+      const type = loanType.value;
+      const months = parseInt(loanYears.value, 10) * 12;
+      const isEqual = repayType.value === 'equal-installment';
+
+      let totalPrincipal = 0;
+      let totalInterest = 0;
+      let totalPay = 0;
+      let monthlyStr = '';
+
+      if (type === 'business' || type === 'combo') {
+        const bAmount = parseFloat(bizAmount.value || 0) * 10000;
+        const bRate = parseFloat(bizRate.value || 0);
+        totalPrincipal += bAmount;
+        const bRes = calculatePart(bAmount, bRate, months, isEqual);
+        totalInterest += bRes.totalInterest;
+        totalPay += bRes.totalPay;
+        if (isEqual) {
+          monthlyStr = '￥' + bRes.firstMonthly.toFixed(2);
+        } else {
+          monthlyStr = '首月 ￥' + bRes.firstMonthly.toFixed(2) + ' (逐月递减)';
+        }
+      }
+
+      if (type === 'fund' || type === 'combo') {
+        const fAmount = parseFloat(fundAmount.value || 0) * 10000;
+        const fRate = parseFloat(fundRate.value || 0);
+        if (type === 'fund') totalPrincipal = 0;
+        totalPrincipal += fAmount;
+        const fRes = calculatePart(fAmount, fRate, months, isEqual);
+        if (type === 'fund') {
+          totalInterest = fRes.totalInterest;
+          totalPay = fRes.totalPay;
+          monthlyStr = isEqual ? ('￥' + fRes.firstMonthly.toFixed(2)) : ('首月 ￥' + fRes.firstMonthly.toFixed(2) + ' (逐月递减)');
+        } else {
+          totalInterest += fRes.totalInterest;
+          totalPay += fRes.totalPay;
+          // 组合贷款合并月供
+          const bAmount = parseFloat(bizAmount.value || 0) * 10000;
+          const bRate = parseFloat(bizRate.value || 0);
+          const bRes = calculatePart(bAmount, bRate, months, isEqual);
+          const sumFirst = bRes.firstMonthly + fRes.firstMonthly;
+          monthlyStr = isEqual ? ('￥' + sumFirst.toFixed(2)) : ('首月 ￥' + sumFirst.toFixed(2) + ' (逐月递减)');
+        }
+      }
+
+      labelMonthly.textContent = isEqual ? '每月固定月供额' : '首月月供还款额';
+      resMonthly.textContent = monthlyStr;
+      resTotalPrincipal.textContent = '￥' + (totalPrincipal / 10000).toFixed(2) + ' 万元';
+      resTotalInterest.textContent = '￥' + (totalInterest / 10000).toFixed(2) + ' 万元';
+      resTotalAll.textContent = '￥' + (totalPay / 10000).toFixed(2) + ' 万元';
+      resMonths.textContent = months + ' 期 (' + loanYears.value + ' 年)';
+
+      if (isEqual) {
+        methodTip.innerHTML = '💡 <strong>等额本息：</strong>每月偿还本息固定，适合收支规划稳定的打工人群。';
+      } else {
+        methodTip.innerHTML = '💡 <strong>等额本金：</strong>每月本金相同，利息随本金减少而每月递减。前期月供最高，但全周期总利息比等额本息省下约 15%~25%！';
+      }
+    }
+
+    [bizAmount, bizRate, fundAmount, fundRate, loanYears, repayType].forEach(el => {
+      el.addEventListener('input', calculate);
+    });
+
+    calculate();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片格式转换器 - JPG/PNG/WebP/BMP/SVG 互转 | 纯本地无损互转</title>
+  <meta name="description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP、BMP、SVG 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
+  <meta name="keywords" content="图片格式转换,PNG转JPG,JPG转WebP,WebP转PNG,在线图片转换,批量图片转换">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/image-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/image-converter/">
+  <meta property="og:title" content="图片格式转换器 - JPG/PNG/WebP/BMP/SVG 互转 | 纯本地无损互转">
+  <meta property="og:description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP、BMP、SVG 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="图片格式转换器 - JPG/PNG/WebP/BMP/SVG 互转 | 纯本地无损互转">
+  <meta name="twitter:description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP、BMP、SVG 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .convert-settings-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .img-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+    .img-list-table th, .img-list-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+    }
+    .img-list-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      background: var(--bg-surface-alt);
+    }
+    .img-thumb {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border-base);
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/image-converter/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/image-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/image-converter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/image-converter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>图像与媒体</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>图片格式快速互转</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🔄 图片格式快速互转</h1>
+        <span class="badge-tag badge-privacy">🔒 本地 Canvas 零上传转换</span>
+        <span class="badge-tag badge-hot">月访 80万+ 代表品类</span>
+      </div>
+      <p class="tool-desc">纯浏览器本地支持 JPG、PNG、WebP、BMP 等格式任意批量互转。无需上传服务器，保护隐私，秒级极速输出，支持批量一键下载 ZIP 包。</p>
+    </div>
+
+    <!-- 主工作区 -->
+    <div class="tool-card">
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">🖼️</div>
+        <div class="dropzone-title">拖拽图片到此处，或点击选择图片</div>
+        <div class="dropzone-hint">支持 JPG、PNG、WebP、BMP、SVG 等主流格式，支持多选与批量转换</div>
+        <input type="file" id="file-input" multiple accept="image/*">
+      </div>
+
+      <div class="convert-settings-bar" id="settings-bar" style="display: none; margin-top: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-weight: 600; font-size: 0.92rem;">目标转换格式：</span>
+          <select class="form-select" id="target-format" style="width: 140px; padding: 0.45rem 0.75rem;">
+            <option value="image/png">PNG 格式</option>
+            <option value="image/jpeg" selected>JPG / JPEG</option>
+            <option value="image/webp">WebP (推荐)</option>
+          </select>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;" id="quality-wrap">
+          <span style="font-weight: 600; font-size: 0.92rem;">输出画质：</span>
+          <input type="range" class="slider-range" id="quality-slider" min="0.1" max="1" step="0.05" value="0.92" style="width: 120px;">
+          <span class="slider-badge" id="quality-val">92%</span>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" class="btn btn-primary" id="btn-convert-all">⚡ 批量转换全部</button>
+          <button type="button" class="btn btn-secondary" id="btn-download-zip" style="display: none;">📦 打包下载 ZIP</button>
+        </div>
+      </div>
+
+      <!-- 图片转换列表 -->
+      <div id="table-wrap" style="display: none; overflow-x: auto;">
+        <table class="img-list-table">
+          <thead>
+            <tr>
+              <th>预览</th>
+              <th>文件名</th>
+              <th>原大小</th>
+              <th>转换后大小</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="img-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">图片格式转换相关问题</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">JPG、PNG 和 WebP 各自有什么优势？ <span>▼</span></div>
+          <div class="faq-answer"><strong>JPG：</strong>适合色彩丰富的真实照片，文件体积小，但不支持透明背景；<br><strong>PNG：</strong>支持无损压缩与透明背景通道，适合Logo、截图、线框图；<br><strong>WebP：</strong>Google 研发的新一代格式，在保证肉眼同等画质下比 JPG 体积小 30% 以上，同时支持透明通道，是现代网页首选。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">本地转换对画质会有损失吗？ <span>▼</span></div>
+          <div class="faq-answer">如果转换为 PNG，则是 100% 无损转换。如果转换为 JPG 或 WebP，您可以通过画质滑块自由设定（如 90%~95% 为高质量保真）。所有重采样均在浏览器本地 Canvas 2D 高精度管线中完成。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/vendor/jszip.min.js"></script>
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const settingsBar = document.getElementById('settings-bar');
+    const tableWrap = document.getElementById('table-wrap');
+    const tbody = document.getElementById('img-table-body');
+    const targetFormatSelect = document.getElementById('target-format');
+    const qualitySlider = document.getElementById('quality-slider');
+    const qualityVal = document.getElementById('quality-val');
+    const btnConvertAll = document.getElementById('btn-convert-all');
+    const btnDownloadZip = document.getElementById('btn-download-zip');
+
+    let fileList = [];
+
+    qualitySlider.addEventListener('input', () => {
+      qualityVal.textContent = Math.round(qualitySlider.value * 100) + '%';
+    });
+
+    targetFormatSelect.addEventListener('change', () => {
+      const isPng = targetFormatSelect.value === 'image/png';
+      document.getElementById('quality-wrap').style.opacity = isPng ? '0.4' : '1';
+      document.getElementById('quality-wrap').style.pointerEvents = isPng ? 'none' : 'auto';
+    });
+
+    fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+    ['dragenter', 'dragover'].forEach(name => {
+      dropzone.addEventListener(name, e => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+      dropzone.addEventListener(name, e => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
+    });
+
+    dropzone.addEventListener('drop', e => {
+      e._toolNexusHandled = true;
+      if (e.dataTransfer.files && e.dataTransfer.files.length) {
+        handleFiles(e.dataTransfer.files);
+      }
+    });
+
+    function handleFiles(files) {
+      for (const f of files) {
+        if (!f.type.startsWith('image/')) continue;
+        const item = {
+          id: Math.random().toString(36).substring(2),
+          file: f,
+          thumb: URL.createObjectURL(f),
+          convertedBlob: null,
+          convertedName: '',
+          status: 'ready'
+        };
+        fileList.push(item);
+      }
+      renderTable();
+    }
+
+    function renderTable() {
+      if (fileList.length === 0) {
+        settingsBar.style.display = 'none';
+        tableWrap.style.display = 'none';
+        return;
+      }
+      settingsBar.style.display = 'flex';
+      tableWrap.style.display = 'block';
+
+      tbody.innerHTML = fileList.map((item, idx) => `
+        <tr>
+          <td><img src="${item.thumb}" class="img-thumb" alt="预览"></td>
+          <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.file.name}</td>
+          <td>${Utils.formatBytes(item.file.size)}</td>
+          <td>${item.convertedBlob ? Utils.formatBytes(item.convertedBlob.size) : '-'}</td>
+          <td>
+            <span class="badge-tag ${item.status === 'done' ? 'badge-privacy' : 'badge-dev'}">
+              ${item.status === 'done' ? '转换成功' : '就绪待转换'}
+            </span>
+          </td>
+          <td>
+            ${item.convertedBlob ? `
+              <button type="button" class="btn btn-secondary btn-sm" onclick="downloadSingle('${item.id}')">下载</button>
+            ` : `
+              <button type="button" class="btn btn-primary btn-sm" onclick="convertSingle('${item.id}')">转换</button>
+            `}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function convertImageItem(item) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d');
+
+          const mime = targetFormatSelect.value;
+          // 若转 JPG 则填充纯白背景防透明变黑
+          if (mime === 'image/jpeg') {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+          ctx.drawImage(img, 0, 0);
+
+          const q = parseFloat(qualitySlider.value);
+          canvas.toBlob(blob => {
+            item.convertedBlob = blob;
+            const ext = mime === 'image/png' ? 'png' : (mime === 'image/jpeg' ? 'jpg' : 'webp');
+            item.convertedName = item.file.name.replace(/\.[^/.]+$/, '') + '.' + ext;
+            item.status = 'done';
+            resolve(item);
+          }, mime, q);
+        };
+        img.src = item.thumb;
+      });
+    }
+
+    window.convertSingle = async function(id) {
+      const item = fileList.find(x => x.id === id);
+      if (item) {
+        await convertImageItem(item);
+        renderTable();
+        Utils.showToast('转换完成！', 'success');
+        checkAllDone();
+      }
+    };
+
+    window.downloadSingle = function(id) {
+      const item = fileList.find(x => x.id === id);
+      if (item && item.convertedBlob) {
+        Utils.downloadBlob(item.convertedBlob, item.convertedName);
+      }
+    };
+
+    btnConvertAll.addEventListener('click', async () => {
+      btnConvertAll.disabled = true;
+      btnConvertAll.textContent = '正在极速转换中...';
+      for (const item of fileList) {
+        await convertImageItem(item);
+      }
+      renderTable();
+      btnConvertAll.disabled = false;
+      btnConvertAll.textContent = '⚡ 批量转换全部';
+      btnDownloadZip.style.display = 'inline-flex';
+      Utils.showToast('全部转换完成！', 'success');
+    });
+
+    btnDownloadZip.addEventListener('click', async () => {
+      if (!window.JSZip) {
+        Utils.showToast('JSZip 依赖加载中，请稍候', 'warning');
+        return;
+      }
+      const zip = new JSZip();
+      fileList.forEach(item => {
+        if (item.convertedBlob) {
+          zip.file(item.convertedName, item.convertedBlob);
+        }
+      });
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      Utils.downloadBlob(zipBlob, 'toolnexus_converted_images.zip');
+      Utils.showToast('ZIP 打包下载完成！', 'success');
+    });
+
+    function checkAllDone() {
+      const allDone = fileList.every(i => i.status === 'done');
+      if (allDone) {
+        btnDownloadZip.style.display = 'inline-flex';
+      }
+    }
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

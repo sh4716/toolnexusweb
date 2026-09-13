@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator - Body Mass Index & Ideal Weight | ToolNexus</title>
+  <meta name="description" content="Free in-browser BMI Calculator. Calculate your Body Mass Index with Metric & Imperial units, WHO health classifications, and ideal weight targets.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/bmi-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/bmi-calculator/">
+  <meta property="og:title" content="BMI Calculator - Body Mass Index & Ideal Weight | ToolNexus">
+  <meta property="og:description" content="Free in-browser BMI Calculator. Calculate your Body Mass Index with Metric & Imperial units, WHO health classifications, and ideal weight targets.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BMI Calculator - Body Mass Index & Ideal Weight | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser BMI Calculator. Calculate your Body Mass Index with Metric & Imperial units, WHO health classifications, and ideal weight targets.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/bmi-calculator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/bmi-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/bmi-calculator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/bmi-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#calculators">Calculators</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>BMI Calculator</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Health & Lifestyle</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🏃 Body Mass Index (BMI) Calculator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Calculate your Body Mass Index (BMI) and discover your ideal healthy weight range according to World Health Organization (WHO) standards. Supports both Metric and Imperial units.
+        </p>
+
+        <!-- Unit Selector -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; background: var(--bg-surface-alt); padding: 0.35rem; border-radius: var(--radius-md); max-width: 320px;">
+          <button type="button" class="btn-sm btn-ghost active-unit" id="unit-metric-btn" style="flex:1; border-radius:var(--radius-sm);" onclick="switchUnit('metric')">Metric (cm / kg)</button>
+          <button type="button" class="btn-sm btn-ghost" id="unit-imperial-btn" style="flex:1; border-radius:var(--radius-sm);" onclick="switchUnit('imperial')">Imperial (ft / lbs)</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="bmi-grid">
+          <div>
+            <!-- Metric Inputs -->
+            <div id="metric-inputs">
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" style="font-weight: 600;">Height (cm)</label>
+                <input type="number" id="height-cm" class="input-text" value="175" min="50" max="250" oninput="calcBmi()">
+              </div>
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" style="font-weight: 600;">Weight (kg)</label>
+                <input type="number" id="weight-kg" class="input-text" value="68" min="20" max="300" oninput="calcBmi()">
+              </div>
+            </div>
+
+            <!-- Imperial Inputs -->
+            <div id="imperial-inputs" style="display: none;">
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" style="font-weight: 600;">Height (Feet & Inches)</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <input type="number" id="height-ft" class="input-text" value="5" placeholder="Feet" oninput="calcBmi()">
+                  <input type="number" id="height-in" class="input-text" value="9" placeholder="Inches" oninput="calcBmi()">
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" style="font-weight: 600;">Weight (lbs)</label>
+                <input type="number" id="weight-lbs" class="input-text" value="150" oninput="calcBmi()">
+              </div>
+            </div>
+          </div>
+
+          <!-- BMI Results Box -->
+          <div>
+            <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.1)); border: 1px solid var(--primary-border); border-radius: var(--radius-lg); padding: 1.75rem; text-align: center;">
+              <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Your BMI Score</div>
+              <div id="bmi-num" style="font-size: 3.2rem; font-weight: 800; color: var(--primary); margin: 0.25rem 0;">22.2</div>
+              <div id="bmi-category" style="font-size: 1.2rem; font-weight: 700; color: var(--success); margin-bottom: 1rem;">Normal Weight</div>
+
+              <!-- Visual Gauge Bar -->
+              <div style="margin: 1.25rem 0; position: relative;">
+                <div style="height: 12px; border-radius: 6px; display: flex; overflow: hidden;">
+                  <div style="flex: 18.5; background: #38bdf8;" title="Underweight (< 18.5)"></div>
+                  <div style="flex: 6.4; background: #10b981;" title="Normal (18.5 - 24.9)"></div>
+                  <div style="flex: 5.0; background: #f59e0b;" title="Overweight (25.0 - 29.9)"></div>
+                  <div style="flex: 10.0; background: #f43f5e;" title="Obese (≥ 30)"></div>
+                </div>
+                <div id="bmi-pointer" style="position: absolute; top: -6px; width: 4px; height: 24px; background: #ffffff; border-radius: 2px; box-shadow: 0 0 6px rgba(0,0,0,0.8); transform: translateX(-50%); left: 35%; transition: left 0.3s ease;"></div>
+              </div>
+
+              <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1rem; margin-top: 1rem;">
+                Ideal Healthy Weight Range: <strong id="ideal-weight" style="color: var(--text-main);">56.7 kg - 76.3 kg</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">World Health Organization (WHO) BMI Categories</h3>
+          <ul style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem;">
+            <li><strong>Underweight:</strong> BMI less than 18.5</li>
+            <li><strong>Normal weight:</strong> BMI between 18.5 and 24.9</li>
+            <li><strong>Overweight:</strong> BMI between 25.0 and 29.9</li>
+            <li><strong>Obesity:</strong> BMI of 30.0 or greater</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .active-unit {
+        background: var(--bg-card) !important;
+        color: var(--primary) !important;
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+      }
+    </style>
+
+    <script>
+      let currentUnit = 'metric';
+
+      function switchUnit(unit) {
+        currentUnit = unit;
+        if (unit === 'metric') {
+          document.getElementById('unit-metric-btn').classList.add('active-unit');
+          document.getElementById('unit-imperial-btn').classList.remove('active-unit');
+          document.getElementById('metric-inputs').style.display = 'block';
+          document.getElementById('imperial-inputs').style.display = 'none';
+        } else {
+          document.getElementById('unit-imperial-btn').classList.add('active-unit');
+          document.getElementById('unit-metric-btn').classList.remove('active-unit');
+          document.getElementById('imperial-inputs').style.display = 'block';
+          document.getElementById('metric-inputs').style.display = 'none';
+        }
+        calcBmi();
+      }
+
+      function calcBmi() {
+        let weightKg = 0;
+        let heightM = 0;
+
+        if (currentUnit === 'metric') {
+          const cm = parseFloat(document.getElementById('height-cm').value) || 0;
+          weightKg = parseFloat(document.getElementById('weight-kg').value) || 0;
+          heightM = cm / 100;
+        } else {
+          const ft = parseFloat(document.getElementById('height-ft').value) || 0;
+          const inc = parseFloat(document.getElementById('height-in').value) || 0;
+          const lbs = parseFloat(document.getElementById('weight-lbs').value) || 0;
+          const totalInches = (ft * 12) + inc;
+          heightM = totalInches * 0.0254;
+          weightKg = lbs * 0.453592;
+        }
+
+        if (heightM <= 0 || weightKg <= 0) return;
+
+        const bmi = weightKg / (heightM * heightM);
+        const formattedBmi = bmi.toFixed(1);
+        document.getElementById('bmi-num').textContent = formattedBmi;
+
+        // Classification
+        let cat = 'Normal Weight';
+        let color = 'var(--success)';
+        let leftPct = 0;
+
+        if (bmi < 18.5) {
+          cat = 'Underweight';
+          color = '#38bdf8';
+          leftPct = (bmi / 18.5) * 25;
+        } else if (bmi < 25) {
+          cat = 'Normal Weight';
+          color = '#10b981';
+          leftPct = 25 + ((bmi - 18.5) / 6.5) * 25;
+        } else if (bmi < 30) {
+          cat = 'Overweight';
+          color = '#f59e0b';
+          leftPct = 50 + ((bmi - 25) / 5) * 25;
+        } else {
+          cat = 'Obese';
+          color = '#f43f5e';
+          leftPct = 75 + Math.min(25, ((bmi - 30) / 10) * 25);
+        }
+
+        document.getElementById('bmi-category').textContent = cat;
+        document.getElementById('bmi-category').style.color = color;
+        document.getElementById('bmi-pointer').style.left = Math.max(2, Math.min(98, leftPct)) + '%';
+
+        // Ideal Weight
+        const minIdealKg = 18.5 * (heightM * heightM);
+        const maxIdealKg = 24.9 * (heightM * heightM);
+
+        if (currentUnit === 'metric') {
+          document.getElementById('ideal-weight').textContent = minIdealKg.toFixed(1) + ' kg - ' + maxIdealKg.toFixed(1) + ' kg';
+        } else {
+          const minLbs = minIdealKg * 2.20462;
+          const maxLbs = maxIdealKg * 2.20462;
+          document.getElementById('ideal-weight').textContent = minLbs.toFixed(1) + ' lbs - ' + maxLbs.toFixed(1) + ' lbs';
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        calcBmi();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

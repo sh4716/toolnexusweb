@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unix Timestamp Converter - Epoch to Human Readable Date | ToolNexus</title>
+  <meta name="description" content="Free in-browser Unix Timestamp Converter. Convert seconds and milliseconds to UTC and local date, or inspect relative time dynamically.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/timestamp/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/timestamp/">
+  <meta property="og:title" content="Unix Timestamp Converter - Epoch to Human Readable Date | ToolNexus">
+  <meta property="og:description" content="Free in-browser Unix Timestamp Converter. Convert seconds and milliseconds to UTC and local date, or inspect relative time dynamically.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unix Timestamp Converter - Epoch to Human Readable Date | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Unix Timestamp Converter. Convert seconds and milliseconds to UTC and local date, or inspect relative time dynamically.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/timestamp/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/timestamp/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/timestamp/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/timestamp/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Unix Timestamp Converter</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">⏱️ Unix Timestamp Converter</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Convert Unix epoch timestamps (seconds & milliseconds) to human-readable date & time, or convert dates back to Unix timestamps. Live streaming clock included.
+        </p>
+
+        <!-- Current Live Clock -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Current Epoch Timestamp</div>
+            <div id="live-epoch" style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: var(--primary);">0000000000</div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="copyCurrentEpoch()">Copy Timestamp</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="time-grid">
+          <!-- Epoch to Date -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-base); border-radius: var(--radius-md); padding: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Epoch to Date</h3>
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">Unix Timestamp (sec or ms)</label>
+              <input type="number" id="epoch-input" class="input-text" placeholder="e.g. 1700000000" oninput="convertEpochToDate()">
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; line-height: 1.6;">
+              <div style="color: var(--text-muted);">GMT / UTC: <strong id="res-utc" style="color:var(--text-main);">-</strong></div>
+              <div style="color: var(--text-muted);">Local Time: <strong id="res-local" style="color:var(--primary);">-</strong></div>
+              <div style="color: var(--text-muted);">Relative: <strong id="res-relative" style="color:var(--accent-cyan);">-</strong></div>
+            </div>
+          </div>
+
+          <!-- Date to Epoch -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-base); border-radius: var(--radius-md); padding: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Date to Epoch</h3>
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">Select Date and Time</label>
+              <input type="datetime-local" id="date-input" class="input-text" oninput="convertDateToEpoch()">
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; line-height: 1.6;">
+              <div style="color: var(--text-muted);">Timestamp (Seconds): <strong id="res-sec" style="color:var(--primary); font-family:var(--font-mono);">-</strong></div>
+              <div style="color: var(--text-muted);">Timestamp (Milliseconds): <strong id="res-ms" style="color:var(--accent-cyan); font-family:var(--font-mono);">-</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateLiveClock() {
+        const now = Math.floor(Date.now() / 1000);
+        document.getElementById('live-epoch').textContent = now;
+      }
+      setInterval(updateLiveClock, 1000);
+      updateLiveClock();
+
+      function copyCurrentEpoch() {
+        const text = document.getElementById('live-epoch').textContent;
+        copyToClipboard(text);
+      }
+
+      function convertEpochToDate() {
+        const val = parseInt(document.getElementById('epoch-input').value);
+        if (!val) return;
+        const ms = val < 10000000000 ? val * 1000 : val;
+        const d = new Date(ms);
+
+        document.getElementById('res-utc').textContent = d.toUTCString();
+        document.getElementById('res-local').textContent = d.toString();
+
+        const diffSec = Math.round((Date.now() - ms) / 1000);
+        if (Math.abs(diffSec) < 60) {
+          document.getElementById('res-relative').textContent = 'Just now';
+        } else if (diffSec > 0) {
+          const days = Math.floor(diffSec / 86400);
+          document.getElementById('res-relative').textContent = days > 0 ? days + ' days ago' : Math.floor(diffSec / 3600) + ' hours ago';
+        } else {
+          const days = Math.floor(Math.abs(diffSec) / 86400);
+          document.getElementById('res-relative').textContent = days > 0 ? 'In ' + days + ' days' : 'In ' + Math.floor(Math.abs(diffSec) / 3600) + ' hours';
+        }
+      }
+
+      function convertDateToEpoch() {
+        const val = document.getElementById('date-input').value;
+        if (!val) return;
+        const d = new Date(val);
+        const ms = d.getTime();
+        const sec = Math.floor(ms / 1000);
+
+        document.getElementById('res-sec').textContent = sec;
+        document.getElementById('res-ms').textContent = ms;
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const nowSec = Math.floor(Date.now() / 1000);
+        document.getElementById('epoch-input').value = nowSec;
+        convertEpochToDate();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

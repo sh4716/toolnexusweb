@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开发者时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | 实时时钟</title>
+  <meta name="description" content="纯前端在线 Unix 时间戳转换工具。支持当前时间戳动态秒级流逝、时间戳与北京时间、UTC 时间、ISO-8601 互相转换。">
+  <meta name="keywords" content="时间戳转换,Unix时间戳,时间戳转日期,毫秒时间戳,在线时间戳">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/timestamp/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/timestamp/">
+  <meta property="og:title" content="开发者时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | 实时时钟">
+  <meta property="og:description" content="纯前端在线 Unix 时间戳转换工具。支持当前时间戳动态秒级流逝、时间戳与北京时间、UTC 时间、ISO-8601 互相转换。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="开发者时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | 实时时钟">
+  <meta name="twitter:description" content="纯前端在线 Unix 时间戳转换工具。支持当前时间戳动态秒级流逝、时间戳与北京时间、UTC 时间、ISO-8601 互相转换。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/timestamp/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/timestamp/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/timestamp/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/timestamp/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者时间戳转换</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">⏰ 开发者时间戳转换</h1>
+        <span class="badge-tag badge-privacy">纯本地系统时钟</span>
+        <span class="badge-tag badge-dev">程序员每日必查</span>
+      </div>
+      <p class="tool-desc">Unix 秒级/毫秒级时间戳与本地可读时间双向互转，多时区（北京、UTC、伦敦、纽约）实时联动。</p>
+    </div>
+
+    <!-- 实时当前时间流逝 -->
+    <div class="tool-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">当前 Unix 时间戳 (秒)</div>
+          <div style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: var(--primary);" id="cur-ts-sec">1700000000</div>
+        </div>
+        <div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">当前毫秒时间戳 (ms)</div>
+          <div style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: var(--accent-cyan);" id="cur-ts-ms">1700000000000</div>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('cur-ts-sec').textContent)">复制当前时间戳(秒)</button>
+      </div>
+    </div>
+
+    <!-- 双向转换面板 -->
+    <div class="grid-2">
+      <!-- 时间戳转日期 -->
+      <div class="tool-card">
+        <div class="tool-card-title" style="margin-bottom: 1rem;">🕒 时间戳 ➔ 可读时间</div>
+        <div class="form-group">
+          <label class="form-label">输入 Unix 时间戳 (秒或毫秒)：</label>
+          <input type="text" class="form-input" id="input-ts" placeholder="例如: 1773278800">
+        </div>
+        <div class="form-group">
+          <label class="form-label">北京时间 (UTC+8)：</label>
+          <div class="copy-input-group">
+            <input type="text" id="res-bj-time" readonly>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-bj-time').value)">复制</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">UTC 标准时间 / ISO-8601：</label>
+          <div class="copy-input-group">
+            <input type="text" id="res-utc-time" readonly>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-utc-time').value)">复制</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 日期转时间戳 -->
+      <div class="tool-card">
+        <div class="tool-card-title" style="margin-bottom: 1rem;">📅 可读时间 ➔ 时间戳</div>
+        <div class="form-group">
+          <label class="form-label">输入时间字符串：</label>
+          <input type="text" class="form-input" id="input-date-str" placeholder="例如: 2026-09-11 12:00:00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unix 秒级时间戳 (10位)：</label>
+          <div class="copy-input-group">
+            <input type="text" id="res-ts-sec" readonly>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-ts-sec').value)">复制</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unix 毫秒级时间戳 (13位)：</label>
+          <div class="copy-input-group">
+            <input type="text" id="res-ts-ms" readonly>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-ts-ms').value)">复制</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const curSec = document.getElementById('cur-ts-sec');
+    const curMs = document.getElementById('cur-ts-ms');
+
+    setInterval(() => {
+      const now = Date.now();
+      curSec.textContent = Math.floor(now / 1000);
+      curMs.textContent = now;
+    }, 1000);
+
+    const inputTs = document.getElementById('input-ts');
+    const resBjTime = document.getElementById('res-bj-time');
+    const resUtcTime = document.getElementById('res-utc-time');
+
+    inputTs.addEventListener('input', () => {
+      let v = inputTs.value.trim();
+      if (!v) return;
+      let num = parseInt(v, 10);
+      if (v.length === 10) num *= 1000;
+      const d = new Date(num);
+      if (isNaN(d.getTime())) return;
+
+      resBjTime.value = d.toLocaleString('zh-CN', { hour12: false });
+      resUtcTime.value = d.toISOString();
+    });
+
+    const inputDateStr = document.getElementById('input-date-str');
+    const resTsSec = document.getElementById('res-ts-sec');
+    const resTsMs = document.getElementById('res-ts-ms');
+
+    // 默认填入当前
+    const nowD = new Date();
+    inputTs.value = Math.floor(nowD.getTime() / 1000);
+    inputTs.dispatchEvent(new Event('input'));
+
+    inputDateStr.value = nowD.getFullYear() + '-' + 
+      String(nowD.getMonth()+1).padStart(2, '0') + '-' + 
+      String(nowD.getDate()).padStart(2, '0') + ' ' + 
+      String(nowD.getHours()).padStart(2, '0') + ':' + 
+      String(nowD.getMinutes()).padStart(2, '0') + ':' + 
+      String(nowD.getSeconds()).padStart(2, '0');
+
+    inputDateStr.addEventListener('input', () => {
+      const str = inputDateStr.value.trim();
+      if (!str) return;
+      const d = new Date(str.replace(/-/g, '/'));
+      if (!isNaN(d.getTime())) {
+        resTsSec.value = Math.floor(d.getTime() / 1000);
+        resTsMs.value = d.getTime();
+      }
+    });
+    inputDateStr.dispatchEvent(new Event('input'));
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

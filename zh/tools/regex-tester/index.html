@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Tester - 正则表达式在线测试与常用正则模板库 | 纯本地极速</title>
+  <meta name="description" content="纯前端在线正则表达式测试与调试工具。支持实时高亮匹配、捕获组分析、修饰符自由切换，并内置手机号、邮箱、身份证、IP、URL 等数十种常用正则速查模板。">
+  <meta name="keywords" content="正则测试,正则表达式,RegexTester,在线正则,常用正则表达式">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/regex-tester/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/regex-tester/">
+  <meta property="og:title" content="Regex Tester - 正则表达式在线测试与常用正则模板库 | 纯本地极速">
+  <meta property="og:description" content="纯前端在线正则表达式测试与调试工具。支持实时高亮匹配、捕获组分析、修饰符自由切换，并内置手机号、邮箱、身份证、IP、URL 等数十种常用正则速查模板。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Regex Tester - 正则表达式在线测试与常用正则模板库 | 纯本地极速">
+  <meta name="twitter:description" content="纯前端在线正则表达式测试与调试工具。支持实时高亮匹配、捕获组分析、修饰符自由切换，并内置手机号、邮箱、身份证、IP、URL 等数十种常用正则速查模板。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .match-highlight {
+      background: rgba(99, 102, 241, 0.35);
+      border-bottom: 2px solid var(--primary);
+      border-radius: 2px;
+      color: var(--text-main);
+    }
+    .regex-preset-btn {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .regex-preset-btn:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+    .regex-preset-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+      box-shadow: 0 0 0 1px var(--primary-border), 0 2px 8px var(--primary-glow);
+    }
+    .rendered-preview-box {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      min-height: 140px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.6;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/regex-tester/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/regex-tester/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/regex-tester/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/regex-tester/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>Regex 正则测试器</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🎯 Regex 正则测试器</h1>
+        <span class="badge-tag badge-privacy">纯本地毫秒级匹配</span>
+        <span class="badge-tag badge-dev">开发者每日高频</span>
+      </div>
+      <p class="tool-desc">纯前端正则表达式实时验证与高亮测试。内置手机号、邮箱、身份证、URL 等数十种常用正则模板，一键载入测试。</p>
+    </div>
+
+    <!-- 常用正则模板库 -->
+    <div class="tool-card" style="padding: 1.25rem;">
+      <div style="font-weight: 600; font-size: 0.88rem; margin-bottom: 0.65rem; color: var(--text-main);">常用正则速查模板库（点击一键应用与示例）：</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="preset-list">
+        <button type="button" class="regex-preset-btn" data-reg="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" data-flag="g" data-sample="常用邮箱测试：\nsupport@toolnexusweb.com\nuser.name+tag@foxmail.com\ninvalid@email">电子邮箱 (工程常用版)</button>
+        <button type="button" class="regex-preset-btn" data-reg="[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?" data-flag="g" data-sample="RFC 5322规范扩展字符测试：\nuser!def#99@example.com\nteam.alpha@sub.domain.org\nplain@domain.co">电子邮箱 (RFC 5322 规范版)</button>
+        <button type="button" class="regex-preset-btn" data-reg="\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b" data-flag="g" data-sample="合法有效 IP (0-255):\n192.168.1.1\n10.0.0.254\n127.0.0.1\n0.0.0.0\n255.255.255.255\n\n超范围或非法 IP (严格不匹配):\n300.1.2.3\n192.168.1.256\n999.999.999.999">IPv4 地址 (严谨 0-255)</button>
+        <button type="button" class="regex-preset-btn" data-reg="\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b" data-flag="g" data-sample="IPv6标准格式测试：\n2001:0db8:85a3:0000:0000:8a2e:0370:7334\nfe80:0000:0000:0000:0204:61ff:fe9d:f156">IPv6 地址</button>
+        <button type="button" class="regex-preset-btn" data-reg="^1[3-9]\d{9}$" data-flag="g" data-sample="13800138000\n12012345678\n18999998888">中国手机号 (11位)</button>
+        <button type="button" class="regex-preset-btn" data-reg="^\d{17}[\dXx]$" data-flag="g" data-sample="11010119900307239X\n123456">二代身份证号 (18位)</button>
+        <button type="button" class="regex-preset-btn" data-reg="https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+" data-flag="g" data-sample="访问 https://google.com 或 http://127.0.0.1:3000/tools/">URL / 网页链接</button>
+        <button type="button" class="regex-preset-btn" data-reg="\b(?:\d{4}([-/.])(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|[12]\d|3[01])|(?:0?[1-9]|1[0-2])([-/.])(?:0?[1-9]|[12]\d|3[01])\2\d{4}|(?:0?[1-9]|[12]\d|3[01])([-/.])(?:0?[1-9]|1[0-2])\3\d{4})\b" data-flag="g" data-sample="多格式日期测试样例：\n2025/01/08 (斜杠 YYYY/MM/DD)\n01/08/2025 (美式 MM/DD/YYYY)\n31/12/2024 (英式 DD/MM/YYYY)\n2025-01-08 (ISO中划线)\n2025.01.08 (点号分隔)\n2025/1/8 (无前导零)\n\n非法日期测试（严格排除）：\n2025/13/01 (月份超限)\n32/01/2025 (日期超限)\n2025-01/08 (前后分隔符混用)">通用日期 (多格式 YYYY/MM/DD, MM/DD/YYYY等)</button>
+        <button type="button" class="regex-preset-btn" data-reg="\b\d{4}([-/.])(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|[12]\d|3[01])\b" data-flag="g" data-sample="标准年月日测试：\n2025/01/08\n2025-01-08\n2025.01.08\n2024-12-31\n2025/1/8">ISO 日期 (YYYY-MM-DD / YYYY/MM/DD)</button>
+        <button type="button" class="regex-preset-btn" data-reg="[\u4e00-\u9fa5]+" data-flag="g" data-sample="Hello世界！ToolNexus纯前端工具箱。">纯中文字符</button>
+        <button type="button" class="regex-preset-btn" data-reg="\d+" data-flag="g" data-sample="订单号 89421 在 150 毫秒内完成处理。">纯数字提取</button>
+      </div>
+    </div>
+
+    <!-- 正则输入与修饰符 -->
+    <div class="tool-card">
+      <div class="form-group">
+        <label class="form-label">正则表达式 (Pattern)：</label>
+        <div style="display: flex; align-items: center; background: var(--bg-input); border: 1px solid var(--border-base); border-radius: var(--radius-sm); padding: 0.2rem 0.5rem;">
+          <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 1.1rem; padding: 0 0.5rem;">/</span>
+          <input type="text" id="reg-pattern" value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" style="flex: 1; border: none; outline: none; background: transparent; color: var(--text-main); font-family: var(--font-mono); font-size: 1rem;">
+          <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 1.1rem; padding: 0 0.5rem;">/</span>
+          <input type="text" id="reg-flags" value="g" style="width: 50px; border: none; outline: none; background: transparent; color: var(--primary); font-family: var(--font-mono); font-weight: 700;">
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+          <label><input type="checkbox" id="flag-g" checked> g (全局匹配)</label>
+          <label><input type="checkbox" id="flag-i"> i (忽略大小写)</label>
+          <label><input type="checkbox" id="flag-m"> m (多行模式)</label>
+          <label><input type="checkbox" id="flag-s"> s (允许.匹配换行)</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">测试文本 (Test Text)：</label>
+        <textarea class="form-textarea" id="test-text" placeholder="输入待测试与匹配的文本字符串..." style="height: 140px;">欢迎联系我们：admin@toolnexus.com 或者 support.team@service.org，有问题可发邮件至 hello@example.cn。</textarea>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+        <span class="form-label" style="margin:0;">实时高亮匹配结果：</span>
+        <span id="match-counter" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">共匹配到 3 处</span>
+      </div>
+      <div class="rendered-preview-box" id="match-preview"></div>
+    </div>
+
+    <!-- 深度技术说明 -->
+    <div class="tool-card" style="margin-top: 1.5rem; padding: 1.5rem;">
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main);">
+        <span>💡</span> 正则深度剖析：IP 范围校验、RFC 5322 邮箱权衡与日期多格式解析
+      </h3>
+      
+      <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; font-size: 0.9rem; line-height: 1.7; color: var(--text-muted);">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+            1. 为什么 IPv4 正则必须严格校验 0~255 范围与单词边界 \b？
+          </h4>
+          <p style="margin-bottom: 0.5rem;">
+            初级简易正则通常写为 <code>(?:\d{1,3}\.){3}\d{1,3}</code>，但这仅仅限制了每段为“1至3位数字”，完全无法判断数值大小，导致 <code>999.999.999.999</code> 或 <code>256.0.0.1</code> 也会被误判为合法 IP。
+          </p>
+          <p style="margin-bottom: 0.5rem;">
+            若缺少 <code>\b</code> 单词边界，当输入非法 IP 如 <code>300.1.2.3</code> 时，正则引擎可能会从第二位数字截断匹配出 <code>00.1.2.3</code>，造成假阳性匹配。
+          </p>
+          <p style="margin: 0;">
+            本工具预设的严谨版正则 <code>\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b</code>，将每字节数值精细划分为 <code>250~255</code>、<code>200~249</code>、<code>100~199</code>、<code>0~99</code> 四个严密分支，并配合 <code>\b</code> 单词边界，彻底杜绝超范围数值与边界截断误判。
+          </p>
+        </div>
+
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+            2. 为什么实际生产工程中普遍采用简易版邮箱正则，而非 100% RFC 5322 完整规范？
+          </h4>
+          <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem;">
+            <li>
+              <strong>RFC 5322 完整规范极其冗长复杂：</strong>RFC 5322 标准理论上允许带双引号的用户名（例如 <code>"john..doe"@example.com</code>、包含空格与转义符号）、IP 域名字面量（如 <code>user@[192.168.1.1]</code>）以及嵌套圆括号注释。如果使用纯正则完整覆盖 RFC 5322，正则表达式长达数千字符，极难调试与维护。
+            </li>
+            <li>
+              <strong>杜绝 ReDoS 灾难性回溯攻击：</strong>极其复杂的贪婪嵌套正则表达式在遇到恶意构造的畸形输入时，极易诱发灾难性回溯（ReDoS），瞬间耗尽 CPU 计算资源并卡死浏览器或服务端 Node.js/Python 进程。
+            </li>
+            <li>
+              <strong>主流邮件提供商的现实限制：</strong>现实生活中，99.99% 的邮件服务商（Google Gmail、微软 Outlook、网易 163、腾讯 QQ 邮箱等）在用户注册或发信时，均严禁使用双引号用户名或生僻特殊符号，通常只支持字母、数字、点号 <code>.</code>、短横线 <code>-</code>、下划线 <code>_</code> 及特定加号别名 <code>+</code>。
+            </li>
+            <li>
+              <strong>工程验证的本质与分工：</strong>前端与 API 网关层正则的核心定位是<strong>以极低算力成本过滤绝大多数显而易见的输入手误</strong>（如遗漏 <code>@</code> 或域名缺少后缀）；而验证一个邮箱是否真实存在且归属当前用户的<strong>唯一绝对标准</strong>，永远是<strong>向该邮箱发送真实验证码或激活确认邮件 (Magic Link)</strong>。
+            </li>
+          </ul>
+        </div>
+
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+            3. 日期正则：为什么需要处理多格式与反向引用一致性？
+          </h4>
+          <ul style="margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem;">
+            <li>
+              <strong>多格式兼容：</strong>单一写死的 <code>YYYY-MM-DD</code> 无法识别现实中极常见的斜杠格式（如 <code>2025/01/08</code>）、美式月/日/年格式（如 <code>01/08/2025</code>）或点号分隔格式（如 <code>2025.01.08</code>）。
+            </li>
+            <li>
+              <strong>反向引用保证分隔符自洽：</strong>利用捕获组 <code>([-/.])</code> 并在同段内使用反向引用 <code>\1</code>，可确保前后两个分隔符严格一致。既允许 <code>2025/01/08</code> 和 <code>2025-01-08</code>，又绝不会误匹配前后混用分隔符的异常字符串（如 <code>2025-01/08</code>）。
+            </li>
+            <li>
+              <strong>数值合理性与无前导零兼容：</strong>月份通过 <code>(0?[1-9]|1[0-2])</code> 严格限制在 1~12，日期通过 <code>(0?[1-9]|[12]\d|3[01])</code> 限制在 1~31，并支持如 <code>2025/1/8</code> 等不带前导零的自然书写习惯。
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const regPattern = document.getElementById('reg-pattern');
+    const regFlags = document.getElementById('reg-flags');
+    const testText = document.getElementById('test-text');
+    const matchPreview = document.getElementById('match-preview');
+    const matchCounter = document.getElementById('match-counter');
+
+    const flagG = document.getElementById('flag-g');
+    const flagI = document.getElementById('flag-i');
+    const flagM = document.getElementById('flag-m');
+    const flagS = document.getElementById('flag-s');
+
+    function syncFlagsFromCheckboxes() {
+      let f = '';
+      if (flagG.checked) f += 'g';
+      if (flagI.checked) f += 'i';
+      if (flagM.checked) f += 'm';
+      if (flagS.checked) f += 's';
+      regFlags.value = f;
+      runRegex();
+    }
+
+    function syncCheckboxesFromFlags() {
+      const f = regFlags.value;
+      flagG.checked = f.includes('g');
+      flagI.checked = f.includes('i');
+      flagM.checked = f.includes('m');
+      flagS.checked = f.includes('s');
+      runRegex();
+    }
+
+    [flagG, flagI, flagM, flagS].forEach(el => el.addEventListener('change', syncFlagsFromCheckboxes));
+    regFlags.addEventListener('input', syncCheckboxesFromFlags);
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function runRegex() {
+      const pat = regPattern.value;
+      const flags = regFlags.value;
+      const text = testText.value;
+
+      if (!pat || !text) {
+        matchPreview.innerHTML = escapeHtml(text);
+        matchCounter.textContent = '共匹配到 0 处';
+        return;
+      }
+
+      try {
+        const re = new RegExp(pat, flags.includes('g') ? flags : (flags + 'g'));
+        let match;
+        let count = 0;
+        let lastIndex = 0;
+        let html = '';
+
+        while ((match = re.exec(text)) !== null) {
+          count++;
+          html += escapeHtml(text.substring(lastIndex, match.index));
+          html += '<span class="match-highlight">' + escapeHtml(match[0]) + '</span>';
+          lastIndex = match.index + match[0].length;
+          if (match[0].length === 0) {
+            re.lastIndex++;
+          }
+        }
+        html += escapeHtml(text.substring(lastIndex));
+        matchPreview.innerHTML = html;
+        matchCounter.textContent = '共匹配到 ' + count + ' 处结果';
+        matchCounter.style.color = count > 0 ? 'var(--accent-emerald)' : 'var(--text-muted)';
+      } catch (err) {
+        matchPreview.innerHTML = '<span style="color:var(--accent-rose)">正则表达式错误: ' + err.message + '</span>';
+        matchCounter.textContent = '语法错误';
+        matchCounter.style.color = 'var(--accent-rose)';
+      }
+    }
+
+    const presetBtns = document.querySelectorAll('.regex-preset-btn');
+
+    function updateActivePreset() {
+      const currentPattern = regPattern.value;
+      presetBtns.forEach(btn => {
+        if (btn.getAttribute('data-reg') === currentPattern) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    regPattern.addEventListener('input', () => {
+      runRegex();
+      updateActivePreset();
+    });
+    testText.addEventListener('input', runRegex);
+
+    // 预设点击
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        regPattern.value = btn.getAttribute('data-reg');
+        regFlags.value = btn.getAttribute('data-flag') || 'g';
+        testText.value = (btn.getAttribute('data-sample') || '').replace(/\\n/g, '\n');
+        syncCheckboxesFromFlags();
+        updateActivePreset();
+        if (typeof Utils !== 'undefined' && Utils.showToast) {
+          Utils.showToast('已载入模板及示例', 'info');
+        }
+      });
+    });
+
+    runRegex();
+    updateActivePreset();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Converter - Title Case, UPPERCASE, lowercase, camelCase | ToolNexus</title>
+  <meta name="description" content="Free in-browser Case Converter. Convert text to Title Case (AP/Chicago style), Sentence case, UPPERCASE, lowercase, camelCase, snake_case, and kebab-case instantly.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/case-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/case-converter/">
+  <meta property="og:title" content="Case Converter - Title Case, UPPERCASE, lowercase, camelCase | ToolNexus">
+  <meta property="og:description" content="Free in-browser Case Converter. Convert text to Title Case (AP/Chicago style), Sentence case, UPPERCASE, lowercase, camelCase, snake_case, and kebab-case instantly.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Case Converter - Title Case, UPPERCASE, lowercase, camelCase | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Case Converter. Convert text to Title Case (AP/Chicago style), Sentence case, UPPERCASE, lowercase, camelCase, snake_case, and kebab-case instantly.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/case-converter/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/case-converter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/case-converter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/case-converter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-badge badge-primary">Text & Content Utility</span>
+          <h1 class="tool-title">🔤 Text Case Converter & Capitalizer</h1>
+          <p class="tool-desc">Transform your text and article titles into standard Title Case, Sentence case, UPPERCASE, lowercase, or coding conventions (camelCase, snake_case, kebab-case) in real time.</p>
+        </div>
+
+        <!-- Live Statistics Counter -->
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background: var(--bg-surface-alt); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1rem; font-size: 0.85rem;">
+          <div><span style="color: var(--text-muted);">Words:</span> <strong id="stat-words" style="color: var(--primary);">0</strong></div>
+          <div><span style="color: var(--text-muted);">Characters:</span> <strong id="stat-chars" style="color: var(--accent-cyan);">0</strong></div>
+          <div><span style="color: var(--text-muted);">Without Spaces:</span> <strong id="stat-chars-nospace" style="color: var(--text-main);">0</strong></div>
+          <div><span style="color: var(--text-muted);">Lines:</span> <strong id="stat-lines" style="color: var(--text-muted);">0</strong></div>
+        </div>
+
+        <!-- Input Textarea -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <textarea id="case-input" class="input-text" rows="8" placeholder="Type or paste your text or headline here (e.g. the quick brown fox jumps over the lazy dog)..." style="font-size: 1rem; line-height: 1.6; resize: vertical;" oninput="handleCaseInput()">the quick brown fox jumps over the lazy dog</textarea>
+        </div>
+
+        <!-- Case Transformation Buttons Grid -->
+        <div class="case-btns">
+          <button type="button" class="btn-sm case-btn" data-mode="title" onclick="transformCase('title')">Title Case (AP / Chicago)</button>
+          <button type="button" class="btn-sm case-btn" data-mode="sentence" onclick="transformCase('sentence')">Sentence case</button>
+          <button type="button" class="btn-sm case-btn" data-mode="upper" onclick="transformCase('upper')">UPPERCASE</button>
+          <button type="button" class="btn-sm case-btn" data-mode="lower" onclick="transformCase('lower')">lowercase</button>
+          <button type="button" class="btn-sm case-btn" data-mode="camel" onclick="transformCase('camel')">camelCase</button>
+          <button type="button" class="btn-sm case-btn" data-mode="pascal" onclick="transformCase('pascal')">PascalCase</button>
+          <button type="button" class="btn-sm case-btn" data-mode="snake" onclick="transformCase('snake')">snake_case</button>
+          <button type="button" class="btn-sm case-btn" data-mode="kebab" onclick="transformCase('kebab')">kebab-case</button>
+          <button type="button" class="btn-sm case-btn" data-mode="constant" onclick="transformCase('constant')">CONSTANT_CASE</button>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" onclick="copyCaseText()">
+            <span>Copy Result</span>
+            <span>📋</span>
+          </button>
+          <button type="button" class="btn btn-ghost" style="border:1px solid var(--border-color);" onclick="clearCaseText()">
+            <span>Clear Text</span>
+            <span>🗑️</span>
+          </button>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Case Styles & Capitalization Rules</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: How does Title Case decide which words stay lowercase?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Our engine applies AP and Chicago Manual of Style guidelines: minor words (articles like a/an/the, conjunctions like and/but/or, and prepositions like in/on/at/of) stay lowercase unless they are the first or last word of the title.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: When should I use camelCase vs snake_case vs kebab-case?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">camelCase is standard for JavaScript/Java/Go variables; snake_case is idiomatic in Python, Ruby, and SQL column names; kebab-case is universal for URLs, slugs, and CSS class names.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .case-btns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+    .case-btns .case-btn {
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-alt);
+      color: var(--text-main);
+      padding: 0.55rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .case-btns .case-btn:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
+      background: var(--bg-surface);
+    }
+    .case-btns .case-btn.active {
+      background: linear-gradient(135deg, var(--primary), #4f46e5) !important;
+      color: #ffffff !important;
+      border-color: var(--primary) !important;
+      box-shadow: 0 3px 12px rgba(99, 102, 241, 0.4);
+      transform: translateY(-1px);
+    }
+  </style>
+
+  <script>
+    const MINOR_WORDS = new Set([
+      'a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 
+      'to', 'by', 'of', 'in', 'with', 'from', 'as', 'into', 'like', 'over'
+    ]);
+
+    function toTitleCase(str) {
+      return str.replace(/\b[\w']+\b/g, function(word, index, full) {
+        const lower = word.toLowerCase();
+        // Check if first word or last word
+        const isFirst = index === 0;
+        const isLast = index + word.length >= full.trim().length;
+
+        if (!isFirst && !isLast && MINOR_WORDS.has(lower)) {
+          return lower;
+        }
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+      });
+    }
+
+    function toSentenceCase(str) {
+      return str.toLowerCase().replace(/(^\s*|[.!?]\s+)([a-z])/g, function(m, p1, p2) {
+        return p1 + p2.toUpperCase();
+      });
+    }
+
+    function getWords(str) {
+      return str
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/[_-]+/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+    }
+
+    function updateActiveButton(activeMode) {
+      document.querySelectorAll('.case-btns .case-btn').forEach(btn => {
+        if (activeMode && btn.getAttribute('data-mode') === activeMode) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function handleCaseInput() {
+      updateActiveButton(null);
+      updateStats();
+    }
+
+    function transformCase(mode) {
+      const el = document.getElementById('case-input');
+      const val = el.value;
+      if (!val) {
+        showToast('Please enter text first', 'warning');
+        return;
+      }
+
+      let result = val;
+      if (mode === 'title') {
+        result = toTitleCase(val);
+      } else if (mode === 'sentence') {
+        result = toSentenceCase(val);
+      } else if (mode === 'upper') {
+        result = val.toUpperCase();
+      } else if (mode === 'lower') {
+        result = val.toLowerCase();
+      } else if (mode === 'camel') {
+        const words = getWords(val);
+        result = words.map((w, idx) => {
+          const l = w.toLowerCase();
+          return idx === 0 ? l : l.charAt(0).toUpperCase() + l.slice(1);
+        }).join('');
+      } else if (mode === 'pascal') {
+        const words = getWords(val);
+        result = words.map(w => {
+          const l = w.toLowerCase();
+          return l.charAt(0).toUpperCase() + l.slice(1);
+        }).join('');
+      } else if (mode === 'snake') {
+        result = getWords(val).map(w => w.toLowerCase()).join('_');
+      } else if (mode === 'kebab') {
+        result = getWords(val).map(w => w.toLowerCase()).join('-');
+      } else if (mode === 'constant') {
+        result = getWords(val).map(w => w.toUpperCase()).join('_');
+      }
+
+      el.value = result;
+      updateActiveButton(mode);
+      updateStats();
+      showToast('Converted!', 'success');
+    }
+
+    function updateStats() {
+      const val = document.getElementById('case-input').value;
+      const chars = val.length;
+      const charsNoSpace = val.replace(/\s/g, '').length;
+      const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+      const lines = val ? val.split('\n').length : 0;
+
+      document.getElementById('stat-words').textContent = words;
+      document.getElementById('stat-chars').textContent = chars;
+      document.getElementById('stat-chars-nospace').textContent = charsNoSpace;
+      document.getElementById('stat-lines').textContent = lines;
+    }
+
+    function copyCaseText() {
+      const val = document.getElementById('case-input').value;
+      if (!val) return;
+      copyToClipboard(val);
+    }
+
+    function clearCaseText() {
+      document.getElementById('case-input').value = '';
+      updateActiveButton(null);
+      updateStats();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateStats();
+    });
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

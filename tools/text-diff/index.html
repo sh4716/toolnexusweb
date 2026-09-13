@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Diff Checker - Compare Text & Code Differences | ToolNexus</title>
+  <meta name="description" content="Free in-browser Text Diff Checker. Compare text, contracts, and code line by line with clear change highlights.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/text-diff/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/text-diff/">
+  <meta property="og:title" content="Text Diff Checker - Compare Text & Code Differences | ToolNexus">
+  <meta property="og:description" content="Free in-browser Text Diff Checker. Compare text, contracts, and code line by line with clear change highlights.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Text Diff Checker - Compare Text & Code Differences | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Text Diff Checker. Compare text, contracts, and code line by line with clear change highlights.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/text-diff/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/text-diff/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/text-diff/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/text-diff/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#text">Text Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Text Diff Checker</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Text & Code</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">📝 Text Diff Checker & Comparator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Compare two texts or code snippets side by side. Highlights additions, deletions, and line modifications in real time.
+        </p>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <button type="button" class="btn btn-primary btn-sm" onclick="compareDiff()">Compare Text</button>
+          <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="clearDiff()">Clear</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem;" class="diff-grid">
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label" style="font-weight: 600;">Original Text</label>
+            <textarea id="diff-orig" class="input-text" rows="8" style="font-family: var(--font-mono); font-size: 0.9rem;" oninput="compareDiff()">The quick brown fox jumps over the lazy dog.
+Hello world from ToolNexus!
+Client side processing.</textarea>
+          </div>
+          <div class="form-group" style="margin: 0;">
+            <label class="form-label" style="font-weight: 600;">Modified Text</label>
+            <textarea id="diff-mod" class="input-text" rows="8" style="font-family: var(--font-mono); font-size: 0.9rem;" oninput="compareDiff()">The fast brown fox leaps over the lazy dog.
+Hello world from ToolNexus!
+100% Client side in-browser privacy.</textarea>
+          </div>
+        </div>
+
+        <!-- Diff Output Visualizer -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">Comparison Result</h3>
+          <div id="diff-result" style="font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function compareDiff() {
+        const origLines = document.getElementById('diff-orig').value.split('\n');
+        const modLines = document.getElementById('diff-mod').value.split('\n');
+        const container = document.getElementById('diff-result');
+        container.innerHTML = '';
+
+        const max = Math.max(origLines.length, modLines.length);
+        let html = '';
+
+        for (let i = 0; i < max; i++) {
+          const l1 = origLines[i];
+          const l2 = modLines[i];
+
+          if (l1 === l2) {
+            html += `<div style="color:var(--text-muted); padding:2px 4px;">  ${escapeHtml(l1 || '')}</div>`;
+          } else {
+            if (l1 !== undefined) {
+              html += `<div style="background:rgba(239, 68, 68, 0.15); color:var(--error); padding:2px 4px;">- ${escapeHtml(l1)}</div>`;
+            }
+            if (l2 !== undefined) {
+              html += `<div style="background:rgba(16, 185, 129, 0.15); color:var(--success); padding:2px 4px;">+ ${escapeHtml(l2)}</div>`;
+            }
+          }
+        }
+
+        container.innerHTML = html || '<span style="color:var(--text-muted);">Texts are identical</span>';
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function clearDiff() {
+        document.getElementById('diff-orig').value = '';
+        document.getElementById('diff-mod').value = '';
+        compareDiff();
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        compareDiff();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

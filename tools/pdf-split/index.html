@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual PDF Splitter & Reorder - Delete Pages & Organize Online Free | ToolNexus</title>
+  <meta name="description" content="Visual in-browser PDF Splitter. View page thumbnails, drag & drop to reorder, delete unwanted pages, extract ranges or split all pages into ZIP with 100% privacy.">
+  <meta name="keywords" content="PDF Splitter,Reorder PDF Pages,Delete PDF Pages,Extract PDF Pages,Organize PDF Online">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-split/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-split/">
+  <meta property="og:title" content="Visual PDF Splitter & Reorder - Delete Pages & Organize Online Free | ToolNexus">
+  <meta property="og:description" content="Visual in-browser PDF Splitter. View page thumbnails, drag & drop to reorder, delete unwanted pages, extract ranges or split all pages into ZIP with 100% privacy.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Visual PDF Splitter & Reorder - Delete Pages & Organize Online Free | ToolNexus">
+  <meta name="twitter:description" content="Visual in-browser PDF Splitter. View page thumbnails, drag & drop to reorder, delete unwanted pages, extract ranges or split all pages into ZIP with 100% privacy.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-split/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-split/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-split/">
+
+  <style>
+    .pdf-pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .page-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+    }
+    .page-card:active {
+      cursor: grabbing;
+    }
+    .page-card:hover {
+      border-color: var(--primary-border);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+    .page-card.dragging {
+      opacity: 0.4;
+      transform: scale(0.96);
+      border: 2px dashed var(--primary);
+    }
+    .page-card.drag-over {
+      border: 2px solid var(--primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+    .page-card-thumb-wrap {
+      width: 100%;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.12);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .page-card-thumb-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .page-card-fallback-doc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .page-card-top-bar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+    .page-order-pill {
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .page-del-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(244, 63, 94, 0.9);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: transform var(--transition-fast), background var(--transition-fast);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .page-del-btn:hover {
+      background: #e11d48;
+      transform: scale(1.15);
+    }
+    .page-card-orig-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      text-align: center;
+    }
+    .page-card-actions {
+      display: flex;
+      gap: 0.35rem;
+      width: 100%;
+      justify-content: center;
+    }
+    .page-card-actions button {
+      flex: 1;
+      padding: 0.25rem 0.4rem;
+      font-size: 0.8rem;
+    }
+    .pdf-reorder-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+    .pdf-loading-box {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-top: 1.5rem;
+    }
+  </style>
+
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/pdf-split/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#pdf">PDF Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF Splitter</span>
+      </nav>
+      <div class="tool-title-row">
+        <div>
+          <span class="tool-badge badge-primary">PDF Tools</span>
+          <h1 class="tool-title" style="margin-top:0.35rem;">✂️ Visual PDF Splitter & Reorder</h1>
+        </div>
+      </div>
+      <p class="tool-desc">
+        Visual in-browser PDF organizer. Drag & drop to reorder pages, delete unwanted pages, extract custom ranges, or split all pages into separate files. 100% processed in local browser memory.
+      </p>
+    </div>
+
+    <div class="tool-card">
+      <div class="dropzone" id="dropzone" style="padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer;" onclick="document.getElementById('file-input').click()">
+        <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✂️</div>
+        <div style="font-weight: 600; color: var(--text-main); font-size: 1.1rem;">Click or Drag & Drop PDF to Visual Splitter</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;">Previews each page. Supports reordering, deleting pages, range filtering, and ZIP splitting.</div>
+      </div>
+
+      <!-- Parsing / Loading State -->
+      <div id="pdf-loading-box" class="pdf-loading-box" style="display: none;">
+        <div style="font-size: 2.2rem; margin-bottom: 0.65rem;">⏳</div>
+        <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-loading-text">Rendering page thumbnails...</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;">Processed locally in browser memory. Please wait a moment for larger documents.</div>
+      </div>
+
+      <!-- Workspace Controls -->
+      <div id="split-controls" style="display: none; margin-top: 1.5rem;">
+        <!-- Header Summary Bar -->
+        <div style="background: var(--bg-surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-filename">-</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;" id="pdf-meta">-</div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-restore-all" style="display: none;" onclick="restoreDeletedPages()">🔄 Restore Deleted Pages (<span id="deleted-count">0</span>)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-file" onclick="resetFile()">🗑️ Change File</button>
+          </div>
+        </div>
+
+        <!-- Action Export Bar -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center;">
+          <button type="button" class="btn btn-primary btn-lg" id="btn-save-reordered">⚡ Save Reordered PDF (Organized)</button>
+          <button type="button" class="btn btn-secondary btn-lg" id="btn-split-all-zip">📦 Split All Pages to ZIP</button>
+        </div>
+
+        <!-- Hint Banner -->
+        <div class="pdf-reorder-hint">
+          <span>💡</span>
+          <span><strong>Drag & drop</strong> any page card to reorder; click the top-right <strong>✕</strong> to delete/exclude a page; or use the bottom <strong>← / →</strong> buttons to shift pages.</span>
+        </div>
+
+        <!-- Quick Page Range Filter -->
+        <div style="margin-top: 1.25rem; background: var(--bg-surface-alt); padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin: 0;">Quick Filter by Range:</label>
+          <input type="text" class="input-text" id="page-range-input" placeholder="e.g. 1-3, 5, 8-10" style="flex: 1; min-width: 180px; font-size: 0.85rem; padding: 0.35rem 0.65rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="applyRangeFilter()">Keep Specified Pages Only</button>
+        </div>
+
+        <!-- Visual Page Grid -->
+        <div class="pdf-pages-grid" id="pdf-pages-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/vendor/pdf-lib.min.js"></script>
+  <script src="/assets/vendor/pdf.min.js"></script>
+  <script src="/assets/vendor/jszip.min.js"></script>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const loadingBox = document.getElementById('pdf-loading-box');
+    const loadingText = document.getElementById('pdf-loading-text');
+    const controls = document.getElementById('split-controls');
+    const filenameEl = document.getElementById('pdf-filename');
+    const metaEl = document.getElementById('pdf-meta');
+    const pagesGrid = document.getElementById('pdf-pages-grid');
+    const btnSavePdf = document.getElementById('btn-save-reordered');
+    const btnSplitAll = document.getElementById('btn-split-all-zip');
+    const btnRestore = document.getElementById('btn-restore-all');
+    const deletedCountEl = document.getElementById('deleted-count');
+    const rangeInput = document.getElementById('page-range-input');
+
+    let currentBuffer = null;
+    let currentName = 'document';
+    let totalPages = 0;
+    let activePages = [];
+    let deletedPages = [];
+    let draggedIndex = null;
+
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      e._toolNexusHandled = true;
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    async function handleFile(file) {
+      if (!file) return;
+      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        Utils.showToast('Please select a valid PDF file', 'warning');
+        return;
+      }
+      currentName = file.name.replace(/\.[^/.]+$/, '');
+      dropzone.style.display = 'none';
+      loadingBox.style.display = 'block';
+      controls.style.display = 'none';
+      activePages = [];
+      deletedPages = [];
+
+      try {
+        currentBuffer = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(currentBuffer, { ignoreEncryption: true });
+        totalPages = pdfDoc.getPageCount();
+
+        loadingText.textContent = `Rendering page thumbnails (0 / ${totalPages})...`;
+
+        // Initialize PDF.js for thumbnails
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdf.worker.min.js';
+        let pdf = null;
+        try {
+          pdf = await pdfjsLib.getDocument({ data: currentBuffer.slice(0) }).promise;
+        } catch (pdfJsErr) {
+          console.warn('PDF.js thumbnail preview failed, fallback to icon:', pdfJsErr);
+        }
+
+        for (let i = 1; i <= totalPages; i++) {
+          loadingText.textContent = `Rendering page thumbnails (${i} / ${totalPages})...`;
+          let thumb = null;
+          if (pdf) {
+            try {
+              const page = await pdf.getPage(i);
+              const viewport = page.getViewport({ scale: 0.32 });
+              const canvas = document.createElement('canvas');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              const ctx = canvas.getContext('2d');
+              await page.render({ canvasContext: ctx, viewport }).promise;
+              thumb = canvas.toDataURL('image/jpeg', 0.8);
+            } catch (err) {
+              console.warn('Rendering thumbnail page ' + i + ' failed', err);
+            }
+          }
+          activePages.push({
+            id: 'p_' + i + '_' + Math.random().toString(36).substring(2),
+            originalIndex: i - 1,
+            originalPageNum: i,
+            thumb: thumb
+          });
+        }
+
+        loadingBox.style.display = 'none';
+        controls.style.display = 'block';
+        filenameEl.textContent = file.name;
+        renderGrid();
+        Utils.showToast(`Successfully loaded all ${totalPages} pages`, 'success');
+      } catch (err) {
+        console.error(err);
+        loadingBox.style.display = 'none';
+        dropzone.style.display = 'block';
+        Utils.showToast('Failed to parse PDF: ' + err.message, 'error');
+      }
+    }
+
+    function renderGrid() {
+      metaEl.textContent = `Size: ${Utils.formatBytes(currentBuffer.byteLength)} · Retaining ${activePages.length} pages (Original: ${totalPages} pages)`;
+
+      if (deletedPages.length > 0) {
+        btnRestore.style.display = 'inline-flex';
+        deletedCountEl.textContent = deletedPages.length;
+      } else {
+        btnRestore.style.display = 'none';
+      }
+
+      if (activePages.length === 0) {
+        pagesGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted); background: var(--bg-surface-alt); border-radius: var(--radius-md);">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🗑️</div>
+            <div style="font-weight: 600; color: var(--text-main);">All pages have been removed</div>
+            <button type="button" class="btn btn-secondary btn-sm" style="margin-top: 1rem;" onclick="restoreDeletedPages()">🔄 Restore All Pages</button>
+          </div>
+        `;
+        return;
+      }
+
+      pagesGrid.innerHTML = activePages.map((item, idx) => `
+        <div class="page-card" draggable="true" data-index="${idx}">
+          <div class="page-card-top-bar" onmousedown="event.stopPropagation()">
+            <span class="page-order-pill">Page ${idx + 1}</span>
+            <button type="button" class="page-del-btn" onclick="deletePage(${idx})" title="Delete this page">✕</button>
+          </div>
+          <div class="page-card-thumb-wrap">
+            ${item.thumb ? `<img src="${item.thumb}" alt="Page ${idx + 1} preview" draggable="false">` : `<div class="page-card-fallback-doc"><span style="font-size:2.5rem;">📄</span><span>Page ${item.originalPageNum}</span></div>`}
+          </div>
+          <div class="page-card-orig-label">Original Page ${item.originalPageNum}</div>
+          <div class="page-card-actions" onmousedown="event.stopPropagation()">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="movePage(${idx}, -1)" title="Move Backward" ${idx === 0 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : ''}>←</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="movePage(${idx}, 1)" title="Move Forward" ${idx === activePages.length - 1 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : ''}>→</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="deletePage(${idx})" title="Delete this page">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      bindDragAndDropEvents();
+    }
+
+    function bindDragAndDropEvents() {
+      const cards = pagesGrid.querySelectorAll('.page-card');
+      cards.forEach(card => {
+        card.addEventListener('dragstart', e => {
+          draggedIndex = parseInt(card.getAttribute('data-index'));
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(draggedIndex));
+          setTimeout(() => card.classList.add('dragging'), 0);
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('dragging');
+          cards.forEach(c => c.classList.remove('drag-over'));
+          draggedIndex = null;
+        });
+
+        card.addEventListener('dragenter', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (draggedIndex === null) return;
+          const targetIndex = parseInt(card.getAttribute('data-index'));
+          if (targetIndex !== draggedIndex) {
+            card.classList.add('drag-over');
+          }
+        });
+
+        card.addEventListener('dragover', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          e.dataTransfer.dropEffect = 'move';
+          if (draggedIndex === null) return;
+          const targetIndex = parseInt(card.getAttribute('data-index'));
+          if (targetIndex !== draggedIndex) {
+            card.classList.add('drag-over');
+          }
+        });
+
+        card.addEventListener('dragleave', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!card.contains(e.relatedTarget)) {
+            card.classList.remove('drag-over');
+          }
+        });
+
+        card.addEventListener('drop', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          card.classList.remove('drag-over');
+          if (draggedIndex === null) return;
+          const targetIndex = parseInt(card.getAttribute('data-index'));
+          if (targetIndex !== draggedIndex && targetIndex >= 0 && targetIndex < activePages.length) {
+            const [moved] = activePages.splice(draggedIndex, 1);
+            activePages.splice(targetIndex, 0, moved);
+            renderGrid();
+            Utils.showToast(`Moved Page ${moved.originalPageNum} to position ${targetIndex + 1}`, 'info');
+          }
+          draggedIndex = null;
+        });
+      });
+    }
+
+    window.movePage = function(index, dir) {
+      const target = index + dir;
+      if (target < 0 || target >= activePages.length) return;
+      const tmp = activePages[index];
+      activePages[index] = activePages[target];
+      activePages[target] = tmp;
+      renderGrid();
+    };
+
+    window.deletePage = function(index) {
+      if (activePages.length <= 1) {
+        Utils.showToast('Must keep at least 1 page', 'warning');
+        return;
+      }
+      const [removed] = activePages.splice(index, 1);
+      deletedPages.push(removed);
+      renderGrid();
+      Utils.showToast(`Removed Page ${index + 1} (Original Page ${removed.originalPageNum})`, 'info');
+    };
+
+    window.restoreDeletedPages = function() {
+      if (deletedPages.length === 0) return;
+      activePages.push(...deletedPages);
+      activePages.sort((a, b) => a.originalIndex - b.originalIndex);
+      const count = deletedPages.length;
+      deletedPages = [];
+      renderGrid();
+      Utils.showToast(`Restored ${count} deleted pages`, 'success');
+    };
+
+    window.resetFile = function() {
+      currentBuffer = null;
+      activePages = [];
+      deletedPages = [];
+      fileInput.value = '';
+      controls.style.display = 'none';
+      dropzone.style.display = 'block';
+    };
+
+    function parseRange(str, max) {
+      if (!str.trim()) {
+        return Array.from({ length: max }, (_, i) => i);
+      }
+      const parts = str.split(',');
+      const set = new Set();
+      for (const part of parts) {
+        const trimmed = part.trim();
+        if (trimmed.includes('-')) {
+          const [start, end] = trimmed.split('-').map(x => parseInt(x, 10));
+          if (!isNaN(start) && !isNaN(end)) {
+            for (let i = Math.min(start, end); i <= Math.max(start, end); i++) {
+              if (i >= 1 && i <= max) set.add(i - 1);
+            }
+          }
+        } else {
+          const num = parseInt(trimmed, 10);
+          if (!isNaN(num) && num >= 1 && num <= max) set.add(num - 1);
+        }
+      }
+      return Array.from(set).sort((a, b) => a - b);
+    }
+
+    window.applyRangeFilter = function() {
+      const rangeStr = rangeInput.value.trim();
+      if (!rangeStr) {
+        Utils.showToast('Please enter page range, e.g. 1-3, 5', 'warning');
+        return;
+      }
+      const indices = parseRange(rangeStr, totalPages);
+      if (indices.length === 0) {
+        Utils.showToast('No matching valid pages found', 'warning');
+        return;
+      }
+      const set = new Set(indices);
+      const allKnown = activePages.concat(deletedPages);
+      const remaining = [];
+      const newDeleted = [];
+
+      allKnown.forEach(p => {
+        if (set.has(p.originalIndex)) {
+          if (!remaining.some(r => r.originalIndex === p.originalIndex)) {
+            remaining.push(p);
+          }
+        } else {
+          if (!newDeleted.some(d => d.originalIndex === p.originalIndex)) {
+            newDeleted.push(p);
+          }
+        }
+      });
+
+      activePages = remaining;
+      deletedPages = newDeleted;
+      renderGrid();
+      Utils.showToast(`Filtered down to ${activePages.length} pages`, 'info');
+    };
+
+    btnSavePdf.addEventListener('click', async () => {
+      if (activePages.length === 0) {
+        Utils.showToast('No pages to save', 'warning');
+        return;
+      }
+      btnSavePdf.disabled = true;
+      btnSavePdf.textContent = 'Generating organized PDF...';
+
+      try {
+        const srcDoc = await PDFLib.PDFDocument.load(currentBuffer, { ignoreEncryption: true });
+        const newDoc = await PDFLib.PDFDocument.create();
+        const indices = activePages.map(p => p.originalIndex);
+        const copiedPages = await newDoc.copyPages(srcDoc, indices);
+        copiedPages.forEach(p => newDoc.addPage(p));
+
+        const bytes = await newDoc.save();
+        Utils.downloadBlob(new Blob([bytes], { type: 'application/pdf' }), currentName + '_organized.pdf');
+        Utils.showToast('Successfully saved and downloaded reordered PDF!', 'success');
+      } catch (err) {
+        console.error(err);
+        Utils.showToast('Export failed: ' + err.message, 'error');
+      } finally {
+        btnSavePdf.disabled = false;
+        btnSavePdf.textContent = '⚡ Save Reordered PDF (Organized)';
+      }
+    });
+
+    btnSplitAll.addEventListener('click', async () => {
+      if (activePages.length === 0 || !window.JSZip) return;
+      btnSplitAll.disabled = true;
+      btnSplitAll.textContent = 'Splitting and archiving ZIP...';
+
+      try {
+        const srcDoc = await PDFLib.PDFDocument.load(currentBuffer, { ignoreEncryption: true });
+        const zip = new JSZip();
+
+        for (let idx = 0; idx < activePages.length; idx++) {
+          const item = activePages[idx];
+          const singleDoc = await PDFLib.PDFDocument.create();
+          const [copiedPage] = await singleDoc.copyPages(srcDoc, [item.originalIndex]);
+          singleDoc.addPage(copiedPage);
+          const bytes = await singleDoc.save();
+          zip.file(`${currentName}_p${idx + 1}_orig${item.originalPageNum}.pdf`, bytes);
+        }
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        Utils.downloadBlob(zipBlob, currentName + '_pages.zip');
+        Utils.showToast('All pages packaged into ZIP and downloaded!', 'success');
+      } catch (err) {
+        console.error(err);
+        Utils.showToast('ZIP failed: ' + err.message, 'error');
+      } finally {
+        btnSplitAll.disabled = false;
+        btnSplitAll.textContent = '📦 Split All Pages to ZIP';
+      }
+    });
+  </script>
+</body>
+</html>

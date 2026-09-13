@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Merger - Combine Multiple PDFs Online Free | ToolNexus</title>
+  <meta name="description" content="Free in-browser PDF Merger. Combine multiple PDF documents into one file with zero file uploads and complete privacy.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-merge/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-merge/">
+  <meta property="og:title" content="PDF Merger - Combine Multiple PDFs Online Free | ToolNexus">
+  <meta property="og:description" content="Free in-browser PDF Merger. Combine multiple PDF documents into one file with zero file uploads and complete privacy.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PDF Merger - Combine Multiple PDFs Online Free | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser PDF Merger. Combine multiple PDF documents into one file with zero file uploads and complete privacy.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-merge/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-merge/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-merge/">
+
+  <style>
+    .pdf-item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .pdf-file-card {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: grab;
+      user-select: none;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+    }
+    .pdf-file-card:active {
+      cursor: grabbing;
+    }
+    .pdf-file-card:hover {
+      border-color: var(--primary-border);
+    }
+    .pdf-file-card.dragging {
+      opacity: 0.45;
+      transform: scale(0.98);
+      border: 2px dashed var(--primary);
+    }
+    .pdf-file-card.drag-over {
+      border: 2px solid var(--primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+    .drag-handle-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-subtle);
+      font-size: 1.1rem;
+      cursor: grab;
+      padding: 0.2rem 0.35rem;
+      border-radius: var(--radius-xs);
+      letter-spacing: -1px;
+    }
+    .drag-handle-pill:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .pdf-reorder-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1.25rem;
+    }
+    .pdf-badge-order {
+      background: var(--primary-light);
+      color: var(--primary);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+  </style>
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/pdf-merge/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#pdf">PDF Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>PDF Merger</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">PDF Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">📑 Fast PDF Merger</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Combine multiple PDF documents into a single file in seconds. Drag to reorder files. 100% computed in browser memory — zero server uploads.
+        </p>
+
+        <div class="dropzone" id="dropzone" style="padding: 2.5rem; text-align: center; border: 2px dashed var(--border-base); border-radius: var(--radius-md); background: var(--bg-surface-alt); cursor: pointer; margin-bottom: 1.5rem;" onclick="document.getElementById('pdf-merge-input').click()">
+          <input type="file" id="pdf-merge-input" multiple accept="application/pdf" style="display: none;">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📑</div>
+          <div style="font-weight: 600; color: var(--text-main);">Click or Drag & Drop Multiple PDF Files</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Hold Ctrl or Shift to select multiple files · 100% private in browser</div>
+        </div>
+
+        <div id="merge-controls" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+            <span style="font-weight: 600;">Files to Merge (<span id="merge-count" style="color:var(--primary);">0</span>)</span>
+            <div style="display: flex; gap: 0.5rem;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-all">Clear All</button>
+              <button type="button" class="btn btn-primary" id="btn-start-merge">
+                <span>Merge PDFs Now</span>
+                <span>⚡</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="pdf-reorder-hint" class="pdf-reorder-hint" style="display: none;">
+            <span>💡</span>
+            <span>Drag any file card to <strong>reorder via drag-and-drop</strong>, or click the <strong>↑ / ↓ arrows</strong> to arrange document merge order.</span>
+          </div>
+
+          <div id="merge-file-list" class="pdf-item-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/assets/vendor/pdf-lib.min.js"></script>
+    <script>
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('pdf-merge-input');
+      const mergeControls = document.getElementById('merge-controls');
+      const reorderHint = document.getElementById('pdf-reorder-hint');
+      const countEl = document.getElementById('merge-count');
+      const listContainer = document.getElementById('merge-file-list');
+      const btnMerge = document.getElementById('btn-start-merge');
+      const btnClear = document.getElementById('btn-clear-all');
+
+      let pdfFiles = [];
+      let draggedIndex = null;
+
+      fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+      dropzone.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+      dropzone.addEventListener('drop', e => {
+        e.preventDefault();
+        e._toolNexusHandled = true;
+        dropzone.classList.remove('dragover');
+        if (e.dataTransfer.files) handleFiles(e.dataTransfer.files);
+      });
+
+      async function handleFiles(files) {
+        for (const f of files) {
+          if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) continue;
+          const arrayBuffer = await f.arrayBuffer();
+          let pageCount = '?';
+          try {
+            if (window.PDFLib) {
+              const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+              pageCount = pdfDoc.getPageCount();
+            }
+          } catch (err) {
+            console.warn('Error reading page count:', err);
+          }
+          pdfFiles.push({
+            id: Math.random().toString(36).substring(2),
+            file: f,
+            arrayBuffer: arrayBuffer,
+            pages: pageCount
+          });
+        }
+        renderList();
+      }
+
+      function renderList() {
+        if (pdfFiles.length === 0) {
+          mergeControls.style.display = 'none';
+          if (reorderHint) reorderHint.style.display = 'none';
+          listContainer.innerHTML = '';
+          return;
+        }
+        mergeControls.style.display = 'block';
+        if (reorderHint) reorderHint.style.display = 'flex';
+        countEl.textContent = pdfFiles.length;
+
+        listContainer.innerHTML = pdfFiles.map((item, idx) => `
+          <div class="pdf-file-card" draggable="true" data-index="${idx}">
+            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; pointer-events: none;">
+              <div class="drag-handle-pill" title="Drag to reorder">⋮⋮</div>
+              <div class="pdf-badge-order">${idx + 1}</div>
+              <div style="overflow: hidden;">
+                <div style="font-weight: 600; color: var(--text-main); text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" title="${item.file.name}">${item.file.name}</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);">
+                  Size: ${Utils.formatBytes(item.file.size)} · ${item.pages} page${item.pages === 1 ? '' : 's'}
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.4rem; flex-shrink: 0;" onmousedown="event.stopPropagation()">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="moveItem(${idx}, -1)" title="Move up" ${idx === 0 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : ''}>↑</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="moveItem(${idx}, 1)" title="Move down" ${idx === pdfFiles.length - 1 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : ''}>↓</button>
+              <button type="button" class="btn btn-danger btn-sm" onclick="deleteItem(${idx})" title="Remove file">✕</button>
+            </div>
+          </div>
+        `).join('');
+
+        bindDragAndDropEvents();
+      }
+
+      function bindDragAndDropEvents() {
+        const cards = listContainer.querySelectorAll('.pdf-file-card');
+        cards.forEach(card => {
+          card.addEventListener('dragstart', e => {
+            draggedIndex = parseInt(card.getAttribute('data-index'));
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', String(draggedIndex));
+            setTimeout(() => card.classList.add('dragging'), 0);
+          });
+
+          card.addEventListener('dragend', () => {
+            card.classList.remove('dragging');
+            cards.forEach(c => c.classList.remove('drag-over'));
+            draggedIndex = null;
+          });
+
+          card.addEventListener('dragenter', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (draggedIndex === null) return;
+            const targetIndex = parseInt(card.getAttribute('data-index'));
+            if (targetIndex !== draggedIndex) {
+              card.classList.add('drag-over');
+            }
+          });
+
+          card.addEventListener('dragover', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            e.dataTransfer.dropEffect = 'move';
+            if (draggedIndex === null) return;
+            const targetIndex = parseInt(card.getAttribute('data-index'));
+            if (targetIndex !== draggedIndex) {
+              card.classList.add('drag-over');
+            }
+          });
+
+          card.addEventListener('dragleave', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!card.contains(e.relatedTarget)) {
+              card.classList.remove('drag-over');
+            }
+          });
+
+          card.addEventListener('drop', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            card.classList.remove('drag-over');
+            if (draggedIndex === null) return;
+            const targetIndex = parseInt(card.getAttribute('data-index'));
+            if (targetIndex !== draggedIndex && targetIndex >= 0 && targetIndex < pdfFiles.length) {
+              const moved = pdfFiles.splice(draggedIndex, 1)[0];
+              pdfFiles.splice(targetIndex, 0, moved);
+              renderList();
+              Utils.showToast(`Moved "${moved.file.name}" to position #${targetIndex + 1}`, 'info');
+            }
+            draggedIndex = null;
+          });
+        });
+      }
+
+      window.moveItem = function(index, dir) {
+        const target = index + dir;
+        if (target < 0 || target >= pdfFiles.length) return;
+        const temp = pdfFiles[index];
+        pdfFiles[index] = pdfFiles[target];
+        pdfFiles[target] = temp;
+        renderList();
+      };
+
+      window.deleteItem = function(index) {
+        pdfFiles.splice(index, 1);
+        renderList();
+      };
+
+      btnClear.addEventListener('click', () => {
+        pdfFiles = [];
+        renderList();
+      });
+
+      btnMerge.addEventListener('click', async () => {
+        if (pdfFiles.length < 2) {
+          Utils.showToast('Please select at least 2 PDF files to merge', 'warning');
+          return;
+        }
+        btnMerge.disabled = true;
+        btnMerge.textContent = 'Merging in browser...';
+
+        try {
+          const mergedPdf = await PDFLib.PDFDocument.create();
+          for (const item of pdfFiles) {
+            const doc = await PDFLib.PDFDocument.load(item.arrayBuffer);
+            const copiedPages = await mergedPdf.copyPages(doc, doc.getPageIndices());
+            copiedPages.forEach(page => mergedPdf.addPage(page));
+          }
+
+          const mergedBytes = await mergedPdf.save();
+          const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+          Utils.downloadBlob(blob, 'merged_document_' + Date.now() + '.pdf');
+          Utils.showToast('PDFs merged successfully!', 'success');
+        } catch (err) {
+          console.error(err);
+          Utils.showToast('Merge error: ' + err.message, 'error');
+        } finally {
+          btnMerge.disabled = false;
+          btnMerge.innerHTML = '<span>Merge PDFs Now</span><span>⚡</span>';
+        }
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

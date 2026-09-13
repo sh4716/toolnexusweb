@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator - Calculate Percentages, Increase, Discounts | ToolNexus</title>
+  <meta name="description" content="Free in-browser Percentage Calculator. Calculate what is X% of Y, percentage increase/decrease, percentage difference, discount & sales tax instantly.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/percentage-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/percentage-calculator/">
+  <meta property="og:title" content="Percentage Calculator - Calculate Percentages, Increase, Discounts | ToolNexus">
+  <meta property="og:description" content="Free in-browser Percentage Calculator. Calculate what is X% of Y, percentage increase/decrease, percentage difference, discount & sales tax instantly.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Percentage Calculator - Calculate Percentages, Increase, Discounts | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Percentage Calculator. Calculate what is X% of Y, percentage increase/decrease, percentage difference, discount & sales tax instantly.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/percentage-calculator/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/percentage-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/percentage-calculator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/percentage-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-badge badge-primary">Calculator & Finance</span>
+          <h1 class="tool-title">📐 Percentage & Discount Calculator</h1>
+          <p class="tool-desc">All-in-one percentage toolkit. Switch between common percentage calculations: find % of a number, percentage change, proportions, and shopping discount savings.</p>
+        </div>
+
+        <!-- Segmented Tab Controls -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; background: var(--bg-surface-alt); padding: 0.35rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);" class="pct-tabs">
+          <button type="button" class="btn-sm btn-ghost active-tab" id="tab-btn-1" style="flex: 1; border-radius: var(--radius-sm); font-weight: 600;" onclick="switchPctTab(1)">What is X% of Y?</button>
+          <button type="button" class="btn-sm btn-ghost" id="tab-btn-2" style="flex: 1; border-radius: var(--radius-sm); font-weight: 600;" onclick="switchPctTab(2)">X is what % of Y?</button>
+          <button type="button" class="btn-sm btn-ghost" id="tab-btn-3" style="flex: 1; border-radius: var(--radius-sm); font-weight: 600;" onclick="switchPctTab(3)">Percentage Change (% Inc/Dec)</button>
+          <button type="button" class="btn-sm btn-ghost" id="tab-btn-4" style="flex: 1; border-radius: var(--radius-sm); font-weight: 600;" onclick="switchPctTab(4)">Discount & Sales Tax</button>
+        </div>
+
+        <!-- Panel 1: What is X% of Y -->
+        <div id="pct-panel-1" class="pct-panel">
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Percentage (%)</label>
+              <input type="number" id="p1-pct" class="input-text" value="15" step="any" oninput="calcP1()">
+            </div>
+            <div style="font-weight: 700; color: var(--text-muted); padding-top: 1.25rem;">of</div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Total Number</label>
+              <input type="number" id="p1-num" class="input-text" value="250" step="any" oninput="calcP1()">
+            </div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Result</div>
+            <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);" id="p1-res">37.5</div>
+            <div style="font-size: 0.85rem; color: var(--text-subtle); margin-top: 0.5rem;" id="p1-formula">15% × 250 = 37.5</div>
+          </div>
+        </div>
+
+        <!-- Panel 2: X is what % of Y -->
+        <div id="pct-panel-2" class="pct-panel" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Part Value (X)</label>
+              <input type="number" id="p2-part" class="input-text" value="45" step="any" oninput="calcP2()">
+            </div>
+            <div style="font-weight: 700; color: var(--text-muted); padding-top: 1.25rem;">is what % of</div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Whole Value (Y)</label>
+              <input type="number" id="p2-whole" class="input-text" value="300" step="any" oninput="calcP2()">
+            </div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Percentage</div>
+            <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent-cyan);" id="p2-res">15%</div>
+            <div style="font-size: 0.85rem; color: var(--text-subtle); margin-top: 0.5rem;" id="p2-formula">(45 / 300) × 100% = 15%</div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Increase / Decrease -->
+        <div id="pct-panel-3" class="pct-panel" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Initial Value (From)</label>
+              <input type="number" id="p3-from" class="input-text" value="80" step="any" oninput="calcP3()">
+            </div>
+            <div style="font-weight: 700; color: var(--text-muted); padding-top: 1.25rem;">➔</div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Final Value (To)</label>
+              <input type="number" id="p3-to" class="input-text" value="120" step="any" oninput="calcP3()">
+            </div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;" id="p3-badge">Percentage Change</div>
+            <div style="font-size: 2.5rem; font-weight: 800; color: var(--success);" id="p3-res">+50.00%</div>
+            <div style="font-size: 0.85rem; color: var(--text-subtle); margin-top: 0.5rem;" id="p3-formula">((120 - 80) / 80) × 100% = +50.00%</div>
+          </div>
+        </div>
+
+        <!-- Panel 4: Discount & Sales Tax -->
+        <div id="pct-panel-4" class="pct-panel" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Original Price ($)</label>
+              <input type="number" id="p4-price" class="input-text" value="120" step="any" oninput="calcP4()">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Discount (%)</label>
+              <input type="number" id="p4-discount" class="input-text" value="20" step="any" oninput="calcP4()">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Sales Tax (%)</label>
+              <input type="number" id="p4-tax" class="input-text" value="8.5" step="any" oninput="calcP4()">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Final Total Price</div>
+              <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary);" id="p4-final">$104.16</div>
+              <div style="font-size: 0.85rem; color: var(--text-subtle); margin-top: 0.25rem;" id="p4-tax-detail">Includes Tax: $8.16</div>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+              <div style="font-size: 0.85rem; color: var(--success); margin-bottom: 0.25rem; font-weight: 600;">💰 Total You Save</div>
+              <div style="font-size: 2.2rem; font-weight: 800; color: var(--success);" id="p4-savings">$24.00</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;" id="p4-savings-pct">20.0% Off Original Price</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions & Formulas</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: What is the formula for Percentage Increase or Decrease?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Percentage Change = ((New Value - Old Value) / Old Value) × 100%. A positive result indicates a percentage increase, while a negative number denotes a percentage decrease.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: How is sales tax calculated after a discount?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">In most jurisdictions, sales tax is applied to the discounted sale price: Final Price = (Original Price - Discount Amount) × (1 + Tax Rate). Our calculator shows exact savings automatically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .active-tab {
+      background: var(--bg-card) !important;
+      color: var(--primary) !important;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+
+  <script>
+    function switchPctTab(tabNum) {
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('tab-btn-' + i);
+        const panel = document.getElementById('pct-panel-' + i);
+        if (i === tabNum) {
+          btn.classList.add('active-tab');
+          panel.style.display = 'block';
+        } else {
+          btn.classList.remove('active-tab');
+          panel.style.display = 'none';
+        }
+      }
+    }
+
+    function calcP1() {
+      const pct = parseFloat(document.getElementById('p1-pct').value) || 0;
+      const num = parseFloat(document.getElementById('p1-num').value) || 0;
+      const res = (pct / 100) * num;
+      const formatted = Number.isInteger(res) ? res : res.toFixed(2);
+      document.getElementById('p1-res').textContent = formatted;
+      document.getElementById('p1-formula').textContent = `${pct}% × ${num} = ${formatted}`;
+    }
+
+    function calcP2() {
+      const part = parseFloat(document.getElementById('p2-part').value) || 0;
+      const whole = parseFloat(document.getElementById('p2-whole').value) || 0;
+      if (whole === 0) {
+        document.getElementById('p2-res').textContent = '0%';
+        return;
+      }
+      const res = (part / whole) * 100;
+      const formatted = Number.isInteger(res) ? res : res.toFixed(2);
+      document.getElementById('p2-res').textContent = formatted + '%';
+      document.getElementById('p2-formula').textContent = `(${part} / ${whole}) × 100% = ${formatted}%`;
+    }
+
+    function calcP3() {
+      const from = parseFloat(document.getElementById('p3-from').value) || 0;
+      const to = parseFloat(document.getElementById('p3-to').value) || 0;
+      if (from === 0) {
+        document.getElementById('p3-res').textContent = '0%';
+        return;
+      }
+      const diff = to - from;
+      const pct = (diff / Math.abs(from)) * 100;
+      const sign = pct > 0 ? '+' : '';
+      const formatted = sign + pct.toFixed(2) + '%';
+
+      const resEl = document.getElementById('p3-res');
+      resEl.textContent = formatted;
+      resEl.style.color = pct >= 0 ? 'var(--success)' : 'var(--error)';
+      
+      const badge = document.getElementById('p3-badge');
+      badge.textContent = pct >= 0 ? 'Percentage Increase (+)' : 'Percentage Decrease (-)';
+
+      document.getElementById('p3-formula').textContent = `((${to} - ${from}) / ${from}) × 100% = ${formatted}`;
+    }
+
+    function calcP4() {
+      const price = parseFloat(document.getElementById('p4-price').value) || 0;
+      const discount = parseFloat(document.getElementById('p4-discount').value) || 0;
+      const tax = parseFloat(document.getElementById('p4-tax').value) || 0;
+
+      const savings = price * (discount / 100);
+      const discountedPrice = Math.max(0, price - savings);
+      const taxAmount = discountedPrice * (tax / 100);
+      const finalPrice = discountedPrice + taxAmount;
+
+      document.getElementById('p4-final').textContent = '$' + finalPrice.toFixed(2);
+      document.getElementById('p4-tax-detail').textContent = 'Includes Tax: $' + taxAmount.toFixed(2);
+      document.getElementById('p4-savings').textContent = '$' + savings.toFixed(2);
+      document.getElementById('p4-savings-pct').textContent = discount.toFixed(1) + '% Off Original Price';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      calcP1();
+      calcP2();
+      calcP3();
+      calcP4();
+    });
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

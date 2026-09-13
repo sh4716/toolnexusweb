@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | 安全可靠</title>
+  <meta name="description" content="基于浏览器 Web Crypto API 的纯本地哈希值计算工具。支持输入文本或拖入本地大文件计算 SHA-1、SHA-256、SHA-512 校验码，校验软件包防篡改。">
+  <meta name="keywords" content="哈希计算,SHA256计算,SHA1计算,MD5在线计算,文件哈希校验">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/hash-calc/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/hash-calc/">
+  <meta property="og:title" content="MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | 安全可靠">
+  <meta property="og:description" content="基于浏览器 Web Crypto API 的纯本地哈希值计算工具。支持输入文本或拖入本地大文件计算 SHA-1、SHA-256、SHA-512 校验码，校验软件包防篡改。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | 安全可靠">
+  <meta name="twitter:description" content="基于浏览器 Web Crypto API 的纯本地哈希值计算工具。支持输入文本或拖入本地大文件计算 SHA-1、SHA-256、SHA-512 校验码，校验软件包防篡改。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/hash-calc/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/hash-calc/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/hash-calc/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/hash-calc/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>哈希计算与校验</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🔒 MD5 / SHA 哈希计算</h1>
+        <span class="badge-tag badge-privacy">Web Crypto API 底层加速</span>
+        <span class="badge-tag badge-dev">文件完整性校验</span>
+      </div>
+      <p class="tool-desc">纯本地高精度计算文本及文件的安全散列哈希值（SHA-1、SHA-256、SHA-512）。文件直接在本地内存计算校验和，绝不向任何第三方发送数据。</p>
+    </div>
+
+    <!-- 文本哈希 -->
+    <div class="tool-card">
+      <div class="form-group">
+        <label class="form-label">输入待计算文本：</label>
+        <textarea class="form-textarea" id="hash-text-input" placeholder="输入任意文本字符串..." style="height: 100px;">Hello, ToolNexus!</textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">MD5 哈希值 (32位小写Hex)：</label>
+        <div class="copy-input-group">
+          <input type="text" id="res-md5" readonly style="font-family: var(--font-mono); font-size: 0.95rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-md5').value)">复制</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">SHA-256 (推荐现代安全哈希)：</label>
+        <div class="copy-input-group">
+          <input type="text" id="res-sha256" readonly style="font-family: var(--font-mono); font-size: 0.95rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-sha256').value)">复制</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">SHA-1 哈希：</label>
+        <div class="copy-input-group">
+          <input type="text" id="res-sha1" readonly style="font-family: var(--font-mono); font-size: 0.95rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-sha1').value)">复制</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">SHA-512 高强度哈希：</label>
+        <div class="copy-input-group">
+          <input type="text" id="res-sha512" readonly style="font-family: var(--font-mono); font-size: 0.95rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-sha512').value)">复制</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const hashInput = document.getElementById('hash-text-input');
+    const resMd5 = document.getElementById('res-md5');
+    const resSha256 = document.getElementById('res-sha256');
+    const resSha1 = document.getElementById('res-sha1');
+    const resSha512 = document.getElementById('res-sha512');
+
+    async function computeHash(algo, buffer) {
+      const hashBuffer = await window.crypto.subtle.digest(algo, buffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function updateHashes() {
+      const text = hashInput.value;
+      if (!text) {
+        resMd5.value = '';
+        resSha256.value = '';
+        resSha1.value = '';
+        resSha512.value = '';
+        return;
+      }
+      const buffer = new TextEncoder().encode(text);
+
+      resMd5.value = typeof md5 === 'function' ? md5(text) : Utils.md5(text);
+      resSha256.value = await computeHash('SHA-256', buffer);
+      resSha1.value = await computeHash('SHA-1', buffer);
+      resSha512.value = await computeHash('SHA-512', buffer);
+    }
+
+    hashInput.addEventListener('input', updateHashes);
+    updateHashes();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

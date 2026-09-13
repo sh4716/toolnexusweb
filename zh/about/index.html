@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我们 (About Us) - ToolNexus 纯前端工具箱</title>
+  <meta name="description" content="了解 ToolNexus 的诞生背景、产品初衷与核心技术理念。我们致力于打造一个 100% 浏览器本地运算、零数据留存、无套路免登录的现代高能工具站。">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/about/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/about/">
+  <meta property="og:title" content="关于我们 (About Us) - ToolNexus 纯前端工具箱">
+  <meta property="og:description" content="了解 ToolNexus 的诞生背景、产品初衷与核心技术理念。我们致力于打造一个 100% 浏览器本地运算、零数据留存、无套路免登录的现代高能工具站。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="关于我们 (About Us) - ToolNexus 纯前端工具箱">
+  <meta name="twitter:description" content="了解 ToolNexus 的诞生背景、产品初衷与核心技术理念。我们致力于打造一个 100% 浏览器本地运算、零数据留存、无套路免登录的现代高能工具站。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <style>
+    .about-hero {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+    .about-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .value-box {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .value-box h4 {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/about/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/about/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/about/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/about/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container" style="max-width: 1040px;">
+    <div class="about-hero">
+      <span class="badge-tag badge-dev" style="margin-bottom: 0.75rem;">关于 ToolNexus</span>
+      <h1 class="tool-title" style="font-size: 2.3rem; margin-bottom: 1rem;">重新定义工具的极速与纯粹</h1>
+      <p class="tool-desc" style="font-size: 1.05rem; margin: 0 auto;">我们深信：在算力强大的现代浏览器时代，处理一份 PDF、压缩几张图片或生成一个强密码，根本不应该将您的机密数据上传到远端云服务器。</p>
+    </div>
+
+    <div class="about-card">
+      <h3><span>🌱</span> 为什么我们要创建 ToolNexus？</h3>
+      <p>在日常办公和编程中，每个人都遇到过类似令人沮丧的体验：想要简单合并两份 PDF，或者压缩一张发票图片，打开搜索找到的商业工具网站，却发现充满了各种令人不适的“套路”——强制微信扫码关注公众号、限制每天只能免费转换 2 次、强制按月开通昂贵 VIP、或者更令人不安的：<strong>把您包含身份证号、商业合同、甚至是代码 Token 的敏感文件上传到了未经安全审计的第三方后端服务器</strong>。</p>
+      <p>作为资深开发者与重度工具使用者，我们决定打破这种现状：<strong>为什么不做一个真正把算力留在用户自己电脑里、零云端上传、完全免注册登录的干净工具站？</strong> 于是，ToolNexus 应运而生。</p>
+    </div>
+
+    <div class="about-card">
+      <h3><span>⚡</span> 我们的三大核心工程原则</h3>
+      <div class="values-grid">
+        <div class="value-box">
+          <h4><span>🔒</span> 1. 绝对的隐私主权</h4>
+          <p>“您的文件与数据绝不离开您的电脑”。所有音视频、图片、PDF 和文本的计算完全在您的本机内存中完成。即使拔掉网线，所有工具依然能满速工作。</p>
+        </div>
+        <div class="value-box">
+          <h4><span>🚀</span> 2. 毫秒级原生性能</h4>
+          <p>无需忍受文件漫长的“上传等待”与“下载排队”。借助现代 Canvas 2D 硬件加速、Web Crypto API 与 WebAssembly，运算瞬间得出结果。</p>
+        </div>
+        <div class="value-box">
+          <h4><span>🎯</span> 3. 零门槛 · 纯净体验</h4>
+          <p>拒绝强制登录，拒绝诱导关注。每一个工具都是独立的干净页面，打开即用，用完即走，为打工人与开发者节省宝贵的每一秒时间。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <h3><span>🌐</span> 开放、透明与可持续发展</h3>
+      <p>ToolNexus 保持轻量化架构，托管于全球顶级的 Anycast 分布式边缘网络（Cloudflare Pages）。为了维持长期的域名注册与技术维护，我们在海外页面中合理挂载规范的第三方展示型广告，力求在不打扰用户的前提下实现项目的长久健康运转。</p>
+      <p>我们持续倾听社区和每一位使用者的声音。如果您有希望加入的新工具，或发现了任何值得改进的交互体验，欢迎随时与我们沟通！</p>
+    </div>
+  </main>
+
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/utils.js"></script>
+  <script src="../../assets/js/global-nav.js"></script>
+  <script>initSearchModal('../');</script>
+</body>
+</html>

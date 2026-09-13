@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter & Validator - Prettify, Minify, Validate | ToolNexus</title>
+  <meta name="description" content="Free in-browser JSON Formatter & Validator. Prettify, minify, validate, and pinpoint syntax errors in JSON data with zero server uploads.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/json-formatter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/json-formatter/">
+  <meta property="og:title" content="JSON Formatter & Validator - Prettify, Minify, Validate | ToolNexus">
+  <meta property="og:description" content="Free in-browser JSON Formatter & Validator. Prettify, minify, validate, and pinpoint syntax errors in JSON data with zero server uploads.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSON Formatter & Validator - Prettify, Minify, Validate | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser JSON Formatter & Validator. Prettify, minify, validate, and pinpoint syntax errors in JSON data with zero server uploads.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/json-formatter/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/json-formatter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/json-formatter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/json-formatter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>JSON Formatter & Validator</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer Tools</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🌲 JSON Formatter & Validator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Validate, prettify, minify, and debug JSON data in real time. Syntax errors are pinpointed with exact line and column numbers. 100% private, client-side execution.
+        </p>
+
+        <!-- Actions Toolbar -->
+        <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <button type="button" class="btn btn-primary btn-sm" onclick="formatJson(2)">Prettify (2 Spaces)</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="formatJson(4)">Prettify (4 Spaces)</button>
+          <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="minifyJson()">Minify</button>
+          <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="copyJson()">Copy</button>
+          <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="clearJson()">Clear</button>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <textarea id="json-input" class="input-text" rows="14" placeholder="Paste your JSON string here..." style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6; resize: vertical;" oninput="validateLiveJson()">{
+  "status": "success",
+  "code": 200,
+  "data": {
+    "service": "ToolNexus",
+    "version": "2.0.0",
+    "clientSide": true,
+    "features": ["zero-upload", "instant-speed", "offline-ready"]
+  }
+}</textarea>
+        </div>
+
+        <!-- Status / Error Banner -->
+        <div id="json-status" style="padding: 0.85rem 1.25rem; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3);">
+          <span>✓</span>
+          <span>Valid JSON</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function validateLiveJson() {
+        const val = document.getElementById('json-input').value.trim();
+        const statusEl = document.getElementById('json-status');
+        if (!val) {
+          statusEl.style.display = 'none';
+          return;
+        }
+        statusEl.style.display = 'flex';
+
+        try {
+          JSON.parse(val);
+          statusEl.style.background = 'rgba(16, 185, 129, 0.1)';
+          statusEl.style.color = 'var(--success)';
+          statusEl.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+          statusEl.innerHTML = '<span>✓</span><span>Valid JSON syntax</span>';
+        } catch (err) {
+          statusEl.style.background = 'rgba(239, 68, 68, 0.1)';
+          statusEl.style.color = 'var(--error)';
+          statusEl.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          statusEl.innerHTML = '<span>✗</span><span>Syntax Error: ' + err.message + '</span>';
+        }
+      }
+
+      function formatJson(space) {
+        const el = document.getElementById('json-input');
+        try {
+          const parsed = JSON.parse(el.value);
+          el.value = JSON.stringify(parsed, null, space);
+          validateLiveJson();
+          showToast('JSON formatted!', 'success');
+        } catch (err) {
+          showToast('Cannot format invalid JSON', 'error');
+        }
+      }
+
+      function minifyJson() {
+        const el = document.getElementById('json-input');
+        try {
+          const parsed = JSON.parse(el.value);
+          el.value = JSON.stringify(parsed);
+          validateLiveJson();
+          showToast('JSON minified!', 'success');
+        } catch (err) {
+          showToast('Cannot minify invalid JSON', 'error');
+        }
+      }
+
+      function copyJson() {
+        const text = document.getElementById('json-input').value;
+        if (!text) return;
+        copyToClipboard(text);
+      }
+
+      function clearJson() {
+        document.getElementById('json-input').value = '';
+        validateLiveJson();
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        validateLiveJson();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

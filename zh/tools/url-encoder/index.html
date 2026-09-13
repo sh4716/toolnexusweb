@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL 编码与解码器 - URIComponent 实时编解码与参数解析 | 极速日常</title>
+  <meta name="description" content="纯前端在线 URL 编码解码工具。支持 encodeURI / encodeURIComponent 双模切换，支持将带参数的完整 URL 一键表格化拆解为键值对并自由修改重组。">
+  <meta name="keywords" content="URL编码,URL解码,urlencode,urldecode,Query参数解析,URI转义">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/url-encoder/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/url-encoder/">
+  <meta property="og:title" content="URL 编码与解码器 - URIComponent 实时编解码与参数解析 | 极速日常">
+  <meta property="og:description" content="纯前端在线 URL 编码解码工具。支持 encodeURI / encodeURIComponent 双模切换，支持将带参数的完整 URL 一键表格化拆解为键值对并自由修改重组。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="URL 编码与解码器 - URIComponent 实时编解码与参数解析 | 极速日常">
+  <meta name="twitter:description" content="纯前端在线 URL 编码解码工具。支持 encodeURI / encodeURIComponent 双模切换，支持将带参数的完整 URL 一键表格化拆解为键值对并自由修改重组。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .param-table th, .param-table td {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+    }
+    .param-table th {
+      background: var(--bg-surface-alt);
+      color: var(--text-muted);
+      text-align: left;
+    }
+    .param-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/url-encoder/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/url-encoder/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/url-encoder/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/url-encoder/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>开发者利器</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>URL 编码与解码</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">🔗 URL 编码与解码</h1>
+        <span class="badge-tag badge-privacy">纯本地瞬时处理</span>
+        <span class="badge-tag badge-dev">开发者日常高频</span>
+      </div>
+      <p class="tool-desc">提供标准 URL 转义编码与解码，并内置强大的 Query 参数表格解析器。粘贴带有长参数的链接，自动拆分为清晰表格并支持实时修改反构。</p>
+    </div>
+
+    <!-- 1. 文本直接编解码 -->
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-card-title">📝 URL 实时编解码</div>
+        <div style="display: flex; gap: 0.5rem;">
+          <label class="switch-label" style="gap: 0.5rem; font-size: 0.82rem;">
+            <span>全组件转义 (encodeURIComponent)</span>
+            <input type="checkbox" class="switch-input" id="opt-component" checked>
+          </label>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label class="form-label">输入内容：</label>
+          <textarea class="form-textarea" id="url-raw-input" placeholder="输入待编码的普通字符串或待解码的 %XX 字符串..." style="height: 180px;">https://www.google.com/search?q=人工智能&hl=zh-CN</textarea>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <button type="button" class="btn btn-primary" id="btn-url-encode">编码 (Encode) →</button>
+            <button type="button" class="btn btn-secondary" id="btn-url-decode">← 解码 (Decode)</button>
+            <button type="button" class="btn btn-secondary" id="btn-url-clear">清空</button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+            <label class="form-label" style="margin: 0;">处理结果：</label>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-copy-url">📋 复制结果</button>
+          </div>
+          <textarea class="form-textarea" id="url-raw-output" readonly placeholder="处理结果显示在此..." style="height: 180px;"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Query 参数表格解析器 -->
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-card-title">🗂️ URL Query 参数表格化解析器</div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-parse-query">🔍 拆解 URL 参数</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">输入完整链接：</label>
+        <input type="text" class="form-input" id="full-url-input" value="https://api.example.com/v1/orders?userId=9527&status=paid&token=abc123xyz&limit=20">
+      </div>
+
+      <div id="parsed-results-box" style="margin-top: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 600; font-size: 0.9rem;">拆解后的参数键值列表：</span>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-add-param">+ 添加新参数</button>
+        </div>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th style="width: 35%;">参数键 (Key)</th>
+              <th>参数值 (Value)</th>
+              <th style="width: 70px; text-align: center;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="param-tbody"></tbody>
+        </table>
+
+        <div style="margin-top: 1.25rem;">
+          <label class="form-label">参数修改后重新拼装的新 URL：</label>
+          <div class="copy-input-group">
+            <input type="text" id="rebuilt-url" readonly>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-copy-rebuilt">复制 URL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const urlRawInput = document.getElementById('url-raw-input');
+    const urlRawOutput = document.getElementById('url-raw-output');
+    const optComponent = document.getElementById('opt-component');
+
+    document.getElementById('btn-url-encode').addEventListener('click', () => {
+      const val = urlRawInput.value;
+      if (!val) return;
+      urlRawOutput.value = optComponent.checked ? encodeURIComponent(val) : encodeURI(val);
+    });
+
+    document.getElementById('btn-url-decode').addEventListener('click', () => {
+      const val = urlRawInput.value;
+      if (!val) return;
+      try {
+        urlRawOutput.value = optComponent.checked ? decodeURIComponent(val) : decodeURI(val);
+      } catch (err) {
+        Utils.showToast('解码失败：URL 格式存在非法转义字符', 'error');
+      }
+    });
+
+    document.getElementById('btn-url-clear').addEventListener('click', () => {
+      urlRawInput.value = '';
+      urlRawOutput.value = '';
+    });
+
+    document.getElementById('btn-copy-url').addEventListener('click', () => {
+      if (urlRawOutput.value) Utils.copyToClipboard(urlRawOutput.value);
+    });
+
+    // Query 参数解析
+    const fullUrlInput = document.getElementById('full-url-input');
+    const paramTbody = document.getElementById('param-tbody');
+    const rebuiltUrl = document.getElementById('rebuilt-url');
+
+    let baseOriginAndPath = '';
+    let currentParams = [];
+
+    function parseCurrentUrl() {
+      const raw = fullUrlInput.value.trim();
+      if (!raw) return;
+      try {
+        const qIdx = raw.indexOf('?');
+        if (qIdx === -1) {
+          baseOriginAndPath = raw;
+          currentParams = [];
+        } else {
+          baseOriginAndPath = raw.substring(0, qIdx);
+          const queryString = raw.substring(qIdx + 1);
+          const searchParams = new URLSearchParams(queryString);
+          currentParams = [];
+          searchParams.forEach((val, key) => {
+            currentParams.push({ key, val });
+          });
+        }
+        renderParamTable();
+      } catch (e) {
+        Utils.showToast('解析 URL 出错', 'error');
+      }
+    }
+
+    function renderParamTable() {
+      paramTbody.innerHTML = currentParams.map((p, idx) => `
+        <tr>
+          <td><input type="text" class="param-input" value="${p.key}" oninput="updateParam(${idx}, 'key', this.value)"></td>
+          <td><input type="text" class="param-input" value="${p.val}" oninput="updateParam(${idx}, 'val', this.value)"></td>
+          <td style="text-align: center;"><button type="button" class="btn btn-danger btn-sm" onclick="delParam(${idx})">✕</button></td>
+        </tr>
+      `).join('');
+
+      rebuildUrl();
+    }
+
+    function rebuildUrl() {
+      const sp = new URLSearchParams();
+      currentParams.forEach(p => {
+        if (p.key.trim()) sp.append(p.key.trim(), p.val);
+      });
+      const qStr = sp.toString();
+      rebuiltUrl.value = baseOriginAndPath + (qStr ? '?' + qStr : '');
+    }
+
+    window.updateParam = function(idx, field, val) {
+      if (currentParams[idx]) {
+        currentParams[idx][field] = val;
+        rebuildUrl();
+      }
+    };
+
+    window.delParam = function(idx) {
+      currentParams.splice(idx, 1);
+      renderParamTable();
+    };
+
+    document.getElementById('btn-add-param').addEventListener('click', () => {
+      currentParams.push({ key: 'newParam', val: '' });
+      renderParamTable();
+    });
+
+    document.getElementById('btn-parse-query').addEventListener('click', parseCurrentUrl);
+    fullUrlInput.addEventListener('input', parseCurrentUrl);
+
+    document.getElementById('btn-copy-rebuilt').addEventListener('click', () => {
+      if (rebuiltUrl.value) Utils.copyToClipboard(rebuiltUrl.value);
+    });
+
+    parseCurrentUrl();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

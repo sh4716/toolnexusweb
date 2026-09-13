@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Counter - Words, Characters & Reading Time | ToolNexus</title>
+  <meta name="description" content="Free in-browser Word Counter. Real-time words, characters, sentences, paragraphs, and reading time estimation.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/word-counter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/word-counter/">
+  <meta property="og:title" content="Word Counter - Words, Characters & Reading Time | ToolNexus">
+  <meta property="og:description" content="Free in-browser Word Counter. Real-time words, characters, sentences, paragraphs, and reading time estimation.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Word Counter - Words, Characters & Reading Time | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser Word Counter. Real-time words, characters, sentences, paragraphs, and reading time estimation.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/word-counter/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/word-counter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/word-counter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/word-counter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#text">Text Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Word Counter</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Text & Writing</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">📊 Word Counter & Reading Time Estimator</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Count words, characters, sentences, paragraphs, and estimate reading and speaking duration in real time. Ideal for essays, blog articles, and social media posts.
+        </p>
+
+        <!-- Stats Counter Dashboard -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Words</div>
+            <div id="stat-words" style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">0</div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Characters</div>
+            <div id="stat-chars" style="font-size: 1.8rem; font-weight: 800; color: var(--accent-cyan);">0</div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">No Spaces</div>
+            <div id="stat-nospace" style="font-size: 1.8rem; font-weight: 800; color: var(--text-main);">0</div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Sentences</div>
+            <div id="stat-sentences" style="font-size: 1.8rem; font-weight: 800; color: var(--accent-amber);">0</div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Paragraphs</div>
+            <div id="stat-paragraphs" style="font-size: 1.8rem; font-weight: 800; color: var(--text-main);">0</div>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Reading Time</div>
+            <div id="stat-reading" style="font-size: 1.3rem; font-weight: 800; color: var(--success); padding-top: 0.35rem;">0 min</div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <textarea id="word-input" class="input-text" rows="12" placeholder="Start typing or paste your text here..." style="font-size: 1rem; line-height: 1.7; resize: vertical;" oninput="updateWordStats()">ToolNexus is a collection of high-performance, private, client-side utility tools designed for creators and developers worldwide.</textarea>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('word-input').value)">Copy Text</button>
+          <button type="button" class="btn btn-ghost" style="border:1px solid var(--border-color);" onclick="document.getElementById('word-input').value=''; updateWordStats();">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateWordStats() {
+        const text = document.getElementById('word-input').value;
+        const chars = text.length;
+        const charsNoSpace = text.replace(/\s/g, '').length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const sentences = text.trim() ? (text.match(/[.!?]+(\s|$)/g) || []).length || (words > 0 ? 1 : 0) : 0;
+        const paragraphs = text.trim() ? text.split(/\n+/).filter(p => p.trim()).length : 0;
+
+        // Reading time: avg 200 words per minute
+        const readingMins = Math.ceil(words / 200);
+
+        document.getElementById('stat-words').textContent = words.toLocaleString();
+        document.getElementById('stat-chars').textContent = chars.toLocaleString();
+        document.getElementById('stat-nospace').textContent = charsNoSpace.toLocaleString();
+        document.getElementById('stat-sentences').textContent = sentences.toLocaleString();
+        document.getElementById('stat-paragraphs').textContent = paragraphs.toLocaleString();
+        document.getElementById('stat-reading').textContent = readingMins + ' min';
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        updateWordStats();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

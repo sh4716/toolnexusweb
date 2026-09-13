@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小费与聚餐分账计算器 | ToolNexus</title>
+  <meta name="description" content="免费在线小费计算器。按比例轻松计算餐厅、外卖小费，多人快速 AA 制均摊，支持向上取整抹零。">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/tip-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/tip-calculator/">
+  <meta property="og:title" content="小费与聚餐分账计算器 | ToolNexus">
+  <meta property="og:description" content="免费在线小费计算器。按比例轻松计算餐厅、外卖小费，多人快速 AA 制均摊，支持向上取整抹零。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="小费与聚餐分账计算器 | ToolNexus">
+  <meta name="twitter:description" content="免费在线小费计算器。按比例轻松计算餐厅、外卖小费，多人快速 AA 制均摊，支持向上取整抹零。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/tip-calculator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/tip-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/tip-calculator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/tip-calculator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-badge badge-primary">计算器 & 餐饮社交</span>
+          <h1 class="tool-title">🧾 小费与聚餐 AA 均摊计算器</h1>
+          <p class="tool-desc">支持自定义或一键预设小费比例（10% ~ 25%），多人聚餐账单自动分摊，支持按人头自动抹零向上取整。</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem;" class="tip-calc-grid">
+          <div>
+            <!-- Bill Amount -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label class="form-label" for="bill-amount" style="font-weight: 700; font-size: 1rem;">账单总金额 ($ Bill Amount)</label>
+              <div style="position: relative;">
+                <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-muted); font-size: 1.25rem;">$</span>
+                <input type="number" id="bill-amount" class="input-text" value="85.00" step="any" min="0" style="padding-left: 2.25rem; font-size: 1.3rem; font-weight: 700;" oninput="calculateTip()">
+              </div>
+            </div>
+
+            <!-- Tip Percentage Pills -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label class="form-label" style="font-weight: 700;">小费比例 (Tip %)</label>
+              <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 0.75rem;" class="tip-pills">
+                <button type="button" class="btn-sm btn-ghost tip-btn" onclick="selectTip(10)">10%</button>
+                <button type="button" class="btn-sm btn-ghost tip-btn" onclick="selectTip(15)">15%</button>
+                <button type="button" class="btn-sm btn-ghost tip-btn active-tip" onclick="selectTip(18)">18%</button>
+                <button type="button" class="btn-sm btn-ghost tip-btn" onclick="selectTip(20)">20%</button>
+                <button type="button" class="btn-sm btn-ghost tip-btn" onclick="selectTip(25)">25%</button>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span style="font-size: 0.85rem; color: var(--text-muted);">自定义小费率:</span>
+                <input type="number" id="custom-tip" class="input-text" value="18" style="width: 100px; padding: 0.4rem 0.65rem;" min="0" max="100" oninput="onCustomTipInput()">
+                <span style="font-size: 0.9rem; font-weight: 600;">%</span>
+              </div>
+            </div>
+
+            <!-- Split People Stepper -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label class="form-label" style="font-weight: 700;">分账人数 (Split Between People)</label>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <button type="button" class="btn-sm btn-ghost" style="width: 42px; height: 42px; font-size: 1.25rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);" onclick="adjustPeople(-1)">-</button>
+                <input type="number" id="people-count" class="input-text" value="3" min="1" max="100" style="text-align: center; font-size: 1.25rem; font-weight: 700; width: 80px;" oninput="calculateTip()">
+                <button type="button" class="btn-sm btn-ghost" style="width: 42px; height: 42px; font-size: 1.25rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);" onclick="adjustPeople(1)">+</button>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">人</span>
+              </div>
+            </div>
+
+            <!-- Round Up Switch -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+              <input type="checkbox" id="round-up-toggle" onchange="calculateTip()" style="width: 18px; height: 18px; cursor: pointer;">
+              <label for="round-up-toggle" style="font-size: 0.9rem; cursor: pointer; user-select: none;">每人金额向上取整到整美元 (Round Up)</label>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div>
+            <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.1)); border: 1px solid var(--primary-border); border-radius: var(--radius-lg); padding: 1.75rem;">
+              
+              <!-- Total per person (Hero Metric) -->
+              <div style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.25rem; margin-bottom: 1.25rem; text-align: center;">
+                <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">每人实付均摊</div>
+                <div style="font-size: 2.8rem; font-weight: 800; color: var(--primary); margin: 0.25rem 0;" id="out-per-person">$33.43</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);" id="out-tip-per-person">每人分担小费: $5.10</div>
+              </div>
+
+              <!-- Breakdown Rows -->
+              <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.95rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--text-muted);">小费总金额</span>
+                  <strong style="color: var(--accent-cyan); font-size: 1.15rem;" id="out-total-tip">$15.30</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--text-muted);">含小费总支出</span>
+                  <strong style="color: var(--text-main); font-size: 1.15rem;" id="out-total-bill">$100.30</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed var(--border-subtle); padding-top: 0.75rem;">
+                  <span style="color: var(--text-muted);">实际小费费率</span>
+                  <span style="color: var(--accent-amber); font-weight: 600;" id="out-effective-tip">18.0%</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-secondary" style="width: 100%; justify-content: center; margin-top: 1.5rem;" onclick="copyTipSummary()">
+                <span>复制分摊明细</span>
+                <span>📋</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">小费计算常见礼仪与指南</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 海外（如美国、加拿大）常规的小费标准是多少？</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">通常：外卖或快餐 10% - 15%；标准堂食正餐 15% - 18%；高端精致餐饮或优质服务 20% - 25%。</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: AA 制分账时如果有小数零钱如何处理？</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">开启本工具的“向上取整”功能，系统会自动将每人均摊金额抹平到最近的整数美元，多出的零头直接归入小费奖励服务员。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .active-tip {
+      background: var(--primary) !important;
+      color: #ffffff !important;
+      border-color: var(--primary) !important;
+    }
+  </style>
+
+  <script>
+    let currentTipPct = 18;
+
+    function selectTip(pct) {
+      currentTipPct = pct;
+      document.getElementById('custom-tip').value = pct;
+      updateTipBtnStyles();
+      calculateTip();
+    }
+
+    function onCustomTipInput() {
+      const val = parseFloat(document.getElementById('custom-tip').value) || 0;
+      currentTipPct = val;
+      updateTipBtnStyles();
+      calculateTip();
+    }
+
+    function updateTipBtnStyles() {
+      const btns = document.querySelectorAll('.tip-btn');
+      btns.forEach(btn => {
+        const val = parseInt(btn.textContent);
+        if (val === currentTipPct) {
+          btn.classList.add('active-tip');
+        } else {
+          btn.classList.remove('active-tip');
+        }
+      });
+    }
+
+    function adjustPeople(delta) {
+      const el = document.getElementById('people-count');
+      let count = parseInt(el.value) || 1;
+      count = Math.max(1, count + delta);
+      el.value = count;
+      calculateTip();
+    }
+
+    function calculateTip() {
+      const bill = parseFloat(document.getElementById('bill-amount').value) || 0;
+      const people = parseInt(document.getElementById('people-count').value) || 1;
+      const isRoundUp = document.getElementById('round-up-toggle').checked;
+
+      let tipAmount = bill * (currentTipPct / 100);
+      let totalBill = bill + tipAmount;
+
+      let perPersonTotal = totalBill / people;
+      let perPersonTip = tipAmount / people;
+
+      if (isRoundUp && perPersonTotal > 0) {
+        const roundedPerPerson = Math.ceil(perPersonTotal);
+        const totalNew = roundedPerPerson * people;
+        tipAmount = Math.max(0, totalNew - bill);
+        totalBill = totalNew;
+        perPersonTotal = roundedPerPerson;
+        perPersonTip = tipAmount / people;
+      }
+
+      const effectiveRate = bill > 0 ? (tipAmount / bill) * 100 : currentTipPct;
+
+      document.getElementById('out-per-person').textContent = '$' + perPersonTotal.toFixed(2);
+      document.getElementById('out-tip-per-person').textContent = '每人分担小费: $' + perPersonTip.toFixed(2);
+      document.getElementById('out-total-tip').textContent = '$' + tipAmount.toFixed(2);
+      document.getElementById('out-total-bill').textContent = '$' + totalBill.toFixed(2);
+      document.getElementById('out-effective-tip').textContent = effectiveRate.toFixed(1) + '%';
+    }
+
+    function copyTipSummary() {
+      const bill = document.getElementById('bill-amount').value;
+      const total = document.getElementById('out-total-bill').textContent;
+      const perPerson = document.getElementById('out-per-person').textContent;
+      const people = document.getElementById('people-count').value;
+      const tip = document.getElementById('out-total-tip').textContent;
+
+      const text = `🧾 ToolNexus Bill Split:
+- Original Bill: $${bill}
+- Tip Total: ${tip}
+- Total with Tip: ${total}
+- Split between: ${people} people
+- Total Each: ${perPerson}`;
+      copyToClipboard(text);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateTip();
+    });
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            纯本地极速实用工具箱。所有计算与转换均在您的浏览器内存中完成，零服务器上传，绝不保存任何用户文件，安全可信赖。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/age-calculator/">年龄与生日计算器</a></li>
+            <li><a href="/zh/tools/percentage-calculator/">百分比与折扣计算器</a></li>
+            <li><a href="/zh/tools/tip-calculator/">小费与分账计算器</a></li>
+            <li><a href="/zh/tools/salary-calculator/">时薪与年薪计算器</a></li>
+            <li><a href="/zh/tools/uuid-generator/">UUID / GUID 生成器</a></li>
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者工具</a></li>
+            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与条款</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策</a></li>
+            <li><a href="/zh/terms/">服务条款</a></li>
+            <li><a href="/zh/about/">关于我们</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. 100% 浏览器本地运算 · 零上传隐私保护
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          纯前端安全沙盒运行中
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

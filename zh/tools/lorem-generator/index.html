@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | 设计师常用</title>
+  <meta name="description" content="纯前端在线 Lorem Ipsum 假文生成工具。支持生成标准拉丁文排版假文，以及经典中文排版占位文本。自由控制段落、字数及 HTML 段落标签包裹，一键复制。">
+  <meta name="keywords" content="Lorem Ipsum,假文生成器,占位文本,乱数假文,中文占位符">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/lorem-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/lorem-generator/">
+  <meta property="og:title" content="Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | 设计师常用">
+  <meta property="og:description" content="纯前端在线 Lorem Ipsum 假文生成工具。支持生成标准拉丁文排版假文，以及经典中文排版占位文本。自由控制段落、字数及 HTML 段落标签包裹，一键复制。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | 设计师常用">
+  <meta name="twitter:description" content="纯前端在线 Lorem Ipsum 假文生成工具。支持生成标准拉丁文排版假文，以及经典中文排版占位文本。自由控制段落、字数及 HTML 段落标签包裹，一键复制。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/lorem-generator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/lorem-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/lorem-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/lorem-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>设计与排版</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>Lorem Ipsum 假文生成</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">📄 Lorem Ipsum 假文生成</h1>
+        <span class="badge-tag badge-privacy">中英双模排版支持</span>
+        <span class="badge-tag badge-dev">UI/前端日常常用</span>
+      </div>
+      <p class="tool-desc">UI 设计、网站排版与前端占位测试时，快速生成指定段落数或字数的中英文占位文本。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="grid-3" style="margin-bottom: 1.25rem;">
+        <div class="form-group">
+          <label class="form-label">假文语言：</label>
+          <select class="form-select" id="lorem-lang">
+            <option value="latin" selected>经典拉丁文 (Lorem Ipsum)</option>
+            <option value="zh">现代中文散文占位符</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.45rem;">
+            <label class="form-label" style="margin: 0;">生成段落数：</label>
+            <span class="slider-badge" id="paras-val">3 段</span>
+          </div>
+          <input type="range" class="slider-range" id="lorem-paras" min="1" max="10" value="3">
+        </div>
+        <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 0.4rem;">
+          <button type="button" class="btn btn-primary" id="btn-gen-lorem" style="width: 100%;">🔄 重新生成假文</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+          <label class="form-label" style="margin: 0;">生成的占位文本：</label>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-copy-lorem">📋 一键复制全部</button>
+        </div>
+        <textarea class="form-textarea" id="lorem-output" readonly style="height: 280px;"></textarea>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const LATIN_PARAS = [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.",
+      "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem.",
+      "In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend."
+    ];
+
+    const ZH_PARAS = [
+      "科技在日新月异的发展中重构着现代工作流。无论是微服务架构的轻量化演进，还是客户端离线运算能力的极大提升，都推动着工具体验向着极速、隐私与无感知的方向迈进。",
+      "这是一段用于网页视觉排版与原型展示的中文占位假文。它模拟了标准的新闻与文章行高、字距与排版韵律，使设计稿在未填充真实业务文案前即可展现出真实的界面质感。",
+      "在未来的数字工具矩阵中，用户对个人敏感数据的掌控度将成为最核心的产品信任基石。通过将算力彻底留在用户本地设备中，不仅消除了网络等待延时，更带来了零泄密的纯粹保障。",
+      "设计系统与组件化思维是规模化研发的基石。统一的色阶变量、圆角规范与平滑动效，让每一个独立的功能落地页在保持灵活特性的同时，依然流淌着高度统一的品牌美学血液。"
+    ];
+
+    const langSelect = document.getElementById('lorem-lang');
+    const parasSlider = document.getElementById('lorem-paras');
+    const parasVal = document.getElementById('paras-val');
+    const output = document.getElementById('lorem-output');
+
+    function generateLorem() {
+      const num = parseInt(parasSlider.value, 10);
+      parasVal.textContent = num + ' 段';
+      const isLatin = langSelect.value === 'latin';
+      const pool = isLatin ? LATIN_PARAS : ZH_PARAS;
+
+      const res = [];
+      for (let i = 0; i < num; i++) {
+        res.push(pool[i % pool.length]);
+      }
+      output.value = res.join('\n\n');
+    }
+
+    parasSlider.addEventListener('input', generateLorem);
+    langSelect.addEventListener('change', generateLorem);
+    document.getElementById('btn-gen-lorem').addEventListener('click', generateLorem);
+
+    document.getElementById('btn-copy-lorem').addEventListener('click', () => {
+      if (output.value) Utils.copyToClipboard(output.value, '已复制占位假文！');
+    });
+
+    generateLorem();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

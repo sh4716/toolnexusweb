@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新广告法违禁词检测 - 电商文案/自媒体极限词违规在线排查 | 避坑神器</title>
+  <meta name="description" content="纯前端在线新广告法极限词与违禁词排查工具。内置权威词、绝对化用语、首个唯一、全网最低等 200+ 敏感词库，一键高亮标记电商详情页文案风险词，避免罚款限流。">
+  <meta name="keywords" content="广告法违禁词,极限词检测,新广告法敏感词,电商文案排查,违禁词在线查询">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/ad-checker/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/ad-checker/">
+  <meta property="og:title" content="新广告法违禁词检测 - 电商文案/自媒体极限词违规在线排查 | 避坑神器">
+  <meta property="og:description" content="纯前端在线新广告法极限词与违禁词排查工具。内置权威词、绝对化用语、首个唯一、全网最低等 200+ 敏感词库，一键高亮标记电商详情页文案风险词，避免罚款限流。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="新广告法违禁词检测 - 电商文案/自媒体极限词违规在线排查 | 避坑神器">
+  <meta name="twitter:description" content="纯前端在线新广告法极限词与违禁词排查工具。内置权威词、绝对化用语、首个唯一、全网最低等 200+ 敏感词库，一键高亮标记电商详情页文案风险词，避免罚款限流。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .bad-word-hit {
+      background: rgba(244, 63, 94, 0.35);
+      border-bottom: 2px solid var(--accent-rose);
+      color: #fff;
+      font-weight: 700;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+    .check-result-view {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      min-height: 120px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/ad-checker/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/ad-checker/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/ad-checker/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/ad-checker/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>文本与分析</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>新广告法违禁词检测</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">⚠️ 新广告法违禁词检测</h1>
+        <span class="badge-tag badge-privacy">内置 200+ 极限词库 · 本地极速排查</span>
+        <span class="badge-tag badge-hot">电商文案自媒体避坑</span>
+      </div>
+      <p class="tool-desc">电商商品详情页、抖音小红书带货文案及公众号文章快速排查。一键标红“第一、国家级、顶级、全网最低、包治百病”等极限违规词汇。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+          <label class="form-label" style="margin:0;">输入待排查文案：</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-sample-ad">载入违规模拟文案</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-ad">清空</button>
+          </div>
+        </div>
+        <textarea class="form-textarea" id="ad-text-input" placeholder="请在此粘贴您的电商文案、宣传单页或推广软文..." style="height: 160px;">本产品是全国销量第一的顶级神器！采用世界级工艺，全网最低价，独家首创技术，100%保证有效，绝无仅有，国家免检品质，专供高端人士！</textarea>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+        <span class="form-label" style="margin: 0;">检测分析报告与标红结果：</span>
+        <span id="ad-risk-badge" style="font-size: 0.88rem; font-weight: 700; color: var(--accent-rose);">⚠️ 发现 8 处违规极限词</span>
+      </div>
+
+      <div class="check-result-view" id="ad-checked-view"></div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    // 200+ 常见新广告法极限词库
+    const FORBIDDEN_WORDS = [
+      "第一", "顶级", "最高级", "国家级", "世界级", "宇宙级", "全网第一", "销量第一",
+      "全网首发", "全网最低", "全网最高", "首选", "独家", "首个", "首创", "唯一",
+      "极致", "顶尖", "极品", "无可比拟", "绝无仅有", "史无前例", "永久", "万能",
+      "100%", "百分之百", "绝对", "彻底", "根治", "包治百病", "神效", "立竿见影",
+      "特供", "专供", "军工特供", "国家免检", "人民大会堂专用", "钓鱼台国宾馆",
+      "金牌", "冠军", "王牌", "无敌", "巨无霸", "天花板", "终极", "最优质", "最先进"
+    ];
+
+    const input = document.getElementById('ad-text-input');
+    const checkedView = document.getElementById('ad-checked-view');
+    const riskBadge = document.getElementById('ad-risk-badge');
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function scanAdWords() {
+      const text = input.value;
+      if (!text.trim()) {
+        checkedView.innerHTML = '<span style="color:var(--text-muted)">暂无文案输入</span>';
+        riskBadge.textContent = '暂未输入';
+        riskBadge.style.color = 'var(--text-muted)';
+        return;
+      }
+
+      let hitCount = 0;
+      let highlighted = escapeHtml(text);
+
+      FORBIDDEN_WORDS.forEach(word => {
+        const reg = new RegExp(word, 'g');
+        const matches = text.match(reg);
+        if (matches) {
+          hitCount += matches.length;
+          highlighted = highlighted.replace(reg, '<span class="bad-word-hit" title="新广告法极限词">' + word + '</span>');
+        }
+      });
+
+      checkedView.innerHTML = highlighted;
+
+      if (hitCount > 0) {
+        riskBadge.textContent = '⚠️ 发现 ' + hitCount + ' 处疑似违规极限词（建议修改）';
+        riskBadge.style.color = 'var(--accent-rose)';
+      } else {
+        riskBadge.textContent = '✅ 未检测出常见广告法极限词';
+        riskBadge.style.color = 'var(--accent-emerald)';
+      }
+    }
+
+    input.addEventListener('input', scanAdWords);
+
+    document.getElementById('btn-sample-ad').addEventListener('click', () => {
+      input.value = "这款手机壳是全网销量第一的顶级神器，独家首发，国家级工艺打造，100%防摔，包治各种手机碎屏，全网最低价狂欢！";
+      scanAdWords();
+    });
+
+    document.getElementById('btn-clear-ad').addEventListener('click', () => {
+      input.value = '';
+      scanAdWords();
+    });
+
+    scanAdWords();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

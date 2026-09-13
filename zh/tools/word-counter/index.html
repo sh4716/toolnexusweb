@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | 写作神器</title>
+  <meta name="description" content="纯前端在线字数统计与排版分析工具。精准统计纯中文字数、英文单词数、标点数、总字符数及阅读预估时间。提供去除空行与优雅中英文空格排版功能。">
+  <meta name="keywords" content="字数统计,在线字数统计,文章字数计算,字符统计,阅读时间预估">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/word-counter/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/word-counter/">
+  <meta property="og:title" content="字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | 写作神器">
+  <meta property="og:description" content="纯前端在线字数统计与排版分析工具。精准统计纯中文字数、英文单词数、标点数、总字符数及阅读预估时间。提供去除空行与优雅中英文空格排版功能。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | 写作神器">
+  <meta name="twitter:description" content="纯前端在线字数统计与排版分析工具。精准统计纯中文字数、英文单词数、标点数、总字符数及阅读预估时间。提供去除空行与优雅中英文空格排版功能。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .stat-chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .stat-chip {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 0.85rem;
+      text-align: center;
+    }
+    .stat-chip-num {
+      font-size: 1.75rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--primary);
+    }
+    .stat-chip-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/word-counter/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/word-counter/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/word-counter/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/word-counter/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>文本与分析</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>字数统计与排版分析</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">📊 字数统计与排版分析</h1>
+        <span class="badge-tag badge-privacy">纯本地毫秒级统计</span>
+        <span class="badge-tag badge-dev">文案与学生高频</span>
+      </div>
+      <p class="tool-desc">精准统计总字符、纯中文字数、英文单词、段落及预估朗读耗时。内置去除多余空格与空行排版格式化。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+          <label class="form-label" style="margin: 0;">输入或粘贴文章文案：</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-format-spacing">加盘古空格 (中英排版)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-clean-blank">去除多余空行</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-txt">清空</button>
+          </div>
+        </div>
+        <textarea class="form-textarea" id="text-input" placeholder="请在此粘贴或输入您的文章文案..." style="height: 260px;">欢迎使用 ToolNexus 实用工具箱！这里有 20+ 款高频工具，全部基于 HTML5 与 JavaScript 纯前端实现，运算 100% 运行在浏览器本地，绝不上报隐私数据。</textarea>
+      </div>
+
+      <!-- 实时数据看板 -->
+      <div class="stat-chip-grid">
+        <div class="stat-chip">
+          <div class="stat-chip-num" id="stat-total-chars">0</div>
+          <div class="stat-chip-label">总字符数 (含空格)</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-chip-num" id="stat-chinese-chars" style="color: var(--accent-cyan);">0</div>
+          <div class="stat-chip-label">中文字数 (汉字)</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-chip-num" id="stat-en-words" style="color: var(--accent-purple);">0</div>
+          <div class="stat-chip-label">英文单词数</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-chip-num" id="stat-paragraphs" style="color: var(--accent-emerald);">0</div>
+          <div class="stat-chip-label">段落数</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-chip-num" id="stat-read-time" style="color: var(--accent-amber);">0 分</div>
+          <div class="stat-chip-label">预估阅读时间</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const input = document.getElementById('text-input');
+    const totalCharsEl = document.getElementById('stat-total-chars');
+    const chineseCharsEl = document.getElementById('stat-chinese-chars');
+    const enWordsEl = document.getElementById('stat-en-words');
+    const paragraphsEl = document.getElementById('stat-paragraphs');
+    const readTimeEl = document.getElementById('stat-read-time');
+
+    function analyzeText() {
+      const text = input.value;
+      totalCharsEl.textContent = text.length;
+
+      // 中文匹配
+      const chineseMatches = text.match(/[\u4e00-\u9fa5]/g);
+      const chineseCount = chineseMatches ? chineseMatches.length : 0;
+      chineseCharsEl.textContent = chineseCount;
+
+      // 英文单词
+      const enMatches = text.match(/[a-zA-Z0-9_-]+/g);
+      const enCount = enMatches ? enMatches.length : 0;
+      enWordsEl.textContent = enCount;
+
+      // 段落 (非空行)
+      const paras = text.split(/\n+/).filter(line => line.trim().length > 0);
+      paragraphsEl.textContent = paras.length;
+
+      // 预估阅读耗时 (每分钟约 400 字)
+      const totalWords = chineseCount + enCount;
+      const minutes = Math.max(1, Math.ceil(totalWords / 400));
+      readTimeEl.textContent = totalWords === 0 ? '0 分' : (minutes + ' 分钟');
+    }
+
+    input.addEventListener('input', analyzeText);
+
+    document.getElementById('btn-clean-blank').addEventListener('click', () => {
+      input.value = input.value.split(/\n+/).filter(line => line.trim().length > 0).join('\n\n');
+      analyzeText();
+      Utils.showToast('已清理多余空行', 'success');
+    });
+
+    document.getElementById('btn-format-spacing').addEventListener('click', () => {
+      // 简单中英文混排加空格
+      let val = input.value;
+      val = val.replace(/([\u4e00-\u9fa5])([a-zA-Z0-9])/g, '$1 $2');
+      val = val.replace(/([a-zA-Z0-9])([\u4e00-\u9fa5])/g, '$1 $2');
+      input.value = val;
+      analyzeText();
+      Utils.showToast('已完成中英文规范空格排版', 'success');
+    });
+
+    document.getElementById('btn-clear-txt').addEventListener('click', () => {
+      input.value = '';
+      analyzeText();
+    });
+
+    analyzeText();
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

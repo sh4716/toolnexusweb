@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文本精确差异比对 (Diff) - 在线比对两份文本与合同修改 | 清晰高亮</title>
+  <meta name="description" content="纯前端在线文本差异比对工具。类似 Git Diff，逐行精确高亮两段文字、合同版本或代码的增加、删除与修改，支持并排对比与统计。">
+  <meta name="keywords" content="文本对比,TextDiff,在线Diff,代码对比,合同比对,文字差异比较">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/text-diff/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/text-diff/">
+  <meta property="og:title" content="文本精确差异比对 (Diff) - 在线比对两份文本与合同修改 | 清晰高亮">
+  <meta property="og:description" content="纯前端在线文本差异比对工具。类似 Git Diff，逐行精确高亮两段文字、合同版本或代码的增加、删除与修改，支持并排对比与统计。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="文本精确差异比对 (Diff) - 在线比对两份文本与合同修改 | 清晰高亮">
+  <meta name="twitter:description" content="纯前端在线文本差异比对工具。类似 Git Diff，逐行精确高亮两段文字、合同版本或代码的增加、删除与修改，支持并排对比与统计。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .diff-output-box {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      border: 1px solid var(--border-base);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      background: var(--bg-surface-alt);
+    }
+    .diff-line {
+      display: flex;
+      padding: 0.2rem 0.65rem;
+      line-height: 1.5;
+    }
+    .diff-line-num {
+      width: 40px;
+      color: var(--text-subtle);
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .diff-add {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+    }
+    .diff-del {
+      background: rgba(244, 63, 94, 0.15);
+      color: var(--accent-rose);
+    }
+    .diff-unchanged {
+      color: var(--text-muted);
+    }
+  </style>
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/text-diff/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/text-diff/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/text-diff/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+  
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/text-diff/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>文本与分析</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>文本差异比对 (Diff)</span>
+      </nav>
+      <div class="tool-title-row">
+        <h1 class="tool-title">📝 文本精确差异比对 (Diff)</h1>
+        <span class="badge-tag badge-privacy">纯本地算法对比 · 合同绝对保密</span>
+        <span class="badge-tag badge-dev">开发者与文案必备</span>
+      </div>
+      <p class="tool-desc">逐行对比两份文本、合同修改草案或代码变更，实时高亮增加与删除字句。机密条款零外泄。</p>
+    </div>
+
+    <div class="tool-card">
+      <div class="grid-2">
+        <div>
+          <label class="form-label">原始文本 (Original)：</label>
+          <textarea class="form-textarea" id="diff-text-old" placeholder="输入原始版本文本..." style="height: 180px;">甲方同意在 2026 年 9 月前完成交付。
+服务费用总计人民币 50,000 元整。
+逾期违约金按日千分之一计算。
+本协议自签字之日起生效。</textarea>
+        </div>
+        <div>
+          <label class="form-label">修改后文本 (Modified)：</label>
+          <textarea class="form-textarea" id="diff-text-new" placeholder="输入修改后的版本文本..." style="height: 180px;">甲方同意在 2026 年 10 月前完成交付。
+服务费用总计人民币 60,000 元整。
+新增技术培训与售后支持服务。
+逾期违约金按日千分之二计算。
+本协议自双方法定代表人签字之日起生效。</textarea>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; margin-bottom: 0.5rem;">
+        <span class="form-label" style="margin: 0;">逐行差异比对视图：</span>
+        <span id="diff-stats" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">比对就绪</span>
+      </div>
+
+      <div class="diff-output-box" id="diff-results"></div>
+    </div>
+  </main>
+
+  
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>⚡ ToolNexus 工具枢纽</h4>
+          <p style="margin-bottom:0.75rem;">面向个人与开发者的下一代现代纯前端工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何后端服务器上传您的文件或隐私数据。</p>
+          <span class="badge-tag badge-privacy">🔒 纯前端运行 · 零云端留存 · 免登录即用</span>
+        </div>
+        <div class="footer-col">
+          <h5>热门核心工具</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+            <li><a href="/zh/tools/image-converter/">图片格式互转</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+            <li><a href="/zh/tools/qrcode-generator/">二维码生成器</a></li>
+            <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>实用计算与文档</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
+            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
+            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
+            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>服务与合规政策</h5>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策 (Privacy Policy)</a></li>
+            <li><a href="/zh/terms/">服务条款 (Terms of Service)</a></li>
+            <li><a href="/zh/about/">关于我们 (About Us)</a></li>
+            <li><a href="/zh/contact/">联系方式 (Contact Us)</a></li>
+            <li><a href="../../index.html#faq">常见问题解答</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 ToolNexus. All rights reserved. 纯本地高能实用工具站.</div>
+        <div style="display:flex;gap:1.25rem;">
+          <a href="/zh/privacy/" style="color:inherit;">隐私保护声明</a>
+          <a href="/zh/terms/" style="color:inherit;">用户服务协议</a>
+          <span>⚡ 浏览器纯本地算力驱动</span>
+          <span>🛡️ 零服务器数据上传</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/utils.js"></script>
+  <script src="../../../assets/js/global-nav.js"></script>
+  <script>
+    const textOld = document.getElementById('diff-text-old');
+    const textNew = document.getElementById('diff-text-new');
+    const diffResults = document.getElementById('diff-results');
+    const diffStats = document.getElementById('diff-stats');
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function computeDiff() {
+      const oldLines = textOld.value.split('\n');
+      const newLines = textNew.value.split('\n');
+
+      let addCount = 0;
+      let delCount = 0;
+      let html = '';
+
+      const maxLen = Math.max(oldLines.length, newLines.length);
+
+      // 简明行比对算法
+      for (let i = 0; i < maxLen; i++) {
+        const o = oldLines[i];
+        const n = newLines[i];
+
+        if (o === n) {
+          html += `<div class="diff-line diff-unchanged">
+            <span class="diff-line-num">${i+1}</span>
+            <span>  ${escapeHtml(o || '')}</span>
+          </div>`;
+        } else {
+          if (o !== undefined) {
+            delCount++;
+            html += `<div class="diff-line diff-del">
+              <span class="diff-line-num">${i+1}</span>
+              <span>- ${escapeHtml(o)}</span>
+            </div>`;
+          }
+          if (n !== undefined) {
+            addCount++;
+            html += `<div class="diff-line diff-add">
+              <span class="diff-line-num">${i+1}</span>
+              <span>+ ${escapeHtml(n)}</span>
+            </div>`;
+          }
+        }
+      }
+
+      diffResults.innerHTML = html;
+      diffStats.innerHTML = `<span style="color:var(--accent-emerald)">+${addCount} 处新增</span> · <span style="color:var(--accent-rose)">-${delCount} 处修改/删除</span>`;
+    }
+
+    textOld.addEventListener('input', computeDiff);
+    textNew.addEventListener('input', computeDiff);
+    computeDiff();
+
+    initSearchModal('../../');
+  </script>
+</body>
+</html>

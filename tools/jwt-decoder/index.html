@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JWT Token Decoder - Inspect Header & Payload Online | ToolNexus</title>
+  <meta name="description" content="Free in-browser JWT Token Decoder. Decode header and payload claims with expiration checking. 100% private, client-side decoding.">
+    <link rel="canonical" href="https://toolnexusweb.com/tools/jwt-decoder/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/jwt-decoder/">
+  <meta property="og:title" content="JWT Token Decoder - Inspect Header & Payload Online | ToolNexus">
+  <meta property="og:description" content="Free in-browser JWT Token Decoder. Decode header and payload claims with expiration checking. 100% private, client-side decoding.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JWT Token Decoder - Inspect Header & Payload Online | ToolNexus">
+  <meta name="twitter:description" content="Free in-browser JWT Token Decoder. Decode header and payload claims with expiration checking. 100% private, client-side decoding.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/jwt-decoder/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/jwt-decoder/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/jwt-decoder/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/jwt-decoder/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>JWT Token Decoder</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer Security</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🎫 JWT Token Decoder</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Decode and inspect JSON Web Token (JWT) headers, payload claims, and token expiration timestamps in real time without sending sensitive tokens to any remote server.
+        </p>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label class="form-label" style="font-weight: 600;">Encoded JWT Token</label>
+          <textarea id="jwt-input" class="input-text" rows="4" placeholder="Paste your eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... token here" style="font-family: var(--font-mono); font-size: 0.9rem;" oninput="decodeJwt()">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIFNtaXRoIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxOTAwMDAwMDAwfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</textarea>
+        </div>
+
+        <!-- Expiration Status Badge -->
+        <div id="jwt-status-banner" style="margin-bottom: 1.25rem; padding: 0.75rem 1.25rem; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3);">
+          <span>✓</span>
+          <span id="jwt-status-text">Valid Token</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="jwt-grid">
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--accent-rose); margin-bottom: 0.35rem;">HEADER: Algorithm & Token Type</div>
+            <textarea id="jwt-header-out" class="input-text" rows="6" readonly style="font-family: var(--font-mono); font-size: 0.9rem; background: var(--bg-surface-alt);"></textarea>
+          </div>
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">PAYLOAD: Data Claims</div>
+            <textarea id="jwt-payload-out" class="input-text" rows="10" readonly style="font-family: var(--font-mono); font-size: 0.9rem; background: var(--bg-surface-alt);"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function b64UrlDecode(str) {
+        let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+        while (base64.length % 4) base64 += '=';
+        return decodeURIComponent(escape(atob(base64)));
+      }
+
+      function decodeJwt() {
+        const val = document.getElementById('jwt-input').value.trim();
+        const banner = document.getElementById('jwt-status-banner');
+        const statusText = document.getElementById('jwt-status-text');
+
+        if (!val) {
+          banner.style.display = 'none';
+          document.getElementById('jwt-header-out').value = '';
+          document.getElementById('jwt-payload-out').value = '';
+          return;
+        }
+        banner.style.display = 'flex';
+
+        const parts = val.split('.');
+        if (parts.length < 2) {
+          banner.style.background = 'rgba(239, 68, 68, 0.1)';
+          banner.style.color = 'var(--error)';
+          banner.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          statusText.textContent = 'Invalid JWT structure (requires 3 dot-separated parts)';
+          return;
+        }
+
+        try {
+          const header = JSON.parse(b64UrlDecode(parts[0]));
+          const payload = JSON.parse(b64UrlDecode(parts[1]));
+
+          document.getElementById('jwt-header-out').value = JSON.stringify(header, null, 2);
+          document.getElementById('jwt-payload-out').value = JSON.stringify(payload, null, 2);
+
+          // Check exp claim
+          if (payload.exp) {
+            const expMs = payload.exp * 1000;
+            const isExpired = Date.now() > expMs;
+            const expDate = new Date(expMs).toLocaleString();
+
+            if (isExpired) {
+              banner.style.background = 'rgba(239, 68, 68, 0.1)';
+              banner.style.color = 'var(--error)';
+              banner.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+              statusText.textContent = 'Token Expired on ' + expDate;
+            } else {
+              banner.style.background = 'rgba(16, 185, 129, 0.1)';
+              banner.style.color = 'var(--success)';
+              banner.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+              statusText.textContent = 'Token Active (Expires: ' + expDate + ')';
+            }
+          } else {
+            banner.style.background = 'rgba(99, 102, 241, 0.1)';
+            banner.style.color = 'var(--primary)';
+            banner.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+            statusText.textContent = 'Valid JWT (No expiration claim)';
+          }
+        } catch (e) {
+          banner.style.background = 'rgba(239, 68, 68, 0.1)';
+          banner.style.color = 'var(--error)';
+          banner.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          statusText.textContent = 'Error decoding token: ' + e.message;
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        decodeJwt();
+      });
+    </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>

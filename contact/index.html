@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ToolNexus</title>
+  <meta name="description" content="Contact Us - ToolNexus Free In-Browser Developer & Utility Toolkit. 100% Client-Side Privacy.">
+    <link rel="canonical" href="https://toolnexusweb.com/contact/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/contact/">
+  <meta property="og:title" content="Contact Us | ToolNexus">
+  <meta property="og:description" content="Contact Us - ToolNexus Free In-Browser Developer & Utility Toolkit. 100% Client-Side Privacy.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Contact Us | ToolNexus">
+  <meta name="twitter:description" content="Contact Us - ToolNexus Free In-Browser Developer & Utility Toolkit. 100% Client-Side Privacy.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/contact/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/contact/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/contact/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/contact/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container" style="max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;">
+
+  <div class="tool-card" style="padding: 2.5rem;">
+    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.5rem;">
+      <span class="badge badge-primary" style="margin-bottom: 0.75rem;">Get In Touch</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem;">Contact Us & Feedback</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Have questions, feature requests, or business inquiries? We're here to help.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="contact-grid">
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;">Direct Channels</h3>
+        
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+          <span style="font-size: 1.5rem;">📧</span>
+          <div>
+            <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.25rem;">
+              <a href="mailto:support@toolnexusweb.com" style="color: var(--primary); text-decoration: underline; font-size: 0.95rem;">support@toolnexusweb.com</a>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard('support@toolnexusweb.com', 'Copied support email!')" style="padding:0.2rem 0.55rem;font-size:0.75rem;">📋 Copy</button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem;">Typically response within 24 hours.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+          <span style="font-size: 1.5rem;">⚖️</span>
+          <div>
+            <div style="font-weight: 600; color: var(--text-main);">DMCA & Legal Inquiries</div>
+            <a href="mailto:legal@toolnexusweb.com" style="color: var(--primary); text-decoration: underline; font-size: 0.95rem;">legal@toolnexusweb.com</a>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem;">For copyright, DMCA notices, and terms compliance.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+          <span style="font-size: 1.5rem;">💡</span>
+          <div>
+            <div style="font-weight: 600; color: var(--text-main);">Feature Suggestions</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0;">
+              Missing a calculator or converter you use every day? Drop us a note and we'll prioritize building it!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-surface-alt); padding: 1.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">Send a Message</h3>
+        <form id="contact-form">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label" for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" class="input-text" placeholder="John Doe" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label" for="contact-email">Your Email</label>
+            <input type="email" id="contact-email" class="input-text" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label class="form-label" for="contact-message">Message or Feedback</label>
+            <textarea id="contact-message" class="input-text" rows="4" placeholder="Tell us what you think or what tool you would like to see..." required style="resize: vertical;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            <span>Send Message</span>
+            <span>✉️</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/age-calculator/">Age Calculator</a></li>
+            <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
+            <li><a href="/tools/tip-calculator/">Tip & Bill Splitter</a></li>
+            <li><a href="/tools/salary-calculator/">Salary Calculator</a></li>
+            <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+            <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculators">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Cryptography</a></li>
+            <li><a href="/#pdf">PDF & Image Tools</a></li>
+            <li><a href="/#text">Text & Content Utilities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+        if (!message) {
+          Utils.showToast('Please enter your message', 'warning');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Sending...</span>';
+
+        try {
+          const res = await fetch('https://formsubmit.co/ajax/support@toolnexusweb.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              'Name': name || 'Anonymous',
+              'Email': email || 'Not provided',
+              'Message': message,
+              '_subject': `[ToolNexus Feedback] Message from ${name || 'Visitor'}`
+            })
+          });
+
+          if (res.ok) {
+            Utils.showToast('Thank you! Your message has been sent to our support team.', 'success');
+            contactForm.reset();
+          } else {
+            throw new Error('Server error');
+          }
+        } catch (err) {
+          console.warn('Form submit fallback to mailto:', err);
+          const subject = encodeURIComponent(`[ToolNexus Feedback] Message from ${name || 'Visitor'}`);
+          const body = encodeURIComponent(`Name: ${name || 'Visitor'}\nEmail: ${email || 'Not provided'}\n\nMessage:\n${message}`);
+          window.location.href = `mailto:support@toolnexusweb.com?subject=${subject}&body=${body}`;
+          Utils.showToast('Opening your email client to send directly to support@toolnexusweb.com...', 'info');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Send Message</span><span>✉️</span>';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

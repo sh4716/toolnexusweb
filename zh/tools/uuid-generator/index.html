@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUID / GUID 在线批量生成与校验器 | ToolNexus</title>
+  <meta name="description" content="基于浏览器 Web Crypto API 硬件级随机数，批量生成符合 RFC 4122 标准的 Version 4 UUID/GUID，支持大写、去横杠、大括号格式。">
+    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/uuid-generator/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/uuid-generator/">
+  <meta property="og:title" content="UUID / GUID 在线批量生成与校验器 | ToolNexus">
+  <meta property="og:description" content="基于浏览器 Web Crypto API 硬件级随机数，批量生成符合 RFC 4122 标准的 Version 4 UUID/GUID，支持大写、去横杠、大括号格式。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="UUID / GUID 在线批量生成与校验器 | ToolNexus">
+  <meta name="twitter:description" content="基于浏览器 Web Crypto API 硬件级随机数，批量生成符合 RFC 4122 标准的 Version 4 UUID/GUID，支持大写、去横杠、大括号格式。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/uuid-generator/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/uuid-generator/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/uuid-generator/">
+
+  <script src="/assets/js/utils.js"></script></head>
+<body>
+    <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/uuid-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="page-container">
+
+  <div class="tool-layout">
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-badge badge-primary">开发者 & 密码学</span>
+          <h1 class="tool-title">🆔 UUID / GUID 在线批量生成与校验器</h1>
+          <p class="tool-desc">纯本地调用浏览器底层安全密码学随机数，毫秒级批量生成 1 ~ 500 个标准 UUID v4，支持定制大小写、格式化符号并一键导出。</p>
+        </div>
+
+        <!-- Controls Toolbar -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <label class="form-label" style="margin: 0; font-weight: 600;">生成数量 (Quantity):</label>
+              <select id="uuid-count" class="input-text" style="width: 100px; padding: 0.4rem 0.65rem;" onchange="generateUuids()">
+                <option value="1">1</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="250">250</option>
+              </select>
+            </div>
+
+            <div style="display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center;">
+              <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="opt-upper" onchange="generateUuids()"> 大写字母 (UPPERCASE)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="opt-no-hyphens" onchange="generateUuids()"> 去除连字符 (Remove Hyphens)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="opt-braces" onchange="generateUuids()"> 包含大括号 { }
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="opt-quotes" onchange="generateUuids()"> 包含双引号 " "
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Textarea -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <div style="position: relative;">
+            <textarea id="uuid-output" class="input-text" rows="8" readonly style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.7; background: var(--bg-card); resize: vertical;"></textarea>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem;">
+          <button type="button" class="btn btn-primary" onclick="generateUuids()">
+            <span>批量生成新 UUID</span>
+            <span>⚡</span>
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="copyAllUuids()">
+            <span>复制全部</span>
+            <span>📋</span>
+          </button>
+          <button type="button" class="btn btn-ghost" style="border: 1px solid var(--border-color);" onclick="downloadUuids()">
+            <span>导出为 .txt</span>
+            <span>💾</span>
+          </button>
+        </div>
+
+        <!-- Live UUID Validator Box -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">🔍 UUID 有效性与版本格式检测</h3>
+          <input type="text" id="uuid-validator-input" class="input-text" placeholder="在此粘贴任意 UUID / GUID 字符串以检测其版本及格式合规性..." oninput="validateUuid()" style="font-family: var(--font-mono); font-size: 0.9rem;">
+          <div id="validator-result" style="margin-top: 0.75rem; font-size: 0.85rem; display: none;"></div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">关于 UUID / GUID 的核心知识</h2>
+          <div style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 什么是 UUID Version 4？它会发生碰撞（重复）吗？</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">UUID v4 完全由强随机数生成。理论上需要生成 2.71 × 10^18 个 UUID 才有 50% 的几率发生一次碰撞，相当于每秒生成 10 亿个连续生成 85 年，因此在实际工程中可视为全球绝对唯一。</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: UUID 与微软 GUID 有什么区别？</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">GUID（Globally Unique Identifier）是微软对标准 UUID（Universally Unique Identifier）的特定实现称谓，两者在二进制结构与算法规范上完全等价。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function generateUuids() {
+      const count = parseInt(document.getElementById('uuid-count').value) || 5;
+      const isUpper = document.getElementById('opt-upper').checked;
+      const isNoHyphens = document.getElementById('opt-no-hyphens').checked;
+      const isBraces = document.getElementById('opt-braces').checked;
+      const isQuotes = document.getElementById('opt-quotes').checked;
+
+      const list = [];
+      for (let i = 0; i < count; i++) {
+        let u = (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          const r = Math.random() * 16 | 0;
+          const v = c === 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        }));
+
+        if (isNoHyphens) u = u.replace(/-/g, '');
+        if (isUpper) u = u.toUpperCase();
+        if (isBraces) u = '{' + u + '}';
+        if (isQuotes) u = '"' + u + '"';
+
+        list.push(u);
+      }
+
+      document.getElementById('uuid-output').value = list.join('\n');
+    }
+
+    function copyAllUuids() {
+      const text = document.getElementById('uuid-output').value;
+      if (!text) return;
+      copyToClipboard(text);
+    }
+
+    function downloadUuids() {
+      const text = document.getElementById('uuid-output').value;
+      if (!text) {
+        showToast('请先生成 UUID 列表', 'warning');
+        return;
+      }
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      downloadBlob(blob, 'uuids-' + Date.now() + '.txt');
+    }
+
+    function validateUuid() {
+      const input = document.getElementById('uuid-validator-input').value.trim();
+      const resEl = document.getElementById('validator-result');
+      if (!input) {
+        resEl.style.display = 'none';
+        return;
+      }
+      resEl.style.display = 'block';
+
+      // Clean brackets and quotes
+      const clean = input.replace(/[{}"']/g, '').trim();
+      const rfcRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-([1-5])[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      const noHyphenRegex = /^[0-9a-f]{12}([1-5])[0-9a-f]{3}[89ab][0-9a-f]{15}$/i;
+
+      if (rfcRegex.test(clean)) {
+        const match = clean.match(rfcRegex);
+        const ver = match[1];
+        resEl.innerHTML = `<span style="color: var(--success); font-weight: 600;">✓ ${'有效 UUID'} (Version ${ver})</span> - ${'标准 36 字符连字符格式'}`;
+      } else if (noHyphenRegex.test(clean)) {
+        resEl.innerHTML = `<span style="color: var(--accent-cyan); font-weight: 600;">✓ ${'有效 32 字符 Hex UUID (无连字符)'}</span>`;
+      } else {
+        resEl.innerHTML = `<span style="color: var(--error); font-weight: 600;">✗ ${'无效的 UUID 格式'}</span> - ${'请检查字符长度或非 Hex 字符'}`;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      generateUuids();
+    });
+  </script>
+    </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            纯本地极速实用工具箱。所有计算与转换均在您的浏览器内存中完成，零服务器上传，绝不保存任何用户文件，安全可信赖。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/age-calculator/">年龄与生日计算器</a></li>
+            <li><a href="/zh/tools/percentage-calculator/">百分比与折扣计算器</a></li>
+            <li><a href="/zh/tools/tip-calculator/">小费与分账计算器</a></li>
+            <li><a href="/zh/tools/salary-calculator/">时薪与年薪计算器</a></li>
+            <li><a href="/zh/tools/uuid-generator/">UUID / GUID 生成器</a></li>
+            <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者工具</a></li>
+            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与条款</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私政策</a></li>
+            <li><a href="/zh/terms/">服务条款</a></li>
+            <li><a href="/zh/about/">关于我们</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus. 100% 浏览器本地运算 · 零上传隐私保护
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          纯前端安全沙盒运行中
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+</body>
+</html>
