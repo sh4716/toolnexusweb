@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://toolnexusweb.com/sitemap.xml
+Sitemap: https://www.toolnexusweb.com/sitemap_www.xml
