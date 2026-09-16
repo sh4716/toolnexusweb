@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/jwt-decoder/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/jwt-decoder/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "JWT Token Decoder",
+        "url": "https://toolnexusweb.com/tools/jwt-decoder/",
+        "applicationCategory": "DeveloperApplication, SecurityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires modern JavaScript browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Decode and debug JSON Web Tokens (JWT) client-side. Inspect header algorithms, payload claims, and expiration timestamps."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://toolnexusweb.com/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JWT Decoder",
+            "item": "https://toolnexusweb.com/tools/jwt-decoder/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can a client-side tool verify a JWT signature safely?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For asymmetric algorithms (RS256 / ES256), a client can verify signatures using the server's public key certificate. However, for symmetric algorithms (HS256), verification requires the server's private secret key. You should never paste production private secrets into web browsers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens when a JWT token expires?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When current Unix timestamp exceeds the 'exp' claim value, the token becomes invalid. Standard API gateways return an HTTP 401 Unauthorized response, prompting client applications to exchange a long-lived Refresh Token for a fresh Access Token."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are pasted production tokens recorded in your access logs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. ToolNexus runs 100% inside your browser's local sandbox memory. Zero tokens are stored in cookies, local storage, or sent across network requests."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -41,7 +115,7 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#developer">Developer Tools</a>
+        <a href="/#developer">Developer & Security</a>
         <span class="breadcrumb-separator">/</span>
         <span>JWT Token Decoder</span>
       </nav>
@@ -80,6 +154,79 @@
             <textarea id="jwt-payload-out" class="input-text" rows="10" readonly style="font-family: var(--font-mono); font-size: 0.9rem; background: var(--bg-surface-alt);"></textarea>
           </div>
         </div>
+
+        <!-- Deep SEO Guide & Token Architecture Analysis -->
+        <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Understanding JSON Web Tokens (JWT) & Token-Based Authentication</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            A JSON Web Token (JWT) is an open industry standard governed by <strong>RFC 7519</strong> that establishes a compact, URL-safe container format for transmitting claims between two parties. Widely utilized in modern single-page applications (SPAs), microservices, OAuth 2.0, and OpenID Connect workflows, JWTs enable stateless user authorization without requiring server-side session databases (such as Redis or Memcached).
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            A standard JWT string consists of three distinct parts separated by dots (<code>.</code>): the <strong>Header</strong>, the <strong>Payload</strong>, and the <strong>Signature</strong>:
+            <code>header.payload.signature</code>. ToolNexus performs Base64URL parsing entirely inside your client browser, allowing engineers to inspect user identities, granted permissions, and expiration deadlines without ever broadcasting private tokens across external networks.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">The Three JWT Segments Explained</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Segment</th>
+                  <th style="padding: 0.75rem 0.5rem;">Color Coding</th>
+                  <th style="padding: 0.75rem 0.5rem;">Standard Content</th>
+                  <th style="padding: 0.75rem 0.5rem;">Security Purpose</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted); line-height: 1.6;">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">1. Header</td>
+                  <td style="padding: 0.65rem 0.5rem; color: var(--accent-rose); font-weight: 600;">Red / Pink</td>
+                  <td style="padding: 0.65rem 0.5rem;"><code>{"alg": "HS256", "typ": "JWT"}</code></td>
+                  <td style="padding: 0.65rem 0.5rem;">Specifies cryptographic signing algorithm and token format</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">2. Payload</td>
+                  <td style="padding: 0.65rem 0.5rem; color: var(--primary); font-weight: 600;">Purple / Indigo</td>
+                  <td style="padding: 0.65rem 0.5rem;"><code>{"sub": "123", "exp": 1718000000}</code></td>
+                  <td style="padding: 0.65rem 0.5rem;">Carries user identity, role permissions, and token issuance dates</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">3. Signature</td>
+                  <td style="padding: 0.65rem 0.5rem; color: var(--accent-cyan); font-weight: 600;">Cyan / Teal</td>
+                  <td style="padding: 0.65rem 0.5rem;">HMACSHA256(base64Header + "." + base64Payload, secret)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Cryptographically guarantees that payload claims have not been altered</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">Crucial Security Principles: Decoding vs. Verifying</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+            A common developer misunderstanding is confusing <em>decoding</em> with <em>verification</em>:
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Decoding is not verification:</strong> Any client can decode Base64URL to read user claims. However, frontend applications must never grant administrative access purely based on decoded claims without validating that the backend API has verified the signature against its secret key.</li>
+            <li><strong>The "alg: none" Vulnerability:</strong> Poorly configured JWT verification libraries historically allowed malicious clients to forge admin tokens by setting <code>"alg": "none"</code> and stripping the signature. Modern libraries must explicitly reject unsigned tokens.</li>
+            <li><strong>Never Store Secrets in Claims:</strong> Because payload data is unencrypted, private API secrets, database passwords, or financial information must never be placed within token claims.</li>
+          </ul>
+
+          <!-- Detailed FAQs -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can a client-side tool verify a JWT signature safely?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">For asymmetric algorithms (RS256 / ES256), a client can verify signatures using the server's public key certificate. However, for symmetric algorithms (HS256), verification requires the server's private secret key. You should never paste production private secrets into web browsers.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What happens when a JWT token expires?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">When current Unix timestamp exceeds the 'exp' claim value, the token becomes invalid. Standard API gateways return an HTTP 401 Unauthorized response, prompting client applications to exchange a long-lived Refresh Token for a fresh Access Token.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are pasted production tokens recorded in your access logs?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. ToolNexus runs 100% inside your browser's local sandbox memory. Zero tokens are stored in cookies, local storage, or sent across network requests.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -178,13 +325,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

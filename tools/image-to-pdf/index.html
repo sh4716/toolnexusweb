@@ -5,22 +5,25 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image to PDF Converter - Convert Photos to PDF Online | Drag & Drop Reorder</title>
+  <title>Image to PDF Converter - Convert Photos to PDF Online | ToolNexus</title>
   <meta name="description" content="Free in-browser Image to PDF Converter. Merge multiple JPG, PNG, and WebP images into a single PDF with drag-and-drop page reordering and A4 layout.">
   <meta name="keywords" content="image to pdf,photos to pdf,jpg to pdf,png to pdf,merge images to pdf,drag and drop reorder pdf">
     <link rel="canonical" href="https://toolnexusweb.com/tools/image-to-pdf/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/tools/image-to-pdf/">
-  <meta property="og:title" content="Image to PDF Converter - Convert Photos to PDF Online | Drag & Drop Reorder">
+  <meta property="og:title" content="Image to PDF Converter - Convert Photos to PDF Online | ToolNexus">
   <meta property="og:description" content="Free in-browser Image to PDF Converter. Merge multiple JPG, PNG, and WebP images into a single PDF with drag-and-drop page reordering and A4 layout.">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Image to PDF Converter - Convert Photos to PDF Online | Drag & Drop Reorder">
+  <meta name="twitter:title" content="Image to PDF Converter - Convert Photos to PDF Online | ToolNexus">
   <meta name="twitter:description" content="Free in-browser Image to PDF Converter. Merge multiple JPG, PNG, and WebP images into a single PDF with drag-and-drop page reordering and A4 layout.">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
   <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/image-to-pdf/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/image-to-pdf/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/image-to-pdf/">
   <style>
     .img-grid-preview {
       display: grid;
@@ -118,10 +121,91 @@
       margin-top: 1.25rem;
     }
   </style>
-  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/image-to-pdf/">
-  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/image-to-pdf/">
-  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/image-to-pdf/">
-
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://toolnexusweb.com/tools/image-to-pdf/#webapp",
+        "url": "https://toolnexusweb.com/tools/image-to-pdf/",
+        "name": "Image to PDF Converter",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires modern web browser with WebAssembly or Canvas support",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free client-side multi-image to PDF converter with drag-and-drop page reordering, A4 print layout fitting, and zero server uploads."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://toolnexusweb.com/tools/image-to-pdf/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF Tools",
+            "item": "https://toolnexusweb.com/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Image to PDF Converter",
+            "item": "https://toolnexusweb.com/tools/image-to-pdf/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://toolnexusweb.com/tools/image-to-pdf/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Will the resulting PDF file size be larger than the combined size of the uploaded images?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. ToolNexus uses pdf-lib to embed original JPEG binary byte streams directly into PDF XObject dictionaries without re-encoding or re-compressing pixels. The resulting PDF file size essentially matches the cumulative image file sizes plus minimal PDF syntax metadata."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will mixed portrait and landscape smartphone photos be stretched or distorted in the PDF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. The renderer calculates the exact physical aspect ratio of each image. In A4 mode, it applies uniform contain-scaling with centered letterbox/pillarbox margins; in Auto Page Size mode, each PDF page independently inherits the exact width and height of its corresponding photo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I convert 50+ high-resolution camera photos without running out of browser memory?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The UI renders lightweight downscaled preview cards and immediately revokes inactive object URLs. Page assembly processes images sequentially through asynchronous stream buffers to ensure fluid performance without crashing browser tabs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are confidential invoices, expense receipts, or contracts uploaded to any cloud server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Zero server uploads. All parsing, canvas scaling, binary stream assembly, and PDF compilation take place 100% locally within your browser's private memory sandbox. You can even disconnect your internet connection and convert files offline."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script>
 </head>
 <body>
@@ -141,7 +225,7 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#pdf">PDF Tools</a>
+        <a href="/#pdf">PDF & Documents</a>
         <span class="breadcrumb-separator">/</span>
         <span>Image to PDF Converter</span>
       </nav>
@@ -197,6 +281,95 @@
 
       <div class="img-grid-preview" id="img-grid"></div>
     </div>
+
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2.5rem;">
+      <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">In-Depth Guide: Image-to-PDF Coordinate Mapping, Binary Embedding & Print Layouts</h2>
+      
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        Converting batches of digital photographs, scanned invoices, legal contracts, or architectural blueprints into cohesive PDF portfolios is essential for professional document distribution. Users often struggle with image aspect ratio stretching, explosive PDF file sizes, or privacy risks from cloud upload portals. <strong>ToolNexus Image to PDF Converter</strong> is built directly upon the low-level <code>pdf-lib</code> binary stream manipulation engine and HTML5 Canvas, providing direct byte-stream embedding, aspect-ratio-preserving page centering, drag-and-drop page ordering, and absolute local privacy.
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">1. PDF Coordinate Geometry & A4 / Letter Print Units</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        Under the ISO 32000-1 PDF standard specification, canvas layout coordinates are calculated in typographic "points" (pt), defined as exactly <code>1/72 of an inch</code> (~0.3527 mm). Standard print boundaries evaluate to:
+      </p>
+      <ul style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.25rem;">
+        <li><strong>International ISO A4 Page</strong>: 210 mm × 297 mm, converted precisely to <code>595.28 pt × 841.89 pt</code>.</li>
+        <li><strong>North American US Letter Page</strong>: 8.5 in × 11.0 in, converted to <code>612 pt × 792 pt</code>.</li>
+        <li><strong>Aspect Ratio Containment Algorithm</strong>: When formatting to fixed paper sizes with margins, the renderer calculates usable area <code>(pageWidth - 2 * margin, pageHeight - 2 * margin)</code>, determines the limiting dimension against the image's native aspect ratio, and computes balanced centering offsets <code>(xOffset, yOffset)</code> to eliminate all distortion.</li>
+      </ul>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">2. Page Layout & Margin Configuration Matrix</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; margin-top: 0.5rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">Layout Mode</th>
+              <th style="padding: 0.75rem 0.5rem;">Page Dimensions (Points)</th>
+              <th style="padding: 0.75rem 0.5rem;">Margin Behavior</th>
+              <th style="padding: 0.75rem 0.5rem;">File Size Footprint</th>
+              <th style="padding: 0.75rem 0.5rem;">Recommended Scenarios</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo, #6366f1);">A4 Portrait</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">595.28 × 841.89 pt</td>
+              <td style="padding: 0.65rem 0.5rem;">Uniform contain, customizable margins</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">Optimal (Direct embed)</td>
+              <td style="padding: 0.65rem 0.5rem;">Job applications, expense receipts, government forms</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan, #06b6d4);">A4 Landscape</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">841.89 × 595.28 pt</td>
+              <td style="padding: 0.65rem 0.5rem;">Uniform contain, panoramic width</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">Optimal (Direct embed)</td>
+              <td style="padding: 0.65rem 0.5rem;">Architectural schematics, panoramic photos, slide decks</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber, #f59e0b);">Auto (Match Image)</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">Width/Height equals original pixels</td>
+              <td style="padding: 0.65rem 0.5rem;">Zero margin, 100% full-bleed raster</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">Minimal (Exact byte stream)</td>
+              <td style="padding: 0.65rem 0.5rem;">Long webpage captures, comic strips, digital art archives</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600;">US Letter</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">612 × 792 pt</td>
+              <td style="padding: 0.65rem 0.5rem;">Standard North American tray sizes</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">Optimal (Direct embed)</td>
+              <td style="padding: 0.65rem 0.5rem;">US/Canadian corporate reports, customs clearance dossiers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">3. Zero-Loss Direct Stream Embedding vs. Canvas Blurring</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        Conventional web utilities degrade image quality by drawing images into intermediate canvas contexts and re-compressing them with lossy JPEG encoders, causing artifacts and bloated file sizes. ToolNexus uses <code>pdfDoc.embedJpg(arrayBuffer)</code> to inject native JPEG compressed DCT bytes directly into the PDF document stream as XObjects without resampling. PNG alpha transparency channels are faithfully mapped using <code>embedPng</code>, preserving pristine pixel fidelity.
+      </p>
+
+      <!-- FAQ Section -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Will the resulting PDF file size be larger than the combined size of the uploaded images?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. ToolNexus uses pdf-lib to embed original JPEG binary byte streams directly into PDF XObject dictionaries without re-encoding or re-compressing pixels. The resulting PDF file size essentially matches the cumulative image file sizes plus minimal PDF syntax metadata.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Will mixed portrait and landscape smartphone photos be stretched or distorted in the PDF?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Never. The renderer calculates the exact physical aspect ratio of each image. In A4 mode, it applies uniform contain-scaling with centered letterbox/pillarbox margins; in Auto Page Size mode, each PDF page independently inherits the exact width and height of its corresponding photo.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can I convert 50+ high-resolution camera photos without running out of browser memory?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. The UI renders lightweight downscaled preview cards and immediately revokes inactive object URLs. Page assembly processes images sequentially through asynchronous stream buffers to ensure fluid performance without crashing browser tabs.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are confidential invoices, expense receipts, or contracts uploaded to any cloud server?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Zero server uploads. All parsing, canvas scaling, binary stream assembly, and PDF compilation take place 100% locally within your browser's private memory sandbox. You can even disconnect your internet connection and convert files offline.</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   <footer class="footer">
@@ -222,13 +395,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

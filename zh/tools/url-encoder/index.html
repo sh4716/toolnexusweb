@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL 编码与解码器 - URIComponent 实时编解码与参数解析 | 极速日常</title>
+  <title>URL 编码与解码器 - URIComponent 实时编解码与参数解析 | ToolNexus</title>
   <meta name="description" content="纯前端在线 URL 编码解码工具。支持 encodeURI / encodeURIComponent 双模切换，支持将带参数的完整 URL 一键表格化拆解为键值对并自由修改重组。">
   <meta name="keywords" content="URL编码,URL解码,urlencode,urldecode,Query参数解析,URI转义">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,15 +12,90 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/url-encoder/">
-  <meta property="og:title" content="URL 编码与解码器 - URIComponent 实时编解码与参数解析 | 极速日常">
+  <meta property="og:title" content="URL 编码与解码器 - URIComponent 实时编解码与参数解析 | ToolNexus">
   <meta property="og:description" content="纯前端在线 URL 编码解码工具。支持 encodeURI / encodeURIComponent 双模切换，支持将带参数的完整 URL 一键表格化拆解为键值对并自由修改重组。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="URL 编码与解码器 - URIComponent 实时编解码与参数解析 | 极速日常">
+  <meta name="twitter:title" content="URL 编码与解码器 - URIComponent 实时编解码与参数解析 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 URL 编码解码工具。支持 encodeURI / encodeURIComponent 双模切换，支持将带参数的完整 URL 一键表格化拆解为键值对并自由修改重组。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "URL 编码与解码工具",
+        "url": "https://toolnexusweb.com/zh/tools/url-encoder/",
+        "applicationCategory": "DeveloperApplication, UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "需要现代支持 JavaScript 的浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "在线 URL 百分号转义编码与解码，支持 RFC 3986 规范与 Query 参数表格化解析。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者利器",
+            "item": "https://toolnexusweb.com/zh/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL 编码与解码",
+            "item": "https://toolnexusweb.com/zh/tools/url-encoder/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "encodeURI 和 encodeURIComponent 究竟有什么区别？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "encodeURI() 针对完整链接设计，它故意不对 :// 、 / 、 ? 、 & 等协议结构符号进行编码；而 encodeURIComponent() 会对所有可能引起语义混淆的保留字符执行转义，是处理单个参数值时的标准选择。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "为什么空格有时转为 %20，有时转为 '+'？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "标准 RFC 3986 规范规定空格为 %20 ；而在早期 HTML 表单 POST/GET 传输协议（ application/x-www-form-urlencoded ）中，空格通常被转换为 + 。现代绝大部分后端框架（如 Spring、Express、Django）均可无缝兼容解析二者。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "在此工具中调试 API 密钥或内网 URL 安全吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "100% 安全。ToolNexus 没有任何后端上报接口，编解码逻辑完全由您设备本地的 JavaScript 引擎执行，断网状态下亦可正常使用。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .param-table {
       width: 100%;
@@ -70,7 +145,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者利器</span>
+        <a href="/zh/#developer">开发者与安全</a>
         <span class="breadcrumb-separator">/</span>
         <span>URL 编码与解码</span>
       </nav>
@@ -151,6 +226,75 @@
           </div>
         </div>
       </div>
+
+      <!-- 深度技术科普与规范指南 -->
+      <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">深入理解 URL 百分号编码 (Percent-Encoding) 与 RFC 3986 规范</h2>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+          在万维网统一资源标识符（URI）标准 <strong>RFC 3986</strong> 规范中，URL 必须使用有限且经过严格定义的字符集进行传输。由于互联网早期路由器与交换协议多基于基础 US-ASCII 字符架构，直接在 URL 中传输中文汉字、特殊标点或空格可能导致路由截断、参数混淆甚至注入安全风险。为此，URL 编码（Percent-Encoding，也称百分号转义）成为了全球网络通信的基石协议。
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          百分号编码的核心逻辑是：将字符首先转换为符合 <strong>UTF-8</strong> 规范的二进制字节流，随后将每一个字节表示为以百分号 <code>%</code> 开头的两位十六进制数。例如中文字符“编”的 UTF-8 字节为 <code>E7 BC 96</code>，转义后即为 <code>%E7%BC%96</code>。ToolNexus 100% 在本地浏览器内存中进行毫秒级转换，绝不将您的链接或附带的私有 Token 传输至远端服务器。
+        </p>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">保留字符 vs. 非保留字符对照表</h3>
+        <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                <th style="padding: 0.75rem 0.5rem;">字符类别</th>
+                <th style="padding: 0.75rem 0.5rem;">代表符号</th>
+                <th style="padding: 0.75rem 0.5rem;">编码处理方式</th>
+                <th style="padding: 0.75rem 0.5rem;">核心设计意图</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-muted); line-height: 1.6;">
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">非保留字符 (Unreserved)</td>
+                <td style="padding: 0.65rem 0.5rem;"><code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>-</code>, <code>_</code>, <code>.</code>, <code>~</code></td>
+                <td style="padding: 0.65rem 0.5rem;">绝不编码</td>
+                <td style="padding: 0.65rem 0.5rem;">全局安全字符，可在任何协议位置直接使用</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f59e0b;">保留分隔符 (Reserved)</td>
+                <td style="padding: 0.65rem 0.5rem;"><code>:</code>, <code>/</code>, <code>?</code>, <code>#</code>, <code>[</code>, <code>]</code>, <code>@</code>, <code>!</code>, <code>$</code>, <code>&</code>, <code>'</code>, <code>(</code>, <code>)</code>, <code>*</code>, <code>+</code>, <code>,</code>, <code>;</code>, <code>=</code></td>
+                <td style="padding: 0.65rem 0.5rem;">作为普通数据时必须百分号编码</td>
+                <td style="padding: 0.65rem 0.5rem;">用于界定 URL 协议、域名、路径、查询字符串与锚点</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #38bdf8;">中文及 Emoji 等非 ASCII</td>
+                <td style="padding: 0.65rem 0.5rem;">中文、日文、韩文、特殊符号</td>
+                <td style="padding: 0.65rem 0.5rem;">UTF-8 多字节转为多个 %XX</td>
+                <td style="padding: 0.65rem 0.5rem;">确保在全球网关与不同操作系统间无歧义传输</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">前端与后端开发实战避坑建议</h3>
+        <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>避免直接对整条 URL 执行 encodeURIComponent：</strong> 这会将 <code>http://</code> 破坏为 <code>http%3A%2F%2F</code>，导致整条链接无法被浏览器识别。正确的做法是仅对 <code>?</code> 后面的各参数值分别进行 <code>encodeURIComponent</code>。</li>
+          <li><strong>单点登录与 OAuth 授权重定向：</strong> 传递 <code>redirect_uri</code> 时，若未对回调地址进行严格转义，回调地址中的 <code>&</code> 可能会被外部网关误当作第一层参数截断，导致授权流程中断。</li>
+          <li><strong>防范 XSS 跨站脚本攻击：</strong> 从 <code>location.search</code> 中通过解码提取参数并直接插入页面 DOM（如 <code>innerHTML</code>）属于极高危操作。在前端展示前必须经过 HTML 转义或使用 <code>textContent</code>。</li>
+        </ul>
+
+        <!-- 常见问答 FAQ -->
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+        <div style="display: grid; gap: 1rem;">
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: encodeURI 和 encodeURIComponent 究竟有什么区别？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;"><code>encodeURI()</code> 针对完整链接设计，它故意不对 <code>://</code>、<code>/</code>、<code>?</code>、<code>&</code> 等协议结构符号进行编码；而 <code>encodeURIComponent()</code> 会对所有可能引起语义混淆的保留字符执行转义，是处理单个参数值时的标准选择。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么空格有时转为 %20，有时转为 '+'？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">标准 RFC 3986 规范规定空格为 <code>%20</code>；而在早期 HTML 表单 POST/GET 传输协议（<code>application/x-www-form-urlencoded</code>）中，空格通常被转换为 <code>+</code>。现代绝大部分后端框架（如 Spring、Express、Django）均可无缝兼容解析二者。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 在此工具中调试 API 密钥或内网 URL 安全吗？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">100% 安全。ToolNexus 没有任何后端上报接口，编解码逻辑完全由您设备本地的 JavaScript 引擎执行，断网状态下亦可正常使用。</p>
+          </div>
+        </div>
+      </article>
     </div>
   </main>
 
@@ -174,14 +318,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

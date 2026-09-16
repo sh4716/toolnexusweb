@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | 安全可靠</title>
+  <title>MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | ToolNexus</title>
   <meta name="description" content="基于浏览器 Web Crypto API 的纯本地哈希值计算工具。支持输入文本或拖入本地大文件计算 SHA-1、SHA-256、SHA-512 校验码，校验软件包防篡改。">
   <meta name="keywords" content="哈希计算,SHA256计算,SHA1计算,MD5在线计算,文件哈希校验">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,15 +12,90 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/hash-calc/">
-  <meta property="og:title" content="MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | 安全可靠">
+  <meta property="og:title" content="MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | ToolNexus">
   <meta property="og:description" content="基于浏览器 Web Crypto API 的纯本地哈希值计算工具。支持输入文本或拖入本地大文件计算 SHA-1、SHA-256、SHA-512 校验码，校验软件包防篡改。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | 安全可靠">
+  <meta name="twitter:title" content="MD5 / SHA 在线哈希计算器 - 纯本地 Web Crypto API 校验 | ToolNexus">
   <meta name="twitter:description" content="基于浏览器 Web Crypto API 的纯本地哈希值计算工具。支持输入文本或拖入本地大文件计算 SHA-1、SHA-256、SHA-512 校验码，校验软件包防篡改。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "在线哈希与校验和计算器",
+        "url": "https://toolnexusweb.com/zh/tools/hash-calc/",
+        "applicationCategory": "DeveloperApplication, SecurityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "需要现代支持 Web Crypto API 的浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "基于浏览器底层的 SHA-256、SHA-512、MD5、SHA-1 散列哈希值在线即时生成与文件完整性校验。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者利器",
+            "item": "https://toolnexusweb.com/zh/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "哈希计算与校验",
+            "item": "https://toolnexusweb.com/zh/tools/hash-calc/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "哈希运算中的“雪崩效应 (Avalanche Effect)”是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "雪崩效应是优良散列算法的核心特征：只要输入明文改变了哪怕仅仅 1 个比特（例如仅仅改变一个标点或空格），最终输出的十六进制哈希值就会产生剧烈紊乱，通常有超过 50% 的位发生反转，完全无法预测关联性。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "用户数据库密码能否直接用纯 SHA-256 保存？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不能。SHA-256 为高速吞吐而设计，现代高性能显卡（GPU）每秒可计算数十亿次，极易遭受彩虹表碰撞。存储用户密码必须采用耗时高、抗硬件并行的专用算法，如 bcrypt、Argon2id 或 PBKDF2。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "在线计算大文件或敏感密钥时安全吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对安全。本工具纯前端运行，通过 FileReader 在浏览器本地将文件分块读取后直通 CPU Web Crypto 模块，整个流程零网络数据包外出。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/hash-calc/">
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/hash-calc/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/hash-calc/">
@@ -45,9 +120,9 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者利器</span>
+        <a href="/zh/#developer">开发者与安全</a>
         <span class="breadcrumb-separator">/</span>
-        <span>哈希计算与校验</span>
+        <span>MD5 / SHA 哈希计算</span>
       </nav>
       <div class="tool-title-row">
         <h1 class="tool-title">🔒 MD5 / SHA 哈希计算</h1>
@@ -93,8 +168,83 @@
         <div class="copy-input-group">
           <input type="text" id="res-sha512" readonly style="font-family: var(--font-mono); font-size: 0.95rem;">
           <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('res-sha512').value)">复制</button>
-        </div>
       </div>
+
+      <!-- 深度密码学原理与行业标准解析 -->
+      <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">深入理解密码学散列函数 (Hash) 与文件完整性校验</h2>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+          密码学散列函数（Cryptographic Hash Function）是一种将任意长度的二进制输入映射转换为固定位宽输出序列的单向数学运算。所生成的输出字符串被称为<strong>消息摘要（Digest）</strong>或<strong>哈希校验和（Checksum）</strong>。在现代信息安全、分布式网络与软件工程中，哈希算法是数字签名、TLS/SSL 传输加密证书、Git 分支版本追踪、区块链（如比特币工作量证明）以及密码安全存储的技术底座。
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          合格的密码学散列算法必须满足三大安全特征：
+          <strong>抗原像性（Pre-image Resistance，不可逆性）</strong>：已知摘要值无法倒推原始输入；
+          <strong>抗第二原像性（Second Pre-image Resistance）</strong>：给定输入无法找到另一具有相同摘要的输入；
+          <strong>抗碰撞性（Collision Resistance）</strong>：无法在计算可行时间内找出任意两个能产生相同摘要的不同数据。ToolNexus 深度调取浏览器原生硬件指令级 Web Crypto API，全程在用户终端设备内存中闭环运算。
+        </p>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">常见主流哈希算法特性对比</h3>
+        <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                <th style="padding: 0.75rem 0.5rem;">算法名称</th>
+                <th style="padding: 0.75rem 0.5rem;">摘要长度</th>
+                <th style="padding: 0.75rem 0.5rem;">安全等级</th>
+                <th style="padding: 0.75rem 0.5rem;">适用场景与权威评级</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-muted); line-height: 1.6;">
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--primary);">SHA-256</td>
+                <td style="padding: 0.65rem 0.5rem;">256 位 (64 位 Hex)</td>
+                <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">极高（行业黄金标准）</td>
+                <td style="padding: 0.65rem 0.5rem;">HTTPS 证书签名、开源软件包官方防篡改校验、比特币底层 PoW</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">SHA-512</td>
+                <td style="padding: 0.65rem 0.5rem;">512 位 (128 位 Hex)</td>
+                <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">军工级高安全</td>
+                <td style="padding: 0.65rem 0.5rem;">关键金融系统、超长寿命数据归档防篡改，在 64 位 CPU 上运算极快</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">SHA-1</td>
+                <td style="padding: 0.65rem 0.5rem;">160 位 (40 位 Hex)</td>
+                <td style="padding: 0.65rem 0.5rem; color: #f59e0b; font-weight: 600;">已淘汰（存在碰撞攻击）</td>
+                <td style="padding: 0.65rem 0.5rem;">老旧系统、Git 内部对象索引（现代版本正逐步向 SHA-256 迁移）</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #ec4899;">MD5</td>
+                <td style="padding: 0.65rem 0.5rem;">128 位 (32 位 Hex)</td>
+                <td style="padding: 0.65rem 0.5rem; color: #f43f5e; font-weight: 600;">已攻破（禁止用于安全验证）</td>
+                <td style="padding: 0.65rem 0.5rem;">仅用于检测网络下载偶发丢包、磁盘读写坏道等非恶意篡改校验</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">MD5 / SHA-1 的碰撞风险意味着什么？</h3>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+          2004 年中国密码学权威王小云团队破解了 MD5 的碰撞抵抗性，2017 年 Google 团队实施了著名的 <em>SHAttered</em> 攻击，成功生成了两份哈希完全相同但正文条款迥异的合法 PDF 合同。这意味着中间人攻击者可以诱骗用户签署一份正常的合法文件，随后悄无声息地替换为包含恶意代码的文件而保持签名有效。因此，现代应用开发中，<strong>所有数字签名与敏感校验必须强制使用 SHA-256 或 SHA-3</strong>。
+        </p>
+
+        <!-- 常见问答 FAQ -->
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+        <div style="display: grid; gap: 1rem;">
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 哈希运算中的“雪崩效应 (Avalanche Effect)”是什么？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">雪崩效应是优良散列算法的核心特征：只要输入明文改变了哪怕仅仅 1 个比特（例如仅仅改变一个标点或空格），最终输出的十六进制哈希值就会产生剧烈紊乱，通常有超过 50% 的位发生反转，完全无法预测关联性。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 用户数据库密码能否直接用纯 SHA-256 保存？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不能。SHA-256 为高速吞吐而设计，现代高性能显卡（GPU）每秒可计算数十亿次，极易遭受彩虹表碰撞。存储用户密码必须采用耗时高、抗硬件并行的专用算法，如 bcrypt、Argon2id 或 PBKDF2。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 在线计算大文件或敏感密钥时安全吗？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对安全。本工具纯前端运行，通过 FileReader 在浏览器本地将文件分块读取后直通 CPU Web Crypto 模块，整个流程零网络数据包外出。</p>
+          </div>
+        </div>
+      </article>
     </div>
   </main>
 
@@ -118,14 +268,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

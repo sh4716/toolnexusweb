@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV 转 JSON & JSON 转 CSV 互转工具 - 极速双向转换 · 纯本地隐私 | ToolNexus</title>
+  <meta name="description" content="免费在线 CSV 与 JSON 双向格式互转工具。支持 Excel 表格、TSV 制表符、复杂 JSON 数组双向解析转换，遵循 RFC 4180 标准，100% 浏览器本地运算，数据零上传。">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/csv-json/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus 实用工具箱">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/csv-json/">
+  <meta property="og:title" content="CSV 转 JSON & JSON 转 CSV 互转工具 | ToolNexus 实用工具箱">
+  <meta property="og:description" content="免费在线 CSV 与 JSON 互转工具。纯前端解析，文件不离电脑。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CSV 转 JSON & JSON 转 CSV 互转工具 | ToolNexus 实用工具箱">
+  <meta name="twitter:description" content="一键将 CSV 表格快速转换为结构化 JSON 数组，或将 JSON 数据转为 Excel 友好的 CSV 表格。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/csv-json/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/csv-json/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/csv-json/">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "CSV 转 JSON & JSON 转 CSV 互转工具",
+        "url": "https://toolnexusweb.com/zh/tools/csv-json/",
+        "applicationCategory": "DeveloperApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地极速 CSV/TSV 表格数据与 JSON 对象的双向转换工具，支持自定义分隔符与首行表头映射。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者工具",
+            "item": "https://toolnexusweb.com/zh/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "CSV ↔ JSON 互转",
+            "item": "https://toolnexusweb.com/zh/tools/csv-json/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "表格里有些文本本身包含了英文逗号或换行，转换时会错列吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会错列。本工具严格遵循 RFC 4180 国际标准规范，对于含有逗号或换行符的单元格内容，会自动识别双引号封闭边界并予以完整保留，绝不破坏数据对应关系。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "转换有文件体积或行数上限吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "没有云端限制。因为运算完全调用您本机设备的浏览器内存，几十兆（数万至数十万行记录）的数据通常可以在数百毫秒内毫秒级完成转换。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "如果 JSON 含有深层嵌套对象，转换成 CSV 时会如何处理？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "对于嵌套的子对象或子数组，工具会自动将其规范序列化为 JSON 字符串置于对应的表格单元格内，既保留了数据的完整性，又避免了表格被无规则拉裂。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/csv-json/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换明暗主题" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#developer">开发者与安全</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>CSV ↔ JSON 极速双向转换器</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">开发者与数据处理</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">📊 CSV ↔ JSON 极速双向转换器</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          无需上传服务器的纯本地数据格式转换器。支持将 Excel 导出的 CSV / TSV 表格一键转换为结构化 JSON 数组，或将 API 返回的 JSON 列表直接导出为表格文件。
+        </p>
+
+        <!-- 控制工具栏 -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; background: var(--bg-surface-alt); padding: 0.85rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1.25rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button type="button" id="btn-csv-to-json" class="btn btn-primary btn-sm" onclick="setConversionMode('csv2json')">CSV ➔ JSON</button>
+            <button type="button" id="btn-json-to-csv" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="setConversionMode('json2csv')">JSON ➔ CSV</button>
+          </div>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; font-size: 0.85rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="opt-header" checked onchange="runConversion()"> 首行为字段名 (Header)
+            </label>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span>分隔符:</span>
+              <select id="opt-delimiter" class="input-select" style="padding: 0.25rem 0.6rem; font-size: 0.85rem;" onchange="runConversion()">
+                <option value=",">逗号 (,)</option>
+                <option value="&#9;">Tab 制表符 (TSV)</option>
+                <option value=";">分号 (;)</option>
+                <option value="|">竖线 (|)</option>
+              </select>
+            </div>
+            <div id="json-indent-wrap" style="display: flex; align-items: center; gap: 0.4rem;">
+              <span>JSON 缩进:</span>
+              <select id="opt-indent" class="input-select" style="padding: 0.25rem 0.6rem; font-size: 0.85rem;" onchange="runConversion()">
+                <option value="2">2 空格缩进</option>
+                <option value="4">4 空格缩进</option>
+                <option value="0">单行紧凑压缩</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 左右编辑器栅格 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          <!-- 左侧输入栏 -->
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span id="label-input" style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">CSV 表格输入</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.2rem 0.6rem;" onclick="swapData()" title="对调输入与输出">对调 🔄</button>
+                <label class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.2rem 0.6rem; cursor: pointer;">
+                  上传文件 📂
+                  <input type="file" id="file-upload" accept=".csv,.json,.txt,.tsv" style="display:none;" onchange="handleFileUpload(event)">
+                </label>
+                <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.2rem 0.6rem;" onclick="clearInput()">清空 🗑️</button>
+              </div>
+            </div>
+            <textarea id="data-input" class="input-text" rows="14" placeholder="在此粘贴 CSV 或表格内容..." style="font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.5; resize: vertical; flex: 1;" oninput="runConversion()"></textarea>
+            <div id="stat-input" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">0 行 / 数据项</div>
+          </div>
+
+          <!-- 右侧输出栏 -->
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span id="label-output" style="font-weight: 700; font-size: 0.95rem; color: var(--accent-cyan);">JSON 转换结果</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button type="button" class="btn-sm btn-primary" style="font-size: 0.8rem; padding: 0.25rem 0.75rem;" onclick="copyResult()">一键复制 📋</button>
+                <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.25rem 0.6rem;" onclick="downloadResult()">下载文件 💾</button>
+              </div>
+            </div>
+            <textarea id="data-output" class="input-text" rows="14" readonly placeholder="转换生成的结果将即时显示于此..." style="font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.5; resize: vertical; background: var(--bg-surface-alt); border-color: var(--border-color); color: var(--text-main); flex: 1;"></textarea>
+            <div id="stat-output" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">0 条记录生成</div>
+          </div>
+        </div>
+
+        <!-- 深度 SEO 原创说明与使用指南 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">为什么需要 CSV 与 JSON 双向格式互转？</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            CSV（逗号分隔值）是全球电子表格软件（如 Microsoft Excel、WPS Office、Google Sheets）以及传统关系型数据库导出事实上的行业标准。而 JSON（JavaScript 对象表示法）则是当今互联网前后端 API 数据交互、NoSQL 数据库存储（如 MongoDB、Elasticsearch）和各类微服务通信的基础通用语言。
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            数据分析师、开发工程师在日常工作常常需要将业务部门提供的 Excel/CSV 报表清洗为 API 所需的 JSON 对象，或者将后端接口返回的复杂 JSON 数组转为可直接双击用表格查看的 CSV 文件。ToolNexus 提供的纯浏览器本地解析方案，从源头上杜绝了机密业务表格、财务数据或内部用户名单通过网络上传被监听或泄露的风险。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+          <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>模式切换：</strong> 点击顶部工具栏按钮选择 <em>CSV ➔ JSON</em>（表格转对象数组）或 <em>JSON ➔ CSV</em>（对象数组平铺为表格）。</li>
+            <li><strong>参数自定义：</strong> 勾选是否将第一行作为 Key 键名；根据需要选择字段分隔符（逗号、Tab、分号等）；设定 JSON 输出的缩进排版风格。</li>
+            <li><strong>载入数据：</strong> 直接在左侧输入框粘贴文本，或者点击“上传文件”载入本地 <code>.csv</code>、<code>.json</code> 或 <code>.tsv</code> 文件。</li>
+            <li><strong>一键导出：</strong> 右侧即时生成结构化结果，支持一键剪贴板复制或直接打包下载到本地。</li>
+          </ol>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 表格里有些文本本身包含了英文逗号或换行，转换时会错列吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会错列。本工具严格遵循 RFC 4180 国际标准规范，对于含有逗号或换行符的单元格内容，会自动识别双引号封闭边界并予以完整保留，绝不破坏数据对应关系。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 转换有文件体积或行数上限吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">没有云端限制。因为运算完全调用您本机设备的浏览器内存，几十兆（数万至数十万行记录）的数据通常可以在数百毫秒内毫秒级完成转换。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 如果 JSON 含有深层嵌套对象，转换成 CSV 时会如何处理？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">对于嵌套的子对象或子数组，工具会自动将其规范序列化为 JSON 字符串置于对应的表格单元格内，既保留了数据的完整性，又避免了表格被无规则拉裂。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            面向个人与开发者的下一代纯前端极速工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何服务器上传文件，保障绝对隐私。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具推荐</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/json-formatter/">JSON 格式化校验</a></li>
+            <li><a href="/zh/tools/csv-json/">CSV ↔ JSON 互转</a></li>
+            <li><a href="/zh/tools/uuid-generator/">UUID 批量生成</a></li>
+            <li><a href="/zh/tools/case-converter/">英文大小写转换</a></li>
+            <li><a href="/zh/tools/base64-converter/">Base64 编解码</a></li>
+          </ul>
+        </div>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与合规信任</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私保护政策</a></li>
+            <li><a href="/zh/terms/">服务使用条款</a></li>
+            <li><a href="/zh/about/">关于本站</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus 实用工具箱. 本地算力驱动 · 零服务器留存
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% 浏览器本地隐私安全验证
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    let currentMode = 'csv2json';
+
+    const sampleCsvZh = `工号,姓名,职位,所属部门,年薪
+1001,张伟,架构师,技术中台,350000
+1002,李娜,产品总监,用户增长,280000
+1003,王磊,数据分析师,智能决策,240000
+1004,"刘芳, 博士",算法科学家,AI实验室,420000`;
+
+    function setConversionMode(mode) {
+      currentMode = mode;
+      const btnCsv = document.getElementById('btn-csv-to-json');
+      const btnJson = document.getElementById('btn-json-to-csv');
+      const indentWrap = document.getElementById('json-indent-wrap');
+
+      if (mode === 'csv2json') {
+        btnCsv.className = 'btn btn-primary btn-sm';
+        btnJson.className = 'btn btn-ghost btn-sm';
+        btnJson.style.border = '1px solid var(--border-color)';
+        document.getElementById('label-input').textContent = 'CSV 表格输入';
+        document.getElementById('label-output').textContent = 'JSON 转换结果';
+        indentWrap.style.display = 'flex';
+      } else {
+        btnJson.className = 'btn btn-primary btn-sm';
+        btnCsv.className = 'btn btn-ghost btn-sm';
+        btnCsv.style.border = '1px solid var(--border-color)';
+        document.getElementById('label-input').textContent = 'JSON 数据输入';
+        document.getElementById('label-output').textContent = 'CSV 表格结果';
+        indentWrap.style.display = 'none';
+      }
+
+      runConversion();
+    }
+
+    function swapData() {
+      const out = document.getElementById('data-output').value.trim();
+      if (!out || out.startsWith('⚠️')) {
+        showToast('没有可对调的有效转换结果', 'warning');
+        return;
+      }
+      document.getElementById('data-input').value = out;
+      setConversionMode(currentMode === 'csv2json' ? 'json2csv' : 'csv2json');
+      showToast('已对调输入与输出！', 'info');
+    }
+
+    function parseCSV(text, delimiter) {
+      const rows = [];
+      let row = [];
+      let cell = '';
+      let inQuotes = false;
+      const d = delimiter || ',';
+
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        const next = text[i + 1];
+
+        if (c === '"') {
+          if (inQuotes && next === '"') {
+            cell += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (c === d && !inQuotes) {
+          row.push(cell);
+          cell = '';
+        } else if ((c === '\r' || c === '\n') && !inQuotes) {
+          if (c === '\r' && next === '\n') i++;
+          row.push(cell);
+          if (row.some(item => item.trim() !== '')) {
+            rows.push(row);
+          }
+          row = [];
+          cell = '';
+        } else {
+          cell += c;
+        }
+      }
+      if (cell !== '' || row.length > 0) {
+        row.push(cell);
+        if (row.some(item => item.trim() !== '')) {
+          rows.push(row);
+        }
+      }
+      return rows;
+    }
+
+    function runConversion() {
+      const input = document.getElementById('data-input').value;
+      const hasHeader = document.getElementById('opt-header').checked;
+      const delimiter = document.getElementById('opt-delimiter').value;
+      const indent = parseInt(document.getElementById('opt-indent').value, 10);
+      const outputEl = document.getElementById('data-output');
+      const statInput = document.getElementById('stat-input');
+      const statOutput = document.getElementById('stat-output');
+
+      if (!input.trim()) {
+        outputEl.value = '';
+        statInput.textContent = '0 行数据';
+        statOutput.textContent = '0 条记录生成';
+        return;
+      }
+
+      try {
+        if (currentMode === 'csv2json') {
+          const rows = parseCSV(input, delimiter);
+          statInput.textContent = rows.length + ' 行已解析';
+
+          if (rows.length === 0) {
+            outputEl.value = '[]';
+            return;
+          }
+
+          let result;
+          if (hasHeader && rows.length > 1) {
+            const headers = rows[0].map(h => h.trim());
+            result = rows.slice(1).map(r => {
+              const obj = {};
+              headers.forEach((h, idx) => {
+                let val = r[idx] !== undefined ? r[idx] : '';
+                if (!isNaN(val) && val.trim() !== '') {
+                  val = Number(val);
+                } else if (val.toLowerCase() === 'true') val = true;
+                else if (val.toLowerCase() === 'false') val = false;
+                obj[h || `字段_${idx + 1}`] = val;
+              });
+              return obj;
+            });
+          } else {
+            result = rows;
+          }
+
+          outputEl.value = JSON.stringify(result, null, indent === 0 ? undefined : indent);
+          statOutput.textContent = (Array.isArray(result) ? result.length : 1) + ' 个 JSON 对象生成';
+        } else {
+          let data;
+          try {
+            data = JSON.parse(input);
+          } catch (e) {
+            outputEl.value = '⚠️ JSON 语法解析错误: ' + e.message;
+            return;
+          }
+
+          if (!Array.isArray(data)) {
+            data = [data];
+          }
+
+          statInput.textContent = data.length + ' 条 JSON 记录';
+
+          if (data.length === 0) {
+            outputEl.value = '';
+            statOutput.textContent = '0 行 CSV 表格生成';
+            return;
+          }
+
+          if (Array.isArray(data[0])) {
+            const csvRows = data.map(row => row.map(cell => escapeCSVCell(String(cell), delimiter)).join(delimiter));
+            outputEl.value = csvRows.join('\n');
+            statOutput.textContent = csvRows.length + ' 行 CSV 表格生成';
+            return;
+          }
+
+          const headerSet = new Set();
+          data.forEach(item => {
+            if (typeof item === 'object' && item !== null) {
+              Object.keys(item).forEach(k => headerSet.add(k));
+            }
+          });
+          const headers = Array.from(headerSet);
+
+          const csvRows = [];
+          if (hasHeader && headers.length > 0) {
+            csvRows.push(headers.map(h => escapeCSVCell(h, delimiter)).join(delimiter));
+          }
+
+          data.forEach(item => {
+            if (typeof item === 'object' && item !== null) {
+              const row = headers.map(h => {
+                const val = item[h];
+                if (val === undefined || val === null) return '';
+                if (typeof val === 'object') return escapeCSVCell(JSON.stringify(val), delimiter);
+                return escapeCSVCell(String(val), delimiter);
+              });
+              csvRows.push(row.join(delimiter));
+            } else {
+              csvRows.push(escapeCSVCell(String(item), delimiter));
+            }
+          });
+
+          outputEl.value = csvRows.join('\n');
+          statOutput.textContent = csvRows.length + ' 行 CSV 表格生成';
+        }
+      } catch (err) {
+        outputEl.value = '⚠️ 转换失败: ' + err.message;
+      }
+    }
+
+    function escapeCSVCell(str, delimiter) {
+      const d = delimiter || ',';
+      if (str.includes(d) || str.includes('\n') || str.includes('\r') || str.includes('"')) {
+        return '"' + str.replace(/"/g, '""') + '"';
+      }
+      return str;
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('data-input').value = e.target.result;
+        if (file.name.endsWith('.json')) {
+          setConversionMode('json2csv');
+        } else {
+          setConversionMode('csv2json');
+        }
+        showToast('已载入文件: ' + file.name, 'success');
+      };
+      reader.readAsText(file);
+    }
+
+    function copyResult() {
+      const val = document.getElementById('data-output').value;
+      if (!val) {
+        showToast('暂无数据可复制', 'warning');
+        return;
+      }
+      copyToClipboard(val);
+    }
+
+    function downloadResult() {
+      const val = document.getElementById('data-output').value;
+      if (!val) {
+        showToast('暂无数据可下载', 'warning');
+        return;
+      }
+      const isJson = currentMode === 'csv2json';
+      const filename = isJson ? 'data_converted.json' : 'table_converted.csv';
+      const mime = isJson ? 'application/json' : 'text/csv';
+      const blob = new Blob([val], { type: mime });
+      downloadBlob(blob, filename);
+    }
+
+    function clearInput() {
+      document.getElementById('data-input').value = '';
+      document.getElementById('data-output').value = '';
+      runConversion();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('data-input').value = sampleCsvZh;
+      runConversion();
+    });
+  </script>
+</body>
+</html>

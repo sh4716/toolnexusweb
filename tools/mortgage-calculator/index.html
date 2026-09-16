@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/mortgage-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/mortgage-calculator/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Mortgage Payment & Amortization Calculator",
+        "url": "https://toolnexusweb.com/tools/mortgage-calculator/",
+        "applicationCategory": "FinanceApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript capable modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free client-side mortgage calculator for monthly principal and interest, down payment impact, total loan cost, and amortization comparison."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Calculators",
+            "item": "https://toolnexusweb.com/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Mortgage Calculator",
+            "item": "https://toolnexusweb.com/tools/mortgage-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does the interest portion shrink over the loan term?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Interest is calculated each month strictly on the remaining unpaid principal balance. As each monthly installment pays down a slice of the principal, the subsequent month's interest assessment decreases, leaving a larger portion of your fixed payment to attack the remaining principal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much interest can an extra monthly principal payment save?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Making just one extra full mortgage payment per year (or switching to bi-weekly installments) can trim 4 to 6 years off a 30-year mortgage and save between $30,000 and $60,000 in interest on a median-priced home."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my mortgage calculations logged or shared with loan brokers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. ToolNexus performs all financial computations entirely in your client web browser memory. No information is transmitted to banks, brokers, or data aggregators."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -41,9 +115,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#calculators">Calculators</a>
+        <a href="/#calculator">Calculators & Finance</a>
         <span class="breadcrumb-separator">/</span>
-        <span>Mortgage Calculator</span>
+        <span>Mortgage & Loan Payment Calculator</span>
       </nav>
     </div>
 
@@ -112,13 +186,45 @@
           </div>
         </div>
 
-        <!-- FAQ -->
-        <div style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">Mortgage Formula (Fixed Rate Amortization)</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
-            Monthly payment is calculated using the standard formula: <code>M = P [ i(1 + i)^n ] / [ (1 + i)^n - 1 ]</code>, where P is principal, i is monthly interest rate, and n is total months. All calculations occur locally in your browser.
+        <!-- In-Depth Mortgage & Amortization Guide -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Understanding Mortgage Amortization & Home Financing Strategies</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            Securing a residential mortgage is typically the largest leveraged financial transaction an individual or family will ever undertake. Over a traditional 15-year or 30-year amortization lifecycle, small variations in annual percentage rates (APR), down payment size, and prepayment velocity can save or cost you tens of thousands of dollars in cumulative interest expenses.
           </p>
-        </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">📐 The Fixed-Rate Amortization Formula</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Every monthly payment (M) is determined by the algebraic standard: <code>M = P [ r(1 + r)^n ] / [ (1 + r)^n - 1 ]</code>, where P is loan principal balance, r is the periodic monthly interest rate (annual APR / 12), and n is total elapsed payment periods (term in years × 12).</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">💵 15-Year vs 30-Year Loan Tradeoffs</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">While a 30-year mortgage offers lower, more manageable monthly cash obligations, total interest paid frequently surpasses the original loan principal amount. A 15-year mortgage features higher monthly installments but slashes cumulative interest overhead by more than 55%.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">🛡️ Equity Building & Down Payments</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Providing at least 20% down payment eliminates Private Mortgage Insurance (PMI) requirements in most lending environments, saving homeowners hundreds of dollars per month while establishing immediate protective equity against local property market downturns.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Why does the interest portion shrink over the loan term?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Interest is calculated each month strictly on the remaining unpaid principal balance. As each monthly installment pays down a slice of the principal, the subsequent month's interest assessment decreases, leaving a larger portion of your fixed payment to attack the remaining principal.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: How much interest can an extra monthly principal payment save?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Making just one extra full mortgage payment per year (or switching to bi-weekly installments) can trim 4 to 6 years off a 30-year mortgage and save between $30,000 and $60,000 in interest on a median-priced home.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are my mortgage calculations logged or shared with loan brokers?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Never. ToolNexus performs all financial computations entirely in your client web browser memory. No information is transmitted to banks, brokers, or data aggregators.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -177,13 +283,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

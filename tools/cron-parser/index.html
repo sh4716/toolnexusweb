@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cron Expression Parser & Visualizer - Next Run Predictor | ToolNexus</title>
+  <meta name="description" content="Free in-browser Cron expression parser and visualizer. Translate crontab schedules into plain human-readable sentences and forecast upcoming trigger times.">
+  <link rel="canonical" href="https://toolnexusweb.com/tools/cron-parser/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus Web">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/cron-parser/">
+  <meta property="og:title" content="Cron Expression Parser & Visualizer | ToolNexus Web">
+  <meta property="og:description" content="Translate standard crontab syntax into plain English and predict upcoming execution schedules.">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cron Expression Parser & Visualizer | ToolNexus Web">
+  <meta name="twitter:description" content="Translate standard crontab syntax into plain English and predict upcoming execution schedules.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/cron-parser/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/cron-parser/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/cron-parser/">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Cron Expression Parser & Visualizer",
+        "url": "https://toolnexusweb.com/tools/cron-parser/",
+        "applicationCategory": "DeveloperApplication, UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Interactive Cron expression parser that translates Unix/Linux crontab schedules into human language and forecasts subsequent execution timestamps."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://toolnexusweb.com/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Cron Expression Parser",
+            "item": "https://toolnexusweb.com/tools/cron-parser/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Sunday represented as 0 or 7 in crontab?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In standard Linux/BSD crontab implementations, both 0 and 7 represent Sunday (0 = Sunday, 1 = Monday, ..., 6 = Saturday, 7 = Sunday). This parser safely treats both 0 and 7 as Sunday."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this parser execute in my browser?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. 100% of the lexical parsing and upcoming timestamp calculations run inside your browser. No schedule parameters or server configurations are transmitted to remote networks."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do Day-of-Month and Day-of-Week interact when both are set?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In standard Unix cron, if both the day-of-month and day-of-week fields are constrained (not wildcard *), the command runs when EITHER the day of the month OR the day of the week matches (OR logic)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/cron-parser/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#developer">Developer & Security</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Cron Expression Parser & Predictor</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Developer & DevOps</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">⏰ Cron Expression Parser & Predictor</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Decode and understand Linux crontab expressions instantly. Converts cryptic schedule patterns into human-readable descriptions and accurately forecasts the next 5 execution timestamps.
+        </p>
+
+        <!-- Cron Input Box -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <label style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; display: block;">Enter Crontab Expression (5 Fields):</label>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <input type="text" id="cron-input" class="input-text" value="*/15 9-18 * * 1-5" style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em; flex: 1; min-width: 260px;" oninput="parseCron()">
+            <button type="button" class="btn btn-primary" onclick="copyCron()">Copy 📋</button>
+          </div>
+
+          <!-- 5 Segment Breakdown Cards -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; text-align: center;" id="segments-grid">
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Minute</div>
+              <div id="seg-min" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">*/15</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">0-59</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Hour</div>
+              <div id="seg-hour" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">9-18</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">0-23</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Day (Month)</div>
+              <div id="seg-day" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">*</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">1-31</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Month</div>
+              <div id="seg-mon" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">*</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">1-12</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Day (Week)</div>
+              <div id="seg-week" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">1-5</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">0-6 (Sun-Sat)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Human Readable Description Banner -->
+        <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">Plain English Translation:</div>
+          <div id="cron-desc" style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); line-height: 1.4;">
+            Every 15 minutes, between 09:00 and 18:59, Monday through Friday
+          </div>
+        </div>
+
+        <!-- Preset Templates & Next Runs Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <!-- Left: Common Presets -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--text-main);">Quick Preset Schedules</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('* * * * *')">
+                <span>Every minute</span>
+                <code style="color: var(--primary);">* * * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 * * * *')">
+                <span>Every hour (at minute 0)</span>
+                <code style="color: var(--primary);">0 * * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 0 * * *')">
+                <span>Every day at midnight (00:00)</span>
+                <code style="color: var(--primary);">0 0 * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 2 * * *')">
+                <span>Daily backup at 02:00 AM</span>
+                <code style="color: var(--primary);">0 2 * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 9 * * 1-5')">
+                <span>Weekdays at 9:00 AM</span>
+                <code style="color: var(--primary);">0 9 * * 1-5</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 0 1 * *')">
+                <span>First day of every month</span>
+                <code style="color: var(--primary);">0 0 1 * *</code>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Next 5 Execution Runs -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--accent-emerald);">Upcoming Scheduled Runs (Local Time)</h3>
+            <ul id="next-runs-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+              <!-- Generated dynamically -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Long-Form SEO Content & Deep Documentation -->
+        <article class="article-section" style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Understanding Unix Cron Syntax & Expressions</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            The Cron daemon is a time-based job scheduler foundational to Unix, Linux, and modern containerized server systems like Kubernetes (CronJobs) and cloud automation (AWS CloudWatch Events, GitHub Actions). Crontab configuration files specify commands to run periodically at fixed times, dates, or intervals.
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            However, compact crontab syntax can easily lead to costly scheduling blunders—such as triggering a heavy database dump every minute instead of once per hour. This interactive parser unpacks each field visually, validates wildcard constraints, and renders predictable chronological execution dates.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">Cron Syntax Operators Guide</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Asterisk (<code>*</code>):</strong> Wildcard matching all possible values in that field.</li>
+            <li><strong>Comma (<code>,</code>):</strong> Value list separator allowing multiple specific integers (e.g. <code>1,15,30</code>).</li>
+            <li><strong>Hyphen (<code>-</code>):</strong> Specifies an inclusive numeric range (e.g. <code>9-17</code> for working hours).</li>
+            <li><strong>Slash (<code>/</code>):</strong> Step intervals. <code>*/10</code> in the minute column executes every 10 minutes.</li>
+          </ul>
+
+          <!-- Comprehensive FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Is Sunday represented as 0 or 7 in crontab?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">In standard Linux/BSD crontab implementations, both 0 and 7 represent Sunday (0 = Sunday, 1 = Monday, ..., 6 = Saturday, 7 = Sunday). This parser safely treats both 0 and 7 as Sunday.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this parser execute in my browser?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. 100% of the lexical parsing and upcoming timestamp calculations run inside your browser. No schedule parameters or server configurations are transmitted to remote networks.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: How do Day-of-Month and Day-of-Week interact when both are set?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">In standard Unix cron, if both the day-of-month and day-of-week fields are constrained (not wildcard *), the command runs when EITHER the day of the month OR the day of the week matches (OR logic).</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/cron-parser/">Cron Expression Parser</a></li>
+            <li><a href="/tools/json-formatter/">JSON Formatter</a></li>
+            <li><a href="/tools/csv-json/">CSV ↔ JSON Converter</a></li>
+            <li><a href="/tools/regex-tester/">Regex Tester</a></li>
+            <li><a href="/tools/timestamp/">Unix Timestamp</a></li>
+          </ul>
+        </div>
+                <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus Web. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    function setPreset(expr) {
+      document.getElementById('cron-input').value = expr;
+      parseCron();
+      showToast('Loaded preset: ' + expr, 'info');
+    }
+
+    function copyCron() {
+      const val = document.getElementById('cron-input').value;
+      copyToClipboard(val);
+    }
+
+    // Cron field matcher parser
+    function parseField(fieldStr, min, max) {
+      const allowed = new Set();
+      const parts = fieldStr.split(',');
+
+      for (let part of parts) {
+        part = part.trim();
+        if (!part) continue;
+
+        if (part === '*') {
+          for (let i = min; i <= max; i++) allowed.add(i);
+        } else if (part.startsWith('*/')) {
+          const step = parseInt(part.slice(2), 10);
+          if (step > 0) {
+            for (let i = min; i <= max; i += step) allowed.add(i);
+          }
+        } else if (part.includes('-')) {
+          const [startStr, endStr] = part.split('-');
+          const start = parseInt(startStr, 10);
+          const end = parseInt(endStr, 10);
+          if (!isNaN(start) && !isNaN(end)) {
+            for (let i = start; i <= end; i++) {
+              if (i >= min && i <= max) allowed.add(i);
+            }
+          }
+        } else {
+          const num = parseInt(part, 10);
+          if (!isNaN(num) && num >= min && num <= max) {
+            allowed.add(num);
+          }
+        }
+      }
+      return allowed;
+    }
+
+    function parseCron() {
+      const raw = document.getElementById('cron-input').value.trim();
+      const parts = raw.split(/\s+/).filter(Boolean);
+
+      const segMin = document.getElementById('seg-min');
+      const segHour = document.getElementById('seg-hour');
+      const segDay = document.getElementById('seg-day');
+      const segMon = document.getElementById('seg-mon');
+      const segWeek = document.getElementById('seg-week');
+      const descEl = document.getElementById('cron-desc');
+      const runsList = document.getElementById('next-runs-list');
+
+      if (parts.length !== 5) {
+        descEl.textContent = '⚠️ Please provide exactly 5 fields (Minute Hour Day Month Week)';
+        descEl.style.color = '#ef4444';
+        runsList.innerHTML = '<li style="color:var(--text-muted);">Awaiting valid 5-field expression...</li>';
+        return;
+      }
+
+      descEl.style.color = 'var(--text-main)';
+      const [mStr, hStr, dStr, monStr, wStr] = parts;
+
+      segMin.textContent = mStr;
+      segHour.textContent = hStr;
+      segDay.textContent = dStr;
+      segMon.textContent = monStr;
+      segWeek.textContent = wStr;
+
+      // Human explanation
+      let desc = [];
+      if (mStr === '*') desc.push('Every minute');
+      else if (mStr.startsWith('*/')) desc.push('Every ' + mStr.slice(2) + ' minutes');
+      else desc.push('At minute ' + mStr);
+
+      if (hStr === '*') desc.push('past every hour');
+      else if (hStr.startsWith('*/')) desc.push('every ' + hStr.slice(2) + ' hours');
+      else desc.push('past hour ' + hStr + ':00');
+
+      if (dStr !== '*') desc.push('on day ' + dStr + ' of the month');
+      if (monStr !== '*') desc.push('in month ' + monStr);
+      if (wStr === '1-5') desc.push('Monday through Friday');
+      else if (wStr !== '*') desc.push('on weekday(s) ' + wStr);
+
+      descEl.textContent = desc.join(', ');
+
+      // Predict next 5 occurrences
+      try {
+        const minutes = parseField(mStr, 0, 59);
+        const hours = parseField(hStr, 0, 23);
+        const days = parseField(dStr, 1, 31);
+        const months = parseField(monStr, 1, 12);
+        const weekdays = parseField(wStr, 0, 7);
+        // Map 7 (Sunday) to 0
+        if (weekdays.has(7)) weekdays.add(0);
+
+        const nextRuns = [];
+        let cur = new Date();
+        cur.setSeconds(0);
+        cur.setMilliseconds(0);
+        cur.setMinutes(cur.getMinutes() + 1); // Start from next minute
+
+        const maxLookahead = 60 * 24 * 366; // up to 1 year lookahead
+        let steps = 0;
+
+        while (nextRuns.length < 5 && steps < maxLookahead) {
+          const m = cur.getMinutes();
+          const h = cur.getHours();
+          const d = cur.getDate();
+          const mon = cur.getMonth() + 1;
+          const w = cur.getDay();
+
+          if (months.has(mon) && hours.has(h) && minutes.has(m)) {
+            const dayMatch = (dStr === '*') || days.has(d);
+            const weekMatch = (wStr === '*') || weekdays.has(w);
+
+            let matches = false;
+            if (dStr !== '*' && wStr !== '*') {
+              matches = dayMatch || weekMatch;
+            } else {
+              matches = dayMatch && weekMatch;
+            }
+
+            if (matches) {
+              nextRuns.push(new Date(cur));
+            }
+          }
+          cur.setMinutes(cur.getMinutes() + 1);
+          steps++;
+        }
+
+        if (nextRuns.length > 0) {
+          runsList.innerHTML = nextRuns.map((d, i) => {
+            return `<li style="background:var(--bg-surface); padding:0.55rem 0.85rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:0.88rem;">
+              <span style="color:var(--text-muted);">#${i + 1}</span>
+              <strong style="color:var(--text-main);">${d.toLocaleString()}</strong>
+            </li>`;
+          }).join('');
+        } else {
+          runsList.innerHTML = '<li style="color:var(--text-muted);">No executions found in the next 12 months.</li>';
+        }
+      } catch (e) {
+        runsList.innerHTML = '<li style="color:#ef4444;">Error computing schedule: ' + e.message + '</li>';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      parseCron();
+    });
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | 科学健身</title>
+  <title>BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | ToolNexus</title>
   <meta name="description" content="纯前端在线 BMI 身体质量指数计算器。根据中国卫健委成人体质标准，精确测量身材偏瘦、正常、超重或肥胖状态，并计算您的理想健康体重区间。">
   <meta name="keywords" content="BMI计算器,身体质量指数,体脂计算,理想体重计算,健康标准">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,15 +12,90 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/bmi-calculator/">
-  <meta property="og:title" content="BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | 科学健身">
+  <meta property="og:title" content="BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | ToolNexus">
   <meta property="og:description" content="纯前端在线 BMI 身体质量指数计算器。根据中国卫健委成人体质标准，精确测量身材偏瘦、正常、超重或肥胖状态，并计算您的理想健康体重区间。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | 科学健身">
+  <meta name="twitter:title" content="BMI 健康体脂计算器 - 身体质量指数/理想体重在线计算 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 BMI 身体质量指数计算器。根据中国卫健委成人体质标准，精确测量身材偏瘦、正常、超重或肥胖状态，并计算您的理想健康体重区间。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "BMI 身体质量指数与健康体重计算器",
+        "url": "https://toolnexusweb.com/zh/tools/bmi-calculator/",
+        "applicationCategory": "HealthApplication, UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "需要现代支持 JavaScript 的浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "基于中国国家卫健委及世卫组织标准，快速计算成人身体质量指数 (BMI) 与理想体重范围。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "实用计算",
+            "item": "https://toolnexusweb.com/zh/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "BMI 健康计算器",
+            "item": "https://toolnexusweb.com/zh/tools/bmi-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "我的理想健康体重范围是如何推算出来的？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "计算器以中国成人标准健康 BMI 上下限（18.5 和 23.9）为基准，结合您的身高反向推算。例如身高 175cm 时，健康体重下限为 18.5 × 1.75² ≈ 56.7 kg，上限为 23.9 × 1.75² ≈ 73.2 kg。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "计算器会记录保存我的身高体重隐私数据吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ToolNexus 是 100% 纯前端静态工具，所有公式都在您手机或电脑本地的浏览器内存中运算，不向任何远程服务器或第三方统计发送或保存个人体质数据。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "男生和女生的 BMI 标准计算公式一样吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "在国际通用的数学公式上，成年男性和女性的 BMI 计算方法是一模一样的。不过由于生理结构差异，女性的天然体脂率通常比同 BMI 数值的男性高出 8%~10%。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .bmi-gauge-wrap {
       margin: 1.5rem 0;
@@ -81,9 +156,9 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>实用计算器</span>
+        <a href="/zh/#calculator">计算器与换算</a>
         <span class="breadcrumb-separator">/</span>
-        <span>BMI 健康计算器</span>
+        <span>BMI 健康体脂计算器</span>
       </nav>
       <div class="tool-title-row">
         <h1 class="tool-title">🏃 BMI 健康体脂计算器</h1>
@@ -146,7 +221,86 @@
           </div>
         </div>
       </div>
-    </div>
+
+      <!-- 深度健康科普与计算指南 -->
+      <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">深入理解 BMI 身体质量指数与健康体型管理</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            身体质量指数（Body Mass Index，简称 BMI）是世界卫生组织（WHO）及各国卫生部推荐的最常用体脂筛查与体重评估工具。其计算公式为：<code>BMI = 体重 (kg) ÷ [身高 (m)]²</code>。作为一项无创、直观的量化指标，BMI 广泛应用于群体健康体检、慢病流行病学调查以及日常减脂增肌目标设定中。
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            需要注意的是，由于亚洲人群（包括中国人）的体脂分布特点多集中于腹部（向心性肥胖），在相同的 BMI 数值下，中国人群的内脏脂肪比例与患心脑血管疾病的风险显著高于欧美高加索人群。因此，我国国家卫生健康委员会（NHC）颁布了专门契合中国人体质特征的成人体重判定标准。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">中国卫健委标准 vs. WHO 国际标准对比表</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">体质分类</th>
+                  <th style="padding: 0.75rem 0.5rem;">中国卫健委标准 (WS/T 428)</th>
+                  <th style="padding: 0.75rem 0.5rem;">WHO 国际通用标准</th>
+                  <th style="padding: 0.75rem 0.5rem;">健康风险与干预建议</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted); line-height: 1.6;">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #38bdf8;">体重过轻 (偏瘦)</td>
+                  <td style="padding: 0.65rem 0.5rem;">&lt; 18.5</td>
+                  <td style="padding: 0.65rem 0.5rem;">&lt; 18.5</td>
+                  <td style="padding: 0.65rem 0.5rem;">可能存在营养不良、贫血、骨质疏松或免疫力低下风险，建议均衡摄入优质蛋白</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">标准健康体重</td>
+                  <td style="padding: 0.65rem 0.5rem;">18.5 ～ 23.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">18.5 ～ 24.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">全因死亡率与慢性病发病率最低的黄金区间，建议继续保持规律作息与运动</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f59e0b;">超重预警</td>
+                  <td style="padding: 0.65rem 0.5rem;">24.0 ～ 27.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">25.0 ～ 29.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">高血压、高血脂、2型糖尿病早期隐患增加，应减少精制碳水摄入，增加有氧训练</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f43f5e;">肥胖 (一级至三级)</td>
+                  <td style="padding: 0.65rem 0.5rem;">≥ 28.0</td>
+                  <td style="padding: 0.65rem 0.5rem;">≥ 30.0</td>
+                  <td style="padding: 0.65rem 0.5rem;">冠心病、脂肪肝、睡眠呼吸暂停综合征风险显著攀升，建议咨询临床营养师与医生</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">BMI 指标的局限性与辅助参考</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+            虽然 BMI 计算极为便捷，但它仅将人体简化为“质量与身高”的几何关系，以下特殊人群不宜单凭 BMI 判定健康状态：
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>健美增肌与力量举运动员：</strong> 骨骼肌密度显著高于脂肪，此类人群的 BMI 常常超过 26 甚至 30，但体脂率通常仅在 8%~12%，属于极健康身材。</li>
+            <li><strong>老年人与肌肉衰减症患者：</strong> 随着年龄增长，肌肉流失可能被多余脂肪掩盖，BMI 显示正常，但实际可能存在隐性肥胖。</li>
+            <li><strong>中心型肥胖（将军肚）：</strong> 腹部内脏脂肪堆积比皮下脂肪危害更大。中国成年男性腰围 ≥ 90 cm、女性腰围 ≥ 85 cm 即达到腹型肥胖预警阈值。</li>
+            <li><strong>孕妇与哺乳期妇女：</strong> 胎儿发育、羊水及血容量生理性增加，不适用于常规成人 BMI 评分。</li>
+          </ul>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 我的理想健康体重范围是如何推算出来的？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">计算器以中国成人标准健康 BMI 上下限（18.5 和 23.9）为基准，结合您的身高反向推算。例如身高 175cm 时，健康体重下限为 18.5 × 1.75² ≈ 56.7 kg，上限为 23.9 × 1.75² ≈ 73.2 kg。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 计算器会记录保存我的身高体重隐私数据吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">ToolNexus 是 100% 纯前端静态工具，所有公式都在您手机或电脑本地的浏览器内存中运算，不向任何远程服务器或第三方统计发送或保存个人体质数据。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 男生和女生的 BMI 标准计算公式一样吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">在国际通用的数学公式上，成年男性和女性的 BMI 计算方法是一模一样的。不过由于生理结构差异，女性的天然体脂率通常比同 BMI 数值的男性高出 8%~10%。</p>
+            </div>
+          </div>
+        </article>
+      </div>
   </main>
 
   
@@ -169,14 +323,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

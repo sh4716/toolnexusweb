@@ -26,7 +26,87 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "PDF 批量添加页码",
+        "url": "https://toolnexusweb.com/zh/tools/pdf-page-numbers/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5 & WebAssembly.",
+        "description": "免费在线 PDF 批量添加页码工具。支持跳过封面、自定义数字格式、奇偶页及精准边距排版，无损矢量写入，100% 浏览器本地处理。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF 办公工具",
+            "item": "https://toolnexusweb.com/zh/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PDF 批量添加页码",
+            "item": "https://toolnexusweb.com/zh/tools/pdf-page-numbers/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "如何实现“跳过封面，从正文第二页开始编号为第 1 页”？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "只需在控制面板中勾选“跳过首页封面”，同时将“起始页码数字”设置为 1。工具将完全不向封面页写入任何内容，而在第 2 页自动打印数字 1，第 3 页打印数字 2，总页数也会智能扣除封面页计算。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "为什么我的 PDF 添加页码后，有些页面页码刚好压在正文字上面？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "这是因为原始文档的正文内容排版过于靠近纸张边缘。您可以通过调节“边距偏移（Margin Offset）”滑块，将页脚边距从默认的 30pt 缩小至 15~20pt（更加贴近纸张边缘），即可轻松避开正文内容重叠。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "如果原文件有深色或黑色背景底色，黑色页码看不清怎么办？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "本工具提供了完整的调色板支持。您只需在文字颜色选项中一键切换为白色（#FFFFFF）或鲜艳的高对比度主题色，页码即可在深色幻灯片、深色图表底图上清晰展现。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "百页级政府标书或长篇财务审计文件是否会有泄密隐患？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝无泄密风险。所有核心计算与 PDF 流写入均由用户的本地设备浏览器沙箱完成，没有任何网络数据包发往云端服务器，完全离线脱机运行。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script>
   <style>
     /* Modern Beautified Styles for PDF Page Numbers */
@@ -289,7 +369,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/zh/#pdf">PDF 办公工具</a>
+        <a href="/zh/#pdf">PDF 文档办公</a>
         <span class="breadcrumb-separator">/</span>
         <span>PDF 批量添加页码</span>
       </nav>
@@ -516,18 +596,84 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">常见问题解答</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 如果我的 PDF 文档每页尺寸不一样（比如混杂横板和竖版），页码会错位吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">不会。本工具逐页读取每个 Page 对象的实际宽高（Width / Height）进行独立动态排版定位，无论是 A4、A3 还是横版宽屏都能精准对齐居中或靠右。</p>
+        <!-- 深度技术文章与排版规范指南 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">PDF 批量编排页码：排版几何学、装订规范与矢量注入技术</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            在高校学位论文答辩、企业商务标书投递、政府招投标文件以及法律卷宗整理中，规范统一的页码编排不仅是基本的排版礼仪，更是硬性的审阅合规要求。许多从 Word、Markdown 或不同扫描仪拼凑整合而成的 PDF 经常缺失连续页码，或者原文档页码杂乱重叠。ToolNexus 提供了<strong>完全基于浏览器客户端的无损矢量页码添加引擎</strong>，无需依赖笨重庞大的桌面软件，毫秒级注入统一规范的页脚或页眉页码。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">技术内核：PDF 边界盒模型与非破坏性内容流注入</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            与常规图片水印不同，专业级 PDF 页码打印必须严格契合 PDF 规范（ISO 32000-1）的多层边界空间：
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>边界盒自适应对齐（MediaBox & CropBox）：</strong> 实际文档中经常混杂纵向（Portrait）A4 正文与横向（Landscape）工程图纸大宽表。ToolNexus 逐页解析每个 Page 对象的真实坐标边界，根据选定的边距动态计算绝对物理点位置（1 pt = 1/72 inch），确保横竖混排文档均能完美居中或右对齐。</li>
+            <li><strong>标准 Type 1 矢量字体嵌入：</strong> 使用符合 PDF 国际规范的内置矢量字形（如 Helvetica 与 Times-Roman），字符直接以文本指令流（<code>BT /F1 10 Tf (Page 1) Tj ET</code>）写入，保证无论放大 500% 打印还是投屏审阅均边缘锐利，且输出文件增量小于 10 KB。</li>
+            <li><strong>多层内容流非破坏覆盖（Content Stream Overwrite Protection）：</strong> 传统工具在转换格式时常常丢失原 PDF 内的高清矢量路径与可点击超链接目录。本引擎直接在现有图层上方挂载新的渲染流，保留全部书签结构和表格数据。</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">常用学术与商务排版页码格式对照</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">编排风格</th>
+                  <th style="padding: 0.75rem 0.5rem;">格式字符串</th>
+                  <th style="padding: 0.75rem 0.5rem;">典型应用场景</th>
+                  <th style="padding: 0.75rem 0.5rem;">装订与留白建议</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">标准总页数型</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">第 {n} 页 / 共 {total} 页</td>
+                  <td style="padding: 0.65rem 0.5rem;">招投标文件、法律审计底稿、审计报告</td>
+                  <td style="padding: 0.65rem 0.5rem;">底部居中，边距留出至少 30pt 安全区</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">紧凑斜杠比</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">{n} / {total}</td>
+                  <td style="padding: 0.65rem 0.5rem;">企业年报、商业商业计划书 (BP)、PPT 讲义</td>
+                  <td style="padding: 0.65rem 0.5rem;">底部靠右，避免遮盖正文图表</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">古典短横线</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">- {n} -</td>
+                  <td style="padding: 0.65rem 0.5rem;">学术期刊论文、出版图书样张、学术讲义</td>
+                  <td style="padding: 0.65rem 0.5rem;">页脚居中，字体大小设为 9~10pt</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">极简纯数字</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">{n}</td>
+                  <td style="padding: 0.65rem 0.5rem;">日常办公周报、会议备忘录、标准公文</td>
+                  <td style="padding: 0.65rem 0.5rem;">顶部或底部靠右，便于翻阅检索</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 我的 PDF 内部会被压缩或丢失超链接吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">绝无可能。本工具使用无损注入方式直接在原有图层上方写入数字，保留所有原始矢量字形、书签及超链接。</p>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 如何实现“跳过封面，从正文第二页开始编号为第 1 页”？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">只需在控制面板中勾选“跳过首页封面”，同时将“起始页码数字”设置为 1。工具将完全不向封面页写入任何内容，而在第 2 页自动打印数字 1，第 3 页打印数字 2，总页数也会智能扣除封面页计算。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么我的 PDF 添加页码后，有些页面页码刚好压在正文字上面？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">这是因为原始文档的正文内容排版过于靠近纸张边缘。您可以通过调节“边距偏移（Margin Offset）”滑块，将页脚边距从默认的 30pt 缩小至 15~20pt（更加贴近纸张边缘），即可轻松避开正文内容重叠。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 如果原文件有深色或黑色背景底色，黑色页码看不清怎么办？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">本工具提供了完整的调色板支持。您只需在文字颜色选项中一键切换为白色（#FFFFFF）或鲜艳的高对比度主题色，页码即可在深色幻灯片、深色图表底图上清晰展现。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 百页级政府标书或长篇财务审计文件是否会有泄密隐患？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝无泄密风险。所有核心计算与 PDF 流写入均由用户的本地设备浏览器沙箱完成，没有任何网络数据包发往云端服务器，完全离线脱机运行。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -770,13 +916,14 @@
             <li><a href="/zh/tools/percentage-calculator/">百分比与折扣计算器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

@@ -26,7 +26,87 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "PDF 在线电子签名工具",
+        "url": "https://toolnexusweb.com/zh/tools/pdf-sign/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+        "description": "免费安全合规的 PDF 在线手写电子签名工具。支持屏幕手写、艺术字签字，任意拖放缩放并烧录至合同，100% 浏览器本地离线运行。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF 办公工具",
+            "item": "https://toolnexusweb.com/zh/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PDF 在线电子签名",
+            "item": "https://toolnexusweb.com/zh/tools/pdf-sign/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "网页手写电子签名符合法律规范吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "根据《中华人民共和国民法典》第四百六十九条，当事人订立合同可以采用书面形式，能够有形地表现所载内容并可以随时调取查用的数据电文视为书面形式。手写电子签名反映签署人真实意思表示，在通用民事及商业合同往来中广泛被仲裁和司法审判认可。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "合同签署下载后，签名还能被其他人直接拖走或修改吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。本工具通过 PDF 底层操作库直接将签名图案以 XObject 对象的形式“烧录（Burn-in）”进目标页面的内容流中，与底层页面文字合为一体，普通 PDF 阅读器无法像网页元素一样直接单击选中拖动。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "签名时如果跨页了怎么办？能否在一份文件中给多页分别签名？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "支持。使用右上方“上一页 / 下一页”按钮翻动文档，将签名放置在第 1 页后，如第 3 页也需要骑缝章或签批，可以翻至第 3 页再次点击“将签名放置到当前页面”，所有页面的图层烧录会在最终点击下载时统一生成。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "支持带有透明通道的公章或个人印鉴图片吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "除了板上手写和打字艺术签名外，您也可以通过裁剪清晰的透明 PNG 印章文件通过手写板直接导入（即将上线印章图片快速贴合），直接盖在落款处。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -44,9 +124,9 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/zh/#pdf">PDF 办公工具</a>
+        <a href="/zh/#pdf">PDF 文档办公</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF 在线电子签名工具</span>
+        <span>PDF 在线手写电子签名</span>
       </nav>
     </div>
 
@@ -145,18 +225,91 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">关于 PDF 网页电子签名的合规性</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 这样生成的 PDF 电子签名具有法律效力吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">根据美国《全球及全国商业电子签名法》（ESIGN Act）、欧盟 eIDAS 法规以及中国《电子签名法》，双方认可的手写图形附着于电子文档即可作为表明签署人身份和同意的电子签名。</p>
+        <!-- 深度技术文章与合规性指南 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">PDF 在线手写电子签名：技术原理、法律合规与隐私安全</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            在传统办公流程中，签署一份 PDF 商务合同或人事协议往往需要经过“打印纸质版 ➔ 签字盖章 ➔ 扫描仪或手机拍照扫描 ➔ 重新转换 PDF 发送”的漫长链路，不仅耗费纸张油墨，更会因翻拍导致文字模糊、文档变形与文件体积急剧膨胀。ToolNexus 提供的<strong>纯前端手写电子签名方案</strong>，让用户无需任何打印机与扫描仪，直接在浏览器中完成真实笔迹绘制、自由拖拽布局与高质量矢量图层烧录。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">核心技术实现：从 Canvas 贝塞尔轨迹到 PDF 坐标系投影</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            要在浏览器中实现流畅且不失真的电子签名，涉及两项关键计算机图形学与底层 PDF 流处理技术：
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>触控平滑插值算法：</strong> 通过捕获 HTML5 Canvas 的 <code>pointerdown</code> / <code>pointermove</code> 离散采样点，采用二次贝塞尔曲线（Quadratic Bezier Curve）动态补间计算连续切线，消除鼠标或手指快速滑动时的折线毛刺，还原真实钢笔手写质感。</li>
+            <li><strong>双坐标空间严谨映射：</strong> 网页端视口采用 CSS 像素（屏幕原点位于左上方，单位为 px），而国际标准化组织（ISO 32000-1）PDF 标准采用点（Points, 1/72 英寸，坐标原点位于页面<strong>左下方</strong>）。本工具在烧录时根据 <code>pdfjsLib</code> 视口缩放比（Viewport Scale）自动计算仿射变换矩阵，确保拖拽在屏幕哪个横线位置，导出后的签名在 Acrobat 中就丝毫不差地落在哪一点。</li>
+            <li><strong>透明通道无缝融合：</strong> 签名印章以 32-bit RGBA PNG 格式直接嵌入 PDF 内容流（Content Stream），背景全透明，不会遮挡或破坏合同底部正文条款文字。</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">不同合同签署方案对比分析</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">对比维度</th>
+                  <th style="padding: 0.75rem 0.5rem;">传统打印拍照扫描</th>
+                  <th style="padding: 0.75rem 0.5rem;">第三方云端签名平台</th>
+                  <th style="padding: 0.75rem 0.5rem;">ToolNexus 纯前端签名</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">操作耗时</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">15~30 分钟（需硬件）</td>
+                  <td style="padding: 0.65rem 0.5rem;">3~5 分钟（需注册登录）</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">不到 30 秒（即开即签）</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">商密泄露风险</td>
+                  <td style="padding: 0.65rem 0.5rem;">纸质文件丢弃有遗失风险</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">合同须上传至第三方服务器</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">零上传 · 100% 内存本地运行</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">文档清晰度</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">严重重压缩失真、文字不可选</td>
+                  <td style="padding: 0.65rem 0.5rem;">通常保留矢量（视各平台策略）</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">原生矢量文本层完整保留</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">使用成本</td>
+                  <td style="padding: 0.65rem 0.5rem;">打印纸、碳粉耗材及设备成本</td>
+                  <td style="padding: 0.65rem 0.5rem;">按份收费或高昂年费套餐</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">永久免费 · 无使用次数限制</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 我的签名图片或合同会被上传记录吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">绝对不会！本工具使用 HTML5 Canvas 绘制并在您的浏览器本地直接合成进 PDF 二进制流中，没有任何服务器与数据库留存。</p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">常见应用场景指南</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>房屋租赁与物业交付：</strong> 租房协议、退租清点单、家电交接表，手机随手打开即可完成远程签署并立即微信回传。</li>
+            <li><strong>远程人事与入职声明：</strong> 新员工入职登记表、保密协议（NDA）、社保声明书，无需寄送纸质快递。</li>
+            <li><strong>企业报销与单据确认：</strong> 财务费用报销单、验收凭单、采购签收确认，随时批复签字。</li>
+          </ul>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 网页手写电子签名符合法律规范吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">根据《中华人民共和国民法典》第四百六十九条，当事人订立合同可以采用书面形式，能够有形地表现所载内容并可以随时调取查用的数据电文视为书面形式。手写电子签名反映签署人真实意思表示，在通用民事及商业合同往来中广泛被仲裁和司法审判认可。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 合同签署下载后，签名还能被其他人直接拖走或修改吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。本工具通过 PDF 底层操作库直接将签名图案以 XObject 对象的形式“烧录（Burn-in）”进目标页面的内容流中，与底层页面文字合为一体，普通 PDF 阅读器无法像网页元素一样直接单击选中拖动。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 签名时如果跨页了怎么办？能否在一份文件中给多页分别签名？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">支持。使用右上方“上一页 / 下一页”按钮翻动文档，将签名放置在第 1 页后，如第 3 页也需要骑缝章或签批，可以翻至第 3 页再次点击“将签名放置到当前页面”，所有页面的图层烧录会在最终点击下载时统一生成。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 支持带有透明通道的公章或个人印鉴图片吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">除了板上手写和打字艺术签名外，您也可以通过裁剪清晰的透明 PNG 印章文件通过手写板直接导入（即将上线印章图片快速贴合），直接盖在落款处。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -441,13 +594,14 @@
             <li><a href="/zh/tools/percentage-calculator/">百分比与折扣计算器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

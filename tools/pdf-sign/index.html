@@ -26,7 +26,87 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Sign PDF Online",
+        "url": "https://toolnexusweb.com/tools/pdf-sign/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+        "description": "Free, secure, and legally binding online PDF signature tool. Draw signatures, type cursive scripts, and burn stamps directly into contracts in your browser.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF Tools",
+            "item": "https://toolnexusweb.com/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Sign PDF",
+            "item": "https://toolnexusweb.com/tools/pdf-sign/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are electronic signatures created online legally enforceable?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Under the US Federal ESIGN Act, the Uniform Electronic Transactions Act (UETA), and EU eIDAS regulations, an electronic symbol adopted with the intent to sign constitutes a legally valid signature for commercial, employment, rental, and service contracts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can another party easily remove or drag away my signature after downloading?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The signature is burned directly into the PDF page object stream as a binary image resource rather than remaining as an interactive form field or movable webpage overlay. It cannot be dragged or unhooked in standard PDF reader viewers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I sign multiple pages in the same PDF document?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Use the Previous / Next page controls in the viewer toolbar. You can place a signature on page 1, advance to page 5 to sign an acknowledgement clause, and both stamps will be composited into their respective pages upon clicking Download."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool work with touch screens and Apple Pencil on iPad?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The canvas listening hooks detect HTML5 Touch Events and Pointer Events natively, supporting finger drawing on mobile phones as well as precise stylus input on tablets."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -44,9 +124,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#pdf">PDF Tools</a>
+        <a href="/#pdf">PDF & Documents</a>
         <span class="breadcrumb-separator">/</span>
-        <span>Sign PDF</span>
+        <span>Sign PDF Document Online</span>
       </nav>
     </div>
 
@@ -145,18 +225,84 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Is an in-browser electronic signature legally binding?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Yes. Under the US ESIGN Act, the EU eIDAS regulation, and common contract law, an electronic symbol or signature adopted by a person with the intent to sign a document is legally recognized for most agreements.</p>
+        <!-- Comprehensive Guide & Legal Compliance -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Online Handwritten PDF Signatures: Mechanics, Legal Validity & Privacy</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Historically, executing a binding contract required printing paper copies, signing with a wet-ink pen, scanning via flatbed hardware or smartphone photography, and re-exporting. This laborious cycle wastes physical resources, degrades document fidelity, and turns searchable vector PDFs into blurry, inflated raster scans. ToolNexus provides a <strong>100% client-side digital signature workstation</strong>, enabling direct in-browser handwritten signatures, cursive typographic stamping, and permanent vector compositing.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Technical Architecture: From Canvas Bezier Interpolation to ISO 32000 PDF Streams</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Executing a seamless and razor-sharp digital signature in the browser relies on advanced graphics and binary document pipelines:
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>Trajectory Smoothing with Quadratic Curves:</strong> High-frequency <code>pointermove</code> coordinate events are interpolated through quadratic Bezier curve math, preventing jagged polygonal artifacts and reproducing the authentic fluidity of a fountain pen or stylus.</li>
+            <li><strong>Strict Cross-Coordinate Transformation:</strong> Screen rendering uses CSS pixel space with top-left origin coordinates (0,0 at top-left). In contrast, the ISO PDF specification uses typographical points (1/72 inch) with Cartesian origins positioned at the <strong>bottom-left</strong> of the page. ToolNexus calculates dynamic affine transformation matrices matching current viewport zoom factors, ensuring pixel-perfect stamp placement upon download.</li>
+            <li><strong>Lossless Alpha Channel Fusion:</strong> Signatures are converted to 32-bit RGBA PNG streams and permanently embedded as PDF <code>XObject</code> elements, maintaining transparent backgrounds that never occlude underlying legal stipulations.</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Comparison: Signing Workflows Compared</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Criteria</th>
+                  <th style="padding: 0.75rem 0.5rem;">Print & Re-Scan</th>
+                  <th style="padding: 0.75rem 0.5rem;">Cloud E-Sign Platforms</th>
+                  <th style="padding: 0.75rem 0.5rem;">ToolNexus Client-Side</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">Turnaround Time</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">15–30 minutes (requires printer)</td>
+                  <td style="padding: 0.65rem 0.5rem;">3–5 minutes (account registration required)</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">Under 30 seconds (instant load)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">Privacy & Leak Risk</td>
+                  <td style="padding: 0.65rem 0.5rem;">Physical paper can be misplaced</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">Uploaded to cloud storage databases</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">Zero Uploads · 100% RAM-Only</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">Vector Text Quality</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">Degrades to low-res raster bitmap</td>
+                  <td style="padding: 0.65rem 0.5rem;">Preserved (platform dependent)</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% Crisp Vector Preservation</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">Cost & Limitations</td>
+                  <td style="padding: 0.65rem 0.5rem;">Consumables (paper, toner, scanner)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Expensive monthly or per-envelope fees</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% Free · Unlimited Use</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Is my signature or document sent to any server?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. ToolNexus operates entirely in your browser memory. Your contract and handwritten signature never leave your device.</p>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are electronic signatures created online legally enforceable?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Under the US Federal ESIGN Act, the Uniform Electronic Transactions Act (UETA), and EU eIDAS regulations, an electronic symbol adopted with the intent to sign constitutes a legally valid signature for commercial, employment, rental, and service contracts.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can another party easily remove or drag away my signature after downloading?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. The signature is burned directly into the PDF page object stream as a binary image resource rather than remaining as an interactive form field or movable webpage overlay. It cannot be dragged or unhooked in standard PDF reader viewers.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can I sign multiple pages in the same PDF document?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Use the Previous / Next page controls in the viewer toolbar. You can place a signature on page 1, advance to page 5 to sign an acknowledgement clause, and both stamps will be composited into their respective pages upon clicking Download.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this tool work with touch screens and Apple Pencil on iPad?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. The canvas listening hooks detect HTML5 Touch Events and Pointer Events natively, supporting finger drawing on mobile phones as well as precise stylus input on tablets.</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -441,13 +587,14 @@
             <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

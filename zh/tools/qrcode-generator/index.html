@@ -1,35 +1,118 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | 纯本地无限制</title>
-  <meta name="description" content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色、容错率与中心 Logo 图标，高清 PNG/SVG 导出。">
+  <title>二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | ToolNexus</title>
+  <meta name="description"
+    content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色与容错率，一键快速导出高清 PNG。100% 本地运算。">
   <meta name="keywords" content="二维码生成器,在线二维码,WiFi二维码,名片二维码,二维码美化">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/qrcode-generator/">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/qrcode-generator/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/qrcode-generator/">
-  <meta property="og:title" content="二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | 纯本地无限制">
-  <meta property="og:description" content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色、容错率与中心 Logo 图标，高清 PNG/SVG 导出。">
+  <meta property="og:title" content="二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | ToolNexus">
+  <meta property="og:description"
+    content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色与容错率，一键快速导出高清 PNG。100% 本地运算。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | 纯本地无限制">
-  <meta name="twitter:description" content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色、容错率与中心 Logo 图标，高清 PNG/SVG 导出。">
+  <meta name="twitter:title" content="二维码在线生成与美化 - 网址/文本/WiFi/名片二维码制作 | ToolNexus">
+  <meta name="twitter:description"
+    content="纯前端在线二维码生成与美化工具。支持普通文本、网页链接、WiFi 自动连接、vCard 电子名片二维码。可自定义配色与容错率，一键快速导出高清 PNG。100% 本地运算。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "二维码在线生成与美化器",
+        "url": "https://toolnexusweb.com/zh/tools/qrcode-generator/",
+        "applicationCategory": "DeveloperApplication, GraphicsApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "需要现代支持 JavaScript 的浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地生成网址、文本、WiFi密码、名片二维码，支持里德-所罗门纠错级别与自定义配色下载。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者利器",
+            "item": "https://toolnexusweb.com/zh/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "二维码生成器",
+            "item": "https://toolnexusweb.com/zh/tools/qrcode-generator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "制作的二维码永久有效吗？会不会哪天失效打不开？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "只要您的目标网址本身正常运营，在此生成的二维码永久有效！许多市面收费平台生成的是经由其中间服务器短链跳转的“活码”，一旦停止付费二维码立即失效；而 ToolNexus 生成的是标准纯静态码，完全不依赖任何第三方服务器。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "WiFi\r\n              扫码连接二维码在苹果 iOS 和安卓手机上都能用吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "是的。我们生成的是遵循国际标准的 WIFI:S:...;T:WPA;P:...;; 格式。无论是 iPhone 的系统原生相机，还是华为、小米、OPPO、vivo 的系统扫一扫，均可直接识别并弹出“加入该无线局域网”的一键快捷连接提示。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "在线生成二维码时，输入的私人网址或 WiFi 密码会被后台留存吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "零数据留存。ToolNexus 100% 在本地浏览器使用 JavaScript 动态绘制 Canvas，没有网络请求，断网状态下照样能正常生成和保存高清图片。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .qr-workspace {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       gap: 2rem;
     }
+
     @media (max-width: 860px) {
-      .qr-workspace { grid-template-columns: 1fr; }
+      .qr-workspace {
+        grid-template-columns: 1fr;
+      }
     }
+
     .qr-preview-card {
       background: var(--bg-surface-alt);
       border: 1px solid var(--border-base);
@@ -41,6 +124,7 @@
       justify-content: center;
       text-align: center;
     }
+
     .qr-box {
       padding: 1.25rem;
       background: #ffffff;
@@ -49,6 +133,7 @@
       display: inline-block;
       margin-bottom: 1.5rem;
     }
+
     .qr-type-tabs {
       display: flex;
       gap: 0.5rem;
@@ -56,6 +141,7 @@
       border-bottom: 1px solid var(--border-subtle);
       padding-bottom: 0.5rem;
     }
+
     .qr-type-btn {
       padding: 0.45rem 0.85rem;
       border-radius: var(--radius-sm);
@@ -66,6 +152,7 @@
       color: var(--text-muted);
       cursor: pointer;
     }
+
     .qr-type-btn.active {
       background: var(--primary-light);
       color: var(--primary);
@@ -76,27 +163,32 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/qrcode-generator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/qrcode-generator/">
 
-  <script src="/assets/js/utils.js"></script></head>
+  <script src="/assets/js/utils.js"></script>
+</head>
+
 <body>
-  
-    <header class="site-header">
+
+  <header class="site-header">
     <div class="header-inner" style="justify-content: flex-end;">
       <div class="header-actions">
-        <a href="/tools/qrcode-generator/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
-        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+        <a href="/tools/qrcode-generator/" id="lang-switcher" class="btn-sm btn-ghost"
+          style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);"
+          title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()"
+          aria-label="Toggle Theme" title="切换明暗主题">
           <span class="theme-toggle-icon">🌙</span>
         </button>
       </div>
     </div>
   </header>
-  
+
 
   <main class="page-container">
     <div class="tool-header">
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者利器</span>
+        <a href="/zh/#developer">开发者与安全</a>
         <span class="breadcrumb-separator">/</span>
         <span>二维码生成与美化</span>
       </nav>
@@ -121,7 +213,8 @@
           <div id="panel-text">
             <div class="form-group">
               <label class="form-label">输入内容 / 网址 URL：</label>
-              <textarea class="form-textarea" id="qr-input-text" placeholder="输入任意网址 (https://...) 或长文本内容..." style="height: 110px;">https://toolnexus.local</textarea>
+              <textarea class="form-textarea" id="qr-input-text" placeholder="输入任意网址 (https://...) 或长文本内容..."
+                style="height: 110px;">https://toolnexusweb.com</textarea>
             </div>
           </div>
 
@@ -165,11 +258,13 @@
           <div class="grid-2" style="margin-top: 1rem;">
             <div class="form-group">
               <label class="form-label">二维码前景色：</label>
-              <input type="color" id="qr-fg" value="#000000" style="width: 100%; height: 38px; border: 1px solid var(--border-base); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg-input);">
+              <input type="color" id="qr-fg" value="#000000"
+                style="width: 100%; height: 38px; border: 1px solid var(--border-base); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg-input);">
             </div>
             <div class="form-group">
               <label class="form-label">二维码背景色：</label>
-              <input type="color" id="qr-bg" value="#ffffff" style="width: 100%; height: 38px; border: 1px solid var(--border-base); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg-input);">
+              <input type="color" id="qr-bg" value="#ffffff"
+                style="width: 100%; height: 38px; border: 1px solid var(--border-base); border-radius: var(--radius-sm); cursor: pointer; background: var(--bg-input);">
             </div>
           </div>
 
@@ -203,11 +298,108 @@
           <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">用手机微信/相机对准即可快速扫描识别</div>
         </div>
       </div>
+
+      <!-- 深度技术科普与印刷排版规范 -->
+      <article class="article-section"
+        style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">深入理解二维码 (QR Code)
+          编码机制与视觉排版印刷标准</h2>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+          二维码（Quick Response Code，快速响应矩阵码）由日本电装公司（Denso Wave）工程师原昌宏于 1994 年发明。相较于传统一维条形码（如商品上的 EAN-13
+          码）仅能在单一水平维度记录几十个字符，二维码在水平和垂直两个空间维度同时记录二进制数据，容量高达数千个字符，并支持从 360 度任意旋转倾角秒级被摄像头识读。
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          每个标准二维码的三个角都分布有显著的<strong>回字形“寻像图形 (Finder Pattern)”</strong>，用于辅助光学传感器在千分之一秒内校正透视形变与旋转角度。ToolNexus 采用现代 HTML5
+          Canvas 原生矢量渲染管线，所有图形计算均在您本地设备的内存沙盒中完成，<strong>不向任何统计服务器上传您的 WiFi 密码、私有网址或电子名片内容</strong>。
+        </p>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">
+          里德-所罗门纠错算法等级详解</h3>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+          二维码最强大的技术特性之一在于内置了<strong>里德-所罗门（Reed-Solomon）纠错冗余编码</strong>。即使二维码表面出现划痕、污迹或因设计需要在中心贴入品牌
+          Logo，扫码软件依然能通过数学冗余多项式还原完整信息：
+        </p>
+        <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                <th style="padding: 0.75rem 0.5rem;">纠错级别</th>
+                <th style="padding: 0.75rem 0.5rem;">破损容忍与恢复率</th>
+                <th style="padding: 0.75rem 0.5rem;">网格密度</th>
+                <th style="padding: 0.75rem 0.5rem;">典型应用推荐环境</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-muted); line-height: 1.6;">
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">级别 L (Low)</td>
+                <td style="padding: 0.65rem 0.5rem;">约 7% 数据损坏仍可识别</td>
+                <td style="padding: 0.65rem 0.5rem;">点阵最稀疏、点块最大</td>
+                <td style="padding: 0.65rem 0.5rem;">电脑屏幕展示、投影仪 PPT、无遮挡室内纯文字展示</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--primary);">级别 M (Medium)</td>
+                <td style="padding: 0.65rem 0.5rem;">约 15% 数据损坏仍可识别</td>
+                <td style="padding: 0.65rem 0.5rem;">标准平衡点阵</td>
+                <td style="padding: 0.65rem 0.5rem;">常规商业宣传册、易拉宝、传单、桌面台卡（默认推荐）</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f59e0b;">级别 Q (Quartile)</td>
+                <td style="padding: 0.65rem 0.5rem;">约 25% 数据损坏仍可识别</td>
+                <td style="padding: 0.65rem 0.5rem;">较密集点阵</td>
+                <td style="padding: 0.65rem 0.5rem;">易沾水、受油污或频繁搬运摩擦的工业仓储外箱包装</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f43f5e;">级别 H (High)</td>
+                <td style="padding: 0.65rem 0.5rem;">最高可抗 30% 遮挡破坏</td>
+                <td style="padding: 0.65rem 0.5rem;">点阵最密</td>
+                <td style="padding: 0.65rem 0.5rem;"><strong>中心嵌入企业 Logo / 头像图标的艺术定制二维码（必备）</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">
+          实体印刷与扫码体验实战准则</h3>
+        <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>四周必须预留静区（Quiet Zone）：</strong> 二维码四周必须保留至少 4 个模块单位宽度的白色或纯亮色空白边缘。若印刷时贴边裁切，低端手机镜头将无法判定边框基准。</li>
+          <li><strong>坚持“前深后浅”高对比度：</strong> 避免使用浅灰、浅黄作为前景色，也应避免黑底白码（反色码）。很多扫码仪的固件图像灰度化预处理针对白底黑码做了深度硬加速，反色码常出现迟钝或扫码失败。
+          </li>
+          <li><strong>长网址建议缩短后再生成：</strong> 网址字符越长，二维码点阵版本（Version）越高，点块越细小。对于纸质名片等小面积物料，点阵过细容易因油墨洇纸粘连导致无法识别。</li>
+        </ul>
+
+        <!-- 常见问答 FAQ -->
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+        <div style="display: grid; gap: 1rem;">
+          <div
+            style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q:
+              制作的二维码永久有效吗？会不会哪天失效打不开？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+              只要您的目标网址本身正常运营，在此生成的二维码永久有效！许多市面收费平台生成的是经由其中间服务器短链跳转的“活码”，一旦停止付费二维码立即失效；而 ToolNexus
+              生成的是标准纯静态码，完全不依赖任何第三方服务器。</p>
+          </div>
+          <div
+            style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: WiFi
+              扫码连接二维码在苹果 iOS 和安卓手机上都能用吗？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">是的。我们生成的是遵循国际标准的
+              <code>WIFI:S:...;T:WPA;P:...;;</code> 格式。无论是 iPhone 的系统原生相机，还是华为、小米、OPPO、vivo
+              的系统扫一扫，均可直接识别并弹出“加入该无线局域网”的一键快捷连接提示。</p>
+          </div>
+          <div
+            style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q:
+              在线生成二维码时，输入的私人网址或 WiFi 密码会被后台留存吗？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">零数据留存。ToolNexus 100%
+              在本地浏览器使用 JavaScript 动态绘制 Canvas，没有网络请求，断网状态下照样能正常生成和保存高清图片。</p>
+          </div>
+        </div>
+      </article>
     </div>
   </main>
 
-  
-  
+
+
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-top">
@@ -226,14 +418,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -258,8 +450,8 @@
       </div>
     </div>
   </footer>
-  
-  
+
+
 
   <script src="../../../assets/vendor/qrcode.min.js"></script>
   <script src="../../../assets/js/theme.js"></script>
@@ -374,4 +566,5 @@
     initSearchModal('../../');
   </script>
 </body>
+
 </html>

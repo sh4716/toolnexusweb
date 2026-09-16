@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>开发者时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | 实时时钟</title>
+  <title>时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | ToolNexus</title>
   <meta name="description" content="纯前端在线 Unix 时间戳转换工具。支持当前时间戳动态秒级流逝、时间戳与北京时间、UTC 时间、ISO-8601 互相转换。">
   <meta name="keywords" content="时间戳转换,Unix时间戳,时间戳转日期,毫秒时间戳,在线时间戳">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/timestamp/">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/timestamp/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/timestamp/">
-  <meta property="og:title" content="开发者时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | 实时时钟">
+  <meta property="og:title" content="时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | ToolNexus">
   <meta property="og:description" content="纯前端在线 Unix 时间戳转换工具。支持当前时间戳动态秒级流逝、时间戳与北京时间、UTC 时间、ISO-8601 互相转换。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="开发者时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | 实时时钟">
+  <meta name="twitter:title" content="时间戳转换器 - Unix时间戳秒/毫秒与日期互转 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 Unix 时间戳转换工具。支持当前时间戳动态秒级流逝、时间戳与北京时间、UTC 时间、ISO-8601 互相转换。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
@@ -25,6 +25,72 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/timestamp/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/timestamp/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Unix 时间戳转换器与在线时钟",
+        "url": "https://toolnexusweb.com/zh/tools/timestamp/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地高精度 Unix 时间戳转换器。支持 10 位（秒）与 13 位（毫秒）时间戳双向转换、动态北京时间与 UTC 时区联动。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者工具",
+            "item": "https://toolnexusweb.com/zh/#dev"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "时间戳转换",
+            "item": "https://toolnexusweb.com/zh/tools/timestamp/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么时间戳有时候是负数？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "只要时间早于 1970 年 1 月 1 日 00:00:00 UTC，时间戳就会表现为负数。例如阿波罗登月（1969 年 7 月 20 日）或二战结束日期对应的时间戳均为负数，现代数据库与编程语言均支持解析负时间戳。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本工具转换出的北京时间与服务器有毫秒级误差是怎么回事？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ToolNexus 是完全运行在浏览器客户端的纯前端应用，获取当前时间依据的是您本机的操作系统硬件时钟。如果您的电脑长时间未进行 NTP 网络对时，可能存在微小系统时钟漂移。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
   
@@ -45,12 +111,12 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者利器</span>
+        <a href="/zh/#developer">开发者与安全</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者时间戳转换</span>
+        <span>时间戳转换</span>
       </nav>
       <div class="tool-title-row">
-        <h1 class="tool-title">⏰ 开发者时间戳转换</h1>
+        <h1 class="tool-title">⏰ 时间戳转换</h1>
         <span class="badge-tag badge-privacy">纯本地系统时钟</span>
         <span class="badge-tag badge-dev">程序员每日必查</span>
       </div>
@@ -68,7 +134,10 @@
           <div style="font-size: 0.85rem; color: var(--text-muted);">当前毫秒时间戳 (ms)</div>
           <div style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: var(--accent-cyan);" id="cur-ts-ms">1700000000000</div>
         </div>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('cur-ts-sec').textContent)">复制当前时间戳(秒)</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('cur-ts-sec').textContent)">复制秒 (10位)</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('cur-ts-ms').textContent)">复制毫秒 (13位)</button>
+        </div>
       </div>
     </div>
 
@@ -120,6 +189,42 @@
         </div>
       </div>
     </div>
+
+    <!-- 深度技术原理与开发排错指南 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Unix 时间戳底层原理与跨时区开发指南</h2>
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Unix 时间戳（也称 POSIX 时间戳或 Epoch Time）是计算机工业界记录时间流逝最核心、最稳固的基石。它定义为自协调世界时（UTC）1970 年 1 月 1 日 00:00:00 起所流逝的整数秒数（或毫秒数），不随地球任何地理时区、夏令时（DST）或政治边境调整而改变。掌握其转换规律是每一位后端工程师、前端开发者及数据分析师的基础功。
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">🔢 10 位（秒）与 13 位（毫秒）避坑</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">在日常调试中，最致命的低级 Bug 莫过于单位混淆。C/C++、Go (time.Now().Unix())、Python (time.time())、MySQL (UNIX_TIMESTAMP()) 默认输出 10 位秒；而 JavaScript (Date.now()) 与 Java 则输出 13 位毫秒。若将 13 位传入仅支持秒的接口，日期会错乱至 50,000 年后。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">🌍 时区偏移 (Timezone Offset)</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">时间戳本身是纯粹且无时区属性的绝对物理量。但当它被格式化为“年-月-日 时:分:秒”可读字符串时，必须附加所在时区上下文。中国标准时间位于东八区（UTC+8），比格林威治标准时间整整快 8 小时。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">⚠️ 2038 年问题 (Y2K38)</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">32 位带符号整型能容纳的最大正整数为 2,147,483,647，其对应的临界点为北京时间 2038 年 1 月 19 日 11:14:07。届时旧设备将溢出成负数倒退回 1901 年。现代 64 位体系彻底解决了该隐患。</p>
+        </div>
+      </div>
+
+      <!-- FAQ 常见问题解答 -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么时间戳有时候是负数？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">只要时间早于 1970 年 1 月 1 日 00:00:00 UTC，时间戳就会表现为负数。例如阿波罗登月（1969 年 7 月 20 日）或二战结束日期对应的时间戳均为负数，现代数据库与编程语言均支持解析负时间戳。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本工具转换出的北京时间与服务器有毫秒级误差是怎么回事？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">ToolNexus 是完全运行在浏览器客户端的纯前端应用，获取当前时间依据的是您本机的操作系统硬件时钟。如果您的电脑长时间未进行 NTP 网络对时，可能存在微小系统时钟漂移。</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   
@@ -142,14 +247,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

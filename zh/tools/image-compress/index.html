@@ -5,22 +5,103 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>极速图片压缩 - 在线图片压缩瘦身工具 | 纯本地不限大小</title>
+  <title>极速图片压缩 - 在线图片压缩瘦身工具 | ToolNexus</title>
   <meta name="description" content="纯前端在线极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能画质调节、尺寸等比缩放与无损减容。本地高速运算，绝不上传任何隐私图片。">
   <meta name="keywords" content="图片压缩,在线图片压缩,图片瘦身,JPG压缩,PNG压缩,无损压缩">
     <link rel="canonical" href="https://toolnexusweb.com/zh/tools/image-compress/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/image-compress/">
-  <meta property="og:title" content="极速图片压缩 - 在线图片压缩瘦身工具 | 纯本地不限大小">
+  <meta property="og:title" content="极速图片压缩 - 在线图片压缩瘦身工具 | ToolNexus">
   <meta property="og:description" content="纯前端在线极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能画质调节、尺寸等比缩放与无损减容。本地高速运算，绝不上传任何隐私图片。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="极速图片压缩 - 在线图片压缩瘦身工具 | 纯本地不限大小">
+  <meta name="twitter:title" content="极速图片压缩 - 在线图片压缩瘦身工具 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能画质调节、尺寸等比缩放与无损减容。本地高速运算，绝不上传任何隐私图片。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "极速图片压缩",
+        "url": "https://toolnexusweb.com/zh/tools/image-compress/",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Supports HTML5 Canvas.",
+        "description": "纯本地极速图片压缩工具。支持对 JPG、PNG、WebP 进行智能质量调节、尺寸缩放与 EXIF 隐私瘦身，100% 浏览器本地运算零上传。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "图像与媒体",
+            "item": "https://toolnexusweb.com/zh/#image"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "极速图片压缩",
+            "item": "https://toolnexusweb.com/zh/tools/image-compress/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么将 4000 像素的手机原图等比缩小到 1920 宽比单纯降质量更有效？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "像素总数是按面积平方级别增长的。一张 4000×3000 的照片包含 1200 万像素，而 1920×1440 仅有约 276 万像素，数据基数直接削减了 77%。结合 80% 的质量参数，文件体积可以从 10MB 骤降至 300KB 以内，而普通电脑或手机屏幕观看完全没有清晰度区别。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "很多招聘或考试网站限制“照片必须小于 100KB 或 200KB”，如何设置？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "建议先在“最大宽度/高度”中将尺寸限制为证件照常见的 600~800 像素，然后将“压缩质量”滑块调整为 70%~75%，点击压缩后即可稳定控制在几十 KB 以内并轻松通过报名审核系统。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "压缩过程会自动抹除照片自带的拍摄地理位置 (GPS) 吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "是的。HTML5 Canvas 重绘渲染机制会在重编码像素点时自动丢弃所有冗余的 EXIF、IPTC 元数据（包括手机型号、快门光圈、拍摄者地理经纬度等）。不仅大幅缩减了文件体积，更为个人隐私提供了天然保护墙。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本工具压缩图片有张数或文件大小上限吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "没有任何限制。因为 ToolNexus 不会将文件传输至云服务器，所有计算均在您的设备处理器与内存中执行。即便是几十兆的单反 RAW 转出的高清大图，也能毫秒级顺畅压缩。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .compress-stat-card {
       display: flex;
@@ -106,7 +187,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>图像与媒体</span>
+        <a href="/zh/#image">图片与图形</a>
         <span class="breadcrumb-separator">/</span>
         <span>极速图片压缩</span>
       </nav>
@@ -163,6 +244,8 @@
           </div>
         </div>
 
+        <div id="comp-notice-zh" style="display: none; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: var(--text-main); font-size: 0.85rem; padding: 0.65rem 1rem; border-radius: var(--radius-sm); margin: 1.25rem 0;"></div>
+
         <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
           <button type="button" class="btn btn-primary btn-lg" id="btn-download">💾 下载压缩后的图片</button>
         </div>
@@ -181,20 +264,75 @@
       </div>
     </div>
 
-    <!-- FAQ -->
-    <section class="faq-section">
-      <h2 class="faq-title">图片压缩常见问答</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">为什么本站图片压缩没有 5MB 或 10MB 的上限？ <span>▼</span></div>
-          <div class="faq-answer">商业工具站（如 TinyPNG）之所以限制 5MB，是因为它们需要将您的图片上传到云端服务器消耗其带宽和 CPU。而本站的压缩算法 100% 运行在您本机的浏览器内存中，消耗的是您的本机性能，因此完全不存在文件大小或张数限制。</div>
+    <!-- 深度图像压缩理论与优化指南 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">图像压缩工程学：从离散余弦变换 (DCT) 到现代 WebP 智能减容</h2>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+        在现代网页性能优化（Core Web Vitals）中，未压缩的高分辨率图片往往占据总加载体积的 70% 以上，是导致网站最大内容绘制（LCP）超时、移动端流量消耗过大的头号元凶。然而，许多人在压缩图片时经常陷入“体积缩了但满屏噪点锯齿”或“反复压缩导致文字边缘模糊”的误区。ToolNexus 提供了<strong>全客户端多线程图像压缩与尺寸智能采样引擎</strong>，兼顾极小文件体积与肉眼视网膜级清晰度。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">有损与无损压缩底层编码算法机制</h3>
+      <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li><strong>JPEG / JPG（DCT 离散余弦变换与色度抽样）：</strong> 人眼视网膜对亮度（Y 分量）的变化极其敏锐，但对色度（Cb/Cr 色差分量）的分辨力相对迟钝。JPEG 标准利用这一生理特性，先将 RGB 转为 YCbCr 色彩空间并执行 4:2:0 色度抽样，再通过 8×8 像素块执行离散余弦变换，剔除不可见的高频系数。配合霍夫曼熵编码，可在画质毫无明显劣化的前提下削减 70%~90% 的原始数据量。</li>
+        <li><strong>WebP（现代综合帧内预测）：</strong> Google 研发的下一代 Web 图像标准，引入了 VP8 视频编码中的块预测机制（根据相邻宏块边缘走向预测当前像素），同等画质下比 JPEG 体积再缩小 25%~34%，且全面支持 8 位 Alpha 透明通道。</li>
+        <li><strong>PNG（Deflate 空间滤波无损压缩）：</strong> 基于 LZ77 算法与哈夫曼编码，适合纯色色块、扁平矢量图标与透明图层。但由于其坚守 100% 像素级无损，对包含数百万渐变杂色的真实风光/人像摄影照片极为臃肿，更适合作为 UI 资产而非大图展现。</li>
+      </ul>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">三大主流网络图像格式特性对照表</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">图像格式</th>
+              <th style="padding: 0.75rem 0.5rem;">压缩原理</th>
+              <th style="padding: 0.75rem 0.5rem;">透明通道 (Alpha)</th>
+              <th style="padding: 0.75rem 0.5rem;">最佳适用业务场景</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">WebP (推荐)</td>
+              <td style="padding: 0.65rem 0.5rem;">VP8 宏块预测 + 霍夫曼</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">完全支持 (无损透明)</td>
+              <td style="padding: 0.65rem 0.5rem;">现代电商全站大图、Banner、移动端 App 资源</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">JPEG / JPG</td>
+              <td style="padding: 0.65rem 0.5rem;">4:2:0 色度抽样 + DCT 量化</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444;">不支持 (黑/白底)</td>
+              <td style="padding: 0.65rem 0.5rem;">数码单反摄影作品、微信公众号插图、邮件正文图片</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">PNG</td>
+              <td style="padding: 0.65rem 0.5rem;">差分滤波 + LZ77 Deflate</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">完全支持 (32-bit RGBA)</td>
+              <td style="padding: 0.65rem 0.5rem;">网站 Logo、透明印章、UI 图标、含精密小字的截屏</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 常见问答 FAQ -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么将 4000 像素的手机原图等比缩小到 1920 宽比单纯降质量更有效？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">像素总数是按面积平方级别增长的。一张 4000×3000 的照片包含 1200 万像素，而 1920×1440 仅有约 276 万像素，数据基数直接削减了 77%。结合 80% 的质量参数，文件体积可以从 10MB 骤降至 300KB 以内，而普通电脑或手机屏幕观看完全没有清晰度区别。</p>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">压缩后的图片画质会模糊吗？ <span>▼</span></div>
-          <div class="faq-answer">在默认推荐的 80% 质量下，由于去除了冗余的元数据（EXIF 信息、色彩空间标记等）并对人眼不敏感的高频色度进行了微调，肉眼几乎无法察觉任何差异，但文件体积通常可缩减 50%~75% 以上。</div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 很多招聘或考试网站限制“照片必须小于 100KB 或 200KB”，如何设置？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">建议先在“最大宽度/高度”中将尺寸限制为证件照常见的 600~800 像素，然后将“压缩质量”滑块调整为 70%~75%，点击压缩后即可稳定控制在几十 KB 以内并轻松通过报名审核系统。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 压缩过程会自动抹除照片自带的拍摄地理位置 (GPS) 吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">是的。HTML5 Canvas 重绘渲染机制会在重编码像素点时自动丢弃所有冗余的 EXIF、IPTC 元数据（包括手机型号、快门光圈、拍摄者地理经纬度等）。不仅大幅缩减了文件体积，更为个人隐私提供了天然保护墙。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本工具压缩图片有张数或文件大小上限吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">没有任何限制。因为 ToolNexus 不会将文件传输至云服务器，所有计算均在您的设备处理器与内存中执行。即便是几十兆的单反 RAW 转出的高清大图，也能毫秒级顺畅压缩。</p>
         </div>
       </div>
-    </section>
+    </article>
   </main>
 
   
@@ -217,14 +355,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -324,12 +462,37 @@
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         canvas.toBlob(blob => {
-          currentCompressedBlob = blob;
-          compSizeEl.textContent = Utils.formatBytes(blob.size);
-          const savedBytes = currentFile.size - blob.size;
+          if (!blob) return;
+          const isLarger = blob.size >= currentFile.size;
+          // 防膨胀兜底：若压缩后反弹且未做缩放，保留原图
+          const finalBlob = (isLarger && scale === 1) ? currentFile : blob;
+          currentCompressedBlob = finalBlob;
+
+          compSizeEl.textContent = Utils.formatBytes(finalBlob.size);
+          const savedBytes = currentFile.size - finalBlob.size;
           const pct = Math.round((savedBytes / currentFile.size) * 100);
-          savedPctEl.textContent = (pct >= 0 ? '-' + pct : '+' + Math.abs(pct)) + '%';
-          compImgEl.src = URL.createObjectURL(blob);
+
+          const noticeEl = document.getElementById('comp-notice-zh');
+          if (isLarger && scale === 1) {
+            savedPctEl.textContent = '0% (已是最优)';
+            savedPctEl.style.color = 'var(--text-muted)';
+            if (noticeEl) {
+              noticeEl.textContent = '💡 该图片本身已高度优化，为避免体积反增，已自动为您保留最优原图。';
+              noticeEl.style.display = 'block';
+            }
+          } else if (isLarger) {
+            savedPctEl.textContent = '+' + Math.abs(pct) + '%';
+            savedPctEl.style.color = '#ef4444';
+            if (noticeEl) {
+              noticeEl.textContent = '提示：当前分辨率与格式重编码导致体积增加，建议适当降低质量或缩放比例。';
+              noticeEl.style.display = 'block';
+            }
+          } else {
+            savedPctEl.textContent = '-' + pct + '%';
+            savedPctEl.style.color = 'var(--accent-emerald)';
+            if (noticeEl) noticeEl.style.display = 'none';
+          }
+          compImgEl.src = URL.createObjectURL(finalBlob);
         }, mime, q);
       };
       img.src = URL.createObjectURL(currentFile);

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cron 表达式解析器 & 定时任务时间预测 - 纯本地可视化 | ToolNexus</title>
+  <meta name="description" content="免费在线 Cron 表达式解析与定时任务预测工具。将复杂的 Linux crontab 语法翻译为通俗易懂的自然中文，并精准推算预测未来 5 次任务触发执行时间。">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/cron-parser/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus 实用工具箱">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/cron-parser/">
+  <meta property="og:title" content="Cron 表达式解析器 & 定时任务时间预测 | ToolNexus 实用工具箱">
+  <meta property="og:description" content="精准解析 Linux crontab 定时语法，中文直观翻译，推算未来触发时间。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cron 表达式解析器 | ToolNexus 实用工具箱">
+  <meta name="twitter:description" content="把晦涩的 Cron 表达式转为通俗易懂的中文，防止定时任务配置错误。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/cron-parser/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/cron-parser/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/cron-parser/">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Cron 表达式解析器与定时任务预测",
+        "url": "https://toolnexusweb.com/zh/tools/cron-parser/",
+        "applicationCategory": "DeveloperApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯前端快速解析标准 5 段式 Linux/Unix Crontab 定时任务表达式，生成中文语义解释并预测下次执行时间点。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者与运维工具",
+            "item": "https://toolnexusweb.com/zh/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Cron 表达式解析器",
+            "item": "https://toolnexusweb.com/zh/tools/cron-parser/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "星期字段中 0 和 7 分别代表什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "在标准 Linux/BSD crontab 体系中，0 和 7 均被定义为星期日（0=周日，1=周一，...，6=周六，7=周日）。本工具自动对两者均做完全兼容解析。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "此工具运算会记录我的定时表达式吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不记录。所有表达式解析和时间推演 100% 在您的浏览器前端即时计算完成，绝无任何网络留存，即使涉及内部服务器核心自动化配置亦可放心排查。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "当“日”和“星期”同时指定非星号时会如何匹配？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "在标准 Unix cron 规范中，若“每月几号”和“星期几”同时被具体约束，调度逻辑为“或（OR）”关系，即只要满足日期或满足星期其中之一即会触发运行。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/cron-parser/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换明暗主题" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#developer">开发者与安全</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Cron 表达式解析器与定时推算</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">开发与运维 (DevOps)</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">⏰ Cron 表达式解析器与定时推算</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          直观解码 Linux / Unix Crontab 与各类分布式调度任务表达式。将抽象复杂的定时符号即时翻译为通俗易懂的中文语言，并精准推算未来 5 次实际运行触发时刻。
+        </p>
+
+        <!-- Cron 输入区域 -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <label style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; display: block;">输入 Crontab 表达式 (标准 5 段式)：</label>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <input type="text" id="cron-input" class="input-text" value="*/15 9-18 * * 1-5" style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em; flex: 1; min-width: 260px;" oninput="parseCron()">
+            <button type="button" class="btn btn-primary" onclick="copyCron()">复制表达式 📋</button>
+          </div>
+
+          <!-- 5 段拆解卡片 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; text-align: center;" id="segments-grid">
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">分钟 (Minute)</div>
+              <div id="seg-min" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">*/15</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">0-59</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">小时 (Hour)</div>
+              <div id="seg-hour" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">9-18</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">0-23</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">日期 (Day)</div>
+              <div id="seg-day" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">*</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">1-31</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">月份 (Month)</div>
+              <div id="seg-mon" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">*</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">1-12</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.65rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">星期 (Week)</div>
+              <div id="seg-week" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--primary);">1-5</div>
+              <div style="font-size: 0.75rem; color: var(--text-subtle);">0-6 (0=周日)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 中文自然语言翻译 -->
+        <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">中文语义翻译：</div>
+          <div id="cron-desc" style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); line-height: 1.4;">
+            在周一至周五期间，每天 09:00 至 18:59 之间，每隔 15 分钟触发一次
+          </div>
+        </div>
+
+        <!-- 预设模板与未来时间预估栅格 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <!-- 常用预设 -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--text-main);">常见高频场景预设模版</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('* * * * *')">
+                <span>每分钟执行一次</span>
+                <code style="color: var(--primary);">* * * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 * * * *')">
+                <span>每小时整点执行一次</span>
+                <code style="color: var(--primary);">0 * * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 0 * * *')">
+                <span>每天午夜 00:00 执行</span>
+                <code style="color: var(--primary);">0 0 * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 2 * * *')">
+                <span>每日凌晨 02:00 (常用备份)</span>
+                <code style="color: var(--primary);">0 2 * * *</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 9 * * 1-5')">
+                <span>工作日每天上午 9:00</span>
+                <code style="color: var(--primary);">0 9 * * 1-5</code>
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" style="text-align: left; justify-content: space-between; border: 1px solid var(--border-color);" onclick="setPreset('0 0 1 * *')">
+                <span>每月 1 号零点 (月度结算)</span>
+                <code style="color: var(--primary);">0 0 1 * *</code>
+              </button>
+            </div>
+          </div>
+
+          <!-- 未来 5 次运行预测 -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--accent-emerald);">未来 5 次计划运行时间 (本机时区)</h3>
+            <ul id="next-runs-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+              <!-- 动态生成 -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- 深度 SEO 原创说明与使用指南 -->
+        <article class="article-section" style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Crontab 定时调度语法深度解析</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Cron 守护进程是 Unix、Linux 操作系统以及现代云原生架构（如 Kubernetes CronJob、Spring Scheduled 定时调度、Celery 定时器）中最基石的时间调度标准。工程师使用 crontab 配置定期执行日志清理、数据库备份、账单结算等核心运维自动化任务。
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            然而，极其紧凑的 5 位语法极容易因字符误配引发严重生产事故（如把原本每小时一次的脚本错误配置为每分钟高频打满 CPU）。本解析器纯本地提供直观的逐位语法核对与时间轴推演，为后端与运维人员提供安全防呆保障。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">常见特殊符号含义指南</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>星号 (<code>*</code>)：</strong> 全局通配符，表示匹配该时间维度下的所有有效数值。</li>
+            <li><strong>逗号 (<code>,</code>)：</strong> 枚举多个具体的时间值（例如 <code>1,15,30</code>）。</li>
+            <li><strong>短横线 (<code>-</code>)：</strong> 闭区间连续范围（例如 <code>9-17</code> 代表工作时间 9点至17点）。</li>
+            <li><strong>斜杠 (<code>/</code>)：</strong> 步长间隔计数，例如在分钟位配置 <code>*/10</code> 表示从 0 开始每 10 分钟循环一次。</li>
+          </ul>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 星期字段中 0 和 7 分别代表什么？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">在标准 Linux/BSD crontab 体系中，0 和 7 均被定义为星期日（0=周日，1=周一，...，6=周六，7=周日）。本工具自动对两者均做完全兼容解析。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 此工具运算会记录我的定时表达式吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不记录。所有表达式解析和时间推演 100% 在您的浏览器前端即时计算完成，绝无任何网络留存，即使涉及内部服务器核心自动化配置亦可放心排查。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 当“日”和“星期”同时指定非星号时会如何匹配？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">在标准 Unix cron 规范中，若“每月几号”和“星期几”同时被具体约束，调度逻辑为“或（OR）”关系，即只要满足日期或满足星期其中之一即会触发运行。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            面向个人与开发者的下一代纯前端极速工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何服务器上传文件，保障绝对隐私。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具推荐</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/cron-parser/">Cron 表达式解析器</a></li>
+            <li><a href="/zh/tools/json-formatter/">JSON 格式化校验</a></li>
+            <li><a href="/zh/tools/csv-json/">CSV ↔ JSON 互转</a></li>
+            <li><a href="/zh/tools/regex-tester/">正则表达式测试</a></li>
+            <li><a href="/zh/tools/timestamp/">Unix 时间戳转换</a></li>
+          </ul>
+        </div>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与合规信任</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私保护政策</a></li>
+            <li><a href="/zh/terms/">服务使用条款</a></li>
+            <li><a href="/zh/about/">关于本站</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus 实用工具箱. 本地算力驱动 · 零服务器留存
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% 浏览器本地隐私安全验证
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    function setPreset(expr) {
+      document.getElementById('cron-input').value = expr;
+      parseCron();
+      showToast('已载入模版: ' + expr, 'info');
+    }
+
+    function copyCron() {
+      const val = document.getElementById('cron-input').value;
+      copyToClipboard(val);
+    }
+
+    function parseField(fieldStr, min, max) {
+      const allowed = new Set();
+      const parts = fieldStr.split(',');
+
+      for (let part of parts) {
+        part = part.trim();
+        if (!part) continue;
+
+        if (part === '*') {
+          for (let i = min; i <= max; i++) allowed.add(i);
+        } else if (part.startsWith('*/')) {
+          const step = parseInt(part.slice(2), 10);
+          if (step > 0) {
+            for (let i = min; i <= max; i += step) allowed.add(i);
+          }
+        } else if (part.includes('-')) {
+          const [startStr, endStr] = part.split('-');
+          const start = parseInt(startStr, 10);
+          const end = parseInt(endStr, 10);
+          if (!isNaN(start) && !isNaN(end)) {
+            for (let i = start; i <= end; i++) {
+              if (i >= min && i <= max) allowed.add(i);
+            }
+          }
+        } else {
+          const num = parseInt(part, 10);
+          if (!isNaN(num) && num >= min && num <= max) {
+            allowed.add(num);
+          }
+        }
+      }
+      return allowed;
+    }
+
+    function parseCron() {
+      const raw = document.getElementById('cron-input').value.trim();
+      const parts = raw.split(/\s+/).filter(Boolean);
+
+      const segMin = document.getElementById('seg-min');
+      const segHour = document.getElementById('seg-hour');
+      const segDay = document.getElementById('seg-day');
+      const segMon = document.getElementById('seg-mon');
+      const segWeek = document.getElementById('seg-week');
+      const descEl = document.getElementById('cron-desc');
+      const runsList = document.getElementById('next-runs-list');
+
+      if (parts.length !== 5) {
+        descEl.textContent = '⚠️ 请输入标准 5 段格式 (分 时 日 月 周)';
+        descEl.style.color = '#ef4444';
+        runsList.innerHTML = '<li style="color:var(--text-muted);">等待有效的 5 段表达式...</li>';
+        return;
+      }
+
+      descEl.style.color = 'var(--text-main)';
+      const [mStr, hStr, dStr, monStr, wStr] = parts;
+
+      segMin.textContent = mStr;
+      segHour.textContent = hStr;
+      segDay.textContent = dStr;
+      segMon.textContent = monStr;
+      segWeek.textContent = wStr;
+
+      let desc = [];
+      if (wStr === '1-5') desc.push('在周一至周五');
+      else if (wStr === '0' || wStr === '7') desc.push('在每周日');
+      else if (wStr !== '*') desc.push('在周 ' + wStr);
+
+      if (monStr !== '*') desc.push('每年 ' + monStr + ' 月');
+      if (dStr !== '*') desc.push('每月 ' + dStr + ' 号');
+
+      if (hStr === '*') desc.push('每小时的');
+      else if (hStr.startsWith('*/')) desc.push('每隔 ' + hStr.slice(2) + ' 小时的');
+      else if (hStr.includes('-')) desc.push('每天 ' + hStr + ' 点之间');
+      else desc.push('每天 ' + hStr + ' 点');
+
+      if (mStr === '*') desc.push('每分钟执行一次');
+      else if (mStr.startsWith('*/')) desc.push('每隔 ' + mStr.slice(2) + ' 分钟执行一次');
+      else desc.push('第 ' + mStr + ' 分钟执行一次');
+
+      descEl.textContent = desc.join('，');
+
+      try {
+        const minutes = parseField(mStr, 0, 59);
+        const hours = parseField(hStr, 0, 23);
+        const days = parseField(dStr, 1, 31);
+        const months = parseField(monStr, 1, 12);
+        const weekdays = parseField(wStr, 0, 7);
+        if (weekdays.has(7)) weekdays.add(0);
+
+        const nextRuns = [];
+        let cur = new Date();
+        cur.setSeconds(0);
+        cur.setMilliseconds(0);
+        cur.setMinutes(cur.getMinutes() + 1);
+
+        const maxLookahead = 60 * 24 * 366;
+        let steps = 0;
+
+        while (nextRuns.length < 5 && steps < maxLookahead) {
+          const m = cur.getMinutes();
+          const h = cur.getHours();
+          const d = cur.getDate();
+          const mon = cur.getMonth() + 1;
+          const w = cur.getDay();
+
+          if (months.has(mon) && hours.has(h) && minutes.has(m)) {
+            const dayMatch = (dStr === '*') || days.has(d);
+            const weekMatch = (wStr === '*') || weekdays.has(w);
+
+            let matches = false;
+            if (dStr !== '*' && wStr !== '*') {
+              matches = dayMatch || weekMatch;
+            } else {
+              matches = dayMatch && weekMatch;
+            }
+
+            if (matches) {
+              nextRuns.push(new Date(cur));
+            }
+          }
+          cur.setMinutes(cur.getMinutes() + 1);
+          steps++;
+        }
+
+        if (nextRuns.length > 0) {
+          runsList.innerHTML = nextRuns.map((d, i) => {
+            return `<li style="background:var(--bg-surface); padding:0.55rem 0.85rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:0.88rem;">
+              <span style="color:var(--text-muted);">第 ${i + 1} 次</span>
+              <strong style="color:var(--text-main);">${d.toLocaleString('zh-CN', { hour12: false })}</strong>
+            </li>`;
+          }).join('');
+        } else {
+          runsList.innerHTML = '<li style="color:var(--text-muted);">未来 12 个月内未推算到匹配时间。</li>';
+        }
+      } catch (e) {
+        runsList.innerHTML = '<li style="color:#ef4444;">推算出现异常: ' + e.message + '</li>';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      parseCron();
+    });
+  </script>
+</body>
+</html>

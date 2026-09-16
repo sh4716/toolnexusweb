@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WCAG Color Contrast Checker - Accessibility AA & AAA Validator | ToolNexus</title>
+  <meta name="description" content="Free in-browser WCAG Color Contrast Checker. Calculate luminance ratio between foreground text and background colors according to WCAG 2.1 AA and AAA standards.">
+  <link rel="canonical" href="https://toolnexusweb.com/tools/color-contrast/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus Web">
+  <meta property="og:url" content="https://toolnexusweb.com/tools/color-contrast/">
+  <meta property="og:title" content="WCAG Color Contrast Checker | ToolNexus Web">
+  <meta property="og:description" content="Validate color contrast ratios for digital accessibility (WCAG 2.1 AA & AAA compliance).">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="WCAG Color Contrast Checker | ToolNexus Web">
+  <meta name="twitter:description" content="Calculate accessibility contrast ratios and preview typography across background themes.">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/color-contrast/">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/color-contrast/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/color-contrast/">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "WCAG Color Contrast Checker",
+        "url": "https://toolnexusweb.com/tools/color-contrast/",
+        "applicationCategory": "DesignApplication, UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Calculate luminance contrast ratios between text and background colors in accordance with W3C Web Content Accessibility Guidelines (WCAG) 2.1 standards."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Design Tools",
+            "item": "https://toolnexusweb.com/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Color Contrast Checker",
+            "item": "https://toolnexusweb.com/tools/color-contrast/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What defines 'Large Text' in WCAG criteria?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Large text is defined as at least 18 point (24 CSS pixels) or 14 point bold (typically 18.66 CSS pixels with bold weight 700+)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is relative luminance calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Relative luminance represents the relative brightness of any point in a colorspace, normalized to 0 for black and 1 for white. The contrast ratio formula is (L1 + 0.05) / (L2 + 0.05), where L1 is the lighter color and L2 is the darker color."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/zh/tools/color-contrast/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#text">Text & Writing</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>WCAG Color Contrast Checker</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">Design & Accessibility (a11y)</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🎨 WCAG Color Contrast Checker</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Test color combinations against W3C Web Content Accessibility Guidelines (WCAG 2.1). Ensure readable typography for users with low vision or color blindness.
+        </p>
+
+        <!-- Color Pickers Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; background: var(--bg-surface-alt); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1.5rem;">
+          <!-- Text Color Picker -->
+          <div>
+            <label style="font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">Foreground Text Color:</label>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <input type="color" id="picker-fg" value="#FFFFFF" style="width: 48px; height: 44px; border: none; border-radius: var(--radius-sm); cursor: pointer; background: transparent;" oninput="syncFromPicker('fg')">
+              <input type="text" id="hex-fg" class="input-text" value="#FFFFFF" style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; text-transform: uppercase;" oninput="syncFromHex('fg')">
+            </div>
+          </div>
+
+          <!-- Background Color Picker -->
+          <div>
+            <label style="font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">Background Color:</label>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <input type="color" id="picker-bg" value="#4F46E5" style="width: 48px; height: 44px; border: none; border-radius: var(--radius-sm); cursor: pointer; background: transparent;" oninput="syncFromPicker('bg')">
+              <input type="text" id="hex-bg" class="input-text" value="#4F46E5" style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; text-transform: uppercase;" oninput="syncFromHex('bg')">
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Score Banner & Compliance Matrix -->
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; margin-bottom: 1.5rem;" class="score-grid">
+          <!-- Ratio Score Card -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Contrast Ratio</div>
+            <div id="ratio-display" style="font-size: 3rem; font-weight: 900; color: var(--primary); margin: 0.25rem 0;">8.37:1</div>
+            <div id="ratio-verdict" style="font-size: 0.85rem; font-weight: 700; color: var(--success);">Superb Contrast</div>
+          </div>
+
+          <!-- WCAG Compliance Badges -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.85rem;">
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Normal Text (AA)</div>
+              <div id="badge-aa-normal" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">PASS</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">Min 4.5:1</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Large Text (AA)</div>
+              <div id="badge-aa-large" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">PASS</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">Min 3.0:1</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Normal Text (AAA)</div>
+              <div id="badge-aaa-normal" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">PASS</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">Min 7.0:1</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Large Text (AAA)</div>
+              <div id="badge-aaa-large" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">PASS</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">Min 4.5:1</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Visual Preview Box -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">Live Typography & UI Preview</h3>
+          <div id="preview-box" style="border-radius: var(--radius-md); padding: 2.5rem; transition: all 0.2s ease; border: 2px solid var(--border-color);">
+            <h2 id="preview-title" style="margin: 0 0 0.5rem; font-size: 1.8rem; font-weight: 800;">Headline Typography (Large Text)</h2>
+            <p id="preview-body" style="margin: 0 0 1.25rem; font-size: 1rem; line-height: 1.6;">
+              This is a live preview of standard body text. Good color contrast guarantees effortless readability under direct sunlight, across older displays, and for individuals with visual impairments.
+            </p>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <button id="preview-btn" type="button" style="padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 700; cursor: pointer; border: 2px solid;">Interactive Button</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Long-Form SEO Content & Deep Documentation -->
+        <article class="article-section" style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Why WCAG Contrast Compliance Matters</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Over 2.2 billion people worldwide live with vision impairment or color blindness (protanopia, deuteranopia, tritanopia). The Web Content Accessibility Guidelines (WCAG) published by the World Wide Web Consortium (W3C) define technical benchmarks to ensure digital interfaces remain perceptible to all human eyes.
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            In many jurisdictions (including the European Accessibility Act and the US Americans with Disabilities Act / Section 508), maintaining WCAG 2.1 Level AA compliance is not merely good design hygiene—it is a legal mandate. ToolNexus calculates relative luminance using the CIE XYZ standard color space formulas to deliver mathematical precision without transmitting design tokens over the network.
+          </p>
+
+          <!-- Comprehensive FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What defines 'Large Text' in WCAG criteria?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Large text is defined as at least 18 point (24 CSS pixels) or 14 point bold (typically 18.66 CSS pixels with bold weight 700+).</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: How is relative luminance calculated?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Relative luminance represents the relative brightness of any point in a colorspace, normalized to 0 for black and 1 for white. The contrast ratio formula is (L1 + 0.05) / (L2 + 0.05), where L1 is the lighter color and L2 is the darker color.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Popular Tools</div>
+          <ul class="footer-links">
+            <li><a href="/tools/color-contrast/">Color Contrast Checker</a></li>
+            <li><a href="/tools/color-converter/">Color Converter</a></li>
+            <li><a href="/tools/html-encoder/">HTML Entity Encoder</a></li>
+            <li><a href="/tools/json-formatter/">JSON Formatter</a></li>
+            <li><a href="/tools/csv-json/">CSV ↔ JSON Converter</a></li>
+          </ul>
+        </div>
+                <div class="footer-col">
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal & Trust</div>
+          <ul class="footer-links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/terms/">Terms of Service</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact & Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus Web. All calculations execute client-side. Zero server logs.
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% In-Browser Privacy Verified
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    function parseHex(hex) {
+      hex = hex.replace('#', '').trim();
+      if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      if (hex.length !== 6) return null;
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      if (isNaN(r) || isNaN(g) || isNaN(b)) return null;
+      return { r, g, b };
+    }
+
+    function getLuminance({ r, g, b }) {
+      const a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    function calculateContrast(rgb1, rgb2) {
+      const lum1 = getLuminance(rgb1);
+      const lum2 = getLuminance(rgb2);
+      const brightest = Math.max(lum1, lum2);
+      const darkest = Math.min(lum1, lum2);
+      return (brightest + 0.05) / (darkest + 0.05);
+    }
+
+    function syncFromPicker(type) {
+      const val = document.getElementById('picker-' + type).value;
+      document.getElementById('hex-' + type).value = val.toUpperCase();
+      updateContrast();
+    }
+
+    function syncFromHex(type) {
+      let val = document.getElementById('hex-' + type).value.trim();
+      if (!val.startsWith('#')) val = '#' + val;
+      const rgb = parseHex(val);
+      if (rgb) {
+        document.getElementById('picker-' + type).value = val;
+        updateContrast();
+      }
+    }
+
+    function updateContrast() {
+      const hexFg = document.getElementById('hex-fg').value;
+      const hexBg = document.getElementById('hex-bg').value;
+      const rgbFg = parseHex(hexFg);
+      const rgbBg = parseHex(hexBg);
+
+      if (!rgbFg || !rgbBg) return;
+
+      const ratio = calculateContrast(rgbFg, rgbBg);
+      const rounded = Math.round(ratio * 100) / 100;
+      document.getElementById('ratio-display').textContent = rounded + ':1';
+
+      // Update Verdict
+      const verdictEl = document.getElementById('ratio-verdict');
+      if (ratio >= 7) {
+        verdictEl.textContent = 'Excellent (AAA Compliant)';
+        verdictEl.style.color = '#10b981';
+      } else if (ratio >= 4.5) {
+        verdictEl.textContent = 'Good (AA Compliant)';
+        verdictEl.style.color = '#10b981';
+      } else if (ratio >= 3) {
+        verdictEl.textContent = 'Acceptable for Large Text only';
+        verdictEl.style.color = '#f59e0b';
+      } else {
+        verdictEl.textContent = 'Poor Contrast (Fails WCAG)';
+        verdictEl.style.color = '#ef4444';
+      }
+
+      // Badges
+      setPassFail('badge-aa-normal', ratio >= 4.5);
+      setPassFail('badge-aa-large', ratio >= 3.0);
+      setPassFail('badge-aaa-normal', ratio >= 7.0);
+      setPassFail('badge-aaa-large', ratio >= 4.5);
+
+      // Live Preview Box
+      const pBox = document.getElementById('preview-box');
+      pBox.style.backgroundColor = hexBg;
+      pBox.style.color = hexFg;
+
+      const pTitle = document.getElementById('preview-title');
+      const pBody = document.getElementById('preview-body');
+      const pBtn = document.getElementById('preview-btn');
+
+      pTitle.style.color = hexFg;
+      pBody.style.color = hexFg;
+      pBtn.style.backgroundColor = hexFg;
+      pBtn.style.color = hexBg;
+      pBtn.style.borderColor = hexFg;
+    }
+
+    function setPassFail(id, isPass) {
+      const el = document.getElementById(id);
+      el.textContent = isPass ? 'PASS ✓' : 'FAIL ✗';
+      el.style.color = isPass ? '#10b981' : '#ef4444';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateContrast();
+    });
+  </script>
+</body>
+</html>

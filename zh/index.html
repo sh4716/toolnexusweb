@@ -6,19 +6,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="baidu-site-verification" content="codeva-EyuCxTBN4B">
-  <title>ToolNexus - 纯本地极速实用工具箱 | 零数据上传 · 强隐私 · 永久免费</title>
-  <meta name="description" content="ToolNexus 聚合了年龄计算器、百分比与折扣计算器、小费分账、时薪年薪换算、UUID生成器、强密码生成、图片压缩、PDF合并拆分、Base64编解码等34款高频刚需工具。100% 浏览器本地运算，文件不离电脑。">
-  <meta name="keywords" content="实用工具箱,在线工具,年龄计算器,百分比计算器,小费计算器,时薪计算器,uuid生成器,密码生成器,图片压缩,pdf合并,单位换算">
+  <title>ToolNexus 实用工具箱 - 纯本地极速工具平台 | 零数据上传 · 强隐私 · 永久免费</title>
+  <meta name="description" content="ToolNexus 实用工具箱聚合了 CSV/JSON 互转、Cron 表达式解析、HTML 实体转义、零宽字符排查、颜色对比度、年龄计算、UUID 生成、图片压缩、PDF 合并拆分等近 40 款高频刚需工具。100% 浏览器本地运算，文件不离电脑。">
+  <meta name="keywords" content="实用工具箱,在线工具,csv转json,cron表达式解析,零宽字符检测,颜色对比度,年龄计算器,百分比计算器,uuid生成器,密码生成器,图片压缩,pdf合并">
     <link rel="canonical" href="https://toolnexusweb.com/zh/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:site_name" content="ToolNexus 实用工具箱">
   <meta property="og:url" content="https://toolnexusweb.com/zh/">
-  <meta property="og:title" content="ToolNexus - 纯本地极速实用工具箱 | 零数据上传 · 强隐私 · 永久免费">
-  <meta property="og:description" content="ToolNexus 聚合了年龄计算器、百分比与折扣计算器、小费分账、时薪年薪换算、UUID生成器、强密码生成、图片压缩、PDF合并拆分、Base64编解码等34款高频刚需工具。100% 浏览器本地运算，文件不离电脑。">
+  <meta property="og:title" content="ToolNexus 实用工具箱 - 纯本地极速工具平台 | 零数据上传 · 强隐私 · 永久免费">
+  <meta property="og:description" content="ToolNexus 实用工具箱聚合了近 40 款高频刚需实用工具。100% 浏览器本地运算，文件不离电脑。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ToolNexus - 纯本地极速实用工具箱 | 零数据上传 · 强隐私 · 永久免费">
-  <meta name="twitter:description" content="ToolNexus 聚合了年龄计算器、百分比与折扣计算器、小费分账、时薪年薪换算、UUID生成器、强密码生成、图片压缩、PDF合并拆分、Base64编解码等34款高频刚需工具。100% 浏览器本地运算，文件不离电脑。">
+  <meta name="twitter:title" content="ToolNexus 实用工具箱 - 纯本地极速工具平台 | 零数据上传 · 强隐私 · 永久免费">
+  <meta name="twitter:description" content="ToolNexus 实用工具箱聚合了近 40 款高频刚需实用工具。100% 浏览器本地运算，文件不离电脑。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
   <link rel="stylesheet" href="/assets/css/common.css">
@@ -304,13 +304,13 @@
       </div>
 
       <!-- Category Tabs -->
-      <div class="cat-nav-wrapper">
-        <button class="cat-nav-btn active" onclick="selectCategory('all', this)">全部工具 (34)</button>
-        <button class="cat-nav-btn" onclick="selectCategory('calculator', this)">计算器与换算</button>
-        <button class="cat-nav-btn" onclick="selectCategory('developer', this)">开发者与安全</button>
-        <button class="cat-nav-btn" onclick="selectCategory('pdf', this)">PDF 文档办公</button>
-        <button class="cat-nav-btn" onclick="selectCategory('image', this)">图片与图形</button>
-        <button class="cat-nav-btn" onclick="selectCategory('text', this)">文本与排版</button>
+      <div class="cat-nav-wrapper" id="category-tabs">
+        <button class="cat-nav-btn active" data-cat="all" onclick="selectCategory('all', this)">全部工具 (39)</button>
+        <button class="cat-nav-btn" data-cat="calculator" onclick="selectCategory('calculator', this)">计算器与换算</button>
+        <button class="cat-nav-btn" data-cat="developer" onclick="selectCategory('developer', this)">开发者与安全</button>
+        <button class="cat-nav-btn" data-cat="pdf" onclick="selectCategory('pdf', this)">PDF 文档办公</button>
+        <button class="cat-nav-btn" data-cat="image" onclick="selectCategory('image', this)">图片与图形</button>
+        <button class="cat-nav-btn" data-cat="text" onclick="selectCategory('text', this)">文本与排版</button>
       </div>
     </section>
 
@@ -440,7 +440,7 @@
         <!-- 13. 时间戳转换 -->
         <a href="/zh/tools/timestamp/" class="tool-item-card" data-cat="developer" data-keywords="时间戳 timestamp unix epoch 秒 毫秒 时钟 时区">
           <div class="tool-icon-wrap">⏱️</div>
-          <div class="tool-card-title">开发者时间戳转换</div>
+          <div class="tool-card-title">时间戳转换</div>
           <div class="tool-card-desc">Unix 秒/毫秒与可读时间互转，系统时钟动态流逝与相对时间指示。</div>
           <div class="tool-card-badges"></div>
         </a>
@@ -588,6 +588,46 @@
           <div class="tool-card-desc">内置 200+ 极限词库，电商详情页与自媒体文案一键高亮排查。</div>
           <div class="tool-card-badges"></div>
         </a>
+
+        <!-- 32. CSV ↔ JSON 极速互转 (NEW) -->
+        <a href="/zh/tools/csv-json/" class="tool-item-card" data-cat="developer" data-keywords="csv json tsv excel 表格 转换 数组 解析 导出 纯前端">
+          <div class="tool-icon-wrap">📊</div>
+          <div class="tool-card-title">CSV ↔ JSON 互转</div>
+          <div class="tool-card-desc">双向表格与数据格式转换。Excel 表格转 JSON 数组，或将 API 数据导出为标准 CSV。</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span class="badge badge-success">双向互转</span></div>
+        </a>
+
+        <!-- 33. Cron 表达式解析器 (NEW) -->
+        <a href="/zh/tools/cron-parser/" class="tool-item-card" data-cat="developer" data-keywords="cron crontab 定时任务 表达式 解析 时间 预测 运维 linux">
+          <div class="tool-icon-wrap">⏰</div>
+          <div class="tool-card-title">Cron 表达式解析器</div>
+          <div class="tool-card-desc">直观翻译 Linux crontab 定时语法为清晰中文，精准预测未来 5 次任务触发执行时间。</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span></div>
+        </a>
+
+        <!-- 34. HTML 实体编解码 (NEW) -->
+        <a href="/zh/tools/html-encoder/" class="tool-item-card" data-cat="developer" data-keywords="html 实体 编码 解码 转义 反转义 xss 特殊字符">
+          <div class="tool-icon-wrap">🔤</div>
+          <div class="tool-card-title">HTML 实体编解码</div>
+          <div class="tool-card-desc">特殊字符转为命名实体（&amp;lt;）或十进制/十六进制实体，防止 XSS 脚本注入。</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span></div>
+        </a>
+
+        <!-- 35. 零宽与隐形字符检测器 (NEW) -->
+        <a href="/zh/tools/unicode-inspector/" class="tool-item-card" data-cat="text" data-keywords="零宽字符 隐形字符 水印 盲水印 bom 净化 过滤 排查 隐私">
+          <div class="tool-icon-wrap">🔍</div>
+          <div class="tool-card-title">零宽隐形字符检测器</div>
+          <div class="tool-card-desc">排查文本中潜伏的 Unicode 隐藏字符与数字盲水印指纹，一键无损深度净化。</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span class="badge badge-success">隐私安全</span></div>
+        </a>
+
+        <!-- 36. WCAG 颜色对比度检查 (NEW) -->
+        <a href="/zh/tools/color-contrast/" class="tool-item-card" data-cat="text" data-keywords="颜色对比度 wcag 无障碍 a11y 明度 比值 评估 设计 ui">
+          <div class="tool-icon-wrap">🎨</div>
+          <div class="tool-card-title">颜色无障碍对比度检查</div>
+          <div class="tool-card-desc">依据 W3C WCAG 2.1 国际标准评估文字与背景相对明度，实时核验 AA / AAA 合规等级。</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span></div>
+        </a>
       </div>
     </section>
 
@@ -640,9 +680,10 @@
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="#calculator">计算器与换算</a></li>
-            <li><a href="#developer">开发者工具</a></li>
-            <li><a href="#pdf">PDF 办公工具</a></li>
+            <li><a href="#developer">开发者与安全</a></li>
+            <li><a href="#pdf">PDF 文档办公</a></li>
             <li><a href="#image">图片与图形</a></li>
+            <li><a href="#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -673,11 +714,41 @@
   <script>
     let activeCat = 'all';
 
-    function selectCategory(cat, btn) {
+    const catAliases = {
+      'all': 'all',
+      'calculator': 'calculator',
+      'calculators': 'calculator',
+      'calc': 'calculator',
+      'finance': 'calculator',
+      'developer': 'developer',
+      'dev': 'developer',
+      'security': 'developer',
+      'pdf': 'pdf',
+      'documents': 'pdf',
+      'document': 'pdf',
+      'image': 'image',
+      'images': 'image',
+      'text': 'text',
+      'writing': 'text'
+    };
+
+    function selectCategory(cat, btn, shouldScroll) {
       activeCat = cat;
-      document.querySelectorAll('.cat-nav-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      document.querySelectorAll('.cat-nav-btn').forEach(b => {
+        if (b.getAttribute('data-cat') === cat || b === btn) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
       filterTools(document.getElementById('home-search').value);
+
+      if (shouldScroll) {
+        const catTabs = document.getElementById('category-tabs') || document.querySelector('.cat-nav-wrapper');
+        if (catTabs) {
+          catTabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     }
 
     function filterTools(query) {
@@ -700,6 +771,23 @@
         }
       });
     }
+
+    function applyHashCategory(shouldScroll) {
+      const hash = window.location.hash.replace('#', '').toLowerCase().trim();
+      if (hash && catAliases[hash]) {
+        const targetCat = catAliases[hash];
+        const targetBtn = document.querySelector(`.cat-nav-btn[data-cat="${targetCat}"]`);
+        selectCategory(targetCat, targetBtn, shouldScroll);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      applyHashCategory(false);
+    });
+
+    window.addEventListener('hashchange', () => {
+      applyHashCategory(true);
+    });
   </script>
 </body>
 </html>

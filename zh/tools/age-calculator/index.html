@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/age-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/age-calculator/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "年龄与生日精确计算器",
+        "url": "https://toolnexusweb.com/zh/tools/age-calculator/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "精确计算周岁年龄（年、月、天）、生存天数、小时数、下次生日倒计时与星座，支持指定历史或未来基准日期。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "计算工具",
+            "item": "https://toolnexusweb.com/zh/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "年龄计算器",
+            "item": "https://toolnexusweb.com/zh/tools/age-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "周岁（实岁）与传统虚岁的区别是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "周岁以婴儿出生满一年为一个年龄单位，出生当天为 0 岁，必须过完公历当月当日才满 1 周岁。虚岁则是东亚传统民俗纪年，出生即记为 1 岁，每逢农历正月初一（春节）长一岁。所有现代法律文书、民航机票与护照年龄均只承认周岁。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "闰年 2 月 29 日出生的人，在平年如何过生日？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "在国际很多国家的法律与户政实践中，闰年 2 月 29 日出生的人在平年通常以 3 月 1 日零时作为满周岁的法律节点；而在民俗习惯上很多人会在 2 月 28 日提前庆祝。本计算器在平年会将下次生日倒计时精准对应至 2 月 28 日或 3 月 1 日。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "我输入的出生日期会被网站记录或泄露吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝无可能。ToolNexus 坚持纯前端客户端运算哲学，所有算法均在您的浏览器本地 JavaScript 沙箱中执行，零网络外发请求，完全离线运行，保障个人敏感隐私绝对安全。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,6 +116,14 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#calculator">计算器与换算</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>年龄与生日精确计算器</span>
+      </nav>
+
           <span class="tool-badge badge-primary">计算器 & 生活</span>
           <h1 class="tool-title">🎂 年龄与生日精确计算器</h1>
           <p class="tool-desc">输入您的出生日期，计算出精确到天、小时的实际周岁、已生活天数、下次生日倒计时与星座特征。</p>
@@ -134,18 +216,45 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">常见问题与计算原理</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 年龄计算器是如何处理闰年和不同月份天数的？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">计算器在客户端完整复刻公历历法，逐年逐月比对实际天数，精确计算闰年 366 天及平年 365 天，确保跨月与跨年计算绝对精确无误。</p>
+        <!-- 深度使用指南与历法原理科普 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">公历精确年龄计算原理与核心应用</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            在日常生活中，我们常常习惯用“大概几岁”来模糊指代年龄，但在法律效力界定、签证及移民申请、儿童成长发育评估、退休金核算以及商业人寿保单核保等严谨场景中，精确到“年月日天数”的法定周岁至关重要。ToolNexus 年龄计算器严格执行国际格里高利历（Gregorian Calendar）标准，逐日精确核算大月、小月、平年与闰年，确保每一天都严谨无偏差。
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">📅 动态月份借位算法</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">当计算日的天数小于出生日的天数时，严禁使用粗糙的“30天通用借位”，而是动态回溯上一个月的实际公历天数（如平年2月取28天，闰年取29天，8月取31天），杜绝跨月时的计算误差。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">🎯 自定义基准日期回溯与推演</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">不仅可以计算截至今日的年龄，还支持自由调整“计算基准日期”。例如推演：“我在 2035 年 1 月 1 日时满多少周岁？”，或者核验过往签署合同时的法定当事年龄。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">💓 生命健康与心理里程碑</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">工具不仅反馈周岁，还为您精算度过的总周数、总小时数、以及基于成人静息生理平均值估算的心跳总次数与呼吸总次数，直观感受岁月流淌与生命的厚重。</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 我的生日数据会被上传或记录吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">绝无可能。本工具 100% 运行在您的浏览器本地 JavaScript 引擎中，输入数据不会发送到任何云端服务器。</p>
+
+          <!-- FAQ 常见问题解答 -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 周岁（实岁）与传统虚岁的区别是什么？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">周岁以婴儿出生满一年为一个年龄单位，出生当天为 0 岁，必须过完公历当月当日才满 1 周岁。虚岁则是东亚传统民俗纪年，出生即记为 1 岁，每逢农历正月初一（春节）长一岁。所有现代法律文书、民航机票与护照年龄均只承认周岁。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 闰年 2 月 29 日出生的人，在平年如何过生日？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">在国际很多国家的法律与户政实践中，闰年 2 月 29 日出生的人在平年通常以 3 月 1 日零时作为满周岁的法律节点；而在民俗习惯上很多人会在 2 月 28 日提前庆祝。本计算器在平年会将下次生日倒计时精准对应至 2 月 28 日或 3 月 1 日。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 我输入的出生日期会被网站记录或泄露吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝无可能。ToolNexus 坚持纯前端客户端运算哲学，所有算法均在您的浏览器本地 JavaScript 沙箱中执行，零网络外发请求，完全离线运行，保障个人敏感隐私绝对安全。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -292,13 +401,14 @@
             <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

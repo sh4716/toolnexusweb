@@ -21,9 +21,89 @@
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
   <link rel="stylesheet" href="/assets/css/common.css">
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/case-converter/">
-  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/case-converter/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/case-converter/">
-
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/case-converter/">
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "英文大小写与 Title Case 转换器",
+        "url": "https://toolnexusweb.com/zh/tools/case-converter/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript.",
+        "description": "免费智能英文大小写转换器。支持 AP / Chicago 规范 Title Case 英文标题首字母大写、camelCase、snake_case、kebab-case 与常量转换，带实时字数统计。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "文本与编码",
+            "item": "https://toolnexusweb.com/zh/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "英文大小写转换",
+            "item": "https://toolnexusweb.com/zh/tools/case-converter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Title Case 遇到带有连字符的复合词（如 User-Centric 或 Long-Term）会如何处理？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "工具根据语言学规范递归解析连字符两侧词素：若连字符后也是实词（名词、形容词等），则两侧均会规范大写（如 State-of-the-Art）；中间的 of 与 the 依然严格保持小写，完全符合芝加哥语法风格。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Sentence case（句首大写）与 Capitalized Words 有何区别？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sentence case 仅将整句话的第一个字母大写，其余单词（除专有名词外）全部保持小写，是现代 Web UI 设计（如 Google Material Design 与 Apple HIG）推荐的按钮文案规范；而 Capitalized Words 则是机械式地将每一个空格后的词首字母强制大写。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "从数据库字段（snake_case）转换到前端对象（camelCase）会丢失缩写吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。内置分词引擎通过智能识别下划线、短横线及连续大写字母边界，能够平滑重组分词，在快速生成前端 TypeScript 类型或 ORM Model 时极大提升效率。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "粘贴长篇公司英文保密商业协议转换是否有泄密隐患？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "零风险。本页面代码 100% 运行于本地浏览器，没有发送任何网络请求至服务器，即使断网离线也能正常转换，商业机密绝对安全。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,61 +122,155 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#text">文本与排版</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>英文大小写与 Title Case 转换器</span>
+      </nav>
+
           <span class="tool-badge badge-primary">文本 & 开发者效率</span>
           <h1 class="tool-title">🔤 英文大小写与 Title Case 转换器</h1>
           <p class="tool-desc">一键将英文文本快速转换为专业标题格式（Title Case）、全部大写、全部小写、句子首字母大写、或编程常用的驼峰与下划线变量名。</p>
         </div>
 
-        <!-- Live Statistics Counter -->
-        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background: var(--bg-surface-alt); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1rem; font-size: 0.85rem;">
-          <div><span style="color: var(--text-muted);">单词数:</span> <strong id="stat-words" style="color: var(--primary);">0</strong></div>
-          <div><span style="color: var(--text-muted);">字符数 (含空格):</span> <strong id="stat-chars" style="color: var(--accent-cyan);">0</strong></div>
-          <div><span style="color: var(--text-muted);">纯字符 (无空格):</span> <strong id="stat-chars-nospace" style="color: var(--text-main);">0</strong></div>
-          <div><span style="color: var(--text-muted);">行数:</span> <strong id="stat-lines" style="color: var(--text-muted);">0</strong></div>
-        </div>
-
-        <!-- Input Textarea -->
-        <div class="form-group" style="margin-bottom: 1.25rem;">
-          <textarea id="case-input" class="input-text" rows="8" placeholder="在此键入或粘贴需要转换的英文字段或文章标题 (如: the quick brown fox jumps over the lazy dog)..." style="font-size: 1rem; line-height: 1.6; resize: vertical;" oninput="handleCaseInput()">the quick brown fox jumps over the lazy dog</textarea>
-        </div>
-
         <!-- Case Transformation Buttons Grid -->
-        <div class="case-btns">
-          <button type="button" class="btn-sm case-btn" data-mode="title" onclick="transformCase('title')">Title Case (专业标题大写)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="sentence" onclick="transformCase('sentence')">Sentence case (句首字母大写)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="upper" onclick="transformCase('upper')">UPPERCASE (全部大写)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="lower" onclick="transformCase('lower')">lowercase (全部小写)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="camel" onclick="transformCase('camel')">camelCase (小驼峰)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="pascal" onclick="transformCase('pascal')">PascalCase (大驼峰)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="snake" onclick="transformCase('snake')">snake_case (下划线)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="kebab" onclick="transformCase('kebab')">kebab-case (短横线)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="constant" onclick="transformCase('constant')">CONSTANT_CASE (常量大写)</button>
-        </div>
-
-        <!-- Actions -->
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <button type="button" class="btn btn-secondary" onclick="copyCaseText()">
-            <span>复制结果</span>
-            <span>📋</span>
-          </button>
-          <button type="button" class="btn btn-ghost" style="border:1px solid var(--border-color);" onclick="clearCaseText()">
-            <span>清空内容</span>
-            <span>🗑️</span>
-          </button>
-        </div>
-
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">关于英文排版大小写的规范与规则</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Title Case（标题大小写）是如何判定哪些词不该大写的？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">遵循 AP（美联社）和芝加哥大学出版规范：虚词（冠词 a, an, the；并列连词 and, but, for, or, nor；短介词 in, on, at, to, by, of 等）默认保持小写，但位于标题首词或尾词时强制大写。</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 编程中 camelCase、snake_case 和 kebab-case 通常用在何处？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">camelCase 常用于 JavaScript/Java 变量与函数名；snake_case 常用于 Python 变量及数据库字段；kebab-case 则常用于 URL Slug 和 CSS 类名。</p>
+        <div style="margin-bottom: 1.25rem;">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;">选择目标转换格式：</div>
+          <div class="case-btns">
+            <button type="button" class="btn-sm case-btn active" data-mode="title" onclick="transformCase('title')">Title Case (专业标题大写)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="sentence" onclick="transformCase('sentence')">Sentence case (句首字母大写)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="upper" onclick="transformCase('upper')">UPPERCASE (全部大写)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="lower" onclick="transformCase('lower')">lowercase (全部小写)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="camel" onclick="transformCase('camel')">camelCase (小驼峰)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="pascal" onclick="transformCase('pascal')">PascalCase (大驼峰)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="snake" onclick="transformCase('snake')">snake_case (下划线)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="kebab" onclick="transformCase('kebab')">kebab-case (短横线)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="constant" onclick="transformCase('constant')">CONSTANT_CASE (常量大写)</button>
           </div>
         </div>
+
+        <!-- Two Column Layout: Original vs Converted -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          <!-- Left Column: Source Text -->
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">原始文本输入 (完整保留)</span>
+              <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.2rem 0.6rem;" onclick="clearCaseText()">清空 🗑️</button>
+            </div>
+            <textarea id="case-input" class="input-text" rows="9" placeholder="在此键入或粘贴需要转换的英文字段..." style="font-size: 0.95rem; line-height: 1.6; resize: vertical; flex: 1;" oninput="handleCaseInput()">the quick brown fox jumps over the lazy dog</textarea>
+            
+            <!-- Statistics Counter -->
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; background: var(--bg-surface-alt); padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin-top: 0.5rem; font-size: 0.8rem;">
+              <div><span style="color: var(--text-muted);">单词数:</span> <strong id="stat-words" style="color: var(--primary);">0</strong></div>
+              <div><span style="color: var(--text-muted);">字符数:</span> <strong id="stat-chars" style="color: var(--accent-cyan);">0</strong></div>
+              <div><span style="color: var(--text-muted);">纯字符(无空格):</span> <strong id="stat-chars-nospace" style="color: var(--text-main);">0</strong></div>
+              <div><span style="color: var(--text-muted);">行数:</span> <strong id="stat-lines" style="color: var(--text-muted);">0</strong></div>
+            </div>
+          </div>
+
+          <!-- Right Column: Output Text -->
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-weight: 700; font-size: 0.95rem; color: var(--accent-emerald);">转换结果预览</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button type="button" class="btn-sm btn-primary" style="font-size: 0.8rem; padding: 0.25rem 0.75rem;" onclick="copyCaseResult()">一键复制 📋</button>
+                <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.25rem 0.6rem;" onclick="applyResultToInput()" title="将转换结果应用到左侧输入框">应用为输入 ↩️</button>
+              </div>
+            </div>
+            <textarea id="case-output" class="input-text" rows="9" readonly placeholder="转换结果将实时呈现于此..." style="font-size: 0.95rem; line-height: 1.6; resize: vertical; background: var(--bg-surface-alt); border-color: var(--border-color); color: var(--text-main); flex: 1;"></textarea>
+            
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; text-align: right;">
+              原始文本完好保留，切换上方按钮即可随时对比不同风格。
+            </div>
+          </div>
+        </div>
+
+        <!-- 深度排版指南与命名法解析 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">英文大小写排版规范与软件工程命名法则全解析</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            在英文学术写作、UI 界面文案设计以及程序代码编写中，大小写的规范程度直接决定了内容的专业度和严谨性。混乱的大小写格式（例如在英文论文标题中把介词大写、或在代码中随意混用驼峰与下划线）不仅降低可读性，还会导致编译器解析错误或团队协作困扰。ToolNexus 提供了<strong>全能智能英文大小写转换套件</strong>，支持从人文出版级 Title Case 到主流编程语言命名风格的毫秒级无损转换。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Title Case 核心语法规则（遵循 AP / Chicago 双规范）</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            英文标题并不是简单地将“每一个单词的首字母都大写”。专业出版业（如美联社 AP 风格与芝加哥大学手册 CMOS）对虚词有着极为严苛的语法要求：
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>必须大写的词类：</strong> 名词（Nouns）、代词（Pronouns）、动词（Verbs 包括 is, are, be）、形容词（Adjectives）和副词（Adverbs）。</li>
+            <li><strong>默认保持小写的虚词：</strong> 冠词（a, an, the）、并列连词（and, but, for, or, nor）、以及少于 4 个字母的短介词（in, on, at, to, by, of, up, off）。</li>
+            <li><strong>边界绝对大写铁律：</strong> 位于标题的最开头的第一个单词、最末尾的最后一个单词，以及副标题冒号（:）紧跟后的第一个单词，<strong>无条件强制大写</strong>（即使该词是 the 或 in）。</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">现代软件工程常见变量与符号命名法对照</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">命名规范</th>
+                  <th style="padding: 0.75rem 0.5rem;">格式示例</th>
+                  <th style="padding: 0.75rem 0.5rem;">主要应用生态与场景</th>
+                  <th style="padding: 0.75rem 0.5rem;">分词连接特征</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">camelCase (小驼峰)</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">userProfileData</td>
+                  <td style="padding: 0.65rem 0.5rem;">JavaScript, TypeScript, Java, Swift 变量与函数方法</td>
+                  <td style="padding: 0.65rem 0.5rem;">首词小写，后续单词首字母大写无间隔</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">PascalCase (大驼峰)</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">UserProfileData</td>
+                  <td style="padding: 0.65rem 0.5rem;">React 组件名、TypeScript 接口/类型、C# 类与方法</td>
+                  <td style="padding: 0.65rem 0.5rem;">所有单词首字母一律大写无间隔</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">snake_case (下划线)</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">user_profile_data</td>
+                  <td style="padding: 0.65rem 0.5rem;">Python PEP 8 规范变量与函数、MySQL/PostgreSQL 数据库表列名</td>
+                  <td style="padding: 0.65rem 0.5rem;">全小写字母，单词间以下划线 `_` 连结</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">kebab-case (短横线)</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">user-profile-data</td>
+                  <td style="padding: 0.65rem 0.5rem;">SEO 友好型 URL Slug、CSS 类名、HTML 自定义标签与属性</td>
+                  <td style="padding: 0.65rem 0.5rem;">全小写字母，单词间以中划线 `-` 连结</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f43f5e;">CONSTANT_CASE (尖叫蛇形)</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">USER_PROFILE_DATA</td>
+                  <td style="padding: 0.65rem 0.5rem;">C/C++ 宏定义、环境变量（.env）、Redux Action Types、只读常量</td>
+                  <td style="padding: 0.65rem 0.5rem;">全大写字母，单词间以下划线 `_` 连结</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Title Case 遇到带有连字符的复合词（如 User-Centric 或 Long-Term）会如何处理？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">工具根据语言学规范递归解析连字符两侧词素：若连字符后也是实词（名词、形容词等），则两侧均会规范大写（如 State-of-the-Art）；中间的 of 与 the 依然严格保持小写，完全符合芝加哥语法风格。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Sentence case（句首大写）与 Capitalized Words 有何区别？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Sentence case 仅将整句话的第一个字母大写，其余单词（除专有名词外）全部保持小写，是现代 Web UI 设计（如 Google Material Design 与 Apple HIG）推荐的按钮文案规范；而 Capitalized Words 则是机械式地将每一个空格后的词首字母强制大写。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 从数据库字段（snake_case）转换到前端对象（camelCase）会丢失缩写吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。内置分词引擎通过智能识别下划线、短横线及连续大写字母边界，能够平滑重组分词，在快速生成前端 TypeScript 类型或 ORM Model 时极大提升效率。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 粘贴长篇公司英文保密商业协议转换是否有泄密隐患？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">零风险。本页面代码 100% 运行于本地浏览器，没有发送任何网络请求至服务器，即使断网离线也能正常转换，商业机密绝对安全。</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </div>
@@ -184,8 +358,31 @@
     }
 
     function handleCaseInput() {
-      updateActiveButton(null);
       updateStats();
+      if (currentMode) {
+        const val = document.getElementById('case-input').value;
+        if (val) {
+          const outEl = document.getElementById('case-output');
+          if (currentMode === 'title') outEl.value = toTitleCase(val);
+          else if (currentMode === 'sentence') outEl.value = toSentenceCase(val);
+          else if (currentMode === 'upper') outEl.value = val.toUpperCase();
+          else if (currentMode === 'lower') outEl.value = val.toLowerCase();
+          else if (currentMode === 'camel') {
+            const words = getWords(val);
+            outEl.value = words.map((w, idx) => idx === 0 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+          } else if (currentMode === 'pascal') {
+            outEl.value = getWords(val).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+          } else if (currentMode === 'snake') {
+            outEl.value = getWords(val).map(w => w.toLowerCase()).join('_');
+          } else if (currentMode === 'kebab') {
+            outEl.value = getWords(val).map(w => w.toLowerCase()).join('-');
+          } else if (currentMode === 'constant') {
+            outEl.value = getWords(val).map(w => w.toUpperCase()).join('_');
+          }
+        } else {
+          document.getElementById('case-output').value = '';
+        }
+      }
     }
 
     function transformCase(mode) {
@@ -225,11 +422,14 @@
         result = getWords(val).map(w => w.toUpperCase()).join('_');
       }
 
-      el.value = result;
+      document.getElementById('case-output').value = result;
+      currentMode = mode;
       updateActiveButton(mode);
       updateStats();
-      showToast('已转换!', 'success');
+      showToast('已转换为 ' + mode + ' 格式！', 'success');
     }
+
+    let currentMode = 'title';
 
     function updateStats() {
       const val = document.getElementById('case-input').value;
@@ -244,20 +444,36 @@
       document.getElementById('stat-lines').textContent = lines;
     }
 
-    function copyCaseText() {
-      const val = document.getElementById('case-input').value;
-      if (!val) return;
+    function copyCaseResult() {
+      const val = document.getElementById('case-output').value;
+      if (!val) {
+        showToast('暂无转换结果可复制', 'warning');
+        return;
+      }
       copyToClipboard(val);
+    }
+
+    function applyResultToInput() {
+      const res = document.getElementById('case-output').value;
+      if (!res) {
+        showToast('暂无内容可应用', 'warning');
+        return;
+      }
+      document.getElementById('case-input').value = res;
+      updateStats();
+      showToast('已成功应用到输入框！', 'success');
     }
 
     function clearCaseText() {
       document.getElementById('case-input').value = '';
-      updateActiveButton(null);
+      document.getElementById('case-output').value = '';
       updateStats();
+      showToast('已清空内容', 'info');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       updateStats();
+      transformCase('title');
     });
   </script>
     </main>
@@ -284,13 +500,14 @@
             <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

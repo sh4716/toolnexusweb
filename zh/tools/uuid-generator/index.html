@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/uuid-generator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/uuid-generator/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "UUID / GUID 在线批量生成与校验器",
+        "url": "https://toolnexusweb.com/zh/tools/uuid-generator/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "基于浏览器原生 Web Crypto 硬件密码学随机源，极速批量生成符合 RFC 4122 标准的 Version 4 UUID/GUID，支持大写、去连字符、大括号及格式校验。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者工具",
+            "item": "https://toolnexusweb.com/zh/#dev"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "UUID 生成器",
+            "item": "https://toolnexusweb.com/zh/tools/uuid-generator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么生成的 UUID 可以去除横杠或加上大括号？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "虽然 8-4-4-4-12 连字符分隔是 RFC 4122 的标准 canonical 表现形式，但在注册表注册 COM 组件时需要大括号包装（如 {00000000-0000-...} ），在 URL 或紧凑数据库存储时常去除连字符保留 32 位十六进制纯字符。本工具支持一键自定义勾选。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "一次性批量生成 500 个 UUID 会有重复吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不可能。根据生日悖论计算，若要达到 50% 的冲突几率，需要连续生成超过 2,700,000,000,000,000,000（2.71 百亿亿）个 UUID。在单个批次或单体应用生命周期内，重复概率趋近于绝对零。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "生成过程是否会连接外部 API 或泄露网络特征？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全不会。Version 4 不依赖您的 MAC 地址或 IP 地址，所有逻辑在本地浏览器引擎中纳秒级运行，完全离线运行，安全合规。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,6 +116,14 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#developer">开发者与安全</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>UUID / GUID 在线批量生成与校验器</span>
+      </nav>
+
           <span class="tool-badge badge-primary">开发者 & 密码学</span>
           <h1 class="tool-title">🆔 UUID / GUID 在线批量生成与校验器</h1>
           <p class="tool-desc">纯本地调用浏览器底层安全密码学随机数，毫秒级批量生成 1 ~ 500 个标准 UUID v4，支持定制大小写、格式化符号并一键导出。</p>
@@ -110,18 +192,45 @@
           <div id="validator-result" style="margin-top: 0.75rem; font-size: 0.85rem; display: none;"></div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">关于 UUID / GUID 的核心知识</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 什么是 UUID Version 4？它会发生碰撞（重复）吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">UUID v4 完全由强随机数生成。理论上需要生成 2.71 × 10^18 个 UUID 才有 50% 的几率发生一次碰撞，相当于每秒生成 10 亿个连续生成 85 年，因此在实际工程中可视为全球绝对唯一。</p>
+        <!-- 深度技术科普与分布式主键指南 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">UUID / GUID 技术规格与工程选型深度解析</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            通用唯一识别码（UUID，Universally Unique Identifier）由开放软件基金会（OSF）制定并纳入 RFC 4122 标准，是一种长达 128 位的数字标识符。其设计的核心目标在于让分布式计算环境中的任意节点无需中央调度注册机构，即可各自独立创建全球唯一的 ID。在微软 Windows 生态体系中，它通常被命名为 GUID（Globally Unique Identifier），两者在底层规范与算法上完全等价。
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">🎲 UUID Version 4 (随机数版本)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">标准 UUID 表现为 36 个字符（含 4 个连字符：8-4-4-4-12）。在第 13 位字符固定标注版本号 <code>4</code>，第 17 位标注变体 <code>8/9/a/b</code>。除去固定的 6 个元数据位，其余 122 位全部来自密码学随机数，提供多达 5.3 × 10^36 种组合。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">🛡️ Web Crypto 硬件级安全熵源</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">市面上许多在线工具仍滥用 JavaScript 的 <code>Math.random()</code>，其伪随机种子极易被逆向预测。ToolNexus 严格采用 <code>crypto.randomUUID()</code> 及 <code>getRandomValues()</code>，直接从操作系统内核熵池获取硬件级真随机数。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">🗄️ 数据库主键选型建议 (v4 vs v7)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">UUID v4 的完全离散随机性是分布式跟踪 ID、OAuth State、会话令牌的理想选择；但在高并发写入的 MySQL InnoDB 聚簇索引中，完全随机写会导致 B+ 树频繁页分裂。建议在此类高吞吐存储场景配合前置时间戳或选用新一代 UUID v7。</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: UUID 与微软 GUID 有什么区别？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">GUID（Globally Unique Identifier）是微软对标准 UUID（Universally Unique Identifier）的特定实现称谓，两者在二进制结构与算法规范上完全等价。</p>
+
+          <!-- FAQ 常见问题解答 -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么生成的 UUID 可以去除横杠或加上大括号？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">虽然 8-4-4-4-12 连字符分隔是 RFC 4122 的标准 canonical 表现形式，但在注册表注册 COM 组件时需要大括号包装（如 <code>{00000000-0000-...}</code>），在 URL 或紧凑数据库存储时常去除连字符保留 32 位十六进制纯字符。本工具支持一键自定义勾选。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 一次性批量生成 500 个 UUID 会有重复吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不可能。根据生日悖论计算，若要达到 50% 的冲突几率，需要连续生成超过 2,700,000,000,000,000,000（2.71 百亿亿）个 UUID。在单个批次或单体应用生命周期内，重复概率趋近于绝对零。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 生成过程是否会连接外部 API 或泄露网络特征？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">完全不会。Version 4 不依赖您的 MAC 地址或 IP 地址，所有逻辑在本地浏览器引擎中纳秒级运行，完全离线运行，安全合规。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -222,13 +331,14 @@
             <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

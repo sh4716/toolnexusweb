@@ -5,22 +5,103 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>强密码生成器 - 安全随机密码在线生成 | 100%本地运算防泄露</title>
+  <title>强密码生成器 - 安全随机密码在线生成 | ToolNexus</title>
   <meta name="description" content="基于浏览器加密级 Web Crypto API 的安全随机强密码在线生成器。支持自定义密码长度、大小写字母、数字、特殊字符及易混淆字符排除。纯本地运算，绝不上报。">
   <meta name="keywords" content="密码生成器,强密码生成,随机密码生成,在线密码生成器,安全密码生成">
     <link rel="canonical" href="https://toolnexusweb.com/zh/tools/password-generator/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/password-generator/">
-  <meta property="og:title" content="强密码生成器 - 安全随机密码在线生成 | 100%本地运算防泄露">
+  <meta property="og:title" content="强密码生成器 - 安全随机密码在线生成 | ToolNexus">
   <meta property="og:description" content="基于浏览器加密级 Web Crypto API 的安全随机强密码在线生成器。支持自定义密码长度、大小写字母、数字、特殊字符及易混淆字符排除。纯本地运算，绝不上报。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="强密码生成器 - 安全随机密码在线生成 | 100%本地运算防泄露">
+  <meta name="twitter:title" content="强密码生成器 - 安全随机密码在线生成 | ToolNexus">
   <meta name="twitter:description" content="基于浏览器加密级 Web Crypto API 的安全随机强密码在线生成器。支持自定义密码长度、大小写字母、数字、特殊字符及易混淆字符排除。纯本地运算，绝不上报。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "强密码生成器",
+        "url": "https://toolnexusweb.com/zh/tools/password-generator/",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Supports Web Crypto API.",
+        "description": "基于浏览器加密级 Web Crypto CSPRNG 的安全随机强密码在线生成器。支持自定义长度、字符集、易混淆字符排除及批量生成，100% 本地运算防泄露。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "安全与密码",
+            "item": "https://toolnexusweb.com/zh/#security"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "强密码生成器",
+            "item": "https://toolnexusweb.com/zh/tools/password-generator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么在运维与终端中建议勾选“排除易混淆字符”？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "很多等宽字体或移动端输入法中，数字 1 与小写字母 l 、大写字母 I ；数字 0 与大写字母 O ；以及字符 ` 与 ' 极其相似，容易导致手工输入验证时频繁报错锁死账号。勾选该项可确保生成的口令在任何终端和手写便签上都绝无歧义。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "复杂的 16 位强密码记不住怎么办？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "人类记忆随机高熵字符极为困难且毫无必要。业界的最佳黄金实践是：由本工具生成高强度密码后，直接存储至现代密码管理器（如 1Password、Bitwarden、KeePass 或 Apple 钥匙串），日常仅需牢记一个高强度的根主口令，其余各网站全部由密码管理器自动填充，杜绝一密多用。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "批量生成的 10 条密码适合用于哪些实际场景？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "非常适合企业 IT 管理员批量创建新员工域账号、批量部署多台 Linux 服务器初始 root 临时口令、或为微服务群批量生成高强度的 API Token 与 JWT Secret 签名密钥。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本工具生成的密码会有服务器日志留存或撞库窃听风险吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝无风险。ToolNexus 完全基于 HTML5 + Web Cryptography API，代码执行生命周期完全闭环在您的设备浏览器运行内存中。网络面板（Network Tab）没有任何数据包发出，断网亦可全功能流畅运行。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .pwd-display-box {
       background: var(--bg-surface-alt);
@@ -127,7 +208,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者利器</span>
+        <a href="/zh/#developer">开发者与安全</a>
         <span class="breadcrumb-separator">/</span>
         <span>强密码生成器</span>
       </nav>
@@ -224,20 +305,94 @@
       </div>
     </div>
 
-    <!-- FAQ -->
-    <section class="faq-section">
-      <h2 class="faq-title">关于强密码生成与安全规范</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">什么样的密码才算足够安全？ <span>▼</span></div>
-          <div class="faq-answer">根据现代密码学与 NIST（美国国家标准技术研究所）建议，一个强密码应当具备以下特征：长度至少 12~16 位以上、混合大小写字母、数字及特殊标点符号。长度在防暴力破解中起决定性作用，16 位以上的复杂密码使用现代超级计算机穷举需数万年。</div>
+    <!-- 深度密码学与安全指南 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">强密码的科学：密码学信息熵、CSPRNG 真随机与暴力破解防御</h2>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+        在数据泄露事件频发的今天，使用诸如生日、手机号、连续键盘字母（如 <code>qwerty123</code>）或重复口令，已成为账号遭到“撞库攻击”与彩虹表秒解的最核心根源。根据美国国家标准技术研究所（NIST SP 800-63B）的最新数字身份安全规范，防御现代黑客 GPU 暴力破解的最有效手段，就是使用<strong>高信息熵且不可预测的伪随机/真随机强密码</strong>。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">密码信息熵计算公式与安全基线</h3>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+        在香农信息论（Information Theory）中，密码的随机强度完全取决于其<strong>信息熵（Entropy Bits）</strong>。计算公式为：
+      </p>
+      <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem; font-family: monospace; font-size: 0.95rem; color: var(--accent-cyan); margin-bottom: 1.25rem;">
+        E = L × log₂(R)
+      </div>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+        其中 <code>L</code> 为密码长度，<code>R</code> 为可选字符池的大小（Pool Size）。
+        例如纯小写字母（R=26），16 位密码的熵约为 75 bits；而当混合大写字母、小写字母、数字及特殊符号（R=94）时，16 位密码的熵将飙升至 <strong>104.8 bits</strong>。在现代密码学中，信息熵达到 <strong>80 bits 以上</strong>即可防御绝大多数离线暴力碰撞，而超过 <strong>100 bits</strong> 则足以抵御超级计算机集群数十亿年的暴力穷举。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">为什么绝不能用 Math.random()？CSPRNG 与系统熵池揭秘</h3>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+        绝大多数普通在线工具使用 JavaScript 的 <code>Math.random()</code> 来生成随机字符串，这在密码学中属于<strong>灾难性漏洞</strong>。<code>Math.random()</code> 是线性的伪随机数算法（如 xorshift128+），其种子状态具有高度可预测性，黑客只需捕获连续几段生成的随机数即可精确逆向算出后续所有输出。
+      </p>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+        ToolNexus 严格调用现代浏览器底层标准 <code>window.crypto.getRandomValues()</code>。该接口属于<strong>密码学安全伪随机数生成器（CSPRNG）</strong>，随机种子直接从操作系统内核熵池采集（包括硬件中断微秒延迟、CPU 热噪声与键鼠微操抖动），具备密码学级别的单向不可逆与绝对不可预测性。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">不同密码规格暴力破解耗时估算对照（基于高端 GPU 集群）</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">密码长度与字符组合</th>
+              <th style="padding: 0.75rem 0.5rem;">字符池大小 (R)</th>
+              <th style="padding: 0.75rem 0.5rem;">信息熵 (Bits)</th>
+              <th style="padding: 0.75rem 0.5rem;">RTX 4090 集群破解耗时</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600;">8 位纯数字</td>
+              <td style="padding: 0.65rem 0.5rem;">10</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444;">~26.6 bits</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444; font-weight: 600;">小于 1 毫秒（秒破）</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600;">10 位大小写字母</td>
+              <td style="padding: 0.65rem 0.5rem;">52</td>
+              <td style="padding: 0.65rem 0.5rem; color: #f59e0b;">~57.0 bits</td>
+              <td style="padding: 0.65rem 0.5rem; color: #f59e0b;">约数小时至数天</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600;">12 位字母 + 数字 + 符号</td>
+              <td style="padding: 0.65rem 0.5rem;">94</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">~78.6 bits</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">约 3,000 年</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">16 位全字符集（推荐）</td>
+              <td style="padding: 0.65rem 0.5rem;">94</td>
+              <td style="padding: 0.65rem 0.5rem; color: var(--accent-indigo); font-weight: 700;">~104.8 bits</td>
+              <td style="padding: 0.65rem 0.5rem; color: var(--accent-indigo); font-weight: 700;">超过数亿年（坚不可摧）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 常见问答 FAQ -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么在运维与终端中建议勾选“排除易混淆字符”？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">很多等宽字体或移动端输入法中，数字 <code>1</code> 与小写字母 <code>l</code>、大写字母 <code>I</code>；数字 <code>0</code> 与大写字母 <code>O</code>；以及字符 <code>`</code> 与 <code>'</code> 极其相似，容易导致手工输入验证时频繁报错锁死账号。勾选该项可确保生成的口令在任何终端和手写便签上都绝无歧义。</p>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">为什么在浏览器纯本地生成更安全？ <span>▼</span></div>
-          <div class="faq-answer">许多云端密码生成器在服务器生成并通过 HTTP 传输返回，可能存在中间人劫持、服务端日志记录或撞库泄露的风险。本工具调用浏览器原生的 <code>window.crypto.getRandomValues()</code>，随机熵直接由计算机操作系统的熵池采集，数据仅在您当前电脑内存中存在，绝无泄密可能。</div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 复杂的 16 位强密码记不住怎么办？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">人类记忆随机高熵字符极为困难且毫无必要。业界的最佳黄金实践是：由本工具生成高强度密码后，直接存储至现代密码管理器（如 1Password、Bitwarden、KeePass 或 Apple 钥匙串），日常仅需牢记一个高强度的根主口令，其余各网站全部由密码管理器自动填充，杜绝一密多用。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 批量生成的 10 条密码适合用于哪些实际场景？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">非常适合企业 IT 管理员批量创建新员工域账号、批量部署多台 Linux 服务器初始 root 临时口令、或为微服务群批量生成高强度的 API Token 与 JWT Secret 签名密钥。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本工具生成的密码会有服务器日志留存或撞库窃听风险吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝无风险。ToolNexus 完全基于 HTML5 + Web Cryptography API，代码执行生命周期完全闭环在您的设备浏览器运行内存中。网络面板（Network Tab）没有任何数据包发出，断网亦可全功能流畅运行。</p>
         </div>
       </div>
-    </section>
+    </article>
   </main>
 
   
@@ -260,14 +415,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

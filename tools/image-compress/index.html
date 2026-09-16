@@ -23,7 +23,87 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/image-compress/">
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/image-compress/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/image-compress/">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Instant Image Compressor",
+        "url": "https://toolnexusweb.com/tools/image-compress/",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Supports HTML5 Canvas.",
+        "description": "Free in-browser Image Compressor. Shrink JPG, PNG, and WebP images with custom quality factors and resolution scaling. 100% private, zero server uploads.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Image Tools",
+            "item": "https://toolnexusweb.com/#image"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Image Compressor",
+            "item": "https://toolnexusweb.com/tools/image-compress/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does scaling resolution down save far more bytes than quality reduction alone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Total pixel count scales quadratically with dimensions. A 4032×3024 smartphone snapshot contains over 12 million pixels, whereas scaling it to a web-optimized 1920×1440 reduces the raw pixel array by over 77%. Pairing modest resolution downscaling with an 80% quality factor frequently reduces 8MB camera files down to under 250KB."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What settings should I use to meet strict portal limits (e.g. file size &lt; 200KB)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For portal forms (such as passport renewals or university admissions), scale the image to approximately 800–1000px maximum width and set the quality slider between 70% and 75%. This configuration will reliably land under 100KB while passing automated verification scans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool automatically strip GPS location tags and camera metadata?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Canvas-based re-encoding parses purely pixel data, intentionally omitting EXIF, IPTC, and XMP headers. This scrubs camera serials, lens parameters, and embedded GPS coordinates, shielding your personal privacy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there any risk of cloud data breaches when compressing sensitive documents?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Zero risk. ToolNexus executes the entire compression loop locally in your browser memory. No network traffic is transmitted to external servers, making it completely compliant with strict corporate confidentiality rules."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -41,9 +121,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#image">Image Tools</a>
+        <a href="/#image">Image Utilities</a>
         <span class="breadcrumb-separator">/</span>
-        <span>Image Compressor</span>
+        <span>Instant Image Compressor</span>
       </nav>
     </div>
 
@@ -83,22 +163,94 @@
           </div>
 
           <!-- Comparison Grid -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;" class="preview-grid">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;" class="preview-grid">
             <div style="background: var(--bg-card); border: 1px solid var(--border-base); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
               <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Original Size: <strong id="orig-size" style="color: var(--text-main);">0 KB</strong></div>
               <img id="orig-img" style="max-width: 100%; max-height: 240px; border-radius: 4px; object-fit: contain;">
             </div>
             <div style="background: var(--bg-card); border: 1px solid var(--border-base); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
-              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Compressed: <strong id="comp-size" style="color: var(--success);">0 KB</strong> (<span id="saved-pct" style="color: var(--success);">-0%</span>)</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Result: <strong id="comp-size" style="color: var(--success);">0 KB</strong> (<span id="saved-pct" style="color: var(--success);">-0%</span>)</div>
               <img id="comp-img" style="max-width: 100%; max-height: 240px; border-radius: 4px; object-fit: contain;">
             </div>
           </div>
+
+          <div id="comp-notice" style="display: none; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: var(--text-main); font-size: 0.85rem; padding: 0.65rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem;"></div>
 
           <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem;" onclick="downloadCompressed()">
             <span>Download Compressed Image</span>
             <span>💾</span>
           </button>
         </div>
+
+        <!-- Comprehensive Guide & Technical Principles -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">The Engineering of Digital Image Compression: Discrete Cosine Transform & Modern WebP</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            In modern web performance optimization (Google Core Web Vitals), unoptimized photographic assets account for over 70% of network payload bytes, serving as the chief bottleneck for Largest Contentful Paint (LCP) regressions and mobile bandwidth bloat. Effective image optimization is not merely lowering quality until artifacts appear—it involves mathematical transformations that exploit human optical physiology to discard imperceptible data.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Lossy vs. Lossless Compression Architecture</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>JPEG / JPG (Discrete Cosine Transform & Chroma Subsampling):</strong> Human vision possesses dramatically greater spatial acuity for brightness (luminance Y) than for subtle color differences (chrominance Cb/Cr). JPEG takes advantage of this by converting RGB to YCbCr, downsampling color detail (typically 4:2:0 subsampling), and slicing the image into 8×8 blocks processed by Discrete Cosine Transform (DCT). High-frequency mathematical coefficients representing fine noise are aggressively quantized, compressing files by up to 80% with minimal perceived fidelity loss.</li>
+            <li><strong>WebP (VP8 Macroblock Intra-Prediction):</strong> Engineered by Google, WebP employs intra-frame predictive coding borrowed from the VP8 video codec. By predicting pixel color trends from neighboring blocks, WebP achieves 25% to 34% smaller file sizes than equivalent-quality JPEGs while natively supporting 8-bit alpha transparency.</li>
+            <li><strong>PNG (Spatial Filtering & Deflate Compression):</strong> A strictly lossless format utilizing predictive horizontal/vertical byte filtering followed by standard LZ77 Deflate compression. Ideal for crisp screenshots, logos, and iconography with flat colors, but ill-suited for real-world continuous-tone photography.</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Web Image Compression Standards Matrix</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Format</th>
+                  <th style="padding: 0.75rem 0.5rem;">Core Algorithm</th>
+                  <th style="padding: 0.75rem 0.5rem;">Alpha Channel</th>
+                  <th style="padding: 0.75rem 0.5rem;">Best Suited Scenario</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">WebP (Recommended)</td>
+                  <td style="padding: 0.65rem 0.5rem;">VP8 Intra-Prediction + Entropy</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">Full Support (Lossless Alpha)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Modern web application hero banners, e-commerce product catalogs</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">JPEG / JPG</td>
+                  <td style="padding: 0.65rem 0.5rem;">4:2:0 Chroma Subsampling + DCT</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #ef4444;">No Alpha (Opaque Solid)</td>
+                  <td style="padding: 0.65rem 0.5rem;">DSLR photography, email newsletters, legacy browser fallback</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">PNG</td>
+                  <td style="padding: 0.65rem 0.5rem;">Differential Filtering + Deflate</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">Full 32-bit RGBA</td>
+                  <td style="padding: 0.65rem 0.5rem;">Company brand logos, transparent digital stamps, text charts</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Why does scaling resolution down save far more bytes than quality reduction alone?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Total pixel count scales quadratically with dimensions. A 4032×3024 smartphone snapshot contains over 12 million pixels, whereas scaling it to a web-optimized 1920×1440 reduces the raw pixel array by over 77%. Pairing modest resolution downscaling with an 80% quality factor frequently reduces 8MB camera files down to under 250KB.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What settings should I use to meet strict portal limits (e.g. file size &lt; 200KB)?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">For portal forms (such as passport renewals or university admissions), scale the image to approximately 800–1000px maximum width and set the quality slider between 70% and 75%. This configuration will reliably land under 100KB while passing automated verification scans.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this tool automatically strip GPS location tags and camera metadata?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Canvas-based re-encoding parses purely pixel data, intentionally omitting EXIF, IPTC, and XMP headers. This scrubs camera serials, lens parameters, and embedded GPS coordinates, shielding your personal privacy.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Is there any risk of cloud data breaches when compressing sensitive documents?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Zero risk. ToolNexus executes the entire compression loop locally in your browser memory. No network traffic is transmitted to external servers, making it completely compliant with strict corporate confidentiality rules.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -148,12 +300,35 @@
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
           canvas.toBlob(blob => {
-            compressedBlob = blob;
-            document.getElementById('comp-size').textContent = formatBytes(blob.size);
-            const saved = currentFile.size - blob.size;
+            if (!blob) return;
+            const isLarger = blob.size >= currentFile.size;
+            // 防膨胀兜底：若压缩后反弹且未做缩放，保留原图
+            const finalBlob = (isLarger && scale === 1) ? currentFile : blob;
+            compressedBlob = finalBlob;
+
+            document.getElementById('comp-size').textContent = formatBytes(finalBlob.size);
+            const saved = currentFile.size - finalBlob.size;
             const pct = Math.round((saved / currentFile.size) * 100);
-            document.getElementById('saved-pct').textContent = (pct >= 0 ? '-' + pct : '+' + Math.abs(pct)) + '%';
-            document.getElementById('comp-img').src = URL.createObjectURL(blob);
+
+            const savedPctEl = document.getElementById('saved-pct');
+            const noticeEl = document.getElementById('comp-notice');
+
+            if (isLarger && scale === 1) {
+              savedPctEl.textContent = '0% (Optimized)';
+              savedPctEl.style.color = 'var(--text-muted)';
+              noticeEl.textContent = '💡 This image is already highly optimized. Retained original file to prevent size inflation.';
+              noticeEl.style.display = 'block';
+            } else if (isLarger) {
+              savedPctEl.textContent = '+' + Math.abs(pct) + '%';
+              savedPctEl.style.color = '#ef4444';
+              noticeEl.textContent = 'Notice: Re-encoding at this resolution increased file size. Consider lowering quality or scale.';
+              noticeEl.style.display = 'block';
+            } else {
+              savedPctEl.textContent = '-' + pct + '%';
+              savedPctEl.style.color = 'var(--success)';
+              noticeEl.style.display = 'none';
+            }
+            document.getElementById('comp-img').src = URL.createObjectURL(finalBlob);
           }, mime, q);
         };
         img.src = URL.createObjectURL(currentFile);
@@ -193,13 +368,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

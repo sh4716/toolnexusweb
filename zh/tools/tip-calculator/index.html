@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/tip-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/tip-calculator/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "餐厅小费与聚餐 AA 分账计算器",
+        "url": "https://toolnexusweb.com/zh/tools/tip-calculator/",
+        "applicationCategory": "FinanceApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "免费在线小费与 AA 制聚餐分摊计算器。支持一键预设比例、自定义小费、多人均摊及向上抹零取整。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "实用计算工具",
+            "item": "https://toolnexusweb.com/zh/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "小费计算器",
+            "item": "https://toolnexusweb.com/zh/tools/tip-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "小费应该按照税前小计（Subtotal）还是含税总额计算？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "权威餐饮行业礼仪明确指出：小费应基于税前小计（Food & Beverage Subtotal）计算。因为消费税是政府征收的法定税收，服务员并没有对政府税款提供额外服务，无需对税费部分叠加小费。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "账单上已经出现了“Auto Gratuity”还需要额外给小费吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不需要。在北美，很多餐厅对 5–6 人以上的多人聚餐会自动在账单底部加入 18% 的“自动小费（Auto Gratuity / Service Charge）”。结账签字时请先核验水单，切勿在 Tip 一栏重复支付。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本工具支持离线使用吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全支持。所有金额计算、小费百分比运算均在您手机或电脑的本地浏览器中瞬间完成，即使在地下室餐厅或没有 WiFi 的海外旅行场景下也能秒速运行。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,6 +116,14 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#calculator">计算器与换算</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>小费与聚餐 AA 均摊计算器</span>
+      </nav>
+
           <span class="tool-badge badge-primary">计算器 & 餐饮社交</span>
           <h1 class="tool-title">🧾 小费与聚餐 AA 均摊计算器</h1>
           <p class="tool-desc">支持自定义或一键预设小费比例（10% ~ 25%），多人聚餐账单自动分摊，支持按人头自动抹零向上取整。</p>
@@ -128,18 +210,45 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">小费计算常见礼仪与指南</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 海外（如美国、加拿大）常规的小费标准是多少？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">通常：外卖或快餐 10% - 15%；标准堂食正餐 15% - 18%；高端精致餐饮或优质服务 20% - 25%。</p>
+        <!-- 深度小费文化礼仪与分账指南 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">全球小费礼仪常识与聚餐账单精细分摊指南</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            在海外出差、旅行度假、跨国社交及日常聚会就餐中，“该给多少小费（Gratuity）”常常是令人困扰的社交礼仪难题。不同国家在法律制度与服务业薪酬机制上的巨大差异，塑造了完全相左的小费规范。ToolNexus 小费与账单分摊计算器助您在几秒钟内搞定比例换算、人头 AA 均摊与零钱抹平，既不失礼仪风度，又杜绝计算尴尬。
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">🌎 北美餐饮小费基准 (15%–22%)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">在美国与加拿大，联邦劳工法允许餐厅向服务生支付远低于法定标准的“小费抵扣底薪（Tipped Minimum Wage）”。因此服务生收入的大部分依赖顾客小费：午餐通常 15%，晚餐 18%，优异服务或 6 人以上聚餐通常 20%–22%。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">💶 欧洲与东亚地区小费惯例</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">在欧洲（法、德、意、西等），法定消费税和服务费已包含在账单中（Service compris），顾客可按满意度自愿留下 5%–10% 的零钱；而在中国、日本、韩国等东亚国家，服务费均由商家统筹，私自留小费可能引发误解与尴尬。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">🤝 聚餐 AA 制抹零与取整艺术</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">聚会结账时，如果算出每人需要转账 $34.27，往往会给转账和找零带来麻烦。勾选本工具的“向上取整”功能，系统将自动向上抹平为整数 $35.00，多出的小额零头直接作为追加小费，优雅得体。</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: AA 制分账时如果有小数零钱如何处理？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">开启本工具的“向上取整”功能，系统会自动将每人均摊金额抹平到最近的整数美元，多出的零头直接归入小费奖励服务员。</p>
+
+          <!-- FAQ 常见问题解答 -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 小费应该按照税前小计（Subtotal）还是含税总额计算？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">权威餐饮行业礼仪明确指出：小费应基于税前小计（Food & Beverage Subtotal）计算。因为消费税是政府征收的法定税收，服务员并没有对政府税款提供额外服务，无需对税费部分叠加小费。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 账单上已经出现了“Auto Gratuity”还需要额外给小费吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不需要。在北美，很多餐厅对 5–6 人以上的多人聚餐会自动在账单底部加入 18% 的“自动小费（Auto Gratuity / Service Charge）”。结账签字时请先核验水单，切勿在 Tip 一栏重复支付。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本工具支持离线使用吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">完全支持。所有金额计算、小费百分比运算均在您手机或电脑的本地浏览器中瞬间完成，即使在地下室餐厅或没有 WiFi 的海外旅行场景下也能秒速运行。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -262,13 +371,14 @@
             <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

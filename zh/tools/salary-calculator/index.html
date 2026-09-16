@@ -23,6 +23,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/salary-calculator/">
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/salary-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/salary-calculator/">
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "时薪年薪月薪双向换算计算器",
+        "url": "https://toolnexusweb.com/zh/tools/salary-calculator/",
+        "applicationCategory": "FinanceApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地高精度薪资换算工具。支持时薪、月薪、年薪、周薪及双周薪自由折算，内置标准全职工时、加班加成及自由职业报价模型。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "实用计算工具",
+            "item": "https://toolnexusweb.com/zh/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "薪资计算器",
+            "item": "https://toolnexusweb.com/zh/tools/salary-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "双周薪 (Bi-weekly) 与半月薪 (Semi-monthly) 的发薪节奏有何不同？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "双周薪每隔 14 天准时发薪，全年累计发薪 26 期（52 周 ÷ 2）。因为部分月份会有 5 周，所以每年有两个月份会拿到 3 次工资支票，非常有利于储蓄；半月薪则是每月在固定日期（如 15 号和 30 号）发放两次，全年严格发放 24 期。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本计算器计算的结果是税前 (Gross) 还是税后 (Net)？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "本工具提供的是标准税前薪酬（Gross Pay）总额及工时折算。由于不同国家和省市自治区的累进个人所得税率、社会保险起征点及免税扣除额千差万别，建议以税前数据为基础核准雇佣合同约定金额。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "我的薪资收入数据会保密吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "100% 绝对保密。ToolNexus 所有运算完全在您的本地浏览器端即时计算完成，绝无任何网络接口将您的工时、费率或收入数据回传至服务器。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script>
   <style>
     /* Premium Fintech Design for Salary Calculator */
@@ -616,9 +690,9 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/zh/#calculator">大众计算</a>
+        <a href="/zh/#calculator">计算器与换算</a>
         <span class="breadcrumb-separator">/</span>
-        <span>时薪薪资换算</span>
+        <span>时薪转年薪月薪换算计算器</span>
       </nav>
     </div>
     <div class="tool-layout">
@@ -869,18 +943,45 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">薪资换算常见问题与工时规则</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 每年标准全职工时基准是多少小时？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">按照国际通用的每周 40 小时、每年 52 周计算，全职工时基准为 2,080 小时。若每年享受 2 周无薪休假，则基准工时通常核算为 2,000 小时。</p>
+        <!-- 深度薪酬架构与工时核算指南 -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">时薪换算年薪与全生命周期薪酬管理指南</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            在职场求职、跨国远程工作（Remote Work）、自由职业咨询（Freelancing）以及零工经济（Gig Economy）中，“时薪（Hourly Rate）”与“总包年薪（Annual Salary）”的对齐转换是每位职场人必须掌握的核心财务技能。由于不同用工模式涉及社保公积金缴纳、带薪年假（PTO）、加班加成系数及现金流结算周期的巨大差异，简单的除法往往会严重低估或高估您的实际收入。
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">💼 标准 2,080 全职工时黄金基准</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">国际人力资源惯例按照“每周 40 小时 × 每年 52 周 = 2,080 小时”核算全职基准。若您拥有每年 2 周带薪休假（PTO），实际有效工时为 2,000 小时。快速心算口诀：<strong>时薪 × 2,000 ≈ 基础年薪</strong>（例：$50/h 对应约 $100,000 年薪）。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">🚀 自由职业合同工 (1099/B2B) 溢价模型</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">全职雇员（W2/正式工）享有雇主代缴的五险一金、健康保险、商业险与带薪假期，这部分隐性福利通常占基本薪资的 25%–35%。因此自由职业者报价时必须上浮 50%–75%（即时薪为全职的 1.5–1.75 倍），方能获得等额购买力。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">⚡ 加班加成 (Overtime 1.5x / 2.0x) 联动</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">劳动法规明确要求，工作日延长工时须支付不低于 1.5 倍报酬，周末休息日加班须支付 2.0 倍报酬。本计算器内嵌多倍率加班模块，实时拆解基础薪资与加班津贴比例，直观呈现超额劳动的实际收益回报。</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 双周薪 (Bi-weekly) 与半月薪 (Semi-monthly) 有什么区别？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">双周薪每隔两周发一次薪，每年固定发 26 次薪水（部分月份会有 3 次发薪日）；半月薪每月固定发两次（如每月 15 日和月末），每年共发 24 次薪水。</p>
+
+          <!-- FAQ 常见问题解答 -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 双周薪 (Bi-weekly) 与半月薪 (Semi-monthly) 的发薪节奏有何不同？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">双周薪每隔 14 天准时发薪，全年累计发薪 26 期（52 周 ÷ 2）。因为部分月份会有 5 周，所以每年有两个月份会拿到 3 次工资支票，非常有利于储蓄；半月薪则是每月在固定日期（如 15 号和 30 号）发放两次，全年严格发放 24 期。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本计算器计算的结果是税前 (Gross) 还是税后 (Net)？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">本工具提供的是标准税前薪酬（Gross Pay）总额及工时折算。由于不同国家和省市自治区的累进个人所得税率、社会保险起征点及免税扣除额千差万别，建议以税前数据为基础核准雇佣合同约定金额。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 我的薪资收入数据会保密吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">100% 绝对保密。ToolNexus 所有运算完全在您的本地浏览器端即时计算完成，绝无任何网络接口将您的工时、费率或收入数据回传至服务器。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </main>
@@ -908,13 +1009,14 @@
             <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <div class="footer-col-title">功能大类索引</div>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/#calculators">大众实用计算器</a></li>
-            <li><a href="/zh/#developer">开发者实用工具</a></li>
-            <li><a href="/zh/#pdf">PDF 与数字文档</a></li>
-            <li><a href="/zh/#text">文本与自媒体工具</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

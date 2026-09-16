@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>零宽字符检测与清除器 - 隐形数字盲水印排查 · 净化文本 | ToolNexus</title>
+  <meta name="description" content="免费在线零宽隐形字符检测与清理工具。精准定位文本中隐藏的零宽空格 (ZWSP)、零宽连接符、BOM 头以及盲水印追踪指纹，一键彻底净化清理，100% 浏览器本地运算保护隐私。">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/unicode-inspector/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus 实用工具箱">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/unicode-inspector/">
+  <meta property="og:title" content="零宽字符检测与清除工具 | ToolNexus 实用工具箱">
+  <meta property="og:description" content="排查文本中隐藏的 Unicode 隐形字符与盲水印追踪指纹，一键无损清理。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="零宽字符检测与清除工具 | ToolNexus 实用工具箱">
+  <meta name="twitter:description" content="精准识别隐形零宽字符与文章追踪指纹，一键彻底净化。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/unicode-inspector/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/unicode-inspector/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/unicode-inspector/">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "零宽字符检测与清除工具",
+        "url": "https://toolnexusweb.com/zh/tools/unicode-inspector/",
+        "applicationCategory": "DeveloperApplication, SecurityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯前端检测并一键清理文本中不可见的 Unicode 零宽字符、BOM 隐藏头和隐形跟踪水印。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "安全与文本工具",
+            "item": "https://toolnexusweb.com/zh/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "零宽字符检测器",
+            "item": "https://toolnexusweb.com/zh/tools/unicode-inspector/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "清洗后会改变正常的段落换行或中英文空格吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不会改变。清洗程序仅针对特定的非打印有害字符进行精准剔除，您原有的标点符号、普通空格（U+0020）、回车换行等所有合法排版结构均完整保留。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "检测时数据会上传至云端服务器吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不上传。ToolNexus 严格坚持 100% 浏览器本地运算架构，分析过程完全在您电脑的内存中完成，零网络流量外发，确保您的敏感文本安全可信。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/unicode-inspector/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换明暗主题" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#text">文本与排版</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>零宽字符 / 隐形水印检测与清理器</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">隐私安全与排版净化</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🔍 零宽字符 / 隐形水印检测与清理器</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          直观排查并清除文本中肉眼完全无法识别的 Unicode 隐藏字符、数字盲水印指纹、BOM 隐藏头以及非打印控制符。纯前端本地分析，数据绝不离端。
+        </p>
+
+        <!-- 状态总览工具栏 -->
+        <div id="status-bar" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; background: var(--bg-surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1.25rem;">
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+            <div><span style="color: var(--text-muted); font-size: 0.85rem;">文本总字符数:</span> <strong id="cnt-total" style="color: var(--text-main);">0</strong></div>
+            <div><span style="color: var(--text-muted); font-size: 0.85rem;">检测到隐形字符:</span> <strong id="cnt-hidden" style="color: var(--primary);">0</strong></div>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="stripInvisible()">一键彻底清除隐形字符 🧹</button>
+            <button type="button" class="btn btn-ghost btn-sm" style="border: 1px solid var(--border-color);" onclick="insertSampleWatermark()">注入盲水印测试 🧪</button>
+            <button type="button" class="btn btn-ghost btn-sm" style="border: 1px solid var(--border-color);" onclick="clearInspector()">清空 🗑️</button>
+          </div>
+        </div>
+
+        <!-- 输入区域 -->
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; display: block;">待检测的文本内容 (直接粘贴):</label>
+          <textarea id="inspect-input" class="input-text" rows="8" placeholder="在此粘贴需要检测的代码、文档或从外部网页复制的文本段落..." style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6;" oninput="inspectText()"></textarea>
+        </div>
+
+        <!-- 可视化地图 -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; margin: 0; color: var(--text-main);">可视化透视显影地图 (红框即为潜伏的隐形字符)</h3>
+            <button type="button" class="btn-sm btn-ghost" style="border:1px solid var(--border-color); font-size:0.8rem; padding:0.2rem 0.6rem;" onclick="copyCleanedText()">复制纯净文本 📋</button>
+          </div>
+          <div id="visual-map" style="background: var(--bg-card); border: 1px solid var(--border-base); border-radius: var(--radius-sm); padding: 1rem; min-height: 120px; font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.8; word-break: break-word; white-space: pre-wrap;">等待输入...</div>
+        </div>
+
+        <!-- 详细实体日志 -->
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 2.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">隐形字符检测明细日志</h3>
+          <div id="detected-log" style="font-size: 0.88rem; color: var(--text-muted);">暂未发现任何异常隐藏字符，文本纯净！</div>
+        </div>
+
+        <!-- 深度 SEO 原创说明与使用指南 -->
+        <article class="article-section" style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">什么是零宽字符与数字盲水印？</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            在 Unicode 字符编码标准中，存在一系列特殊的非打印控制符，它们在网页或常规办公软件中渲染时不占用任何物理宽度。常见的包括：<strong>U+200B（零宽空格）</strong>、<strong>U+200C（零宽非连字符）</strong>、<strong>U+200D（零宽连字符）</strong>以及 <strong>U+FEFF（字节顺序标记 BOM）</strong>。
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            近年来，越来越多的科技企业内网知识库、文档系统（如飞书、企业微信、内部敏捷看板）通过在用户复制文本时，悄悄将当前登录者的员工工号转换为零宽字符的二进制序列穿插在文本段落之间。若该文本外泄，泄密者即便截图打码，只要纯文本被导出，管理层便能瞬间提取其中的隐形指纹完成溯源。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">清洗隐形字符的核心场景</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>消除编程诡异报错：</strong> 从网页复制代码到 IDE 时，若夹杂零宽空格，会导致 Python 缩进崩溃、JSON 语法解析失败等难以用肉眼察觉的 <code>SyntaxError</code>。</li>
+            <li><strong>媒体与文章脱敏：</strong> 转载公开资料或内网研报前，彻底消除可能暗藏的追踪水印，保护数据发布者个人隐私。</li>
+            <li><strong>数据库与 SEO 净化：</strong> 避免隐藏字符导致数据库字符串匹配失败或破坏 SEO 友好 URL 结构。</li>
+          </ul>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 清洗后会改变正常的段落换行或中英文空格吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不会改变。清洗程序仅针对特定的非打印有害字符进行精准剔除，您原有的标点符号、普通空格（U+0020）、回车换行等所有合法排版结构均完整保留。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 检测时数据会上传至云端服务器吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不上传。ToolNexus 严格坚持 100% 浏览器本地运算架构，分析过程完全在您电脑的内存中完成，零网络流量外发，确保您的敏感文本安全可信。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            面向个人与开发者的下一代纯前端极速工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何服务器上传文件，保障绝对隐私。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具推荐</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/unicode-inspector/">零宽字符检测器</a></li>
+            <li><a href="/zh/tools/html-encoder/">HTML 实体编解码</a></li>
+            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/tools/case-converter/">英文大小写转换</a></li>
+            <li><a href="/zh/tools/word-counter/">在线字数统计</a></li>
+          </ul>
+        </div>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与合规信任</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私保护政策</a></li>
+            <li><a href="/zh/terms/">服务使用条款</a></li>
+            <li><a href="/zh/about/">关于本站</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus 实用工具箱. 本地算力驱动 · 零服务器留存
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% 浏览器本地隐私安全验证
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    const INVISIBLE_MAP = {
+      0x200B: '零宽空格 (Zero-Width Space)',
+      0x200C: '零宽非连字符 (ZWNJ)',
+      0x200D: '零宽连字符 (ZWJ)',
+      0xFEFF: 'BOM / 零宽无间断空格',
+      0x200E: '左至右标记 (LRM)',
+      0x200F: '右至左标记 (RLM)',
+      0x202A: 'LRE 方向嵌入',
+      0x202B: 'RLE 方向嵌入',
+      0x202C: 'PDF 弹出方向格式',
+      0x202D: 'LRO 强制左至右',
+      0x202E: 'RLO 强制右至左',
+      0x2060: '词语连结符 (Word Joiner)',
+      0x00AD: '软连字符 (Soft Hyphen)',
+      0x0000: '空字节 (Null Byte)'
+    };
+
+    function isCharInvisible(code) {
+      return !!INVISIBLE_MAP[code];
+    }
+
+    function inspectText() {
+      const text = document.getElementById('inspect-input').value;
+      const totalLen = text.length;
+      document.getElementById('cnt-total').textContent = totalLen;
+
+      const visualMapEl = document.getElementById('visual-map');
+      const logEl = document.getElementById('detected-log');
+
+      if (!text) {
+        document.getElementById('cnt-hidden').textContent = '0';
+        visualMapEl.innerHTML = '<span style="color:var(--text-muted);">等待输入...</span>';
+        logEl.innerHTML = '暂未发现任何异常隐藏字符，文本纯净！';
+        return;
+      }
+
+      let hiddenCount = 0;
+      let htmlPieces = [];
+      const foundEntities = {};
+
+      for (let i = 0; i < text.length; i++) {
+        const code = text.charCodeAt(i);
+        if (isCharInvisible(code)) {
+          hiddenCount++;
+          const name = INVISIBLE_MAP[code];
+          foundEntities[name] = (foundEntities[name] || 0) + 1;
+          const hex = 'U+' + code.toString(16).toUpperCase().padStart(4, '0');
+          htmlPieces.push(`<span style="background:rgba(239,68,68,0.25); border:1px solid #ef4444; color:#ef4444; padding:0 3px; border-radius:3px; font-weight:700; cursor:pointer;" title="隐形字符: ${name} (${hex})">[${hex}]</span>`);
+        } else {
+          const c = text[i];
+          if (c === '&') htmlPieces.push('&amp;');
+          else if (c === '<') htmlPieces.push('&lt;');
+          else if (c === '>') htmlPieces.push('&gt;');
+          else htmlPieces.push(c);
+        }
+      }
+
+      document.getElementById('cnt-hidden').textContent = hiddenCount;
+      visualMapEl.innerHTML = htmlPieces.join('');
+
+      if (hiddenCount > 0) {
+        let logHtml = '<div style="display:flex; flex-direction:column; gap:0.4rem;">';
+        for (const [name, count] of Object.entries(foundEntities)) {
+          logHtml += `<div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.3rem;">
+            <span style="color:#ef4444; font-weight:600;">⚠️ ${name}</span>
+            <strong>出现 ${count} 次</strong>
+          </div>`;
+        }
+        logHtml += '</div>';
+        logEl.innerHTML = logHtml;
+      } else {
+        logEl.innerHTML = '<span style="color:var(--success); font-weight:600;">✅ 文本纯净！未发现任何零宽字符或隐形盲水印。</span>';
+      }
+    }
+
+    function stripInvisible() {
+      const text = document.getElementById('inspect-input').value;
+      if (!text) {
+        showToast('请先输入需要处理的文本', 'warning');
+        return;
+      }
+      let cleaned = '';
+      for (let i = 0; i < text.length; i++) {
+        const code = text.charCodeAt(i);
+        if (!isCharInvisible(code)) {
+          cleaned += text[i];
+        }
+      }
+      document.getElementById('inspect-input').value = cleaned;
+      inspectText();
+      showToast('所有隐形零宽字符已成功净化清除！', 'success');
+    }
+
+    function insertSampleWatermark() {
+      const text = "这是一份绝密" + "\u200B\u200C\u200D\u200B" + "内部年度财务审计报告" + "\uFEFF" + "，严禁任何形式的外部传阅" + "\u200B" + "与未经授权的备份。";
+      document.getElementById('inspect-input').value = text;
+      inspectText();
+      showToast('已注入含零宽盲水印的测试样本！', 'info');
+    }
+
+    function copyCleanedText() {
+      const text = document.getElementById('inspect-input').value;
+      let cleaned = '';
+      for (let i = 0; i < text.length; i++) {
+        const code = text.charCodeAt(i);
+        if (!isCharInvisible(code)) cleaned += text[i];
+      }
+      copyToClipboard(cleaned);
+      showToast('已复制纯净无水印文本！', 'success');
+    }
+
+    function clearInspector() {
+      document.getElementById('inspect-input').value = '';
+      inspectText();
+      showToast('已清空内容', 'info');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      insertSampleWatermark();
+    });
+  </script>
+</body>
+</html>

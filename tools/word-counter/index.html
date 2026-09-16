@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/word-counter/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/word-counter/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Word Counter & Text Statistics Analyzer",
+        "url": "https://toolnexusweb.com/tools/word-counter/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript capable modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Real-time client-side word count, character count (with/without spaces), sentence, paragraph count, and reading duration estimator."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://toolnexusweb.com/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Word Counter",
+            "item": "https://toolnexusweb.com/tools/word-counter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How are sentences and paragraphs identified?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sentences are recognized by terminal punctuation marks (periods, exclamation marks, question marks) followed by whitespace or ending boundaries. Paragraphs are recognized by non-empty blocks separated by line breaks."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the ideal word count targets for SEO articles?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Comprehensive informational articles that rank on Google page 1 typically average between 1,200 and 2,200 words. Shorter answers or news pieces perform best around 600–800 words, provided the search intent is thoroughly resolved."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool work offline?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Once loaded, the script runs entirely on your local machine with zero external API calls. You can disconnect from WiFi and continue analyzing your documents without disruption."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -41,9 +115,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#text">Text Tools</a>
+        <a href="/#text">Text & Writing</a>
         <span class="breadcrumb-separator">/</span>
-        <span>Word Counter</span>
+        <span>Word Counter & Reading Time Estimator</span>
       </nav>
     </div>
 
@@ -94,9 +168,48 @@
         <div style="display: flex; gap: 0.75rem;">
           <button type="button" class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('word-input').value)">Copy Text</button>
           <button type="button" class="btn btn-ghost" style="border:1px solid var(--border-color);" onclick="document.getElementById('word-input').value=''; updateWordStats();">Clear</button>
-        </div>
       </div>
     </div>
+
+    <!-- In-Depth Writing & Typography Guide -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Mastering Word Counts, Reading Speed & Typography Standards</h2>
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Whether you are drafting a university thesis, submitting a grant proposal, tuning an SEO blog post, or preparing a keynote script, controlling text length and structure is crucial. The ToolNexus Word Counter offers millisecond-fast telemetry over words, characters, sentences, paragraphs, and estimated speech delivery times—running entirely client-side without sending your content across the web.
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">📝 Character Count vs Word Count</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Platforms like X (formerly Twitter), SMS gateways, and Google Meta Descriptions enforce strict character limits (including or excluding whitespace), while academic essays and publishers benchmark by total word count. Our dual tracking guarantees compliance across both standards.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">⏱️ Words Per Minute (WPM) Benchmarks</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">The average adult reads silently at approximately 200–250 words per minute. For spoken delivery (podcasts, YouTube voiceovers, TED talks), the standard speaking rate is typically 130–150 WPM. Use our reading estimate to calibrate your pacing.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">🔒 Zero Cloud Logging Guarantee</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Unlike cloud-based writing assistants that harvest text for AI training datasets, ToolNexus processes your text purely in temporary browser memory. Your confidential draft manuscripts and legal agreements remain 100% private.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: How are sentences and paragraphs identified?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Sentences are recognized by terminal punctuation marks (periods, exclamation marks, question marks) followed by whitespace or ending boundaries. Paragraphs are recognized by non-empty blocks separated by line breaks.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What are the ideal word count targets for SEO articles?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Comprehensive informational articles that rank on Google page 1 typically average between 1,200 and 2,200 words. Shorter answers or news pieces perform best around 600–800 words, provided the search intent is thoroughly resolved.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this tool work offline?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes! Once loaded, the script runs entirely on your local machine with zero external API calls. You can disconnect from WiFi and continue analyzing your documents without disruption.</p>
+        </div>
+      </div>
+    </article>
 
     <script>
       function updateWordStats() {
@@ -146,13 +259,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

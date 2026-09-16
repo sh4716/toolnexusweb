@@ -24,6 +24,88 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/bmi-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/bmi-calculator/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "BMI Calculator",
+        "url": "https://toolnexusweb.com/tools/bmi-calculator/",
+        "applicationCategory": "HealthApplication, UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires modern JavaScript browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Calculate Body Mass Index (BMI) and healthy weight range using Metric and Imperial units with WHO standards."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Calculators",
+            "item": "https://toolnexusweb.com/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "BMI Calculator",
+            "item": "https://toolnexusweb.com/tools/bmi-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is considered an ideal healthy body weight?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An ideal healthy weight corresponds to a BMI range between 18.5 and 24.9 kg/m² for your specific height. For example, for a person standing 175 cm (5 ft 9 in), the ideal healthy weight band spans from 56.7 kg to 76.3 kg (125 lbs to 168 lbs)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do Asian populations have different recommended BMI cutoffs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Epidemiological studies reviewed by WHO demonstrated that Asian populations generally experience higher visceral fat percentages and earlier onset of type 2 diabetes and cardiovascular disease at lower BMI thresholds. Consequently, many Asian health ministries define overweight starting at 23.0 or 24.0."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this calculator distinguish between men and women?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The standard mathematical formula for adult BMI (ages 20+) does not incorporate gender variables. However, women typically have a naturally higher percentage of body fat than men at the exact same BMI score."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my biometric measurements stored or shared?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. ToolNexus runs 100% locally in your web browser. None of your inputs (height, weight, age, or unit preferences) are transmitted over the network or saved in server logs."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -41,9 +123,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#calculators">Calculators</a>
+        <a href="/#calculator">Calculators & Finance</a>
         <span class="breadcrumb-separator">/</span>
-        <span>BMI Calculator</span>
+        <span>Body Mass Index (BMI) Calculator</span>
       </nav>
     </div>
 
@@ -120,16 +202,88 @@
           </div>
         </div>
 
-        <!-- FAQ -->
-        <div style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">World Health Organization (WHO) BMI Categories</h3>
-          <ul style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem;">
-            <li><strong>Underweight:</strong> BMI less than 18.5</li>
-            <li><strong>Normal weight:</strong> BMI between 18.5 and 24.9</li>
-            <li><strong>Overweight:</strong> BMI between 25.0 and 29.9</li>
-            <li><strong>Obesity:</strong> BMI of 30.0 or greater</li>
+        <!-- Deep SEO Educational Guide & Analysis -->
+        <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Understanding Body Mass Index (BMI) & Healthy Weight Ranges</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Body Mass Index (BMI) is a standardized screening metric established by the World Health Organization (WHO) and healthcare institutions worldwide to assess whether an individual's weight is proportionate to their height. Developed originally in the 19th century by Belgian mathematician Adolphe Quetelet, the formula serves as an accessible population-level indicator for potential health risks associated with underweight, overweight, and obesity.
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            The mathematical formula calculates BMI by dividing an individual's weight in kilograms by their height in meters squared: <code>BMI = weight (kg) / [height (m)]²</code>. For imperial units, the corresponding formula is <code>BMI = 703 × weight (lbs) / [height (inches)]²</code>. Because our tool operates 100% within your local web browser, all biometric parameters remain completely private and are never uploaded or tracked.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">WHO vs. Regional BMI Standards</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Classification</th>
+                  <th style="padding: 0.75rem 0.5rem;">WHO International Cutoff</th>
+                  <th style="padding: 0.75rem 0.5rem;">Asian Population Standard</th>
+                  <th style="padding: 0.75rem 0.5rem;">Associated Health Risk</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted); line-height: 1.6;">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #38bdf8;">Underweight</td>
+                  <td style="padding: 0.65rem 0.5rem;">&lt; 18.5</td>
+                  <td style="padding: 0.65rem 0.5rem;">&lt; 18.5</td>
+                  <td style="padding: 0.65rem 0.5rem;">Nutritional deficiency, weakened immunity, osteoporosis</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">Normal Healthy Weight</td>
+                  <td style="padding: 0.65rem 0.5rem;">18.5 – 24.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">18.5 – 22.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">Lowest statistical mortality and chronic disease rate</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f59e0b;">Overweight</td>
+                  <td style="padding: 0.65rem 0.5rem;">25.0 – 29.9</td>
+                  <td style="padding: 0.65rem 0.5rem;">23.0 – 27.4</td>
+                  <td style="padding: 0.65rem 0.5rem;">Moderate risk of hypertension, dyslipidemia, type 2 diabetes</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f43f5e;">Obesity (Class I–III)</td>
+                  <td style="padding: 0.65rem 0.5rem;">≥ 30.0</td>
+                  <td style="padding: 0.65rem 0.5rem;">≥ 27.5</td>
+                  <td style="padding: 0.65rem 0.5rem;">Elevated risk of cardiovascular disorders, sleep apnea, joint strain</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">Clinical Limitations: When BMI Doesn't Tell the Whole Story</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+            While BMI remains the most convenient screening tool, it has recognized anatomical limitations because it cannot differentiate between adipose fat tissue, lean muscle mass, skeletal bone density, and water retention:
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Athletes & Bodybuilders:</strong> High muscle density can cause athletic individuals to register in the "overweight" or "obese" categories despite carrying extremely low body fat percentages (8%–14%).</li>
+            <li><strong>Elderly Individuals (Sarcopenia):</strong> As people age, natural muscle loss can mask elevated visceral fat, yielding a "normal" BMI score despite suboptimal cardiovascular risk.</li>
+            <li><strong>Fat Distribution & Visceral Adiposity:</strong> BMI does not reflect whether fat is stored subcutaneously around hips or viscerally around abdominal organs. Complementary waist-to-hip ratio measurements provide deeper insight into metabolic health.</li>
+            <li><strong>Pregnancy & Lactation:</strong> BMI tables should not be used for expectant mothers whose weight dynamics reflect fetal growth, amniotic fluid, and physiological blood volume expansion.</li>
           </ul>
-        </div>
+
+          <!-- Detailed FAQs -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What is considered an ideal healthy body weight?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">An ideal healthy weight corresponds to a BMI range between 18.5 and 24.9 kg/m² for your specific height. For example, for a person standing 175 cm (5 ft 9 in), the ideal healthy weight band spans from 56.7 kg to 76.3 kg (125 lbs to 168 lbs).</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Why do Asian populations have different recommended BMI cutoffs?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Epidemiological studies reviewed by WHO demonstrated that Asian populations generally experience higher visceral fat percentages and earlier onset of type 2 diabetes and cardiovascular disease at lower BMI thresholds. Consequently, many Asian health ministries define overweight starting at 23.0 or 24.0.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this calculator distinguish between men and women?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">The standard mathematical formula for adult BMI (ages 20+) does not incorporate gender variables. However, women typically have a naturally higher percentage of body fat than men at the exact same BMI score.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are my biometric measurements stored or shared?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. ToolNexus runs 100% locally in your web browser. None of your inputs (height, weight, age, or unit preferences) are transmitted over the network or saved in server logs.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -252,13 +406,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

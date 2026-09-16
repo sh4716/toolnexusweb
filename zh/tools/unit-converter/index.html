@@ -5,22 +5,103 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | 极速响应</title>
+  <title>全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | ToolNexus</title>
   <meta name="description" content="纯前端在线全能单位换算工具。涵盖长度、面积、体积、重量、温度、数据存储等多品类换算。输入任一数值，全矩阵所有单位实时同步换算并支持一键复制。">
   <meta name="keywords" content="单位换算,长度换算,重量换算,温度换算,数据容量换算,在线换算器">
     <link rel="canonical" href="https://toolnexusweb.com/zh/tools/unit-converter/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/unit-converter/">
-  <meta property="og:title" content="全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | 极速响应">
+  <meta property="og:title" content="全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | ToolNexus">
   <meta property="og:description" content="纯前端在线全能单位换算工具。涵盖长度、面积、体积、重量、温度、数据存储等多品类换算。输入任一数值，全矩阵所有单位实时同步换算并支持一键复制。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | 极速响应">
+  <meta name="twitter:title" content="全能单位换算器 - 长度/面积/重量/温度/数据存储在线换算 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线全能单位换算工具。涵盖长度、面积、体积、重量、温度、数据存储等多品类换算。输入任一数值，全矩阵所有单位实时同步换算并支持一键复制。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "全能单位换算器",
+        "url": "https://toolnexusweb.com/zh/tools/unit-converter/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript.",
+        "description": "纯前端全能高精度单位换算器。支持长度、面积、重量、温度、数据存储等多品类换算，毫秒级多向联动同步，100% 浏览器本地运算。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "实用计算器",
+            "item": "https://toolnexusweb.com/zh/#calc"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "全能单位换算器",
+            "item": "https://toolnexusweb.com/zh/tools/unit-converter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么新买的 512GB 固态硬盘或 U 盘插在 Windows 上只有 476 GB 左右？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "存储硬件厂商按照十进制国际标准（SI）生产： 512 GB = 512,000,000,000 字节 。而 Windows 系统沿用早期二进制算法计算（1 GiB = 1024 × 1024 × 1024 = 1,073,741,824 字节）。两相换算： 512,000,000,000 ÷ 1,073,741,824 ≈ 476.83 GiB 。硬件并没有缩水损坏，只是计量标尺的进位体系不同。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "烤箱温度 350°F 等于摄氏度多少度？烘焙时如何快速估算？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "通过公式计算： (350 - 32) ÷ 1.8 ≈ 176.67°C 。欧美烘焙食谱中常见的 350°F 通常对应国内烤箱的 175°C~180°C 中温烘烤档位。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "为什么输入一个数值后，所有其它单位能瞬间同步更新？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ToolNexus 换算引擎使用星型反应式拓扑架构（Star Topology），将当前激活输入框的值瞬间归一化为核心物理基准单位（如米或千克），再由基准值并行投影计算至该分类下的所有派生单位，不仅消除了循环触发死循环，更保证了毫秒级的流畅体验。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "计算过程中会出现类似 0.1 + 0.2 = 0.30000000000000004 的 JavaScript 精度问题吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "工具内部内置了高精度浮点数动态格式化截断算法，智能剔除 IEEE 754 双精度浮点产生的无意义微小噪点，保证展示出的换算结果既准确又直观。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .unit-category-tabs {
       display: flex;
@@ -109,7 +190,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>实用计算器</span>
+        <a href="/zh/#calculator">计算器与换算</a>
         <span class="breadcrumb-separator">/</span>
         <span>全能单位换算器</span>
       </nav>
@@ -132,6 +213,92 @@
       </div>
 
       <div class="unit-grid" id="unit-grid"></div>
+
+      <!-- 深度度量衡技术文章与换算参考 -->
+      <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">度量衡与单位换算：国际单位制 (SI)、英美制演变与量纲工程学</h2>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+          从古埃及的肘尺（Cubits）、秦始皇统一度量衡，到现代国际计量大会（BIPM）确立的<strong>国际单位制（SI）</strong>，人类文明的技术协作始终建立在精确统一的测量基准之上。在现代跨国贸易、软件架构设计、科学工程与日常海淘中，公制（Metric）、英制（Imperial / US Customary）以及计算机二进制/十进制存储单位之间的频繁转换，是每一个工程师与学术研究者必备的工具。
+        </p>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">常见物理量国际标准换算基准与换算公式</h3>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+          现代工程学中，所有派生单位均基于物理学常数与 SI 7 大基本单位进行严密数学推导：
+        </p>
+        <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+          <li><strong>长度与距离（Length）：</strong> 1959 年《国际码和磅协议》精确将 1 英寸（inch）定义为 2.54 厘米（25.4 毫米）。由此推导：1 英尺（ft）= 12 英寸 = 30.48 厘米；1 码（yd）= 3 英尺 = 0.9144 米；1 英里（mi）= 1760 码 = 1.609344 千米。</li>
+          <li><strong>质量与重量（Mass & Weight）：</strong> 1 磅（lb）常衡定义为精确的 0.45359237 千克；1 盎司（oz）= 1/16 磅 ≈ 28.3495 克。中国传统市制单位中，1 斤 = 500 克 = 10 两 = 0.5 千克。</li>
+          <li><strong>温度温标（Temperature）：</strong> 摄氏度（°C）与华氏度（°F）存在原点漂移与梯度差异，转换公式为：<code>°F = °C × 1.8 + 32</code>，<code>°C = (°F - 32) / 1.8</code>。热力学绝对温标开尔文（K）则以绝对零度为起点：<code>K = °C + 273.15</code>。</li>
+          <li><strong>数据存储（Digital Storage）：</strong> 国际电工委员会（IEC）区分了十进制 SI 前缀（1 KB = 1,000 Bytes）与二进制前缀（1 KiB = 1,024 Bytes）。操作系统文件树按 1024 进位，而硬盘制造商按 1000 进位，形成了常见的“容量标称缩水”现象。</li>
+        </ul>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">常用公制与英美制单位速查对照表</h3>
+        <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                <th style="padding: 0.75rem 0.5rem;">物理量维度</th>
+                <th style="padding: 0.75rem 0.5rem;">国际公制单位 (SI)</th>
+                <th style="padding: 0.75rem 0.5rem;">英制 / 美制单位</th>
+                <th style="padding: 0.75rem 0.5rem;">精确等值换算系数</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-muted);">
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">微观与屏幕尺寸</td>
+                <td style="padding: 0.65rem 0.5rem;">厘米 (cm) / 毫米 (mm)</td>
+                <td style="padding: 0.65rem 0.5rem;">英寸 (inch, in)</td>
+                <td style="padding: 0.65rem 0.5rem; font-family: monospace;">1 in = 2.54 cm</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">公路与航空航行</td>
+                <td style="padding: 0.65rem 0.5rem;">公里 / 千米 (km)</td>
+                <td style="padding: 0.65rem 0.5rem;">英里 (mile, mi) / 海里 (nmi)</td>
+                <td style="padding: 0.65rem 0.5rem; font-family: monospace;">1 mi ≈ 1.60934 km · 1 nmi = 1.852 km</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">土地与房屋面积</td>
+                <td style="padding: 0.65rem 0.5rem;">平方米 (m²) / 公顷 (ha)</td>
+                <td style="padding: 0.65rem 0.5rem;">平方英尺 (sq ft) / 英亩 (acre)</td>
+                <td style="padding: 0.65rem 0.5rem; font-family: monospace;">1 m² ≈ 10.7639 sq ft · 1 acre ≈ 4046.86 m²</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">人体与货物质量</td>
+                <td style="padding: 0.65rem 0.5rem;">千克 / 公斤 (kg)</td>
+                <td style="padding: 0.65rem 0.5rem;">磅 (pound, lb)</td>
+                <td style="padding: 0.65rem 0.5rem; font-family: monospace;">1 kg ≈ 2.20462 lb · 1 lb = 0.453592 kg</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f43f5e;">IT 数据存储</td>
+                <td style="padding: 0.65rem 0.5rem;">千兆字节 (GB, 10^9 Bytes)</td>
+                <td style="padding: 0.65rem 0.5rem;">吉字节 (GiB, 2^30 Bytes)</td>
+                <td style="padding: 0.65rem 0.5rem; font-family: monospace;">1 GiB = 1,024 MiB ≈ 1.07374 GB</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 常见问答 FAQ -->
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+        <div style="display: grid; gap: 1rem;">
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么新买的 512GB 固态硬盘或 U 盘插在 Windows 上只有 476 GB 左右？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">存储硬件厂商按照十进制国际标准（SI）生产：<code>512 GB = 512,000,000,000 字节</code>。而 Windows 系统沿用早期二进制算法计算（1 GiB = 1024 × 1024 × 1024 = 1,073,741,824 字节）。两相换算：<code>512,000,000,000 ÷ 1,073,741,824 ≈ 476.83 GiB</code>。硬件并没有缩水损坏，只是计量标尺的进位体系不同。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 烤箱温度 350°F 等于摄氏度多少度？烘焙时如何快速估算？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">通过公式计算：<code>(350 - 32) ÷ 1.8 ≈ 176.67°C</code>。欧美烘焙食谱中常见的 350°F 通常对应国内烤箱的 175°C~180°C 中温烘烤档位。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么输入一个数值后，所有其它单位能瞬间同步更新？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">ToolNexus 换算引擎使用星型反应式拓扑架构（Star Topology），将当前激活输入框的值瞬间归一化为核心物理基准单位（如米或千克），再由基准值并行投影计算至该分类下的所有派生单位，不仅消除了循环触发死循环，更保证了毫秒级的流畅体验。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 计算过程中会出现类似 0.1 + 0.2 = 0.30000000000000004 的 JavaScript 精度问题吗？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">工具内部内置了高精度浮点数动态格式化截断算法，智能剔除 IEEE 754 双精度浮点产生的无意义微小噪点，保证展示出的换算结果既准确又直观。</p>
+          </div>
+        </div>
+      </article>
     </div>
   </main>
 
@@ -155,14 +322,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

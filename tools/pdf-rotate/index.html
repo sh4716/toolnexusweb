@@ -26,7 +26,79 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Rotate PDF Online",
+        "url": "https://toolnexusweb.com/tools/pdf-rotate/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas & WebAssembly.",
+        "description": "Rotate PDF pages clockwise or counter-clockwise (90°, 180°, 270°) permanently in your browser. 100% private with client-side PDF metadata editing.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF Tools",
+            "item": "https://toolnexusweb.com/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Rotate PDF",
+            "item": "https://toolnexusweb.com/tools/pdf-rotate/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Will rotated PDF files stay in the correct orientation when opened on other devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The rotation instruction is permanently committed to the root PDF document dictionary. Adobe Acrobat, macOS Preview, Chrome, Edge, and iOS/Android PDF readers will always render the pages right side up."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is rotation instantaneous compared to other online tools?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Conventional websites force you to upload hundreds of megabytes across the internet to their servers, queue behind other jobs, and re-download the result. ToolNexus uses client-side JavaScript to modify the binary metadata in milliseconds without any file transfer overhead."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are annotations, fillable form fields, and hyperlinks preserved?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Form widgets, text annotations, bookmarks, and links remain fully functional. Compliant PDF viewers automatically transform annotation coordinates to match the newly declared page rotation."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -44,9 +116,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#pdf">PDF Tools</a>
+        <a href="/#pdf">PDF & Documents</a>
         <span class="breadcrumb-separator">/</span>
-        <span>Rotate PDF</span>
+        <span>Rotate PDF Pages Online</span>
       </nav>
     </div>
 
@@ -88,18 +160,74 @@
           <div id="rotate-pages-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;"></div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Does rotating a PDF reduce text clarity or image quality?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Not at all. The tool modifies the internal PDF viewport rotation matrix metadata without re-encoding text, vectors, or graphics, ensuring 100% lossless output.</p>
+        <!-- Comprehensive Article Section -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Understanding PDF Rotation: Page Coordinate Systems & Metadata Editing</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            When scanned on flatbed hardware or photographed via mobile camera apps, multi-page PDFs frequently end up inverted, sideways, or with mixed landscape-portrait alignments. Traditional online converters often convert every page to a rasterized image before reassembling them, resulting in massive file sizes, blurry text, and destroyed searchable OCR text layers.
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            ToolNexus utilizes low-level <strong>PDF dictionary manipulation</strong> powered by <code>pdf-lib</code>. Instead of modifying actual graphics vectors or re-compressing high-resolution photos, it directly edits the <code>/Rotate</code> entry in each page's dictionary tree (ISO 32000-1 specification). The operation executes in sub-second time, preserves 100% vector fidelity, and keeps the file size virtually identical.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">PDF Rotation Angle Reference Guide</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Action</th>
+                  <th style="padding: 0.75rem 0.5rem;">Internal Angle Offset</th>
+                  <th style="padding: 0.75rem 0.5rem;">Common Use Case</th>
+                  <th style="padding: 0.75rem 0.5rem;">Fidelity & File Size</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">Clockwise 90° (↻)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Current + 90 (mod 360)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Mobile photos shot in landscape orientation stored as portrait</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% Lossless · Zero Size Growth</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">Counter-Clockwise 90° (↺)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Current + 270 (mod 360)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Scanned contracts or vouchers tilted 90° to the left</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">Preserves all searchable text & links</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">Full 180° Inversion</td>
+                  <td style="padding: 0.65rem 0.5rem;">Current + 180 (mod 360)</td>
+                  <td style="padding: 0.65rem 0.5rem;">Multi-page documents fed into the scanner upside-down</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">Instant export without re-encoding</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Are my private documents uploaded to a remote server?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. ToolNexus runs entirely in your device's local memory via WebAssembly and HTML5 Canvas. Your documents never leave your computer.</p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">Best Practices for Multi-Page Document Realignment</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Global vs. Page-Specific Rotation:</strong> If an entire stack of invoices was fed backwards into an automated document feeder, use the "Rotate All 180°" button. For single mixed pages (e.g. landscape Excel charts inside portrait reports), use the ↺ / ↻ controls on that specific card.</li>
+            <li><strong>Interactive Visual Confirmation:</strong> Each page thumbnail renders in real-time with CSS hardware acceleration, reflecting the exact angle that will be applied when exported.</li>
+            <li><strong>Guaranteed Enterprise Privacy:</strong> Legal discovery files, medical records, and corporate agreements never touch third-party servers. All operations execute strictly within your local WebAssembly runtime.</li>
+          </ul>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Will rotated PDF files stay in the correct orientation when opened on other devices?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. The rotation instruction is permanently committed to the root PDF document dictionary. Adobe Acrobat, macOS Preview, Chrome, Edge, and iOS/Android PDF readers will always render the pages right side up.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Why is rotation instantaneous compared to other online tools?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Conventional websites force you to upload hundreds of megabytes across the internet to their servers, queue behind other jobs, and re-download the result. ToolNexus uses client-side JavaScript to modify the binary metadata in milliseconds without any file transfer overhead.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are annotations, fillable form fields, and hyperlinks preserved?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Form widgets, text annotations, bookmarks, and links remain fully functional. Compliant PDF viewers automatically transform annotation coordinates to match the newly declared page rotation.</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -243,13 +371,14 @@
             <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

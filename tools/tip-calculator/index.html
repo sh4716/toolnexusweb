@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/tip-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/tip-calculator/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Tip Calculator & Bill Splitter",
+        "url": "https://toolnexusweb.com/tools/tip-calculator/",
+        "applicationCategory": "FinanceApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript capable modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free client-side tip calculator and dining bill splitter. Preset tip rates, custom percentages, round-up per person, and instant copy."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Calculators",
+            "item": "https://toolnexusweb.com/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Tip Calculator",
+            "item": "https://toolnexusweb.com/tools/tip-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Should you tip on the pre-tax subtotal or the post-tax total?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Etiquette experts and consumer advocates agree: tips should be assessed on the food and beverage subtotal before local sales tax. Sales tax is a government collection and should not artificially inflate the tip calculation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should you do if an automatic gratuity is already added?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Always check your itemized receipt before paying. Many establishments automatically append an 18% or 20% gratuity for parties of 6 or more. If auto-gratuity is included, you do not need to add an additional tip unless service was extraordinary."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this calculator work offline?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! ToolNexus executes all percentage calculations and rounding locally in your smartphone or laptop browser. It functions seamlessly in basements, planes, or international destinations with no data roaming."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,6 +116,14 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#calculator">Calculators & Finance</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Tip Calculator & Bill Splitter</span>
+      </nav>
+
           <span class="tool-badge badge-primary">Calculator & Dining</span>
           <h1 class="tool-title">🧾 Tip Calculator & Bill Splitter</h1>
           <p class="tool-desc">Effortlessly calculate tips and split dining bills among friends. Choose popular tip percentages or customize, with one-click dollar round-up for painless splitting.</p>
@@ -128,18 +210,45 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Tipping Etiquette & Common Questions</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: What is standard tipping etiquette in the US and Canada?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Casual dining or takeout is typically 10%-15%; standard sit-down dinner service is 15%-18%; excellent or fine dining is 20%-25%.</p>
+        <!-- In-Depth Tipping & Bill Splitting Guide -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Global Tipping Etiquette & Effortless Bill Splitting Standards</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            Whether dining out with coworkers, splitting delivery with roommates, or traveling internationally, determining the appropriate gratuity amount can feel needlessly complex. Tipping traditions vary drastically around the globe depending on statutory minimum wage laws and hospitality customs. ToolNexus calculates exact tip percentages, handles multi-person bill splits, and offers smart round-up logic in real time.
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">🇺🇸 North American Tipping Standards</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">In the US and Canada, waitstaff depend on tips as the core component of their living wage. Standard dining gratuity ranges from 15% for adequate service, 18% for good service, and 20%–22% for exceptional hospitality or large parties.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">🇪🇺 European & Asian Dining Conventions</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">In France, Germany, and the UK, service charges (service compris) and VAT are legally included in listed menu prices. Leaving 5%–10% cash is appreciated but voluntary. In Japan and South Korea, tipping is non-existent and can cause confusion.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">🤝 The Smart Round-Up Feature</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Dividing a check among four friends often results in awkward fractions like $32.43 per person. Activating "Round Up" automatically adjusts each share to $33.00, simplifying digital payment requests while gracefully rounding up the tip pool.</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: How does rounding up work?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Enabling "Round up" raises each person's share to the next whole dollar (e.g. $24.35 becomes $25.00), preventing awkward loose change and adding a small bonus tip for the server.</p>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Should you tip on the pre-tax subtotal or the post-tax total?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Etiquette experts and consumer advocates agree: tips should be assessed on the food and beverage subtotal before local sales tax. Sales tax is a government collection and should not artificially inflate the tip calculation.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What should you do if an automatic gratuity is already added?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Always check your itemized receipt before paying. Many establishments automatically append an 18% or 20% gratuity for parties of 6 or more. If auto-gratuity is included, you do not need to add an additional tip unless service was extraordinary.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this calculator work offline?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes! ToolNexus executes all percentage calculations and rounding locally in your smartphone or laptop browser. It functions seamlessly in basements, planes, or international destinations with no data roaming.</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -262,13 +371,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

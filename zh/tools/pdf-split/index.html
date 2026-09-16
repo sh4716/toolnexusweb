@@ -1,29 +1,118 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
+
 <head>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF 极速拆分 - 提取指定页面/按页抽取另存 | 纯本地无限制</title>
+  <title>PDF 极速拆分 - 提取指定页面/按页抽取另存 | ToolNexus</title>
   <meta name="description" content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
   <meta name="keywords" content="PDF拆分,PDF提取页面,PDF按页拆分,在线PDF分割">
-    <link rel="canonical" href="https://toolnexusweb.com/zh/tools/pdf-split/">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/pdf-split/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/pdf-split/">
-  <meta property="og:title" content="PDF 极速拆分 - 提取指定页面/按页抽取另存 | 纯本地无限制">
-  <meta property="og:description" content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
+  <meta property="og:title" content="PDF 极速拆分 - 提取指定页面/按页抽取另存 | ToolNexus">
+  <meta property="og:description"
+    content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="PDF 极速拆分 - 提取指定页面/按页抽取另存 | 纯本地无限制">
-  <meta name="twitter:description" content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
+  <meta name="twitter:title" content="PDF 极速拆分 - 提取指定页面/按页抽取另存 | ToolNexus">
+  <meta name="twitter:description"
+    content="纯前端在线 PDF 自由拆分工具。支持抽取单页、自定义页码范围（如 1-3, 5, 8-10）快速另存，或一键拆分为单页打包 ZIP。纯浏览器端完成，绝无泄密风险。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-split/">
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-split/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-split/">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-split/#webapp",
+        "url": "https://toolnexusweb.com/zh/tools/pdf-split/",
+        "name": "PDF 自由拆分与页面提取工具",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires modern web browser with WebAssembly or TypedArray support",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯前端本地 PDF 自由拆分工具。支持可视化缩略图拖拽排序、按页码范围精确提取、删除无用页、一键拆解为单页 ZIP 打包，100% 浏览器内运算，零泄密风险。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-split/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF与文档",
+            "item": "https://toolnexusweb.com/zh/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PDF 自由拆分",
+            "item": "https://toolnexusweb.com/zh/tools/pdf-split/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-split/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "拆分提取出的 PDF 单页，文字清晰度和矢量曲线会下降吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对不会。拆分不是将页面转成图片再重新压制，而是直接在底层 PDF 二进制结构树中完整克隆页面 Page 字典与字体子集、矢量绘图指令流。输出的新文档保持 100% 原生矢量精度，文字始终支持清晰缩放与自由选中复制。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "原文档中的书签大纲（Outlines）和超链接在拆分后还能保留吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "页面内的独立超链接（如网址外部跳转）会随页面内容流完整保留；而全局书签树由于通常指向整个原文档被裁减掉的其他章节页码，为防止打开时发生死链报错，拆分引擎会自动对全局书签进行解耦过滤，确保提取出的单页或指定范围文档结构自洽。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "处理几百页的厚重扫描图纸或标书时，浏览器会卡死奔溃吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。ToolNexus 采用按需分片与轻量缩略图流式渲染管道，对大文件执行分批异步切片处理，完成提取后即时调用垃圾回收释放显存，有效防范页面 OOM 崩溃，数百页文档也能顺畅流利提取。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "拆分包含商业机密的审计底稿或个人合同，有云端泄露风险吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全零风险。ToolNexus 是 100% 纯客户端运行的 Web 工具，所有页面提取、重排序和 ZIP 打包均在您本地设备的浏览器内存沙箱中完成，无任何服务器上传接口，断开网络同样可以全速使用。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <style>
     .pdf-pages-grid {
@@ -32,6 +121,7 @@
       gap: 1.25rem;
       margin-top: 1.25rem;
     }
+
     .page-card {
       background: var(--bg-surface-alt);
       border: 1px solid var(--border-subtle);
@@ -45,44 +135,51 @@
       user-select: none;
       transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
     }
+
     .page-card:active {
       cursor: grabbing;
     }
+
     .page-card:hover {
       border-color: var(--primary-border);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
     }
+
     .page-card.dragging {
       opacity: 0.4;
       transform: scale(0.96);
       border: 2px dashed var(--primary);
     }
+
     .page-card.drag-over {
       border: 2px solid var(--primary);
       background: var(--bg-card-hover);
       transform: translateY(-4px) scale(1.02);
       box-shadow: 0 8px 24px var(--primary-glow);
     }
+
     .page-card-thumb-wrap {
       width: 100%;
       height: 210px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.12);
+      background: rgba(0, 0, 0, 0.12);
       border-radius: var(--radius-sm);
       overflow: hidden;
       margin-bottom: 0.5rem;
       position: relative;
     }
+
     .page-card-thumb-wrap img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       border-radius: 2px;
       pointer-events: none;
     }
+
     .page-card-fallback-doc {
       display: flex;
       flex-direction: column;
@@ -92,6 +189,7 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+
     .page-card-top-bar {
       position: absolute;
       top: 10px;
@@ -102,6 +200,7 @@
       align-items: center;
       z-index: 2;
     }
+
     .page-order-pill {
       background: rgba(15, 23, 42, 0.85);
       color: #fff;
@@ -110,8 +209,9 @@
       padding: 2px 7px;
       border-radius: var(--radius-xs);
       backdrop-filter: blur(4px);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
+
     .page-del-btn {
       width: 26px;
       height: 26px;
@@ -126,29 +226,34 @@
       font-size: 0.8rem;
       font-weight: bold;
       transition: transform var(--transition-fast), background var(--transition-fast);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
+
     .page-del-btn:hover {
       background: #e11d48;
       transform: scale(1.15);
     }
+
     .page-card-orig-label {
       font-size: 0.75rem;
       color: var(--text-muted);
       margin-bottom: 0.45rem;
       text-align: center;
     }
+
     .page-card-actions {
       display: flex;
       gap: 0.35rem;
       width: 100%;
       justify-content: center;
     }
+
     .page-card-actions button {
       flex: 1;
       padding: 0.25rem 0.4rem;
       font-size: 0.8rem;
     }
+
     .pdf-reorder-hint {
       display: flex;
       align-items: center;
@@ -161,6 +266,7 @@
       color: var(--text-muted);
       margin-top: 1rem;
     }
+
     .pdf-loading-box {
       text-align: center;
       padding: 2.5rem 1.5rem;
@@ -170,32 +276,37 @@
       margin-top: 1.5rem;
     }
   </style>
-  <script src="/assets/js/utils.js"></script></head>
+  <script src="/assets/js/utils.js"></script>
+</head>
+
 <body>
-  
-    <header class="site-header">
+
+  <header class="site-header">
     <div class="header-inner" style="justify-content: flex-end;">
       <div class="header-actions">
-        <a href="/tools/pdf-split/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
-        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="切换明暗主题">
+        <a href="/tools/pdf-split/" id="lang-switcher" class="btn-sm btn-ghost"
+          style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);"
+          title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()"
+          aria-label="Toggle Theme" title="切换明暗主题">
           <span class="theme-toggle-icon">🌙</span>
         </button>
       </div>
     </div>
   </header>
-  
+
 
   <main class="page-container">
     <div class="tool-header">
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF与文档</span>
+        <a href="/zh/#pdf">PDF 文档办公</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF 极速拆分</span>
+        <span>PDF 自由拆分</span>
       </nav>
       <div class="tool-title-row">
-        <h1 class="tool-title">✂️ PDF 极速拆分</h1>
+        <h1 class="tool-title">✂️ PDF 自由拆分</h1>
         <span class="badge-tag badge-privacy">🔒 本地内存抽取 · 零数据上传</span>
       </div>
       <p class="tool-desc">纯本地抽取 PDF 中的任意页码另存为新文件，支持按范围（如 1-5, 8）提取，或全部拆解为单页打包下载。隐私文档零泄露。</p>
@@ -212,21 +323,25 @@
       <!-- 解析加载状态 -->
       <div id="pdf-loading-box" class="pdf-loading-box" style="display: none;">
         <div style="font-size: 2.2rem; margin-bottom: 0.65rem;">⏳</div>
-        <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-loading-text">正在解析并生成页面缩略图...</div>
+        <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-loading-text">
+          正在解析并生成页面缩略图...</div>
         <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;">纯前端内存渲染，大文件请稍候片刻</div>
       </div>
 
       <!-- 工作区面板 -->
       <div id="split-controls" style="display: none; margin-top: 1.5rem;">
         <!-- 头部文件摘要与操作 -->
-        <div style="background: var(--bg-surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div
+          style="background: var(--bg-surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
           <div>
             <div style="font-weight: 700; color: var(--text-main); font-size: 1.05rem;" id="pdf-filename">-</div>
             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;" id="pdf-meta">-</div>
           </div>
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-restore-all" style="display: none;" onclick="restoreDeletedPages()">🔄 恢复被删页面 (<span id="deleted-count">0</span>)</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-file" onclick="resetFile()">🗑️ 更换文件</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-restore-all" style="display: none;"
+              onclick="restoreDeletedPages()">🔄 恢复被删页面 (<span id="deleted-count">0</span>)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-file" onclick="resetFile()">🗑️
+              更换文件</button>
           </div>
         </div>
 
@@ -239,13 +354,16 @@
         <!-- 提示横幅 -->
         <div class="pdf-reorder-hint">
           <span>💡</span>
-          <span>支持<strong>按住卡片自由拖拽排序</strong>；点击卡片右上角 <strong>✕ 删除/排除</strong>页面；亦可点击卡片底部的 <strong>← / → 箭头</strong>微调先后顺序。</span>
+          <span>支持<strong>按住卡片自由拖拽排序</strong>；点击卡片右上角 <strong>✕ 删除/排除</strong>页面；亦可点击卡片底部的 <strong>← / →
+              箭头</strong>微调先后顺序。</span>
         </div>
 
         <!-- 快速范围筛选工具 -->
-        <div style="margin-top: 1.25rem; background: var(--bg-surface-alt); padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <div
+          style="margin-top: 1.25rem; background: var(--bg-surface-alt); padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
           <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin: 0;">快速按页码范围筛选：</label>
-          <input type="text" class="form-input" id="page-range-input" placeholder="例如: 1-3, 5, 8-10" style="flex: 1; min-width: 180px; font-size: 0.85rem; padding: 0.35rem 0.65rem;">
+          <input type="text" class="form-input" id="page-range-input" placeholder="例如: 1-3, 5, 8-10"
+            style="flex: 1; min-width: 180px; font-size: 0.85rem; padding: 0.35rem 0.65rem;">
           <button type="button" class="btn btn-secondary btn-sm" onclick="applyRangeFilter()">仅保留指定页</button>
         </div>
 
@@ -253,10 +371,90 @@
         <div class="pdf-pages-grid" id="pdf-pages-grid"></div>
       </div>
     </div>
+
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2.5rem;">
+      <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">深度指南：PDF 页面字典解耦、页码范围语法与无损抽取机制</h2>
+      
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        在日常工作与文档管理中，面对数百页的冗长电子发票汇总、大型招投标文件、学术专著或多章节合同扫描件，我们往往只需要其中的某几页关键凭证或特定章节。传统桌面软件安装包体积庞大且按年收费，而市面上常见的普通在线工具强制要求将全量文件上传至云端服务器，既受制于上行网速限制，更存在严重的隐私商业泄密风险。<strong>ToolNexus PDF 自由拆分工具</strong>基于纯前端 <code>pdf.js</code> 视口光栅化与 <code>pdf-lib</code> 结构树抽取引擎，为您提供毫秒级、全可视化的安全拆分体验。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">1. PDF 内部结构树解耦与按页无损克隆原理</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        PDF 文档（ISO 32000-1）不是像素栅格图，而是由 Catalog 根节点、多级 Pages 分叉树以及具体每一页的 Page 字典构成的有向无环图。每个 Page 节点独立封装了其页面尺寸框（MediaBox/CropBox）、字体子集引用（Font Subsets）、矢量内容绘制流（Contents）与图像 XObject 字典。
+      </p>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        当在 ToolNexus 中执行提取或重排时，引擎针对目标页面执行<strong>跨文档深拷贝（Cross-Document Deep Cloning）</strong>：仅提取该页所必需的资源字典与字节流，并在内存中建立全新、紧凑的文档根目录。整个处理过程<strong>完全不发生任何二次重压缩或像素失真</strong>，原本的矢量文字排版、嵌入式印章与超链接跳转均得到 100% 原生保留。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">2. 页面拆分模式与提取方案特性对比</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; margin-top: 0.5rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">拆分处理模式</th>
+              <th style="padding: 0.75rem 0.5rem;">输出格式</th>
+              <th style="padding: 0.75rem 0.5rem;">画质保真度</th>
+              <th style="padding: 0.75rem 0.5rem;">交互特性</th>
+              <th style="padding: 0.75rem 0.5rem;">最佳适用场景</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo, #6366f1);">范围筛选与剔除另存</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">单份合并新 PDF</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% 原始矢量精度</td>
+              <td style="padding: 0.65rem 0.5rem;">支持 1-3, 5 等范围表达式与卡片删除</td>
+              <td style="padding: 0.65rem 0.5rem;">提取合同签字盖章页、剔除作废发票、整理报告关键附录</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan, #06b6d4);">拖拽可视化重排顺序</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">单份重构新 PDF</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% 原始矢量精度</td>
+              <td style="padding: 0.65rem 0.5rem;">按住缩略图任意拖拽放置，实时刷新序号</td>
+              <td style="padding: 0.65rem 0.5rem;">扫描件倒序修正、单双面扫描错乱重排、报告章节次序调换</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber, #f59e0b);">每页独立拆解打包</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">.zip 压缩归档包</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">每页独立原始单页 PDF</td>
+              <td style="padding: 0.65rem 0.5rem;">内存 JSZip 流并发归档，秒级导出</td>
+              <td style="padding: 0.65rem 0.5rem;">电子发票批量下发、试卷单页分割存档、报刊排版单版归档</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">3. 页码范围（Range Syntax）解析机制与容错算法</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        为了兼顾专业办公与极速操作，工具内置了强大的页码语法解析器：支持单个页码（如 <code>5</code>）、连续闭区间（如 <code>1-4</code>）、混合组合（如 <code>1-3, 5, 8-12</code>）。语法解析器会自动过滤重复页码、自动对超出总页数的无效数字进行安全钳位，并与界面中的鼠标拖拽顺序保持双向响应，提供极致的操控自由度。
+      </p>
+
+      <!-- 常见问答 FAQ -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 拆分提取出的 PDF 单页，文字清晰度和矢量曲线会下降吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对不会。拆分不是将页面转成图片再重新压制，而是直接在底层 PDF 二进制结构树中完整克隆页面 Page 字典与字体子集、矢量绘图指令流。输出的新文档保持 100% 原生矢量精度，文字始终支持清晰缩放与自由选中复制。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 原文档中的书签大纲（Outlines）和超链接在拆分后还能保留吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">页面内的独立超链接（如网址外部跳转）会随页面内容流完整保留；而全局书签树由于通常指向整个原文档被裁减掉的其他章节页码，为防止打开时发生死链报错，拆分引擎会自动对全局书签进行解耦过滤，确保提取出的单页或指定范围文档结构自洽。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 处理几百页的厚重扫描图纸或标书时，浏览器会卡死奔溃吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。ToolNexus 采用按需分片与轻量缩略图流式渲染管道，对大文件执行分批异步切片处理，完成提取后即时调用垃圾回收释放显存，有效防范页面 OOM 崩溃，数百页文档也能顺畅流利提取。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 拆分包含商业机密的审计底稿或个人合同，有云端泄露风险吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">完全零风险。ToolNexus 是 100% 纯客户端运行的 Web 工具，所有页面提取、重排序和 ZIP 打包均在您本地设备的浏览器内存沙箱中完成，无任何服务器上传接口，断开网络同样可以全速使用。</p>
+        </div>
+      </div>
+    </article>
   </main>
 
-  
-  
+
+
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-top">
@@ -275,14 +473,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -307,8 +505,8 @@
       </div>
     </div>
   </footer>
-  
-  
+
+
 
   <script src="../../../assets/vendor/pdf-lib.min.js"></script>
   <script src="/assets/vendor/pdf.min.js"></script>
@@ -525,7 +723,7 @@
       });
     }
 
-    window.movePage = function(index, dir) {
+    window.movePage = function (index, dir) {
       const target = index + dir;
       if (target < 0 || target >= activePages.length) return;
       const tmp = activePages[index];
@@ -534,7 +732,7 @@
       renderGrid();
     };
 
-    window.deletePage = function(index) {
+    window.deletePage = function (index) {
       if (activePages.length <= 1) {
         Utils.showToast('至少需要保留 1 个页面', 'warning');
         return;
@@ -545,7 +743,7 @@
       Utils.showToast(`已删除第 ${index + 1} 页 (原第 ${removed.originalPageNum} 页)`, 'info');
     };
 
-    window.restoreDeletedPages = function() {
+    window.restoreDeletedPages = function () {
       if (deletedPages.length === 0) return;
       activePages.push(...deletedPages);
       activePages.sort((a, b) => a.originalIndex - b.originalIndex);
@@ -555,7 +753,7 @@
       Utils.showToast(`已恢复 ${count} 个被删页面`, 'success');
     };
 
-    window.resetFile = function() {
+    window.resetFile = function () {
       currentBuffer = null;
       activePages = [];
       deletedPages = [];
@@ -587,7 +785,7 @@
       return Array.from(set).sort((a, b) => a - b);
     }
 
-    window.applyRangeFilter = function() {
+    window.applyRangeFilter = function () {
       const rangeStr = rangeInput.value.trim();
       if (!rangeStr) {
         Utils.showToast('请输入页码范围，例如: 1-3, 5', 'warning');
@@ -681,4 +879,5 @@
     initSearchModal('../../');
   </script>
 </body>
+
 </html>

@@ -25,6 +25,92 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-split/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-split/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://toolnexusweb.com/tools/pdf-split/#webapp",
+        "url": "https://toolnexusweb.com/tools/pdf-split/",
+        "name": "Visual PDF Splitter & Page Organizer",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires modern web browser with WebAssembly or TypedArray support",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free visual in-browser PDF Splitter. Reorder pages via drag-and-drop, delete unwanted pages, extract custom ranges, or split all pages into separate ZIP files with 100% client-side privacy."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://toolnexusweb.com/tools/pdf-split/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF Tools",
+            "item": "https://toolnexusweb.com/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Visual PDF Splitter",
+            "item": "https://toolnexusweb.com/tools/pdf-split/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://toolnexusweb.com/tools/pdf-split/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Will extracted single pages lose vector clarity or text font sharpness?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. Splitting does not rasterize your pages into lossy bitmap images. ToolNexus directly clones the binary page dictionaries, font subsets, and vector stream content from the PDF object tree, preserving 100% original sharpness and selectable text."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to global outlines (bookmarks) and hyperlinks after splitting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Internal hyperlinks targeting external URLs are preserved intact within each extracted page. Because global outline bookmarks often link to pages that were removed or reordered, the splitting engine decouples outdated bookmark trees to prevent dead-reference errors when opening the new document."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will processing large 100+ page scanned documents cause the browser tab to crash?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The visual splitter renders lightweight viewport thumbnails incrementally and triggers immediate memory garbage collection upon generation. Document restructuring operates via asynchronous buffer slices, ensuring smooth performance even on large multi-megabyte files."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are confidential financial statements or NDA contracts uploaded to any cloud servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Zero server uploads. All parsing, page extraction, reorganization, and ZIP packaging occur 100% locally within your device's browser memory sandbox. You can even disconnect your internet connection and split documents completely offline."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <style>
     .pdf-pages-grid {
       display: grid;
@@ -190,9 +276,9 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#pdf">PDF Tools</a>
+        <a href="/#pdf">PDF & Documents</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF Splitter</span>
+        <span>Visual PDF Splitter & Reorder</span>
       </nav>
       <div class="tool-title-row">
         <div>
@@ -257,6 +343,86 @@
         <div class="pdf-pages-grid" id="pdf-pages-grid"></div>
       </div>
     </div>
+
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2.5rem;">
+      <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">Comprehensive Guide: PDF Page Decoupling, Range Syntax & Lossless Extraction</h2>
+      
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        When handling extensive multi-hundred-page invoices, engineering tender packets, academic dissertations, or legal loan agreements, extracting specific pages or reorganizing chapters is an indispensable workflow. Traditional desktop PDF editors require heavy local installations and expensive ongoing subscriptions, while standard cloud converter portals mandate uploading sensitive documents across the internet, exposing confidential information to data mining and third-party breaches. <strong>ToolNexus Visual PDF Splitter</strong> leverages <code>pdf.js</code> client rasterization and the <code>pdf-lib</code> structural engine to deliver instant, fully visual, zero-upload PDF manipulation directly in your browser.
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">1. PDF Page Object Tree Decoupling & Vector Cloning</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        Under the ISO 32000-1 standard, a PDF file is not a flat sequence of images, but an interconnected object hierarchy. Each Page dictionary references its geometric boundaries (MediaBox/CropBox), required font subsets, vector content streams, and embedded raster image XObjects.
+      </p>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        When you extract or reorganize pages in ToolNexus, the client engine performs <strong>Cross-Document Deep Cloning</strong>: it copies solely the necessary resource streams and dictionaries required by the chosen pages, generating a new, lightweight catalog structure. This approach operates at the native binary level, meaning <strong>zero resolution degradation, zero compression artifacts, and complete preservation of crisp selectable text fonts</strong>.
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">2. Splitting Modes & Output Characteristics Matrix</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; margin-top: 0.5rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">Operation Mode</th>
+              <th style="padding: 0.75rem 0.5rem;">Output Format</th>
+              <th style="padding: 0.75rem 0.5rem;">Fidelity & Clarity</th>
+              <th style="padding: 0.75rem 0.5rem;">Interactive Controls</th>
+              <th style="padding: 0.75rem 0.5rem;">Recommended Scenarios</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo, #6366f1);">Range Filter & Exclusion</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">Single Extracted PDF</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% Native Vector Quality</td>
+              <td style="padding: 0.65rem 0.5rem;">Range expressions (e.g. 1-3, 5) + card removal</td>
+              <td style="padding: 0.65rem 0.5rem;">Extracting signed signature pages, discarding blank sheets, filing tax receipts</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan, #06b6d4);">Visual Drag-and-Drop Reordering</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">Single Restructured PDF</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% Native Vector Quality</td>
+              <td style="padding: 0.65rem 0.5rem;">Drag thumbnails anywhere with real-time index updates</td>
+              <td style="padding: 0.65rem 0.5rem;">Correcting inverted scanner page order, sorting duplex scans, swapping chapters</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber, #f59e0b);">Split All to Single-Page Archive</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">.zip Compressed Archive</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% Independent Single PDFs</td>
+              <td style="padding: 0.65rem 0.5rem;">In-memory asynchronous JSZip stream packaging</td>
+              <td style="padding: 0.65rem 0.5rem;">Batch invoice distribution, academic exam splitting, per-sheet legal archiving</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">3. Robust Range Expression Parsing & Error Clamping</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        The built-in range syntax parser accommodates diverse real-world formatting inputs: single page numbers (<code>7</code>), continuous closed ranges (<code>1-5</code>), and comma-delimited combinations (<code>1-3, 5, 8-12</code>). The tokenizer sanitizes duplicate entries, clamps invalid inputs to actual page bounds, and synchronizes dynamically with mouse card interactions.
+      </p>
+
+      <!-- FAQ Section -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Will extracted single pages lose vector clarity or text font sharpness?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Never. Splitting does not rasterize your pages into lossy bitmap images. ToolNexus directly clones the binary page dictionaries, font subsets, and vector stream content from the PDF object tree, preserving 100% original sharpness and selectable text.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What happens to global outlines (bookmarks) and hyperlinks after splitting?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Internal hyperlinks targeting external URLs are preserved intact within each extracted page. Because global outline bookmarks often link to pages that were removed or reordered, the splitting engine decouples outdated bookmark trees to prevent dead-reference errors when opening the new document.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Will processing large 100+ page scanned documents cause the browser tab to crash?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. The visual splitter renders lightweight viewport thumbnails incrementally and triggers immediate memory garbage collection upon generation. Document restructuring operates via asynchronous buffer slices, ensuring smooth performance even on large multi-megabyte files.</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Are confidential financial statements or NDA contracts uploaded to any cloud servers?</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Zero server uploads. All parsing, page extraction, reorganization, and ZIP packaging occur 100% locally within your device's browser memory sandbox. You can even disconnect your internet connection and split documents completely offline.</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   <footer class="footer">
@@ -282,13 +448,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

@@ -6,19 +6,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="baidu-site-verification" content="codeva-EyuCxTBN4B">
-  <title>ToolNexus - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private</title>
-  <meta name="description" content="ToolNexus is an ultra-fast suite of in-browser productivity tools: Age Calculator, Percentage Calculator, Tip & Salary Splitter, UUID Generator, Strong Password Generator, PDF Merger, Image Compressor, and Base64 Converters. 100% Client-Side. Zero Server Uploads.">
-  <meta name="keywords" content="free online tools, age calculator, percentage calculator, tip calculator, salary calculator, uuid generator, password generator, pdf merge, image compress, base64 converter, client side tools, private utilities">
+  <title>ToolNexus Web - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private</title>
+  <meta name="description" content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools: CSV/JSON Converter, Cron Parser, HTML Encoder, Zero-Width Inspector, Age Calculator, UUID Generator, Strong Password Generator, PDF Tools, and Image Compressors. 100% Client-Side. Zero Server Uploads.">
+  <meta name="keywords" content="free online tools, csv to json, cron parser, html encoder, zero width inspector, age calculator, percentage calculator, uuid generator, password generator, pdf merge, image compress, client side tools, private utilities">
     <link rel="canonical" href="https://toolnexusweb.com/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:site_name" content="ToolNexus Web">
   <meta property="og:url" content="https://toolnexusweb.com/">
-  <meta property="og:title" content="ToolNexus - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private">
-  <meta property="og:description" content="ToolNexus is an ultra-fast suite of in-browser productivity tools: Age Calculator, Percentage Calculator, Tip & Salary Splitter, UUID Generator, Strong Password Generator, PDF Merger, Image Compressor, and Base64 Converters. 100% Client-Side. Zero Server Uploads.">
+  <meta property="og:title" content="ToolNexus Web - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private">
+  <meta property="og:description" content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools. 100% Client-Side. Zero Server Uploads.">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ToolNexus - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private">
-  <meta name="twitter:description" content="ToolNexus is an ultra-fast suite of in-browser productivity tools: Age Calculator, Percentage Calculator, Tip & Salary Splitter, UUID Generator, Strong Password Generator, PDF Merger, Image Compressor, and Base64 Converters. 100% Client-Side. Zero Server Uploads.">
+  <meta name="twitter:title" content="ToolNexus Web - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private">
+  <meta name="twitter:description" content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools. 100% Client-Side. Zero Server Uploads.">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
   <link rel="stylesheet" href="/assets/css/common.css">
@@ -300,17 +300,17 @@
 
       <div class="hero-search-wrap">
         <span class="hero-search-icon">🔍</span>
-        <input type="text" id="home-search" class="hero-search-input" placeholder="Search across all 34 tools... (e.g. age, percentage, tip, password, pdf, json)" oninput="filterTools(this.value)">
+        <input type="text" id="home-search" class="hero-search-input" placeholder="Search across all 39 tools... (e.g. age, percentage, tip, password, pdf, json)" oninput="filterTools(this.value)">
       </div>
 
       <!-- Category Tabs -->
-      <div class="cat-nav-wrapper">
-        <button class="cat-nav-btn active" onclick="selectCategory('all', this)">All Tools (34)</button>
-        <button class="cat-nav-btn" onclick="selectCategory('calculator', this)">Calculators & Finance</button>
-        <button class="cat-nav-btn" onclick="selectCategory('developer', this)">Developer & Security</button>
-        <button class="cat-nav-btn" onclick="selectCategory('pdf', this)">PDF & Documents</button>
-        <button class="cat-nav-btn" onclick="selectCategory('image', this)">Image Utilities</button>
-        <button class="cat-nav-btn" onclick="selectCategory('text', this)">Text & Writing</button>
+      <div class="cat-nav-wrapper" id="category-tabs">
+        <button class="cat-nav-btn active" data-cat="all" onclick="selectCategory('all', this)">All Tools (39)</button>
+        <button class="cat-nav-btn" data-cat="calculator" onclick="selectCategory('calculator', this)">Calculators & Finance</button>
+        <button class="cat-nav-btn" data-cat="developer" onclick="selectCategory('developer', this)">Developer & Security</button>
+        <button class="cat-nav-btn" data-cat="pdf" onclick="selectCategory('pdf', this)">PDF & Documents</button>
+        <button class="cat-nav-btn" data-cat="image" onclick="selectCategory('image', this)">Image Utilities</button>
+        <button class="cat-nav-btn" data-cat="text" onclick="selectCategory('text', this)">Text & Writing</button>
       </div>
     </section>
 
@@ -588,6 +588,46 @@
           <div class="tool-card-desc">Scan marketing headlines and ad copy for high-risk claims and overused buzzwords.</div>
           <div class="tool-card-badges"></div>
         </a>
+
+        <!-- 32. CSV to JSON Converter (NEW) -->
+        <a href="/tools/csv-json/" class="tool-item-card" data-cat="developer" data-keywords="csv json tsv excel spreadsheet table convert array object parse">
+          <div class="tool-icon-wrap">📊</div>
+          <div class="tool-card-title">CSV ↔ JSON Converter</div>
+          <div class="tool-card-desc">Bi-directional table converter. Parse spreadsheets into JSON arrays or serialize JSON into RFC 4180 CSV tables.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span class="badge badge-success">Bi-Directional</span></div>
+        </a>
+
+        <!-- 33. Cron Expression Parser (NEW) -->
+        <a href="/tools/cron-parser/" class="tool-item-card" data-cat="developer" data-keywords="cron crontab expression schedule parser timing job linux unix devops">
+          <div class="tool-icon-wrap">⏰</div>
+          <div class="tool-card-title">Cron Expression Parser</div>
+          <div class="tool-card-desc">Translate Linux crontab schedules into plain human English and forecast the next 5 execution timestamps.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
+        </a>
+
+        <!-- 34. HTML Entity Encoder & Decoder (NEW) -->
+        <a href="/tools/html-encoder/" class="tool-item-card" data-cat="developer" data-keywords="html entity encode decode escape unescape xss special characters symbols">
+          <div class="tool-icon-wrap">🔤</div>
+          <div class="tool-card-title">HTML Entity Encoder & Decoder</div>
+          <div class="tool-card-desc">Escape reserved HTML characters into named, decimal, or hex entities to prevent XSS injection.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
+        </a>
+
+        <!-- 35. Zero-Width Character Inspector (NEW) -->
+        <a href="/tools/unicode-inspector/" class="tool-item-card" data-cat="text" data-keywords="zero width space invisible unicode watermark hidden characters bom shy sanitize">
+          <div class="tool-icon-wrap">🔍</div>
+          <div class="tool-card-title">Invisible Character Inspector</div>
+          <div class="tool-card-desc">Detect and strip invisible Unicode tracking watermarks, zero-width spaces (ZWSP), and hidden BOM artifacts.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span class="badge badge-success">Privacy</span></div>
+        </a>
+
+        <!-- 36. WCAG Color Contrast Checker (NEW) -->
+        <a href="/tools/color-contrast/" class="tool-item-card" data-cat="text" data-keywords="color contrast wcag accessibility a11y ratio luminance compliance design">
+          <div class="tool-icon-wrap">🎨</div>
+          <div class="tool-card-title">Color Contrast Checker</div>
+          <div class="tool-card-desc">Calculate luminance contrast ratios and validate WCAG 2.1 AA / AAA accessibility compliance in real time.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
+        </a>
       </div>
     </section>
 
@@ -639,10 +679,11 @@
         <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="#calculators">Calculators & Finance</a></li>
-            <li><a href="#developer">Developer & Cryptography</a></li>
-            <li><a href="#pdf">PDF & Image Tools</a></li>
-            <li><a href="#text">Text & Content Utilities</a></li>
+            <li><a href="#calculator">Calculators & Finance</a></li>
+            <li><a href="#developer">Developer & Security</a></li>
+            <li><a href="#pdf">PDF & Documents</a></li>
+            <li><a href="#image">Image Utilities</a></li>
+            <li><a href="#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -673,11 +714,41 @@
   <script>
     let activeCat = 'all';
 
-    function selectCategory(cat, btn) {
+    const catAliases = {
+      'all': 'all',
+      'calculator': 'calculator',
+      'calculators': 'calculator',
+      'calc': 'calculator',
+      'finance': 'calculator',
+      'developer': 'developer',
+      'dev': 'developer',
+      'security': 'developer',
+      'pdf': 'pdf',
+      'documents': 'pdf',
+      'document': 'pdf',
+      'image': 'image',
+      'images': 'image',
+      'text': 'text',
+      'writing': 'text'
+    };
+
+    function selectCategory(cat, btn, shouldScroll) {
       activeCat = cat;
-      document.querySelectorAll('.cat-nav-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      document.querySelectorAll('.cat-nav-btn').forEach(b => {
+        if (b.getAttribute('data-cat') === cat || b === btn) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
       filterTools(document.getElementById('home-search').value);
+
+      if (shouldScroll) {
+        const catTabs = document.getElementById('category-tabs') || document.querySelector('.cat-nav-wrapper');
+        if (catTabs) {
+          catTabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     }
 
     function filterTools(query) {
@@ -700,6 +771,23 @@
         }
       });
     }
+
+    function applyHashCategory(shouldScroll) {
+      const hash = window.location.hash.replace('#', '').toLowerCase().trim();
+      if (hash && catAliases[hash]) {
+        const targetCat = catAliases[hash];
+        const targetBtn = document.querySelector(`.cat-nav-btn[data-cat="${targetCat}"]`);
+        selectCategory(targetCat, targetBtn, shouldScroll);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      applyHashCategory(false);
+    });
+
+    window.addEventListener('hashchange', () => {
+      applyHashCategory(true);
+    });
   </script>
 </body>
 </html>

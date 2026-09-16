@@ -5,17 +5,18 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>全能百分比与折扣计算器 | ToolNexus</title>
-  <meta name="description" content="免费在线百分比计算器。计算某数的百分比、占比、百分比增长/减少、商品折扣与消费税，秒出结果。">
+  <title>全能百分比与折扣计算器 - 涨跌幅/占比/税后折让秒算 | ToolNexus</title>
+  <meta name="description" content="免费在线全能百分比计算器。快速计算某数的百分比、所占比例、增长与降低百分比、商品折让与消费税，纯前端毫秒级实时计算。">
+  <meta name="keywords" content="百分比计算器,折扣计算器,涨跌幅计算,占比计算,消费税计算,ToolNexus实用工具箱">
     <link rel="canonical" href="https://toolnexusweb.com/zh/tools/percentage-calculator/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ToolNexus">
+  <meta property="og:site_name" content="ToolNexus 实用工具箱">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/percentage-calculator/">
-  <meta property="og:title" content="全能百分比与折扣计算器 | ToolNexus">
+  <meta property="og:title" content="全能百分比与折扣计算器 | ToolNexus 实用工具箱">
   <meta property="og:description" content="免费在线百分比计算器。计算某数的百分比、占比、百分比增长/减少、商品折扣与消费税，秒出结果。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="全能百分比与折扣计算器 | ToolNexus">
+  <meta name="twitter:title" content="全能百分比与折扣计算器 | ToolNexus 实用工具箱">
   <meta name="twitter:description" content="免费在线百分比计算器。计算某数的百分比、占比、百分比增长/减少、商品折扣与消费税，秒出结果。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
@@ -24,6 +25,80 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/percentage-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/percentage-calculator/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "全能百分比与折扣计算器",
+        "url": "https://toolnexusweb.com/zh/tools/percentage-calculator/",
+        "applicationCategory": "UtilitiesApplication, FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地运行的百分比综合计算器，覆盖某数百分比、所占比例、涨跌变动率、商场打折与税费联动计算。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "实用计算工具",
+            "item": "https://toolnexusweb.com/zh/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "百分比计算器",
+            "item": "https://toolnexusweb.com/zh/tools/percentage-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "百分比增长率会出现超过 100% 的情况吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "会的。如果某项指标翻了一倍（从 100 变为 200），其增长率为 ((200 - 100) / 100) × 100% = +100%；如果从 100 暴涨至 300，增长率则为 +200%。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "百分比和“百分点”有什么关键区别？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "“百分比”指的是相对变动比例，而“百分点 (Percentage Point)”是两个百分率之间的绝对差值。例如利率从 5% 提高到 6%，是上升了 1 个百分点，而在相对比例上则是提高了 (1/5) × 100% = 20%。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本工具计算过程会泄露财务数据吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全不会。所有公式均在您本机的 JavaScript 引擎中静默执行，零数据回传，即便断开网络连接亦可稳定精准运行。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,6 +117,14 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#calculator">计算器与换算</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>全能百分比与折扣计算器</span>
+      </nav>
+
           <span class="tool-badge badge-primary">计算器 & 商业金融</span>
           <h1 class="tool-title">📐 全能百分比与折扣计算器</h1>
           <p class="tool-desc">聚合四种最高频的百分比换算模型：比例计算、两数占比、增减变动率、以及购物折扣与省钱精算。</p>
@@ -145,18 +228,49 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">常见问题与计算公式</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 百分比增长/减少的计算公式是什么？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">增长率 = ((新值 - 原值) / 原值) × 100%。如果结果为正即为增长率，结果为负即为减少率。</p>
+        <!-- 深度 SEO 原创说明与使用指南 -->
+        <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">四大核心百分比计算场景深度解析</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            百分比（Percentage）是现代商业决策、财务核算、零售消费以及学术统计中最常用的数学表达形式之一。ToolNexus 全能百分比计算器将日常高频的四种计算需求高度聚合为纯前端交互面板，数据毫秒级实时联动，无需点击任何“确定”按钮即可即时得出结论。
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">1. 基数占比计算 (X% of Y)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">常用于快速核算比例分账或提成金额。例如求 250 元的 15% 提成是多少（结果为 37.5 元）。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">2. 占比份额逆推 (X is what % of Y)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">常用于分析转化率、考试得分率或投票支持率。例如 300 人中有 45 人投票，占比即为 15%。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">3. 涨跌幅度与变动率 (Change %)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">常用于股市大盘波动、月度营业额同比环比增长分析。公式：((新值 - 旧值) / 旧值) × 100%。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-emerald); margin-bottom: 0.35rem;">4. 商城折扣与税费联动 (Discount & Tax)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">海淘购物与商场促销刚需。输入原价、折扣率与消费税，秒出折让总额与最终结账实付金额。</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 打折和税后价格如何同时计算？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">折后价 = 原价 × (1 - 折扣%)；最终实付 = 折后价 × (1 + 消费税%)。本工具可一键自动计算并列出为您节省的总金额。</p>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 百分比增长率会出现超过 100% 的情况吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">会的。如果某项指标翻了一倍（从 100 变为 200），其增长率为 ((200 - 100) / 100) × 100% = +100%；如果从 100 暴涨至 300，增长率则为 +200%。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 百分比和“百分点”有什么关键区别？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">“百分比”指的是相对变动比例，而“百分点 (Percentage Point)”是两个百分率之间的绝对差值。例如利率从 5% 提高到 6%，是上升了 1 个百分点，而在相对比例上则是提高了 (1/5) × 100% = 20%。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本工具计算过程会泄露财务数据吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">完全不会。所有公式均在您本机的 JavaScript 引擎中静默执行，零数据回传，即便断开网络连接亦可稳定精准运行。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -275,13 +389,14 @@
             <li><a href="/zh/tools/password-generator/">强密码生成器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

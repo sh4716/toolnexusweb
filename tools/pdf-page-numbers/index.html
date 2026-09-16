@@ -6,17 +6,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Page Numbers to PDF - Insert Page Numbers Online Free | ToolNexus</title>
-  <meta name="description" content="Free in-browser Add Page Numbers to PDF tool. Insert "Page X of Y", customize positions (header/footer), skip cover pages, and change font styles.">
+  <meta name="description" content="Free in-browser Add Page Numbers to PDF tool. Insert Page X of Y pagination, customize header/footer positions, skip cover pages, and change font styles with zero uploads.">
     <link rel="canonical" href="https://toolnexusweb.com/tools/pdf-page-numbers/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/tools/pdf-page-numbers/">
   <meta property="og:title" content="Add Page Numbers to PDF - Insert Page Numbers Online Free | ToolNexus">
-  <meta property="og:description" content="Free in-browser Add Page Numbers to PDF tool. Insert">
+  <meta property="og:description" content="Free in-browser Add Page Numbers to PDF tool. Insert Page X of Y pagination, customize header/footer positions, skip cover pages, and change font styles with zero uploads.">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Add Page Numbers to PDF - Insert Page Numbers Online Free | ToolNexus">
-  <meta name="twitter:description" content="Free in-browser Add Page Numbers to PDF tool. Insert">
+  <meta name="twitter:description" content="Free in-browser Add Page Numbers to PDF tool. Insert Page X of Y pagination, customize header/footer positions, skip cover pages, and change font styles with zero uploads.">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
   <link rel="stylesheet" href="/assets/css/common.css">
@@ -26,7 +26,87 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Add Page Numbers to PDF",
+        "url": "https://toolnexusweb.com/tools/pdf-page-numbers/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5 & WebAssembly.",
+        "description": "Free online tool to batch add page numbers to PDF documents. Customize format, position, margin offsets, skip cover pages, and choose typography colors. 100% private.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF Tools",
+            "item": "https://toolnexusweb.com/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Add Page Numbers to PDF",
+            "item": "https://toolnexusweb.com/tools/pdf-page-numbers/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I leave the cover page blank and start numbering from page 2 as \"Page 1\"?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Check the \"Skip Cover Page\" option in the configuration panel and set the \"Starting Page Number\" to 1. The front cover page will be ignored completely, and physical page 2 will be stamped as Page 1."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I do if the page number overlaps with existing text or footers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use the \"Margin Offset\" slider. If body copy extends low onto the page, reducing the margin from the default 30 pt to 15–20 pt will push the page number closer to the physical paper boundary, preventing collisions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I change the page number color for dark-themed slides?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Use the color palette picker to switch from classic charcoal black to crisp pure white (#FFFFFF) or high-contrast accent tones so numbers remain legible over dark slide presentations and solid color backgrounds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it safe to paginate confidential legal discovery or financial documents here?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "100% safe. ToolNexus executes all PDF bytecode rewriting entirely inside your local device's browser memory via WebAssembly and JavaScript. No document content ever leaves your machine."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script>
   <style>
     /* Modern Beautified Styles for PDF Page Numbers */
@@ -289,7 +369,7 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#pdf">PDF Tools</a>
+        <a href="/#pdf">PDF & Documents</a>
         <span class="breadcrumb-separator">/</span>
         <span>Add Page Numbers to PDF</span>
       </nav>
@@ -516,18 +596,84 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Does this handle mixed landscape and portrait pages?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Yes. The algorithm measures the exact physical width and height of each individual page dynamically, positioning the page numbers consistently regardless of orientation.</p>
+        <!-- Comprehensive Article Section -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Batch PDF Pagination: Geometry, Layout Standards & Non-Destructive Vector Overlay</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Whether submitting academic dissertations, legal discovery filings, enterprise procurement bids, or quarterly financial audits, continuous and standardized pagination is a mandatory compliance requirement. Documents compiled from multiple contributors, Word exports, or disparate scanner hardware frequently lack uniform page counts. ToolNexus delivers an <strong>entirely client-side PDF pagination engine</strong> capable of batch injecting clean vector page numbers in milliseconds without expensive desktop software.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Under the Hood: ISO 32000-1 Box Models & Vector Stream Injection</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Unlike naive raster watermarking tools, high-precision document pagination requires adhering to the structural coordinate mathematics of PDF page dictionaries:
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>Adaptive Coordinate Geometry (MediaBox & CropBox):</strong> Business reports frequently alternate between standard portrait A4 pages and oversized landscape charts. ToolNexus inspects the exact bounding box of every single page independently, recalculating point offsets (1/72 inch units) so margins stay proportional across any aspect ratio.</li>
+            <li><strong>Embedded Standard Type 1 Vector Fonts:</strong> Page digits are rendered as native PDF vector instructions using standardized fonts (Helvetica / Times-Roman), ensuring razor-sharp clarity on 600+ DPI commercial printing presses while adding negligible overhead (typically &lt; 10 KB to total file size).</li>
+            <li><strong>Non-Destructive Content Stream Layering:</strong> The engine appends an isolated graphics state and text stream over existing page content, preserving underlying OCR searchable text layers, form widgets, and hyperlinks.</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Pagination Format Reference Guide</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Style Name</th>
+                  <th style="padding: 0.75rem 0.5rem;">Macro Pattern</th>
+                  <th style="padding: 0.75rem 0.5rem;">Best Suited For</th>
+                  <th style="padding: 0.75rem 0.5rem;">Recommended Alignment</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">Standard Total Count</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">Page {n} of {total}</td>
+                  <td style="padding: 0.65rem 0.5rem;">Legal contracts, audit filings, formal tender bids</td>
+                  <td style="padding: 0.65rem 0.5rem;">Bottom Center, with 30 pt margin offset</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">Compact Ratio Slash</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">{n} / {total}</td>
+                  <td style="padding: 0.65rem 0.5rem;">Pitch decks, investor presentations, executive briefs</td>
+                  <td style="padding: 0.65rem 0.5rem;">Bottom Right to avoid body graphics</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">Classical Hyphenated</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">- {n} -</td>
+                  <td style="padding: 0.65rem 0.5rem;">Academic journal papers, thesis manuscripts, published books</td>
+                  <td style="padding: 0.65rem 0.5rem;">Bottom Center, 9–10 pt typography size</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600;">Minimalist Numeral</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">{n}</td>
+                  <td style="padding: 0.65rem 0.5rem;">Internal memos, meeting minutes, daily correspondence</td>
+                  <td style="padding: 0.65rem 0.5rem;">Top or Bottom Right for quick skimming</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: Will my hyperlinks, bookmarks, or text formatting be affected?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Never. The page numbers are stamped in a non-destructive layer over the existing document, keeping all original text, vector graphics, and links intact.</p>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: How do I leave the cover page blank and start numbering from page 2 as "Page 1"?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Check the "Skip Cover Page" option in the configuration panel and set the "Starting Page Number" to 1. The front cover page will be ignored completely, and physical page 2 will be stamped as Page 1.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What should I do if the page number overlaps with existing text or footers?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Use the "Margin Offset" slider. If body copy extends low onto the page, reducing the margin from the default 30 pt to 15–20 pt will push the page number closer to the physical paper boundary, preventing collisions.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can I change the page number color for dark-themed slides?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Use the color palette picker to switch from classic charcoal black to crisp pure white (#FFFFFF) or high-contrast accent tones so numbers remain legible over dark slide presentations and solid color backgrounds.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Is it safe to paginate confidential legal discovery or financial documents here?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">100% safe. ToolNexus executes all PDF bytecode rewriting entirely inside your local device's browser memory via WebAssembly and JavaScript. No document content ever leaves your machine.</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -770,13 +916,14 @@
             <li><a href="/tools/percentage-calculator/">Percentage Calculator</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

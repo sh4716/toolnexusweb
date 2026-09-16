@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/percentage-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/percentage-calculator/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Percentage & Discount Calculator",
+        "url": "https://toolnexusweb.com/tools/percentage-calculator/",
+        "applicationCategory": "UtilitiesApplication, FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript capable modern browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free client-side percentage calculator for percentage of a number, proportion ratios, percentage increase or decrease, and shopping discounts with sales tax."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Calculators",
+            "item": "https://toolnexusweb.com/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Percentage Calculator",
+            "item": "https://toolnexusweb.com/tools/percentage-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can a percentage increase exceed 100%?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! When an amount doubles from 100 to 200, the increase is exactly +100%. If an amount triples from 100 to 300, the percentage change is +200%. There is mathematically no upper limit to positive percentage growth."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between \"Percentage\" and \"Percentage Points\"?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A percentage expresses relative change, while percentage points (pp) measure the arithmetic difference between two percentages. For instance, if an interest rate moves from 5% to 6%, it has increased by 1 percentage point, but by 20% in relative terms (1 / 5 = 20%)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool upload or store my financial figures?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. All mathematical computations occur locally within your web browser's V8 or JavaScriptCore runtime. Nothing is logged, transmitted, or saved to any external servers."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,6 +116,14 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#calculator">Calculators & Finance</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Percentage & Discount Calculator</span>
+      </nav>
+
           <span class="tool-badge badge-primary">Calculator & Finance</span>
           <h1 class="tool-title">📐 Percentage & Discount Calculator</h1>
           <p class="tool-desc">All-in-one percentage toolkit. Switch between common percentage calculations: find % of a number, percentage change, proportions, and shopping discount savings.</p>
@@ -145,18 +227,49 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Frequently Asked Questions & Formulas</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: What is the formula for Percentage Increase or Decrease?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Percentage Change = ((New Value - Old Value) / Old Value) × 100%. A positive result indicates a percentage increase, while a negative number denotes a percentage decrease.</p>
+        <!-- In-Depth Technical & Practical Guide -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Comprehensive Guide to Everyday Percentage Calculations</h2>
+          <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+            Percentages are one of the most fundamental mathematical constructs used across corporate finance, personal budgeting, retail shopping, and data analysis. The ToolNexus Percentage Calculator consolidates the four most common real-world percentage workflows into a single, lightning-fast client-side application. Because calculations execute directly inside your browser engine, values update in real time with zero server lag and complete privacy.
+          </p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">1. Base Percentage (X% of Y)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Used for computing commission splits, sales tax, or portion allocations. Formula: <code style="background:var(--bg-card);padding:2px 4px;border-radius:3px;">(X / 100) × Y</code>. E.g., 15% of $250 equals $37.50.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">2. Proportion Inverse (X is what % of Y)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Ideal for conversion rates, survey turnouts, or exam scoring. Formula: <code style="background:var(--bg-card);padding:2px 4px;border-radius:3px;">(X / Y) × 100%</code>. E.g., 45 correct answers out of 300 equals 15%.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">3. Growth & Decline (% Change)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Crucial for tracking stock fluctuations, quarterly revenue gains, or weight changes. Formula: <code style="background:var(--bg-card);padding:2px 4px;border-radius:3px;">((New - Old) / Old) × 100%</code>.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-emerald); margin-bottom: 0.35rem;">4. Retail Discount & Sales Tax</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Essential for smart shopping and holiday clearance sales. Calculates post-discount price, total dollars saved, and applies regional sales tax simultaneously.</p>
+            </div>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: How is sales tax calculated after a discount?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">In most jurisdictions, sales tax is applied to the discounted sale price: Final Price = (Original Price - Discount Amount) × (1 + Tax Rate). Our calculator shows exact savings automatically.</p>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can a percentage increase exceed 100%?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes! When an amount doubles from 100 to 200, the increase is exactly +100%. If an amount triples from 100 to 300, the percentage change is +200%. There is mathematically no upper limit to positive percentage growth.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What is the difference between "Percentage" and "Percentage Points"?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">A percentage expresses relative change, while percentage points (pp) measure the arithmetic difference between two percentages. For instance, if an interest rate moves from 5% to 6%, it has increased by 1 percentage point, but by 20% in relative terms (1 / 5 = 20%).</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Does this tool upload or store my financial figures?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Never. All mathematical computations occur locally within your web browser's V8 or JavaScriptCore runtime. Nothing is logged, transmitted, or saved to any external servers.</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -275,13 +388,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

@@ -23,7 +23,87 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/case-converter/">
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/case-converter/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/case-converter/">
-
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Text Case Converter & Capitalizer",
+        "url": "https://toolnexusweb.com/tools/case-converter/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript.",
+        "description": "Free in-browser Case Converter. Convert text to Title Case (AP/Chicago style), Sentence case, UPPERCASE, lowercase, camelCase, snake_case, and kebab-case instantly.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text Tools",
+            "item": "https://toolnexusweb.com/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Case Converter",
+            "item": "https://toolnexusweb.com/tools/case-converter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does Title Case handle hyphenated compound words like \"State-of-the-Art\"?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our tokenizer evaluates sub-words within hyphens according to Chicago style rules: content words (State, Art) are capitalized, while grammatical particles (of, the) remain lowercase, producing perfectly balanced hyphenated compounds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between Sentence case and Capitalized Words?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sentence case capitalizes only the very first letter of a sentence (or list item) while keeping all subsequent non-proper nouns lowercase, as recommended by Google Material Design and Apple HIG. In contrast, Capitalized Words indiscriminately forces the first letter of every single word to uppercase."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can this tool convert mixed strings with underscores and dashes into camelCase?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The tokenizer identifies transitions across spaces, underscores, dashes, and internal camel humps, making it effortless to transform database column names directly into clean TypeScript property models."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it safe to paste confidential manuscripts, articles, or proprietary source code?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Completely safe. All string processing executes locally in your browser's V8 JavaScript engine with zero remote network calls. You can even disconnect your internet connection and the converter will continue working seamlessly."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -42,61 +122,155 @@
     <div class="tool-main">
       <div class="tool-card">
         <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/#text">Text & Writing</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Text Case Converter & Capitalizer</span>
+      </nav>
+
           <span class="tool-badge badge-primary">Text & Content Utility</span>
           <h1 class="tool-title">🔤 Text Case Converter & Capitalizer</h1>
           <p class="tool-desc">Transform your text and article titles into standard Title Case, Sentence case, UPPERCASE, lowercase, or coding conventions (camelCase, snake_case, kebab-case) in real time.</p>
         </div>
 
-        <!-- Live Statistics Counter -->
-        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background: var(--bg-surface-alt); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1rem; font-size: 0.85rem;">
-          <div><span style="color: var(--text-muted);">Words:</span> <strong id="stat-words" style="color: var(--primary);">0</strong></div>
-          <div><span style="color: var(--text-muted);">Characters:</span> <strong id="stat-chars" style="color: var(--accent-cyan);">0</strong></div>
-          <div><span style="color: var(--text-muted);">Without Spaces:</span> <strong id="stat-chars-nospace" style="color: var(--text-main);">0</strong></div>
-          <div><span style="color: var(--text-muted);">Lines:</span> <strong id="stat-lines" style="color: var(--text-muted);">0</strong></div>
-        </div>
-
-        <!-- Input Textarea -->
-        <div class="form-group" style="margin-bottom: 1.25rem;">
-          <textarea id="case-input" class="input-text" rows="8" placeholder="Type or paste your text or headline here (e.g. the quick brown fox jumps over the lazy dog)..." style="font-size: 1rem; line-height: 1.6; resize: vertical;" oninput="handleCaseInput()">the quick brown fox jumps over the lazy dog</textarea>
-        </div>
-
         <!-- Case Transformation Buttons Grid -->
-        <div class="case-btns">
-          <button type="button" class="btn-sm case-btn" data-mode="title" onclick="transformCase('title')">Title Case (AP / Chicago)</button>
-          <button type="button" class="btn-sm case-btn" data-mode="sentence" onclick="transformCase('sentence')">Sentence case</button>
-          <button type="button" class="btn-sm case-btn" data-mode="upper" onclick="transformCase('upper')">UPPERCASE</button>
-          <button type="button" class="btn-sm case-btn" data-mode="lower" onclick="transformCase('lower')">lowercase</button>
-          <button type="button" class="btn-sm case-btn" data-mode="camel" onclick="transformCase('camel')">camelCase</button>
-          <button type="button" class="btn-sm case-btn" data-mode="pascal" onclick="transformCase('pascal')">PascalCase</button>
-          <button type="button" class="btn-sm case-btn" data-mode="snake" onclick="transformCase('snake')">snake_case</button>
-          <button type="button" class="btn-sm case-btn" data-mode="kebab" onclick="transformCase('kebab')">kebab-case</button>
-          <button type="button" class="btn-sm case-btn" data-mode="constant" onclick="transformCase('constant')">CONSTANT_CASE</button>
-        </div>
-
-        <!-- Actions -->
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <button type="button" class="btn btn-secondary" onclick="copyCaseText()">
-            <span>Copy Result</span>
-            <span>📋</span>
-          </button>
-          <button type="button" class="btn btn-ghost" style="border:1px solid var(--border-color);" onclick="clearCaseText()">
-            <span>Clear Text</span>
-            <span>🗑️</span>
-          </button>
-        </div>
-
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">Case Styles & Capitalization Rules</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: How does Title Case decide which words stay lowercase?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Our engine applies AP and Chicago Manual of Style guidelines: minor words (articles like a/an/the, conjunctions like and/but/or, and prepositions like in/on/at/of) stay lowercase unless they are the first or last word of the title.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: When should I use camelCase vs snake_case vs kebab-case?</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">camelCase is standard for JavaScript/Java/Go variables; snake_case is idiomatic in Python, Ruby, and SQL column names; kebab-case is universal for URLs, slugs, and CSS class names.</p>
+        <div style="margin-bottom: 1.25rem;">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;">Select Target Case Format:</div>
+          <div class="case-btns">
+            <button type="button" class="btn-sm case-btn active" data-mode="title" onclick="transformCase('title')">Title Case (AP / Chicago)</button>
+            <button type="button" class="btn-sm case-btn" data-mode="sentence" onclick="transformCase('sentence')">Sentence case</button>
+            <button type="button" class="btn-sm case-btn" data-mode="upper" onclick="transformCase('upper')">UPPERCASE</button>
+            <button type="button" class="btn-sm case-btn" data-mode="lower" onclick="transformCase('lower')">lowercase</button>
+            <button type="button" class="btn-sm case-btn" data-mode="camel" onclick="transformCase('camel')">camelCase</button>
+            <button type="button" class="btn-sm case-btn" data-mode="pascal" onclick="transformCase('pascal')">PascalCase</button>
+            <button type="button" class="btn-sm case-btn" data-mode="snake" onclick="transformCase('snake')">snake_case</button>
+            <button type="button" class="btn-sm case-btn" data-mode="kebab" onclick="transformCase('kebab')">kebab-case</button>
+            <button type="button" class="btn-sm case-btn" data-mode="constant" onclick="transformCase('constant')">CONSTANT_CASE</button>
           </div>
         </div>
+
+        <!-- Two Column Layout: Original vs Converted -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          <!-- Left Column: Source Text -->
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Original Input (Preserved)</span>
+              <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.2rem 0.6rem;" onclick="clearCaseText()">Clear 🗑️</button>
+            </div>
+            <textarea id="case-input" class="input-text" rows="9" placeholder="Type or paste text here..." style="font-size: 0.95rem; line-height: 1.6; resize: vertical; flex: 1;" oninput="handleCaseInput()">the quick brown fox jumps over the lazy dog</textarea>
+            
+            <!-- Statistics Counter -->
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; background: var(--bg-surface-alt); padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin-top: 0.5rem; font-size: 0.8rem;">
+              <div><span style="color: var(--text-muted);">Words:</span> <strong id="stat-words" style="color: var(--primary);">0</strong></div>
+              <div><span style="color: var(--text-muted);">Chars:</span> <strong id="stat-chars" style="color: var(--accent-cyan);">0</strong></div>
+              <div><span style="color: var(--text-muted);">No-Space:</span> <strong id="stat-chars-nospace" style="color: var(--text-main);">0</strong></div>
+              <div><span style="color: var(--text-muted);">Lines:</span> <strong id="stat-lines" style="color: var(--text-muted);">0</strong></div>
+            </div>
+          </div>
+
+          <!-- Right Column: Output Text -->
+          <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-weight: 700; font-size: 0.95rem; color: var(--success);">Converted Result</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button type="button" class="btn-sm btn-primary" style="font-size: 0.8rem; padding: 0.25rem 0.75rem;" onclick="copyCaseResult()">Copy 📋</button>
+                <button type="button" class="btn-sm btn-ghost" style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 0.25rem 0.6rem;" onclick="applyResultToInput()" title="Move output into input for chaining">Apply to Input ↩️</button>
+              </div>
+            </div>
+            <textarea id="case-output" class="input-text" rows="9" readonly placeholder="Result will appear here..." style="font-size: 0.95rem; line-height: 1.6; resize: vertical; background: var(--bg-surface-alt); border-color: var(--border-color); color: var(--text-main); flex: 1;"></textarea>
+            
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; text-align: right;">
+              Original text remains untouched. Click any style button above to re-convert.
+            </div>
+          </div>
+        </div>
+
+        <!-- Comprehensive Guide & Reference -->
+        <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">English Capitalization Conventions & Software Engineering Naming Standards</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Consistent text casing plays a pivotal role in editorial prestige and clean software engineering. Miscapitalizing prepositions in academic book titles or haphazardly mixing snake_case with camelCase in a codebase introduces ambiguity, degrades readability, and violates style guides. ToolNexus provides an <strong>intelligent, multi-paradigm text casing suite</strong> designed for writers, editors, copywriters, and developers.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Grammar Rules of Title Case (AP & Chicago Manual of Style)</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Professional headline styling is far more nuanced than simple word-by-word capitalization. Major international editorial authorities (including The Associated Press Stylebook and The Chicago Manual of Style) prescribe strict grammatical rules:
+          </p>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>Always Capitalize Major Parts of Speech:</strong> Nouns, pronouns, verbs (including short auxiliary verbs like <em>is</em>, <em>are</em>, <em>was</em>), adjectives, and adverbs must be capitalized.</li>
+            <li><strong>Keep Grammatical Particles Lowercase:</strong> Articles (<em>a, an, the</em>), coordinating conjunctions (<em>and, but, for, or, nor</em>), and short prepositions under 4 letters (<em>in, on, at, to, by, of, up, off</em>) remain lowercase.</li>
+            <li><strong>The Boundary Invariance Rule:</strong> The first and last words of a title, as well as the first word immediately following a subtitle colon (:), are <strong>always capitalized</strong> regardless of their grammatical class.</li>
+          </ul>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">Software Identifier Naming Conventions Reference</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Convention</th>
+                  <th style="padding: 0.75rem 0.5rem;">Pattern Example</th>
+                  <th style="padding: 0.75rem 0.5rem;">Primary Ecosystems & Idioms</th>
+                  <th style="padding: 0.75rem 0.5rem;">Delimiter Structure</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted);">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">camelCase</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">userProfileData</td>
+                  <td style="padding: 0.65rem 0.5rem;">JavaScript, TypeScript, Java, Swift variables & functions</td>
+                  <td style="padding: 0.65rem 0.5rem;">Lower initial, internal capitals, no spaces</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">PascalCase</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">UserProfileData</td>
+                  <td style="padding: 0.65rem 0.5rem;">React components, TypeScript types/interfaces, C# classes</td>
+                  <td style="padding: 0.65rem 0.5rem;">Every word begins with uppercase, no spaces</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">snake_case</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">user_profile_data</td>
+                  <td style="padding: 0.65rem 0.5rem;">Python (PEP 8), Rust, PostgreSQL & MySQL database columns</td>
+                  <td style="padding: 0.65rem 0.5rem;">All lowercase words concatenated with underscores `_`</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">kebab-case</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">user-profile-data</td>
+                  <td style="padding: 0.65rem 0.5rem;">SEO URL slugs, CSS class selectors, HTML attributes, REST endpoints</td>
+                  <td style="padding: 0.65rem 0.5rem;">All lowercase words concatenated with hyphens `-`</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f43f5e;">CONSTANT_CASE</td>
+                  <td style="padding: 0.65rem 0.5rem; font-family: monospace;">USER_PROFILE_DATA</td>
+                  <td style="padding: 0.65rem 0.5rem;">Environment variables (.env), Redux action types, C/C++ constants</td>
+                  <td style="padding: 0.65rem 0.5rem;">All uppercase words concatenated with underscores `_`</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FAQ Section -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: How does Title Case handle hyphenated compound words like "State-of-the-Art"?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Our tokenizer evaluates sub-words within hyphens according to Chicago style rules: content words (State, Art) are capitalized, while grammatical particles (of, the) remain lowercase, producing perfectly balanced hyphenated compounds.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What is the difference between Sentence case and Capitalized Words?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Sentence case capitalizes only the very first letter of a sentence (or list item) while keeping all subsequent non-proper nouns lowercase, as recommended by Google Material Design and Apple HIG. In contrast, Capitalized Words indiscriminately forces the first letter of every single word to uppercase.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Can this tool convert mixed strings with underscores and dashes into camelCase?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. The tokenizer identifies transitions across spaces, underscores, dashes, and internal camel humps, making it effortless to transform database column names directly into clean TypeScript property models.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Is it safe to paste confidential manuscripts, articles, or proprietary source code?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Completely safe. All string processing executes locally in your browser's V8 JavaScript engine with zero remote network calls. You can even disconnect your internet connection and the converter will continue working seamlessly.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </div>
@@ -225,10 +399,42 @@
         result = getWords(val).map(w => w.toUpperCase()).join('_');
       }
 
-      el.value = result;
+      document.getElementById('case-output').value = result;
+      currentMode = mode;
       updateActiveButton(mode);
       updateStats();
-      showToast('Converted!', 'success');
+      showToast('Converted to ' + mode + ' case!', 'success');
+    }
+
+    let currentMode = 'title';
+
+    function handleCaseInput() {
+      updateStats();
+      if (currentMode) {
+        // 自动联动转换到右侧，但不覆盖左侧输入
+        const val = document.getElementById('case-input').value;
+        if (val) {
+          const outEl = document.getElementById('case-output');
+          if (currentMode === 'title') outEl.value = toTitleCase(val);
+          else if (currentMode === 'sentence') outEl.value = toSentenceCase(val);
+          else if (currentMode === 'upper') outEl.value = val.toUpperCase();
+          else if (currentMode === 'lower') outEl.value = val.toLowerCase();
+          else if (currentMode === 'camel') {
+            const words = getWords(val);
+            outEl.value = words.map((w, idx) => idx === 0 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+          } else if (currentMode === 'pascal') {
+            outEl.value = getWords(val).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+          } else if (currentMode === 'snake') {
+            outEl.value = getWords(val).map(w => w.toLowerCase()).join('_');
+          } else if (currentMode === 'kebab') {
+            outEl.value = getWords(val).map(w => w.toLowerCase()).join('-');
+          } else if (currentMode === 'constant') {
+            outEl.value = getWords(val).map(w => w.toUpperCase()).join('_');
+          }
+        } else {
+          document.getElementById('case-output').value = '';
+        }
+      }
     }
 
     function updateStats() {
@@ -244,20 +450,36 @@
       document.getElementById('stat-lines').textContent = lines;
     }
 
-    function copyCaseText() {
-      const val = document.getElementById('case-input').value;
-      if (!val) return;
+    function copyCaseResult() {
+      const val = document.getElementById('case-output').value;
+      if (!val) {
+        showToast('No result to copy', 'warning');
+        return;
+      }
       copyToClipboard(val);
+    }
+
+    function applyResultToInput() {
+      const res = document.getElementById('case-output').value;
+      if (!res) {
+        showToast('No result to apply', 'warning');
+        return;
+      }
+      document.getElementById('case-input').value = res;
+      updateStats();
+      showToast('Applied result to input!', 'success');
     }
 
     function clearCaseText() {
       document.getElementById('case-input').value = '';
-      updateActiveButton(null);
+      document.getElementById('case-output').value = '';
       updateStats();
+      showToast('Cleared text', 'info');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       updateStats();
+      transformCase('title');
     });
   </script>
     </main>
@@ -284,13 +506,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

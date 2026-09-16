@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JWT 令牌解码器 - JSON Web Token 在线解析 | 纯本地防秘钥泄露</title>
+  <title>JWT 令牌解码器 - JSON Web Token 在线解析 | ToolNexus</title>
   <meta name="description" content="纯前端在线 JWT 令牌解码工具。支持三段式 Header、Payload、Signature 彩色高亮解析，自动转换 exp 过期时间为可读时间并计算有效期状态。绝不向任何服务器发送 Token。">
   <meta name="keywords" content="JWT解码,JWT在线解析,JSON Web Token,Token解析,JWT过期时间">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,15 +12,90 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/jwt-decoder/">
-  <meta property="og:title" content="JWT 令牌解码器 - JSON Web Token 在线解析 | 纯本地防秘钥泄露">
+  <meta property="og:title" content="JWT 令牌解码器 - JSON Web Token 在线解析 | ToolNexus">
   <meta property="og:description" content="纯前端在线 JWT 令牌解码工具。支持三段式 Header、Payload、Signature 彩色高亮解析，自动转换 exp 过期时间为可读时间并计算有效期状态。绝不向任何服务器发送 Token。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="JWT 令牌解码器 - JSON Web Token 在线解析 | 纯本地防秘钥泄露">
+  <meta name="twitter:title" content="JWT 令牌解码器 - JSON Web Token 在线解析 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 JWT 令牌解码工具。支持三段式 Header、Payload、Signature 彩色高亮解析，自动转换 exp 过期时间为可读时间并计算有效期状态。绝不向任何服务器发送 Token。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "JWT 令牌在线解码器",
+        "url": "https://toolnexusweb.com/zh/tools/jwt-decoder/",
+        "applicationCategory": "DeveloperApplication, SecurityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "需要现代支持 JavaScript 的浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地安全解析 JSON Web Token (JWT)，彩色高亮 Header、Payload 声明与过期时间判定。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "开发者利器",
+            "item": "https://toolnexusweb.com/zh/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "JWT 令牌解码器",
+            "item": "https://toolnexusweb.com/zh/tools/jwt-decoder/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "前端页面能否直接本地校验 JWT 的真实性与有效性？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "对于使用非对称加密算法（如 RS256、ES256）签发的 Token，前端可通过服务端的公钥证书（JWKS）直接在浏览器中完成密码学验签。但对于对称加密（HS256），由于验签需要共享服务端私密密钥，绝对不能将密钥暴露给前端浏览器。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "JWT 令牌一旦过期该如何处理？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "当系统的当前时间戳超出 Payload 中的 exp 声明时，该令牌即告失效，API 网关通常会返回 HTTP 401 状态码。标准工程实践是使用有效期更长的 Refresh Token（刷新令牌）静默向服务端换取新的 Access Token。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "粘贴生产环境的 Authorization 令牌会泄露吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不会。ToolNexus 100% 运行在您本机的 JavaScript 执行线程中，零 Cookie 存储、零日志打点、零网络传输，您可以安心调试生产环境 Token。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .jwt-color-header { color: #f43f5e; font-weight: 600; }
     .jwt-color-payload { color: #a855f7; font-weight: 600; }
@@ -61,7 +136,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>开发者利器</span>
+        <a href="/zh/#developer">开发者与安全</a>
         <span class="breadcrumb-separator">/</span>
         <span>JWT 令牌解码器</span>
       </nav>
@@ -103,6 +178,75 @@
           <div class="jwt-json-box" id="jwt-payload-box">{}</div>
         </div>
       </div>
+
+      <!-- 深度 JWT 鉴权与安全架构解析 -->
+      <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">深入理解 JSON Web Token (JWT) 与现代无状态身份鉴权机制</h2>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+          JSON Web Token（简称 JWT，严格遵循 <strong>RFC 7519</strong> 开放国际规范）是一种高密凑、URL 安全的分布式声明载体。在当代云原生微服务架构、单页面应用（SPA）、前后端分离系统及 OAuth 2.0 / OpenID Connect 协议中，JWT 已成为实现用户认证（Authentication）与接口鉴权（Authorization）的事实标准。
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          一条标准的 JWT 字符串由英文半角句号（<code>.</code>）分割为三段：<strong>Header（标头）</strong>、<strong>Payload（有效载荷）</strong>与 <strong>Signature（数字签名）</strong>。ToolNexus 采用纯客户端 Base64URL 逆向反序列化引擎，支持在断网或离线环境中毫秒级提取 Token 中的用户 ID、角色权限声明及有效期限，<strong>绝不向任何第三方服务器上传您的敏感认证令牌</strong>。
+        </p>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">JWT 结构三段式详细拆解</h3>
+        <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                <th style="padding: 0.75rem 0.5rem;">结构段落</th>
+                <th style="padding: 0.75rem 0.5rem;">视觉标识</th>
+                <th style="padding: 0.75rem 0.5rem;">典型 JSON 内容</th>
+                <th style="padding: 0.75rem 0.5rem;">核心功能与安全职责</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-muted); line-height: 1.6;">
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600;">1. Header 标头</td>
+                <td style="padding: 0.65rem 0.5rem; color: #f43f5e; font-weight: 600;">红色区域</td>
+                <td style="padding: 0.65rem 0.5rem;"><code>{"alg": "HS256", "typ": "JWT"}</code></td>
+                <td style="padding: 0.65rem 0.5rem;">声明令牌类型以及签名所使用的哈希加密算法（如 HS256、RS256）</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);">
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600;">2. Payload 载荷</td>
+                <td style="padding: 0.65rem 0.5rem; color: #a855f7; font-weight: 600;">紫色区域</td>
+                <td style="padding: 0.65rem 0.5rem;"><code>{"sub": "admin", "exp": 1720000000}</code></td>
+                <td style="padding: 0.65rem 0.5rem;">存放业务声明（用户身份、权限范围、过期时间戳、签发人等）</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.65rem 0.5rem; font-weight: 600;">3. Signature 签名</td>
+                <td style="padding: 0.65rem 0.5rem; color: #06b6d4; font-weight: 600;">青色区域</td>
+                <td style="padding: 0.65rem 0.5rem;">HMACSHA256(Base64(H)+"."+Base64(P), secret)</td>
+                <td style="padding: 0.65rem 0.5rem;">防篡改核心屏障。任何对前两段的非法篡改都将导致签名校验失效</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">开发者必须知晓的安全避坑要点</h3>
+        <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>牢记“解码不等于验签”：</strong> 前端无需任何密钥即可直接将 Token 解码并获取用户信息，但绝不能单纯依据客户端解码的“isAdmin: true”就开放后端受保护数据。服务端的每一次 API 请求都必须严格校验 Signature。</li>
+          <li><strong>警惕“alg: none”签名绕过漏洞：</strong> 早期部分 JWT 开源库存在严重漏洞，攻击者可将 Header 的 <code>alg</code> 篡改为 <code>none</code> 并清空签名段，导致服务端跳过签名校验。现代后端必须在代码中锁定固定的验证算法。</li>
+          <li><strong>严禁在 Payload 存放敏感私密数据：</strong> Base64URL 仅仅是一种公开编码格式，并非加密。用户的登录密码明文、支付银行卡号、身份证号绝不能作为 Claim 存放在 Token 中。</li>
+        </ul>
+
+        <!-- 常见问答 FAQ -->
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+        <div style="display: grid; gap: 1rem;">
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 前端页面能否直接本地校验 JWT 的真实性与有效性？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">对于使用非对称加密算法（如 RS256、ES256）签发的 Token，前端可通过服务端的公钥证书（JWKS）直接在浏览器中完成密码学验签。但对于对称加密（HS256），由于验签需要共享服务端私密密钥，绝对不能将密钥暴露给前端浏览器。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: JWT 令牌一旦过期该如何处理？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">当系统的当前时间戳超出 Payload 中的 <code>exp</code> 声明时，该令牌即告失效，API 网关通常会返回 HTTP 401 状态码。标准工程实践是使用有效期更长的 Refresh Token（刷新令牌）静默向服务端换取新的 Access Token。</p>
+          </div>
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 粘贴生产环境的 Authorization 令牌会泄露吗？</h4>
+            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不会。ToolNexus 100% 运行在您本机的 JavaScript 执行线程中，零 Cookie 存储、零日志打点、零网络传输，您可以安心调试生产环境 Token。</p>
+          </div>
+        </div>
+      </article>
     </div>
   </main>
 
@@ -126,14 +270,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

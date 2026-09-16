@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | 纯本地免排队</title>
+  <title>PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | ToolNexus</title>
   <meta name="description" content="纯前端在线 PDF 转图片工具。基于 PDF.js 引擎，将 PDF 文档每一页高清渲染导出为 JPG、PNG、WebP 图片，支持单页下载与一键打包 ZIP 下载。">
   <meta name="keywords" content="PDF转图片,PDF转JPG,PDF转PNG,提取PDF页面图片,在线PDF转图片">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,11 +12,11 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/pdf-to-image/">
-  <meta property="og:title" content="PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | 纯本地免排队">
+  <meta property="og:title" content="PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | ToolNexus">
   <meta property="og:description" content="纯前端在线 PDF 转图片工具。基于 PDF.js 引擎，将 PDF 文档每一页高清渲染导出为 JPG、PNG、WebP 图片，支持单页下载与一键打包 ZIP 下载。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | 纯本地免排队">
+  <meta name="twitter:title" content="PDF 转图片工具 - PDF逐页高清导出为JPG/PNG | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 PDF 转图片工具。基于 PDF.js 引擎，将 PDF 文档每一页高清渲染导出为 JPG、PNG、WebP 图片，支持单页下载与一键打包 ZIP 下载。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
@@ -49,6 +49,91 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-to-image/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-to-image/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-to-image/#webapp",
+        "url": "https://toolnexusweb.com/zh/tools/pdf-to-image/",
+        "name": "PDF 转图片工具",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires modern web browser with HTML5 Canvas support",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯前端在线 PDF 转图片工具。基于底层 PDF.js 光栅化引擎，支持将 PDF 每一页高清导出为 JPG、PNG、WebP 图片，支持单页下载与一键 ZIP 打包。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-to-image/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF与文档",
+            "item": "https://toolnexusweb.com/zh/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PDF 转图片",
+            "item": "https://toolnexusweb.com/zh/tools/pdf-to-image/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-to-image/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "PDF 导出为图片后，原文档中的文字还能直接复制或搜索吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "导出后的图片属于纯光栅位图（Raster Bitmap），文字已被固化为像素网格，无法再像 PDF 那样直接鼠标划选文字。若需提取文字，可使用配套的 OCR 识别工具进行文字逆向提取，或者保留原始 PDF 文档以供编辑检索。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "文档中带有透明背景的公章或签名，导出为 JPG 会变成黑底吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。JPG 格式由于天生不支持 Alpha 透明通道，ToolNexus 会在 Canvas 上自动预先填充纯白底色（#FFFFFF）进行合成，保证透明印章与公章清晰自然呈现；若您需要保留完全透明的底色，建议选择导出为 PNG 格式。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "数十页的 PDF 文档批量转为图片打包，浏览器会卡死奔溃吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。ToolNexus 采用逐页异步流水线设计，每页在 Canvas 绘制完成后立即导出为低显存占用的 Blob 内存流，并主动销毁临时绘图上下文，有效防范页面 OOM 崩溃，大页数文件也能流畅转图并生成 ZIP 压缩包。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "将公司的财务发票、保密合同转成图片，会不会上传到云端？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对零上传。ToolNexus 是 100% 纯客户端运行的 Web 应用，整个 PDF.js 解析与 Canvas 绘制全过程均在您本地设备的浏览器沙箱中执行，甚至拔掉网线或开启飞行模式也能全速转换，商业隐私绝对安全。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
   
@@ -69,9 +154,9 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF与文档</span>
+        <a href="/zh/#pdf">PDF 文档办公</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF 转图片</span>
+        <span>PDF 转图片工具</span>
       </nav>
       <div class="tool-title-row">
         <h1 class="tool-title">🖼️ PDF 转图片工具</h1>
@@ -106,6 +191,86 @@
 
       <div class="pdf-render-grid" id="pages-grid"></div>
     </div>
+
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2.5rem;">
+      <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">深度指南：PDF 矢量流光栅化、DPI 分辨率换算与图片高清导出机制</h2>
+      
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        将 PDF 文档的单页或整本页面转换为高保真图片，在社交媒体分享、电商产品详情页插图、微信公众号软文配图以及移动端无障碍展示中是极其高频的需求。然而，普通在线转图工具常常存在“文字边缘发虚模糊”、“多页转换需排队限制每天次数”或“上传企业涉密合同引发泄密”等痛点。<strong>ToolNexus PDF 转图片工具</strong>基于 Mozilla 开源的 <code>PDF.js</code> 光栅化引擎，在浏览器本地实现高性能视口缩放与原生 Canvas 2D 渲染，提供零上传、不限页数的极速转换体验。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">1. PDF 内部矢量指令到光栅位图（Rasterization）的渲染链路</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        PDF 本质上是一组矢量绘图指令集合，包含了贝塞尔曲线、字形轮廓（TrueType/OpenType 字体子集）、CMYK/RGB 色彩矩阵以及嵌入图像 XObject。
+      </p>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        当 ToolNexus 执行转图时，底层 PDF.js 引擎通过 <code>page.getViewport({ scale })</code> 动态计算物理视口分辨率，并在内存中调起 HTML5 <code>CanvasRenderingContext2D</code> 执行逐像素光栅化绘制。针对文字部分，利用字形抗锯齿平滑算法渲染出锐利边缘；针对矢量图形，自动按视口像素网格进行高保真重映射，从而生成媲美出版物级别的超清位图。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">2. 常用导出图片格式核心特性对比</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; margin-top: 0.5rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">图像格式</th>
+              <th style="padding: 0.75rem 0.5rem;">色彩深度与透明通道</th>
+              <th style="padding: 0.75rem 0.5rem;">压缩算法与画质损耗</th>
+              <th style="padding: 0.75rem 0.5rem;">相对文件体积</th>
+              <th style="padding: 0.75rem 0.5rem;">推荐适用场景</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo, #6366f1);">PNG 高清格式</td>
+              <td style="padding: 0.65rem 0.5rem;">32-bit RGBA (支持透明)</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">完全无损压缩 (Deflate)</td>
+              <td style="padding: 0.65rem 0.5rem;">较大 (照片偏大)</td>
+              <td style="padding: 0.65rem 0.5rem;">技术图纸、带印章公文、精细文字表格、需二次设计排版的素材</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan, #06b6d4);">JPG / JPEG 格式</td>
+              <td style="padding: 0.65rem 0.5rem;">24-bit RGB (纯白底合成)</td>
+              <td style="padding: 0.65rem 0.5rem;">有损 DCT 压缩 (92% 高画质)</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">适中 (约为 PNG 的 30%~50%)</td>
+              <td style="padding: 0.65rem 0.5rem;">微信朋友圈分享、网页文章配图、邮件快速发送、相册存档</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber, #f59e0b);">WebP 现代格式</td>
+              <td style="padding: 0.65rem 0.5rem;">24/32-bit (兼具高压缩与透明)</td>
+              <td style="padding: 0.65rem 0.5rem;">现代 VP8/VP8L 编码</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">最小 (比 JPG 再小 30%+)</td>
+              <td style="padding: 0.65rem 0.5rem;">移动端 App 资源、现代网站性能极致加速、长篇幻灯片转图</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">3. DPI 分辨率缩放与流式内存保护机制</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        PDF 标准内置以 72 pt/inch 为基础单位。ToolNexus 默认采用 <code>scale: 1.5</code> 视口渲染参数，等效于 108~150+ DPI 的物理清晰度，在常规高清显示屏和 Retina 视网膜屏上展现出无锯齿的印刷品质感。针对数十页的复杂文件，工具采用逐页流式渲染并即时释放非必要 DOM 节点的内存占用，最终通过 <code>JSZip</code> 在浏览器客户端内秒级打包归档，确保多页批量转换稳定不崩溃。
+      </p>
+
+      <!-- 常见问答 FAQ -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: PDF 导出为图片后，原文档中的文字还能直接复制或搜索吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">导出后的图片属于纯光栅位图（Raster Bitmap），文字已被固化为像素网格，无法再像 PDF 那样直接鼠标划选文字。若需提取文字，可使用配套的 OCR 识别工具进行文字逆向提取，或者保留原始 PDF 文档以供编辑检索。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 文档中带有透明背景的公章或签名，导出为 JPG 会变成黑底吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。JPG 格式由于天生不支持 Alpha 透明通道，ToolNexus 会在 Canvas 上自动预先填充纯白底色（#FFFFFF）进行合成，保证透明印章与公章清晰自然呈现；若您需要保留完全透明的底色，建议选择导出为 PNG 格式。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 数十页的 PDF 文档批量转为图片打包，浏览器会卡死奔溃吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。ToolNexus 采用逐页异步流水线设计，每页在 Canvas 绘制完成后立即导出为低显存占用的 Blob 内存流，并主动销毁临时绘图上下文，有效防范页面 OOM 崩溃，大页数文件也能流畅转图并生成 ZIP 压缩包。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 将公司的财务发票、保密合同转成图片，会不会上传到云端？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对零上传。ToolNexus 是 100% 纯客户端运行的 Web 应用，整个 PDF.js 解析与 Canvas 绘制全过程均在您本地设备的浏览器沙箱中执行，甚至拔掉网线或开启飞行模式也能全速转换，商业隐私绝对安全。</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   
@@ -128,14 +293,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

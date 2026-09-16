@@ -84,7 +84,7 @@ const TOOLS_DB = [
   {
     id: 'timestamp',
     en: { title: 'Unix Timestamp Converter', desc: 'Convert epoch timestamps to readable UTC and local dates with a live system clock', category: 'developer', icon: '⏱️' },
-    zh: { title: '开发者时间戳转换', desc: 'Unix 秒/毫秒与可读时间互转，系统时钟动态流逝与相对时间指示', category: 'developer', icon: '⏱️' }
+    zh: { title: '时间戳转换', desc: 'Unix 秒/毫秒与可读时间互转，系统时钟动态流逝与相对时间指示', category: 'developer', icon: '⏱️' }
   },
   {
     id: 'base64-converter',
@@ -179,6 +179,31 @@ const TOOLS_DB = [
     id: 'ad-checker',
     en: { title: 'Ad Copy & Jargon Checker', desc: 'Scan marketing headlines and ad copy for high-risk claims and overused buzzwords', category: 'text', icon: '⚠️' },
     zh: { title: '新广告法违禁词检测', desc: '内置 200+ 极限词库，电商详情页与自媒体文案一键高亮排查', category: 'text', icon: '⚠️' }
+  },
+  {
+    id: 'csv-json',
+    en: { title: 'CSV ↔ JSON Converter', desc: 'Bidirectional spreadsheet and JSON converter. Parse CSV to JSON array or export API data to CSV', category: 'developer', icon: '📊' },
+    zh: { title: 'CSV ↔ JSON 互转', desc: '双向表格与数据格式转换。Excel 表格转 JSON 数组，或将 API 数据导出为标准 CSV', category: 'developer', icon: '📊' }
+  },
+  {
+    id: 'cron-parser',
+    en: { title: 'Cron Expression Parser & Visualizer', desc: 'Translate Linux crontab syntax into human-readable schedule and calculate future execution times', category: 'developer', icon: '⏰' },
+    zh: { title: 'Cron 表达式解析器', desc: '直观翻译 Linux crontab 定时语法为清晰中文，精准预测未来 5 次任务触发执行时间', category: 'developer', icon: '⏰' }
+  },
+  {
+    id: 'html-encoder',
+    en: { title: 'HTML Entity Encoder & Decoder', desc: 'Encode special characters to HTML named, decimal or hex entities and decode safely to prevent XSS', category: 'developer', icon: '🔤' },
+    zh: { title: 'HTML 实体编解码', desc: '特殊字符转为命名实体（&lt;）或十进制/十六进制实体，防止 XSS 脚本注入', category: 'developer', icon: '🔤' }
+  },
+  {
+    id: 'unicode-inspector',
+    en: { title: 'Unicode Inspector & Zero-Width Detector', desc: 'Inspect Unicode code points, detect hidden zero-width watermark characters, and sanitize text', category: 'text', icon: '🔍' },
+    zh: { title: '零宽隐形字符检测器', desc: '排查文本中潜伏的 Unicode 隐藏字符与数字盲水印指纹，一键无损深度净化', category: 'text', icon: '🔍' }
+  },
+  {
+    id: 'color-contrast',
+    en: { title: 'WCAG Color Contrast Checker', desc: 'Check color contrast ratio between text and background for WCAG 2.1 AA & AAA accessibility compliance', category: 'design', icon: '🎨' },
+    zh: { title: '颜色无障碍对比度检查', desc: '依据 W3C WCAG 2.1 国际标准评估文字与背景相对明度，实时核验 AA / AAA 合规等级', category: 'design', icon: '🎨' }
   }
 ];
 

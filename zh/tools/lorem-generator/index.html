@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | 设计师常用</title>
+  <title>Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | ToolNexus</title>
   <meta name="description" content="纯前端在线 Lorem Ipsum 假文生成工具。支持生成标准拉丁文排版假文，以及经典中文排版占位文本。自由控制段落、字数及 HTML 段落标签包裹，一键复制。">
   <meta name="keywords" content="Lorem Ipsum,假文生成器,占位文本,乱数假文,中文占位符">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,11 +12,11 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/lorem-generator/">
-  <meta property="og:title" content="Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | 设计师常用">
+  <meta property="og:title" content="Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | ToolNexus">
   <meta property="og:description" content="纯前端在线 Lorem Ipsum 假文生成工具。支持生成标准拉丁文排版假文，以及经典中文排版占位文本。自由控制段落、字数及 HTML 段落标签包裹，一键复制。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | 设计师常用">
+  <meta name="twitter:title" content="Lorem Ipsum 假文生成器 - 中英文排版占位符文本在线生成 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 Lorem Ipsum 假文生成工具。支持生成标准拉丁文排版假文，以及经典中文排版占位文本。自由控制段落、字数及 HTML 段落标签包裹，一键复制。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
@@ -25,6 +25,72 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/lorem-generator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/lorem-generator/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Lorem Ipsum 中英文排版假文生成器",
+        "url": "https://toolnexusweb.com/zh/tools/lorem-generator/",
+        "applicationCategory": "DesignApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地高定制 Lorem Ipsum 假文生成工具。支持标准拉丁假文及中文字体排版假文，自定义段落、单词数与 HTML 段落标签包裹。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "设计与排版工具",
+            "item": "https://toolnexusweb.com/zh/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lorem Ipsum 假文生成",
+            "item": "https://toolnexusweb.com/zh/tools/lorem-generator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "中文排版占位符和英文 Lorem Ipsum 相比有什么特点？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "英文文本由词间空格隔开，字符宽度可变；而汉字是等宽方块字（Em square），没有词间空格且标点符号占比更大。ToolNexus 的中文假文库精心采撷散文式自然句式，能够完美呈现真实中文网站排版的疏密节奏。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "本工具生成的假文有版权限制吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全没有任何版权限制。Lorem Ipsum 属于公共领域的通用排版资源，您生成的任何段落均可自由用于商业网页设计、App 原型、平面印刷品及开源项目中。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
   
@@ -45,7 +111,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>设计与排版</span>
+        <a href="/zh/#text">文本与排版</a>
         <span class="breadcrumb-separator">/</span>
         <span>Lorem Ipsum 假文生成</span>
       </nav>
@@ -86,6 +152,42 @@
         <textarea class="form-textarea" id="lorem-output" readonly style="height: 280px;"></textarea>
       </div>
     </div>
+
+    <!-- 深度设计排版与假文起源指南 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">Lorem Ipsum 假文的排版美学与历史渊源</h2>
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+        无论您是在进行 UI/UX 原型绘制（Figma / Sketch）、网页响应式前端开发、还是纸质出版物平面设计，“乱数假文（Dummy Text / Placeholder Text）”都是设计工程流程中不可替代的排版利器。以看似自然但无实际文字含义的段落填充设计容器，能够让团队与客户完全剥离文字语义的干扰，纯粹聚焦于视觉层次、栅格布局、间距节奏与字体字重的协调性。
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">📜 西塞罗古典拉丁文的奇妙演变</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">经典 Lorem Ipsum 并非随机生成的字母乱码，而是节选自古罗马思想家西塞罗于公元前 45 年撰写的拉丁哲学名著《论至善和至恶》（De finibus bonorum et malorum）。16 世纪一名印刷工人打乱了段落顺序，使其成为了工业印刷界的标准样例。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">👁️ 维持“视觉灰度 (Texture)”的科学</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">如果反复复制“这里是测试文字这里是测试文字”，中文汉字的机械重复会形成突兀的视觉色块，破坏版面整体的灰度均匀感。Lorem Ipsum 词汇长短参差不齐、标点错落有致，能够极其逼真地模拟真实自然文本的印刷灰度。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">💻 HTML 标签自动包裹与前端提效</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">前端开发者往往需要为排版段落添加 <code>&lt;p&gt;</code> 语义标签。开启标签包裹模式后，生成结果直接以标准 HTML 格式输出，复制后直接粘贴至 Vue、React 或 HTML5 骨架中即可完成栅格测试。</p>
+        </div>
+      </div>
+
+      <!-- FAQ 常见问题解答 -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 中文排版占位符和英文 Lorem Ipsum 相比有什么特点？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">英文文本由词间空格隔开，字符宽度可变；而汉字是等宽方块字（Em square），没有词间空格且标点符号占比更大。ToolNexus 的中文假文库精心采撷散文式自然句式，能够完美呈现真实中文网站排版的疏密节奏。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 本工具生成的假文有版权限制吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">完全没有任何版权限制。Lorem Ipsum 属于公共领域的通用排版资源，您生成的任何段落均可自由用于商业网页设计、App 原型、平面印刷品及开源项目中。</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   
@@ -108,14 +210,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

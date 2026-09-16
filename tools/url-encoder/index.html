@@ -24,6 +24,80 @@
   <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/url-encoder/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/url-encoder/">
 
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "URL Encoder & Decoder",
+        "url": "https://toolnexusweb.com/tools/url-encoder/",
+        "applicationCategory": "DeveloperApplication, UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires modern JavaScript browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Escape special characters, encode URI components according to RFC 3986, and inspect query parameters in real time."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnexusweb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://toolnexusweb.com/#developer"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL Encoder",
+            "item": "https://toolnexusweb.com/tools/url-encoder/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between encodeURI() and encodeURIComponent()?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "encodeURI() is designed for full URLs and intentionally avoids encoding URL syntax tokens like :// , / , ? , and & . encodeURIComponent() encodes every character that could conflict with URI grammar, making it the proper choice for parameter values."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does '+' sometimes turn into a space when decoded?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In the legacy HTML form standard ( application/x-www-form-urlencoded ), spaces were converted to plus signs (+). In modern RFC 3986 percent-encoding, spaces are %20 . ToolNexus intelligently parses both conventions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my pasted URL sent to any remote telemetry server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The decoding, encoding, and parameter decomposition routines run exclusively within your browser's JavaScript sandbox. No API keys or session tokens are ever leaked."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -41,7 +115,7 @@
       <nav class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/#developer">Developer Tools</a>
+        <a href="/#developer">Developer & Security</a>
         <span class="breadcrumb-separator">/</span>
         <span>URL Encoder & Decoder</span>
       </nav>
@@ -75,6 +149,75 @@
           <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">Parsed Query Parameters</h3>
           <div id="params-table" style="font-size: 0.9rem;"></div>
         </div>
+
+        <!-- Deep SEO Guide & Technical Reference -->
+        <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">The Definitive Guide to URL Percent-Encoding & URI Components</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            Uniform Resource Identifiers (URIs) and URLs operate under strict transmission grammar governed by <strong>RFC 3986</strong>. Because URLs are transmitted across internet protocols that historically only guaranteed reliable routing for standard US-ASCII characters, any character falling outside the unreserved character set must undergo <em>percent-encoding</em> (also referred to as URL escaping).
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            When a character is percent-encoded, it is first mapped to its binary byte representation in UTF-8. Each resulting byte is expressed as a three-character sequence: a leading percent sign (<code>%</code>) followed by two hexadecimal digits representing the byte's numeric value (00 through FF). For instance, a basic whitespace character is represented by hex value <code>0x20</code>, rendering as <code>%20</code>.
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">Reserved vs. Unreserved Characters Reference</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">Category</th>
+                  <th style="padding: 0.75rem 0.5rem;">Characters Included</th>
+                  <th style="padding: 0.75rem 0.5rem;">Encoding Behavior</th>
+                  <th style="padding: 0.75rem 0.5rem;">Purpose & Usage</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted); line-height: 1.6;">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #10b981;">Unreserved</td>
+                  <td style="padding: 0.65rem 0.5rem;"><code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>-</code>, <code>_</code>, <code>.</code>, <code>~</code></td>
+                  <td style="padding: 0.65rem 0.5rem;">Never encoded</td>
+                  <td style="padding: 0.65rem 0.5rem;">Safe for all URL components without risk of delimiter confusion</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #f59e0b;">Reserved (Delimiters)</td>
+                  <td style="padding: 0.65rem 0.5rem;"><code>:</code>, <code>/</code>, <code>?</code>, <code>#</code>, <code>[</code>, <code>]</code>, <code>@</code>, <code>!</code>, <code>$</code>, <code>&</code>, <code>'</code>, <code>(</code>, <code>)</code>, <code>*</code>, <code>+</code>, <code>,</code>, <code>;</code>, <code>=</code></td>
+                  <td style="padding: 0.65rem 0.5rem;">Encoded when used as payload data</td>
+                  <td style="padding: 0.65rem 0.5rem;">Delimit scheme, host, path, query string, and anchor fragments</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: #38bdf8;">Non-ASCII & Unicode</td>
+                  <td style="padding: 0.65rem 0.5rem;">Chinese, Cyrillic, Emoji, Accents</td>
+                  <td style="padding: 0.65rem 0.5rem;">UTF-8 multi-byte percent encoded</td>
+                  <td style="padding: 0.65rem 0.5rem;">Converted into 2 to 4 percent-encoded octets per character</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">Practical Developer Best Practices</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Always Encode Query Values Independently:</strong> Never call <code>encodeURIComponent()</code> on an entire URL, because it will destroy structural markers like <code>https://</code> and <code>?</code>. Instead, construct your URL base, and encode each parameter key and value individually.</li>
+            <li><strong>OAuth and Webhook Redirects:</strong> Callback URLs passed within an authentication query string (e.g. <code>redirect_uri=https%3A%2F%2Fapp.com%2Fcallback</code>) must be strictly encoded to prevent open-redirect vulnerabilities.</li>
+            <li><strong>XSS Prevention:</strong> Unsanitized URL parameters injected directly into DOM innerHTML or <code>href</code> attributes can trigger Cross-Site Scripting (XSS). Always decode on the application logic layer and sanitize before rendering.</li>
+          </ul>
+
+          <!-- Detailed FAQs -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: What is the difference between encodeURI() and encodeURIComponent()?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;"><code>encodeURI()</code> is designed for full URLs and intentionally avoids encoding URL syntax tokens like <code>://</code>, <code>/</code>, <code>?</code>, and <code>&</code>. <code>encodeURIComponent()</code> encodes every character that could conflict with URI grammar, making it the proper choice for parameter values.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Why does '+' sometimes turn into a space when decoded?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">In the legacy HTML form standard (<code>application/x-www-form-urlencoded</code>), spaces were converted to plus signs (+). In modern RFC 3986 percent-encoding, spaces are <code>%20</code>. ToolNexus intelligently parses both conventions.</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: Is my pasted URL sent to any remote telemetry server?</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. The decoding, encoding, and parameter decomposition routines run exclusively within your browser's JavaScript sandbox. No API keys or session tokens are ever leaked.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -160,13 +303,14 @@
             <li><a href="/tools/password-generator/">Strong Password Gen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="/#calculators">Calculators & Finance</a></li>
-            <li><a href="/#developer">Developer & Cryptography</a></li>
-            <li><a href="/#pdf">PDF & Image Tools</a></li>
-            <li><a href="/#text">Text & Content Utilities</a></li>
+            <li><a href="/#calculator">Calculators & Finance</a></li>
+            <li><a href="/#developer">Developer & Security</a></li>
+            <li><a href="/#pdf">PDF & Documents</a></li>
+            <li><a href="/#image">Image Utilities</a></li>
+            <li><a href="/#text">Text & Writing</a></li>
           </ul>
         </div>
         <div class="footer-col">

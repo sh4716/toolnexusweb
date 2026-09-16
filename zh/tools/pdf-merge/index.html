@@ -5,22 +5,25 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF 极速合并 - 纯本地多 PDF 自由排序合并 | 零上传秒级完成</title>
+  <title>PDF 极速合并 - 纯本地多 PDF 自由排序合并 | ToolNexus</title>
   <meta name="description" content="纯前端在线 PDF 极速合并工具。支持拖拽自由排序多份 PDF 文件，一键秒级合并为一个标准 PDF。100% 浏览器客户端运行，合同文献零泄密。">
   <meta name="keywords" content="PDF合并,在线PDF合并,多个PDF合并,PDF拼合,纯前端PDF合并">
     <link rel="canonical" href="https://toolnexusweb.com/zh/tools/pdf-merge/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/pdf-merge/">
-  <meta property="og:title" content="PDF 极速合并 - 纯本地多 PDF 自由排序合并 | 零上传秒级完成">
+  <meta property="og:title" content="PDF 极速合并 - 纯本地多 PDF 自由排序合并 | ToolNexus">
   <meta property="og:description" content="纯前端在线 PDF 极速合并工具。支持拖拽自由排序多份 PDF 文件，一键秒级合并为一个标准 PDF。100% 浏览器客户端运行，合同文献零泄密。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="PDF 极速合并 - 纯本地多 PDF 自由排序合并 | 零上传秒级完成">
+  <meta name="twitter:title" content="PDF 极速合并 - 纯本地多 PDF 自由排序合并 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线 PDF 极速合并工具。支持拖拽自由排序多份 PDF 文件，一键秒级合并为一个标准 PDF。100% 浏览器客户端运行，合同文献零泄密。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-merge/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-merge/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-merge/">
   <style>
     .pdf-item-list {
       display: flex;
@@ -99,10 +102,91 @@
       flex-shrink: 0;
     }
   </style>
-  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/pdf-merge/">
-  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/pdf-merge/">
-  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/pdf-merge/">
-
+  <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-merge/#webapp",
+        "url": "https://toolnexusweb.com/zh/tools/pdf-merge/",
+        "name": "PDF 极速合并工具",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires modern web browser with WebAssembly or TypedArray support",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯前端本地 PDF 极速合并工具。支持自由拖拽排序、秒级无损拼合多份 PDF 文档，100% 浏览器客户端运行，合同文献零泄密。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-merge/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF与文档",
+            "item": "https://toolnexusweb.com/zh/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PDF 极速合并",
+            "item": "https://toolnexusweb.com/zh/tools/pdf-merge/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://toolnexusweb.com/zh/tools/pdf-merge/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "合并带有密码保护或数字签名的 PDF 时会怎样？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "如果某个 PDF 设置了所有者密码或打开密码，根据 PDF 安全规范，在未解密状态下无法直接提取页面对象字典，工具会给出错误提示，建议先输入密码解密后再行合并；若文档带有数字证书电子签名，合并会重构底层对象树，使原有数字签名的哈希完整性失效，此时应在全部合并完成之后再重新加盖电子签名。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "为什么客户端合并数百页的工程标书比传统云端网站快数十倍？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "传统网站需要先将数百兆的 PDF 通过互联网慢速上传到远端云服务器，等待服务器排队执行后再耗时下载回来；ToolNexus 直接在您本机的 CPU 与内存中调用 pdf-lib 快速做字节指针引用复制，无需任何网络上下行传输，因此达到数千页秒级合并的极致速度。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "合并后文档中的文字内容、矢量图以及超链接会变模糊吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对不会。合并操作并非把页面渲染成光栅图片，而是直接在 PDF 的底层语法级别完整复制 Page 对象树、字体子集、XObject 资源字典及矢量绘制指令，属于 100% 原生无损物理拼接。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "合并财务报表、商务合同底稿是否有信息泄露风险？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对零泄密。ToolNexus 是 100% 纯静态本地工具，没有任何服务端 API 接收文件，断网或拔掉网线依然可以极速合并，满足律所、金融及政企严苛的数据合规要求。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
   
@@ -123,7 +207,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>PDF与文档</span>
+        <a href="/zh/#pdf">PDF 文档办公</a>
         <span class="breadcrumb-separator">/</span>
         <span>PDF 极速合并</span>
       </nav>
@@ -161,16 +245,87 @@
       <div class="pdf-item-list" id="pdf-list-container"></div>
     </div>
 
-    <!-- FAQ -->
-    <section class="faq-section">
-      <h2 class="faq-title">PDF 合并常见问题</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">合并商业机密合同真的不会被窃取吗？ <span>▼</span></div>
-          <div class="faq-answer">绝对不会！许多在线 PDF 网站会将您的文档上传到第三方服务器处理，存在泄密风险。本站使用纯静态编译的 <code>pdf-lib</code> WebAssembly/JS 引擎，直接在您本地浏览器的沙箱内存中重构 PDF 数据流，全过程零网络传输。</div>
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2.5rem;">
+      <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">深度指南：PDF 文档底层对象树拓扑与零泄密极速合并原理</h2>
+      
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        在日常工作与法律商务中，整合多方合同附件、工程招投标标书、学术论文附录或财务报销凭证时，将多个独立 PDF 文件合并为一个标准规范的文档是不可或缺的刚需。然而，市场上绝大多数传统在线工具强制要求将文档上传至云端服务器，这不仅带来动辄数分钟的上传下载延迟，更对企业商业秘密与个人隐私构成了严重的合规隐患。<strong>ToolNexus PDF 极速合并</strong>依托纯前端 <code>pdf-lib</code> 二进制引擎，在本地沙箱内实现无损、毫秒级的文档树拼接。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">1. PDF 内部对象树结构与跨文档页面拷贝（copyPages）</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        PDF（ISO 32000-1）并非简单的连续线性文本，而是一个基于对象的有向无环图（DAG），核心由 <strong>Trailer（文件尾）</strong>、<strong>Catalog（根目录字典）</strong>、<strong>Pages（多级分层页面树）</strong> 以及一系列 <strong>Resources（字体、图像 XObject、色彩空间与矢量流）</strong> 组成。
+      </p>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        当 ToolNexus 执行合并时，算法首先创建一个崭新的目标 <code>PDFDocument</code> 根容器。针对用户拖拽指定的每一份来源 PDF，底层调用 <code>mergedPdf.copyPages(sourceDoc, pageIndices)</code> 方法：深度遍历该源文档中所有指定页面的 Page 字典，克隆其依赖的字体子集对象和流媒体内容，并为每一个间接对象重写分配唯一的全局 Object Number，最后按拖拽顺序挂载到目标文档的 Pages 根节点上。这一过程属于<strong>纯物理指针引用与字节流克隆</strong>，文字排版与矢量曲线绝不发生二次光栅化损失。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">2. 客户端合并 vs 传统云端合并核心特性对比</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; margin-top: 0.5rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">核心考量维度</th>
+              <th style="padding: 0.75rem 0.5rem;">ToolNexus 纯客户端合并</th>
+              <th style="padding: 0.75rem 0.5rem;">传统第三方在线转换网站</th>
+              <th style="padding: 0.75rem 0.5rem;">桌面专业大型软件 (如 Adobe Acrobat)</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo, #6366f1);">数据隐私与合规</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">100% 本地内存运行 · 零网络上传</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444;">极高风险 (原件传至云端中转缓存)</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">本地处理安全</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan, #06b6d4);">处理速度与延迟</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">毫秒级秒出 (取决于本机 CPU/RAM)</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444;">受限于网络带宽与云端排队，极其缓慢</td>
+              <td style="padding: 0.65rem 0.5rem;">本地秒出，但冷启动加载慢</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber, #f59e0b);">使用成本与依赖</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">完全免费 · 免安装 · 免注册登录</td>
+              <td style="padding: 0.65rem 0.5rem;">每日限制合并次数，超出需充值会员</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444;">需支付高昂订阅授权费用</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600;">调序交互便利度</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981;">直观拖拽调序 + 上下箭头微调</td>
+              <td style="padding: 0.65rem 0.5rem;">网页交互卡顿，文件清单难以排序</td>
+              <td style="padding: 0.65rem 0.5rem;">功能专业但操作路径冗长</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">3. 大文件流式处理与内存自适应控制</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        浏览器沙箱分配给单一标签页的堆内存一般在 1.5GB~2GB 左右。在合并多份包含高分辨率图层的超大工程图纸时，ToolNexus 采用按需 <code>ArrayBuffer</code> 解码策略，在生成目标文档写入磁盘下载后，主动释放各源文档的解析实例，避免内存堆积溢出，确保数十个多页文档连续批处理的顺畅平稳。
+      </p>
+
+      <!-- 常见问答 FAQ -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 合并带有密码保护或数字签名的 PDF 时会怎样？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">如果某个 PDF 设置了所有者密码或打开密码，根据 PDF 安全规范，在未解密状态下无法直接提取页面对象字典，工具会给出错误提示，建议先输入密码解密后再行合并；若文档带有数字证书电子签名，合并会重构底层对象树，使原有数字签名的哈希完整性失效，此时应在全部合并完成之后再重新加盖电子签名。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么客户端合并数百页的工程标书比传统云端网站快数十倍？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">传统网站需要先将数百兆的 PDF 通过互联网慢速上传到远端云服务器，等待服务器排队执行后再耗时下载回来；ToolNexus 直接在您本机的 CPU 与内存中调用 pdf-lib 快速做字节指针引用复制，无需任何网络上下行传输，因此达到数千页秒级合并的极致速度。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 合并后文档中的文字内容、矢量图以及超链接会变模糊吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对不会。合并操作并非把页面渲染成光栅图片，而是直接在 PDF 的底层语法级别完整复制 Page 对象树、字体子集、XObject 资源字典及矢量绘制指令，属于 100% 原生无损物理拼接。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 合并财务报表、商务合同底稿是否有信息泄露风险？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对零泄密。ToolNexus 是 100% 纯静态本地工具，没有任何服务端 API 接收文件，断网或拔掉网线依然可以极速合并，满足律所、金融及政企严苛的数据合规要求。</p>
         </div>
       </div>
-    </section>
+    </article>
   </main>
 
   
@@ -193,14 +348,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | 流量金矿</title>
+  <title>房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | ToolNexus</title>
   <meta name="description" content="专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。">
   <meta name="keywords" content="房贷计算器,房贷利率,等额本息,等额本金,公积金贷款计算,月供计算器">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,11 +12,11 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/mortgage-calculator/">
-  <meta property="og:title" content="房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | 流量金矿">
+  <meta property="og:title" content="房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | ToolNexus">
   <meta property="og:description" content="专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | 流量金矿">
+  <meta name="twitter:title" content="房贷与利息计算器 - 等额本息/本金/公积金组合贷款月供计算 | ToolNexus">
   <meta name="twitter:description" content="专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
@@ -55,6 +55,72 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/mortgage-calculator/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/mortgage-calculator/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "房贷月供与利息在线计算器",
+        "url": "https://toolnexusweb.com/zh/tools/mortgage-calculator/",
+        "applicationCategory": "FinanceApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "专业精准的房贷计算器。支持商业贷款、公积金贷款与组合贷款；支持等额本息与等额本金还款方式自由对比，提供首月月供、总利息支出与每月还款明细清单。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "实用计算工具",
+            "item": "https://toolnexusweb.com/zh/#calculators"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "房贷计算器",
+            "item": "https://toolnexusweb.com/zh/tools/mortgage-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "LPR 利率重定价日对我的房贷有什么影响？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "商业房贷通常采用“LPR + 基点”的浮动定价模式。通常约定每年 1 月 1 日或贷款发放日为重定价日。如果过去一年央行公布的 5 年期以上 LPR 下调，您的月供将在重定价日次月开始自动同步下调。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "在本站测算房贷会泄露我的财务隐私吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对不会。ToolNexus 严格遵循纯前端执行模式，所有公式运算、利率参数均在您的浏览器进程内毫秒级完成，零数据包上传，保障您的资产与借贷隐私安全。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
   
@@ -75,7 +141,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>实用计算器</span>
+        <a href="/zh/#calculator">计算器与换算</a>
         <span class="breadcrumb-separator">/</span>
         <span>房贷与利息计算器</span>
       </nav>
@@ -173,6 +239,42 @@
         </div>
       </div>
     </div>
+
+    <!-- 深度置业金融指南与还款策略科普 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">房贷按揭月供核算机制与家庭理财优化指南</h2>
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+        购置不动产通常是一个普通家庭一生中规模最大的负债决策。长达 20 至 30 年的按揭周期中，基准利率（LPR）的微小浮动、还款模型（等额本息与等额本金）的选择，以及商业贷款与住房公积金贷款的配比，都会直接导致数万乃至数十万元的累计利息落差。通过科学测算每一期的本金与利息构成，可以帮助购房者合理匹配家庭现金流。
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">⚖️ 等额本息 vs 等额本金本质对比</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;"><strong>等额本息</strong>：每月还款总额完全固定。前期月供中绝大部分是利息，本金归还极慢；<strong>等额本金</strong>：每月归还固定数额的本金，利息随剩余本金逐月递减，因此首月还款压力最大，但全周期支付的总利息比等额本息少 15%–25%。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">🏢 组合贷款与公积金优先原则</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">住房公积金贷款是国家政策性低息福利，利率显著低于商业按揭。在组合贷款方案中，应优先将当地公积金最高可贷限额全额用满，不足部分再使用商业按揭补齐；若日后资金充裕考虑提前还款，务必指定提前结清商贷部分。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">⏰ 提前还款的“黄金时间窗口”</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">若选择等额本息方式，还款期限的前三分之一（如 30 年期房贷的前 8–10 年）是利息偿还集中期。若此时提前还款，可大幅削减剩余本金对应的巨额利息；若还款年限已超过一半，利息已大部分结清，提前还款对节省总利息的意义大幅缩水。</p>
+        </div>
+      </div>
+
+      <!-- FAQ 常见问题解答 -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: LPR 利率重定价日对我的房贷有什么影响？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">商业房贷通常采用“LPR + 基点”的浮动定价模式。通常约定每年 1 月 1 日或贷款发放日为重定价日。如果过去一年央行公布的 5 年期以上 LPR 下调，您的月供将在重定价日次月开始自动同步下调。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 在本站测算房贷会泄露我的财务隐私吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对不会。ToolNexus 严格遵循纯前端执行模式，所有公式运算、利率参数均在您的浏览器进程内毫秒级完成，零数据包上传，保障您的资产与借贷隐私安全。</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   
@@ -195,14 +297,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

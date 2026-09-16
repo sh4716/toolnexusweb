@@ -27,6 +27,80 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "PDF 页面自由旋转工具",
+        "url": "https://toolnexusweb.com/zh/tools/pdf-rotate/",
+        "applicationCategory": "UtilitiesApplication, OfficeApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "需要现代支持 JavaScript 的浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯前端无损旋转 PDF 页面。支持单页独立旋转或全文件顺时针/逆时针 90°、180°、270° 纠正，零服务器上传。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF 工具",
+            "item": "https://toolnexusweb.com/zh/#pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PDF 旋转",
+            "item": "https://toolnexusweb.com/zh/tools/pdf-rotate/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "旋转保存后的 PDF 文件，在其他电脑或手机上打开会变回原样吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝不会。本工具直接重写了 PDF 文件规范中的全局对象树，写入的是永久性的页面旋转指令。无论在 Adobe Acrobat、Chrome 浏览器、macOS Preview 还是各类移动端 App 中打开，方向都已永久固定。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "为什么不需要排队上传文件？速度为什么这么快？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "传统网站需要将数百兆的文件先上传到远程服务器，服务器处理完再由用户重新下载，受限于网络上下行带宽。ToolNexus 完全调用您电脑本地的算力，省去了所有网络传输时间，百页文档瞬间完成。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "旋转后 PDF 内的可选文本和批注会受损吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全不受损。原有的文字可选状态、注释、高亮标记及超链接图层全部完整继承，阅读器会自动同步转换坐标映射矩阵。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
     <header class="site-header">
@@ -44,7 +118,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <a href="/zh/#pdf">PDF 办公工具</a>
+        <a href="/zh/#pdf">PDF 文档办公</a>
         <span class="breadcrumb-separator">/</span>
         <span>PDF 自由旋转工具</span>
       </nav>
@@ -88,18 +162,74 @@
           <div id="rotate-pages-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;"></div>
         </div>
 
-        <!-- FAQ Section -->
-        <div style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">常见问题与使用说明</h2>
-          <div style="margin-bottom: 1rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: PDF 旋转会降低原文档的文字清晰度或画质吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">完全不会。本工具使用的是底层修改 PDF 页面视口矩阵（Viewport Rotation Matrix）的算法，不改变任何内嵌文字和矢量图形，属于 100% 无损修改。</p>
+        <!-- 深度技术科普与使用指南 -->
+        <article class="article-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">深入理解 PDF 页面旋转机制与无损处理规范</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            在日常行政办公、工程图纸审查、财务发票扫描以及跨国合同流转中，PDF 页面倒置或横竖排版混杂是极其普遍的痛点。常见场景包括：手机拍照扫描仪将横版表格拍成了纵向倾倒、多页装订成册的扫描件中偶发数页反转 180°，或者大型 Excel 导出的超宽报表在默认 PDF 阅读器中无法正常阅读。
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            许多未经优化的传统在线工具在旋转 PDF 时，会先将 PDF 页面“截图渲染为光栅图片”，再把图片重新封装为新的 PDF。这种简陋方案会导致原本清晰锐利的矢量文字、可复制的文本层以及目录书签彻底丢失，文件体积暴增数倍且放大后全是锯齿模糊。ToolNexus 采用现代 <strong>PDF-Lib 与 WebAssembly 底层二进制元数据操作管线</strong>，仅直接修改 PDF 规范中的 <code>/Rotate</code> 属性条目，<strong>100% 保持原生文字矢量清晰度，实现真正的毫秒级零损耗旋转</strong>。
+          </p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">PDF 内部视口旋转原理详解</h3>
+          <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+                  <th style="padding: 0.75rem 0.5rem;">旋转操作模式</th>
+                  <th style="padding: 0.75rem 0.5rem;">底层 /Rotate 键值变化</th>
+                  <th style="padding: 0.75rem 0.5rem;">适用典型排版场景</th>
+                  <th style="padding: 0.75rem 0.5rem;">文件体积与画质影响</th>
+                </tr>
+              </thead>
+              <tbody style="color: var(--text-muted); line-height: 1.6;">
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--primary);">顺时针旋转 90° (↻)</td>
+                  <td style="padding: 0.65rem 0.5rem;">原角度 + 90 (取模 360)</td>
+                  <td style="padding: 0.65rem 0.5rem;">横版财务明细表、宽幅流程图、设计手稿横向校正</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">体积完全不变 · 零画质损耗</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">逆时针旋转 90° (↺)</td>
+                  <td style="padding: 0.65rem 0.5rem;">原角度 + 270 (取模 360)</td>
+                  <td style="padding: 0.65rem 0.5rem;">左倾倒立的单页扫描凭单、身份证正反面摆正</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">保留所有可选中文字与超链接</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">全文件翻转 180°</td>
+                  <td style="padding: 0.65rem 0.5rem;">原角度 + 180 (取模 360)</td>
+                  <td style="padding: 0.65rem 0.5rem;">打印进纸倒置导致的整本文件上下完全倒转</td>
+                  <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">无重编码开销 · 秒级导出</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Q: 我的敏感合同与私密文档会被上传到服务器吗？</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">绝对不会。所有旋转渲染与 PDF 重建均由您的浏览器客户端本地内存完成，零数据出境。</p>
+
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">高效处理多页文档的使用建议</h3>
+          <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>全局与局部协同：</strong> 若整份文档全部倒向同一侧，可先点击上方的“全局顺时针 90°”按钮一次性调准；若仅有少数几页方向错误，可在下方网格中仅对该单页卡片单独点击调整。</li>
+            <li><strong>实时所见即所得预览：</strong> 缩略图卡片会在您点击旋转按钮的瞬间平滑旋转对应角度，所见即为最终导出 PDF 文件的真实呈现，避免凭空猜测。</li>
+            <li><strong>绝对隐私保障：</strong> 涉及企业敏感商业机密、人事档案或招标书时，很多公共网站会将文件转存至云端伺服器存在数据留存风险。ToolNexus 100% 离线计算，关闭网页不留任何痕迹。</li>
+          </ul>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 旋转保存后的 PDF 文件，在其他电脑或手机上打开会变回原样吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝不会。本工具直接重写了 PDF 文件规范中的全局对象树，写入的是永久性的页面旋转指令。无论在 Adobe Acrobat、Chrome 浏览器、macOS Preview 还是各类移动端 App 中打开，方向都已永久固定。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么不需要排队上传文件？速度为什么这么快？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">传统网站需要将数百兆的文件先上传到远程服务器，服务器处理完再由用户重新下载，受限于网络上下行带宽。ToolNexus 完全调用您电脑本地的算力，省去了所有网络传输时间，百页文档瞬间完成。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 旋转后 PDF 内的可选文本和批注会受损吗？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">完全不受损。原有的文字可选状态、注释、高亮标记及超链接图层全部完整继承，阅读器会自动同步转换坐标映射矩阵。</p>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </div>
@@ -243,13 +373,14 @@
             <li><a href="/zh/tools/percentage-calculator/">百分比与折扣计算器</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
             <li><a href="/zh/#calculator">计算器与换算</a></li>
-            <li><a href="/zh/#developer">开发者工具</a></li>
-            <li><a href="/zh/#pdf">PDF 办公工具</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
             <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

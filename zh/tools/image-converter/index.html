@@ -5,22 +5,103 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>图片格式转换器 - JPG/PNG/WebP/BMP/SVG 互转 | 纯本地无损互转</title>
-  <meta name="description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP、BMP、SVG 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
+  <title>图片格式转换器 - JPG/PNG/WebP 批量无损互转 | ToolNexus</title>
+  <meta name="description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
   <meta name="keywords" content="图片格式转换,PNG转JPG,JPG转WebP,WebP转PNG,在线图片转换,批量图片转换">
     <link rel="canonical" href="https://toolnexusweb.com/zh/tools/image-converter/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/image-converter/">
-  <meta property="og:title" content="图片格式转换器 - JPG/PNG/WebP/BMP/SVG 互转 | 纯本地无损互转">
-  <meta property="og:description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP、BMP、SVG 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
+  <meta property="og:title" content="图片格式转换器 - JPG/PNG/WebP 批量无损互转 | ToolNexus">
+  <meta property="og:description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="图片格式转换器 - JPG/PNG/WebP/BMP/SVG 互转 | 纯本地无损互转">
-  <meta name="twitter:description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP、BMP、SVG 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
+  <meta name="twitter:title" content="图片格式转换器 - JPG/PNG/WebP 批量无损互转 | ToolNexus">
+  <meta name="twitter:description" content="纯前端在线图片格式转换工具。支持 JPG、PNG、WebP 批量极速无损互转，自由调节图片画质，支持一键打包 Zip 下载。100% 浏览器内存处理，零图片上传。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
   <link rel="stylesheet" href="../../../assets/css/common.css">
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "图片格式快速互转",
+        "url": "https://toolnexusweb.com/zh/tools/image-converter/",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Supports HTML5 Canvas.",
+        "description": "免费纯前端图片格式转换工具。支持 JPG、PNG、WebP 批量极速互转，自动处理透明背景合成，支持一键打包下载 ZIP，100% 浏览器本地运算零数据上传。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "图像与媒体",
+            "item": "https://toolnexusweb.com/zh/#image"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "图片格式互转",
+            "item": "https://toolnexusweb.com/zh/tools/image-converter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么把图片转成 WebP 后，Windows 照片查看器或旧版 Photoshop 打不开？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "较早期的操作系统或旧版本 PS（2022 年以前）未内置 WebP 编解码组件。您可以直接在任何现代浏览器（Chrome、Edge、Safari）中双击查看，或者在 Photoshop 官网安装官方提供的免费 WebPShop 插件即可完美支持读写。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "将 JPG 转为 PNG 会让原本模糊的照片变清晰吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。格式转换无法逆向还原原图中已经丢失的高频像素信息。将 JPG 转为 PNG 可以阻止后续二次保存时的画质继续衰减，但无法凭空增加分辨率。如果需要提升清晰度，请结合超分辨率重采样处理。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "批量转换 50 张以上高清大图时，浏览器会卡死或奔溃吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。工具采用了微任务队列与并发控制，逐张读取渲染后立即释放临时 Canvas 上下文显存，有效防范页面 OOM 崩溃，批量处理顺畅无阻。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "转换敏感合同或私人相册是否有数据泄露隐患？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "零隐患。ToolNexus 是 100% 纯客户端工具，没有任何服务器上传逻辑。即使断开电脑网络，转换与 ZIP 打包仍然全速正常运行，数据绝对安全。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     .convert-settings-bar {
       display: flex;
@@ -82,7 +163,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>图像与媒体</span>
+        <a href="/zh/#image">图片与图形</a>
         <span class="breadcrumb-separator">/</span>
         <span>图片格式快速互转</span>
       </nav>
@@ -91,7 +172,7 @@
         <span class="badge-tag badge-privacy">🔒 本地 Canvas 零上传转换</span>
         <span class="badge-tag badge-hot">月访 80万+ 代表品类</span>
       </div>
-      <p class="tool-desc">纯浏览器本地支持 JPG、PNG、WebP、BMP 等格式任意批量互转。无需上传服务器，保护隐私，秒级极速输出，支持批量一键下载 ZIP 包。</p>
+      <p class="tool-desc">纯浏览器本地支持 JPG、PNG、WebP 等格式批量互转。无需上传服务器，保护隐私，秒级极速输出，支持批量一键下载 ZIP 包。</p>
     </div>
 
     <!-- 主工作区 -->
@@ -99,7 +180,7 @@
       <div class="dropzone" id="dropzone">
         <div class="dropzone-icon">🖼️</div>
         <div class="dropzone-title">拖拽图片到此处，或点击选择图片</div>
-        <div class="dropzone-hint">支持 JPG、PNG、WebP、BMP、SVG 等主流格式，支持多选与批量转换</div>
+        <div class="dropzone-hint">支持 JPG、PNG、WebP 等主流格式，支持多选与批量转换</div>
         <input type="file" id="file-input" multiple accept="image/*">
       </div>
 
@@ -143,20 +224,89 @@
       </div>
     </div>
 
-    <!-- FAQ -->
-    <section class="faq-section">
-      <h2 class="faq-title">图片格式转换相关问题</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">JPG、PNG 和 WebP 各自有什么优势？ <span>▼</span></div>
-          <div class="faq-answer"><strong>JPG：</strong>适合色彩丰富的真实照片，文件体积小，但不支持透明背景；<br><strong>PNG：</strong>支持无损压缩与透明背景通道，适合Logo、截图、线框图；<br><strong>WebP：</strong>Google 研发的新一代格式，在保证肉眼同等画质下比 JPG 体积小 30% 以上，同时支持透明通道，是现代网页首选。</div>
+    <!-- 深度格式转换理论与技术架构指南 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">图片格式互转工程指南：容器协议、透明通道融合与批量转换</h2>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+        无论是在网站性能重构中将历史 JPG 全量升级为 WebP，还是在办公审批中将透明 PNG 转为证件系统指定的标准 JPG，格式转换是数字化资产流转的核心刚需。然而，盲目转换常常导致<strong>透明背景变黑块、文件体积反向膨胀、甚至文字边缘失真</strong>。ToolNexus 提供了<strong>完全基于浏览器本地多任务流处理的图片格式快速互转引擎</strong>，实现高保真度无缝转换与 ZIP 打包归档。
+      </p>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">技术内核：透明背景 Alpha 智能补白与无损解码流水线</h3>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+        客户端格式转换的核心在于兼顾色彩准确度与内存吞吐效率：
+      </p>
+      <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li><strong>Alpha 通道白底合成保护（Anti-Black Background）：</strong> PNG 格式拥有 8 位 Alpha 透明度通道，而标准 JPEG 规范不支持任何透明度。传统脚本若直接将透明 PNG 导出为 JPEG，Canvas 透明区域默认会转为黑色背景。ToolNexus 在导出 JPEG 时自动执行 <code>ctx.fillStyle = '#FFFFFF'; ctx.fillRect()</code> 预合成白色衬底，保证印章、Logo 完美展现。</li>
+        <li><strong>浏览器硬件加速渲染管线：</strong> 依托底层原生 <code>canvas.toBlob()</code> C++ 实现，绕过 JavaScript 层低效的字节遍历循环，每秒可处理数十兆像素的高清图片转换。</li>
+        <li><strong>内存直出流式打包（JSZip Pipeline）：</strong> 批量处理上百张图片时，不产生任何临时磁盘碎屑。所有输出 Blob 对象直接在浏览器 V8 堆内存中流式压入 ZIP 容器，一键保存完整文件树。</li>
+      </ul>
+
+      <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--text-main);">主流图片格式性能与适用场景全维度对比</h3>
+      <div style="overflow-x: auto; margin-bottom: 1.75rem;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-main);">
+              <th style="padding: 0.75rem 0.5rem;">格式类型</th>
+              <th style="padding: 0.75rem 0.5rem;">MIME 标识</th>
+              <th style="padding: 0.75rem 0.5rem;">色彩与通道特征</th>
+              <th style="padding: 0.75rem 0.5rem;">体积与兼容性</th>
+              <th style="padding: 0.75rem 0.5rem;">最佳推荐场景</th>
+            </tr>
+          </thead>
+          <tbody style="color: var(--text-muted);">
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-indigo);">WebP</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">image/webp</td>
+              <td style="padding: 0.65rem 0.5rem;">24-bit RGB + 8-bit Alpha</td>
+              <td style="padding: 0.65rem 0.5rem; color: #10b981; font-weight: 600;">体积最小 (比 JPG 小 30%+)</td>
+              <td style="padding: 0.65rem 0.5rem;">现代 Web 站点性能优化、移动端 App 资源</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-cyan);">JPG / JPEG</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">image/jpeg</td>
+              <td style="padding: 0.65rem 0.5rem;">24-bit RGB (无透明通道)</td>
+              <td style="padding: 0.65rem 0.5rem;">兼容性 100% · 体积适中</td>
+              <td style="padding: 0.65rem 0.5rem;">政务招聘报名上传、摄影照片分发、邮件附件</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600; color: var(--accent-amber);">PNG</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">image/png</td>
+              <td style="padding: 0.65rem 0.5rem;">32-bit RGBA (无损真彩)</td>
+              <td style="padding: 0.65rem 0.5rem; color: #f59e0b;">体积较大 (照片偏大)</td>
+              <td style="padding: 0.65rem 0.5rem;">透明公司印章、应用 Logo、含细密文本的截图</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.5rem; font-weight: 600;">BMP</td>
+              <td style="padding: 0.65rem 0.5rem; font-family: monospace;">image/bmp</td>
+              <td style="padding: 0.65rem 0.5rem;">未压缩原始位图位流</td>
+              <td style="padding: 0.65rem 0.5rem; color: #ef4444;">体积极大 (无任何压缩)</td>
+              <td style="padding: 0.65rem 0.5rem;">工业工控机、单片机屏幕点阵、遗留医疗仪器</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 常见问答 FAQ -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么把图片转成 WebP 后，Windows 照片查看器或旧版 Photoshop 打不开？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">较早期的操作系统或旧版本 PS（2022 年以前）未内置 WebP 编解码组件。您可以直接在任何现代浏览器（Chrome、Edge、Safari）中双击查看，或者在 Photoshop 官网安装官方提供的免费 WebPShop 插件即可完美支持读写。</p>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">本地转换对画质会有损失吗？ <span>▼</span></div>
-          <div class="faq-answer">如果转换为 PNG，则是 100% 无损转换。如果转换为 JPG 或 WebP，您可以通过画质滑块自由设定（如 90%~95% 为高质量保真）。所有重采样均在浏览器本地 Canvas 2D 高精度管线中完成。</div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 将 JPG 转为 PNG 会让原本模糊的照片变清晰吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。格式转换无法逆向还原原图中已经丢失的高频像素信息。将 JPG 转为 PNG 可以阻止后续二次保存时的画质继续衰减，但无法凭空增加分辨率。如果需要提升清晰度，请结合超分辨率重采样处理。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 批量转换 50 张以上高清大图时，浏览器会卡死或奔溃吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">不会。工具采用了微任务队列与并发控制，逐张读取渲染后立即释放临时 Canvas 上下文显存，有效防范页面 OOM 崩溃，批量处理顺畅无阻。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 转换敏感合同或私人相册是否有数据泄露隐患？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">零隐患。ToolNexus 是 100% 纯客户端工具，没有任何服务器上传逻辑。即使断开电脑网络，转换与 ZIP 打包仍然全速正常运行，数据绝对安全。</p>
         </div>
       </div>
-    </section>
+    </article>
   </main>
 
   
@@ -179,14 +329,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">

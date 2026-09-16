@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WCAG 颜色对比度检查器 - 无障碍设计 AA / AAA 等级评定 | ToolNexus</title>
+  <meta name="description" content="免费在线 WCAG 颜色对比度检查与无障碍设计检测工具。实时计算文字前景色与背景色明度对比比值，严格按照 W3C WCAG 2.1 AA 与 AAA 标准评定可读性，100% 浏览器本地运算。">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/tools/color-contrast/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNexus 实用工具箱">
+  <meta property="og:url" content="https://toolnexusweb.com/zh/tools/color-contrast/">
+  <meta property="og:title" content="WCAG 颜色对比度检查器 | ToolNexus 实用工具箱">
+  <meta property="og:description" content="无障碍设计对比度核验，支持 WCAG 2.1 AA 与 AAA 标准。">
+  <meta property="og:image" content="https://toolnexusweb.com/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="WCAG 颜色对比度检查器 | ToolNexus 实用工具箱">
+  <meta name="twitter:description" content="实时计算文字与背景的相对亮度对比度，保障低视力与色盲人群阅读体验。">
+  <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
+  <link rel="stylesheet" href="/assets/css/design-tokens.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="alternate" hreflang="zh" href="https://toolnexusweb.com/zh/tools/color-contrast/">
+  <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/color-contrast/">
+  <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/color-contrast/">
+
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "WCAG 颜色对比度检查器",
+        "url": "https://toolnexusweb.com/zh/tools/color-contrast/",
+        "applicationCategory": "DesignApplication, UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "严格依照 W3C 国际网页内容无障碍指南 (WCAG 2.1) 计算文字与背景明度对比比值，实时评估 AA 和 AAA 等级通过状态。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "设计与样式工具",
+            "item": "https://toolnexusweb.com/zh/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "颜色对比度检查器",
+            "item": "https://toolnexusweb.com/zh/tools/color-contrast/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "WCAG 中对“大号文字 (Large Text)”的标准定义是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "大号文字是指字号达到或超过 18pt（约为 24px CSS 像素），或者字号达到 14pt 且为粗体（约为 18.66px 加粗）的文字排版。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "相对明度 (Relative Luminance) 是如何计算出来的？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "相对明度计算需先将 sRGB 色彩空间经过 Gamma 反校正转化为线性 RGB 分量，再按人眼对绿色、红色与蓝色敏感度权重（0.7152G + 0.2126R + 0.0722B）计算绝对明度比值。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/utils.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner" style="justify-content: flex-end;">
+      <div class="header-actions">
+        <a href="/tools/color-contrast/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换明暗主题" title="切换明暗主题">
+          <span class="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="tool-header">
+      <nav class="breadcrumb">
+        <a href="/zh/">首页</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/zh/#text">文本与排版</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>WCAG 颜色对比度检测器</span>
+      </nav>
+    </div>
+
+    <div class="tool-main">
+      <div class="tool-card">
+        <div class="tool-title-row">
+          <div>
+            <span class="tool-badge badge-primary">UI设计与无障碍 (a11y)</span>
+            <h1 class="tool-title" style="margin-top:0.35rem;">🎨 WCAG 颜色对比度检测器</h1>
+          </div>
+        </div>
+        <p class="tool-desc">
+          严格按照 W3C 国际网页内容无障碍标准（WCAG 2.1）实时核验前景色与背景色对比度，确保文字对弱视及色盲群体具备舒适可辨识度。
+        </p>
+
+        <!-- 颜色选择区 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; background: var(--bg-surface-alt); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1.5rem;">
+          <div>
+            <label style="font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">文字前景色 (Text Color):</label>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <input type="color" id="picker-fg" value="#FFFFFF" style="width: 48px; height: 44px; border: none; border-radius: var(--radius-sm); cursor: pointer; background: transparent;" oninput="syncFromPicker('fg')">
+              <input type="text" id="hex-fg" class="input-text" value="#FFFFFF" style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; text-transform: uppercase;" oninput="syncFromHex('fg')">
+            </div>
+          </div>
+
+          <div>
+            <label style="font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">容器背景色 (Background Color):</label>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <input type="color" id="picker-bg" value="#4F46E5" style="width: 48px; height: 44px; border: none; border-radius: var(--radius-sm); cursor: pointer; background: transparent;" oninput="syncFromPicker('bg')">
+              <input type="text" id="hex-bg" class="input-text" value="#4F46E5" style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; text-transform: uppercase;" oninput="syncFromHex('bg')">
+            </div>
+          </div>
+        </div>
+
+        <!-- 评分大盘与合规徽章 -->
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; margin-bottom: 1.5rem;" class="score-grid">
+          <!-- 核心比值 -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">对比度数值 (Ratio)</div>
+            <div id="ratio-display" style="font-size: 3rem; font-weight: 900; color: var(--primary); margin: 0.25rem 0;">8.37:1</div>
+            <div id="ratio-verdict" style="font-size: 0.85rem; font-weight: 700; color: var(--success);">表现极佳 (通过最高评级)</div>
+          </div>
+
+          <!-- WCAG 达标卡片矩阵 -->
+          <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.85rem;">
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">常规正文 (AA)</div>
+              <div id="badge-aa-normal" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">通过 ✓</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">底线 4.5:1</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">大号文本 (AA)</div>
+              <div id="badge-aa-large" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">通过 ✓</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">底线 3.0:1</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">常规正文 (AAA)</div>
+              <div id="badge-aaa-normal" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">通过 ✓</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">底线 7.0:1</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">大号文本 (AAA)</div>
+              <div id="badge-aaa-large" style="font-weight: 800; font-size: 1.2rem; margin-top: 0.3rem;">通过 ✓</div>
+              <div style="font-size: 0.72rem; color: var(--text-subtle);">底线 4.5:1</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 真实排版效果预览区 -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">实景字形与组件效果预览</h3>
+          <div id="preview-box" style="border-radius: var(--radius-md); padding: 2.5rem; transition: all 0.2s ease; border: 2px solid var(--border-color);">
+            <h2 id="preview-title" style="margin: 0 0 0.5rem; font-size: 1.8rem; font-weight: 800;">主标题排版效果 (大号文字)</h2>
+            <p id="preview-body" style="margin: 0 0 1.25rem; font-size: 1rem; line-height: 1.6;">
+              这是标准常规正文段落的实测效果。良好的对比度能确保在户外强光直射、老旧低对比度显示屏或中老年弱视群体浏览时依然拥有极其轻松惬意的阅读体验。
+            </p>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <button id="preview-btn" type="button" style="padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 700; cursor: pointer; border: 2px solid;">交互操作按钮</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 深度 SEO 原创说明与使用指南 -->
+        <article class="article-section" style="margin-top: 2rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">为什么现代产品必须遵守 WCAG 颜色无障碍标准？</h2>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+            根据世界卫生组织（WHO）数据，全球有超过 22 亿人患有视力障碍，其中包括广泛存在的红绿色盲、蓝黄色弱及老年性白内障弱视人群。W3C 推出的《Web 内容无障碍指南》(WCAG) 是全球各大科技企业与政府机构通行的数字包容性法案技术基准。
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            在欧洲无障碍法案（EAA）以及美国残疾人法案（ADA / Section 508）中，网站与移动 App 达到 WCAG 2.1 AA 级对比度是出海企业不可忽视的法律合规准则。ToolNexus 采用 CIE XYZ 国际色度学模型严格推导相对明度比值，为您提供毫秒级的专业色彩核验。
+          </p>
+
+          <!-- 常见问答 FAQ -->
+          <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+          <div style="display: grid; gap: 1rem;">
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: WCAG 中对“大号文字 (Large Text)”的标准定义是什么？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">大号文字是指字号达到或超过 18pt（约为 24px CSS 像素），或者字号达到 14pt 且为粗体（约为 18.66px 加粗）的文字排版。</p>
+            </div>
+            <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 相对明度 (Relative Luminance) 是如何计算出来的？</h4>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">相对明度计算需先将 sRGB 色彩空间经过 Gamma 反校正转化为线性 RGB 分量，再按人眼对绿色、红色与蓝色敏感度权重（0.7152G + 0.2126R + 0.0722B）计算绝对明度比值。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-logo-icon">⚡</span>
+            <span class="nav-logo-text">Tool<span>Nexus</span></span>
+          </div>
+          <p class="footer-desc">
+            面向个人与开发者的下一代纯前端极速工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何服务器上传文件，保障绝对隐私。
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">热门工具推荐</div>
+          <ul class="footer-links">
+            <li><a href="/zh/tools/color-contrast/">颜色对比度检查</a></li>
+            <li><a href="/zh/tools/color-converter/">颜色格式转换</a></li>
+            <li><a href="/zh/tools/html-encoder/">HTML 实体编解码</a></li>
+            <li><a href="/zh/tools/json-formatter/">JSON 格式化校验</a></li>
+            <li><a href="/zh/tools/csv-json/">CSV ↔ JSON 互转</a></li>
+          </ul>
+        </div>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
+          <ul class="footer-links">
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">法律与合规信任</div>
+          <ul class="footer-links">
+            <li><a href="/zh/privacy/">隐私保护政策</a></li>
+            <li><a href="/zh/terms/">服务使用条款</a></li>
+            <li><a href="/zh/about/">关于本站</a></li>
+            <li><a href="/zh/contact/">联系与反馈</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 ToolNexus 实用工具箱. 本地算力驱动 · 零服务器留存
+        </div>
+        <div class="footer-status">
+          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          100% 浏览器本地隐私安全验证
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/global-nav.js"></script>
+  <script>
+    function parseHex(hex) {
+      hex = hex.replace('#', '').trim();
+      if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      if (hex.length !== 6) return null;
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      if (isNaN(r) || isNaN(g) || isNaN(b)) return null;
+      return { r, g, b };
+    }
+
+    function getLuminance({ r, g, b }) {
+      const a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    function calculateContrast(rgb1, rgb2) {
+      const lum1 = getLuminance(rgb1);
+      const lum2 = getLuminance(rgb2);
+      const brightest = Math.max(lum1, lum2);
+      const darkest = Math.min(lum1, lum2);
+      return (brightest + 0.05) / (darkest + 0.05);
+    }
+
+    function syncFromPicker(type) {
+      const val = document.getElementById('picker-' + type).value;
+      document.getElementById('hex-' + type).value = val.toUpperCase();
+      updateContrast();
+    }
+
+    function syncFromHex(type) {
+      let val = document.getElementById('hex-' + type).value.trim();
+      if (!val.startsWith('#')) val = '#' + val;
+      const rgb = parseHex(val);
+      if (rgb) {
+        document.getElementById('picker-' + type).value = val;
+        updateContrast();
+      }
+    }
+
+    function updateContrast() {
+      const hexFg = document.getElementById('hex-fg').value;
+      const hexBg = document.getElementById('hex-bg').value;
+      const rgbFg = parseHex(hexFg);
+      const rgbBg = parseHex(hexBg);
+
+      if (!rgbFg || !rgbBg) return;
+
+      const ratio = calculateContrast(rgbFg, rgbBg);
+      const rounded = Math.round(ratio * 100) / 100;
+      document.getElementById('ratio-display').textContent = rounded + ':1';
+
+      const verdictEl = document.getElementById('ratio-verdict');
+      if (ratio >= 7) {
+        verdictEl.textContent = '表现极佳 (通过 AAA 最高标准)';
+        verdictEl.style.color = '#10b981';
+      } else if (ratio >= 4.5) {
+        verdictEl.textContent = '良好 (完全符合 AA 标准)';
+        verdictEl.style.color = '#10b981';
+      } else if (ratio >= 3) {
+        verdictEl.textContent = '仅适合大号粗体文字';
+        verdictEl.style.color = '#f59e0b';
+      } else {
+        verdictEl.textContent = '对比度偏低 (未达到推荐标准)';
+        verdictEl.style.color = '#ef4444';
+      }
+
+      setPassFail('badge-aa-normal', ratio >= 4.5);
+      setPassFail('badge-aa-large', ratio >= 3.0);
+      setPassFail('badge-aaa-normal', ratio >= 7.0);
+      setPassFail('badge-aaa-large', ratio >= 4.5);
+
+      const pBox = document.getElementById('preview-box');
+      pBox.style.backgroundColor = hexBg;
+      pBox.style.color = hexFg;
+
+      const pTitle = document.getElementById('preview-title');
+      const pBody = document.getElementById('preview-body');
+      const pBtn = document.getElementById('preview-btn');
+
+      pTitle.style.color = hexFg;
+      pBody.style.color = hexFg;
+      pBtn.style.backgroundColor = hexFg;
+      pBtn.style.color = hexBg;
+      pBtn.style.borderColor = hexFg;
+    }
+
+    function setPassFail(id, isPass) {
+      const el = document.getElementById(id);
+      el.textContent = isPass ? '通过 ✓' : '未达标 ✗';
+      el.style.color = isPass ? '#10b981' : '#ef4444';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateContrast();
+    });
+  </script>
+</body>
+</html>

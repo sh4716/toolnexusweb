@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | 写作神器</title>
+  <title>字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | ToolNexus</title>
   <meta name="description" content="纯前端在线字数统计与排版分析工具。精准统计纯中文字数、英文单词数、标点数、总字符数及阅读预估时间。提供去除空行与优雅中英文空格排版功能。">
   <meta name="keywords" content="字数统计,在线字数统计,文章字数计算,字符统计,阅读时间预估">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,11 +12,11 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus">
   <meta property="og:url" content="https://toolnexusweb.com/zh/tools/word-counter/">
-  <meta property="og:title" content="字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | 写作神器">
+  <meta property="og:title" content="字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | ToolNexus">
   <meta property="og:description" content="纯前端在线字数统计与排版分析工具。精准统计纯中文字数、英文单词数、标点数、总字符数及阅读预估时间。提供去除空行与优雅中英文空格排版功能。">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | 写作神器">
+  <meta name="twitter:title" content="字数统计与文本分析 - 中英文字数/字符/段落/阅读耗时计算器 | ToolNexus">
   <meta name="twitter:description" content="纯前端在线字数统计与排版分析工具。精准统计纯中文字数、英文单词数、标点数、总字符数及阅读预估时间。提供去除空行与优雅中英文空格排版功能。">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="../../../assets/css/design-tokens.css">
@@ -51,6 +51,72 @@
   <link rel="alternate" hreflang="en" href="https://toolnexusweb.com/tools/word-counter/">
   <link rel="alternate" hreflang="x-default" href="https://toolnexusweb.com/tools/word-counter/">
 
+  <!-- Schema.org JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "在线字数统计与文本分析器",
+        "url": "https://toolnexusweb.com/zh/tools/word-counter/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "description": "纯本地高精度字数统计与排版工具。支持纯中文字数、英文单词、总字符数（含/不含空格）、段落数与阅读耗时毫秒级实时统计。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://toolnexusweb.com/zh/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "文本与排版工具",
+            "item": "https://toolnexusweb.com/zh/#text"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "字数统计",
+            "item": "https://toolnexusweb.com/zh/tools/word-counter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "为什么微信公众号、小红书和 Word 统计出的字数会不一样？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "各软件的统计逻辑差异很大：Microsoft Word 将标点符号与汉字合并统计为字数；社交媒体平台（如小红书、X/Twitter）通常将单个英文字母算作半个汉字（基于字节数或字符限制）；而学术机构通常区分纯汉字数与总字符数（含/不含空格）。ToolNexus 为您将各细分维度一并列出，方便对应不同提交渠道。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "在线粘贴包含商业机密的合同或内部文案安全吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "绝对安全。本工具纯本地离线执行，所有正则表达式运算全部在您的浏览器进程内毫秒级完成，杜绝任何将文本回传后端云服务器的行为，即使拔掉网线也能顺畅运行。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script src="/assets/js/utils.js"></script></head>
 <body>
   
@@ -71,7 +137,7 @@
       <nav class="breadcrumb">
         <a href="/zh/">首页</a>
         <span class="breadcrumb-separator">/</span>
-        <span>文本与分析</span>
+        <a href="/zh/#text">文本与排版</a>
         <span class="breadcrumb-separator">/</span>
         <span>字数统计与排版分析</span>
       </nav>
@@ -120,6 +186,42 @@
         </div>
       </div>
     </div>
+
+    <!-- 深度使用指南与排版标准科普 -->
+    <article class="article-section" style="margin-top: 3rem; border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main);">中英双语字数统计规范与专业排版指南</h2>
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 1.5rem;">
+        无论您是在撰写学术论文、提交跨国求职简历、筹备公众平台推文，还是进行专业多语言文案本地化，准确掌握字数与排版规范都是内容产出的第一道门槛。不同语系的计数逻辑存在本质差异，ToolNexus 字数统计器专为中英混排复杂语境设计，毫秒级拆解字符结构，助您精准掌控篇幅。
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem;">🇨🇳 汉字 (Characters) vs 英文单词 (Words)</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">汉字属于表意文字，每个字均具备独立语义；而英文属于表音文字，以空格隔开的字母组合构成基本语义词（Word）。本工具精准区分“汉字计数”与“单词计数”，避免将英文单词误拆为字母计算。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.35rem;">⏱️ 科学阅读耗时与演讲配速 (WPM)</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">人均静默阅读速度约为每分钟 350-400 个汉字或 250 个英文单词，而公开演讲与视频口播语速约为 200-240 字/分钟。利用预估耗时指标，您可以精准把控短视频脚本时长或演讲稿节奏。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--success); margin-bottom: 0.35rem;">📐 盘古之白 (中英文自动空格排版)</h4>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">点击工具栏中的“加盘古空格”按钮，算法将遵循中文排版规范，自动在汉字与英文单词、阿拉伯数字之间补充优雅微空格（例：“ToolNexus让工作更高效” ➔ “ToolNexus 让工作更高效”）。</p>
+        </div>
+      </div>
+
+      <!-- FAQ 常见问题解答 -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
+      <div style="display: grid; gap: 1rem;">
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 为什么微信公众号、小红书和 Word 统计出的字数会不一样？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">各软件的统计逻辑差异很大：Microsoft Word 将标点符号与汉字合并统计为字数；社交媒体平台（如小红书、X/Twitter）通常将单个英文字母算作半个汉字（基于字节数或字符限制）；而学术机构通常区分纯汉字数与总字符数（含/不含空格）。ToolNexus 为您将各细分维度一并列出，方便对应不同提交渠道。</p>
+        </div>
+        <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Q: 在线粘贴包含商业机密的合同或内部文案安全吗？</h4>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin: 0;">绝对安全。本工具纯本地离线执行，所有正则表达式运算全部在您的浏览器进程内毫秒级完成，杜绝任何将文本回传后端云服务器的行为，即使拔掉网线也能顺畅运行。</p>
+        </div>
+      </div>
+    </article>
   </main>
 
   
@@ -142,14 +244,14 @@
             <li><a href="/zh/tools/pdf-merge/">PDF 极速合并</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h5>实用计算与文档</h5>
+                <div class="footer-col">
+          <div class="footer-col-title">工具分类</div>
           <ul class="footer-links">
-            <li><a href="/zh/tools/mortgage-calculator/">房贷与利息计算</a></li>
-            <li><a href="/zh/tools/bmi-calculator/">BMI 健康计算</a></li>
-            <li><a href="/zh/tools/image-to-pdf/">图片转 PDF</a></li>
-            <li><a href="/zh/tools/pdf-to-image/">PDF 转图片</a></li>
-            <li><a href="/zh/tools/text-diff/">文本精确对比</a></li>
+            <li><a href="/zh/#calculator">计算器与换算</a></li>
+            <li><a href="/zh/#developer">开发者与安全</a></li>
+            <li><a href="/zh/#pdf">PDF 文档办公</a></li>
+            <li><a href="/zh/#image">图片与图形</a></li>
+            <li><a href="/zh/#text">文本与排版</a></li>
           </ul>
         </div>
         <div class="footer-col">
