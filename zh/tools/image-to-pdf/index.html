@@ -357,6 +357,17 @@
         普通网页工具在转 PDF 时，常将图像在后台 Canvas 重新 drawImage 一次再压缩导出，造成二次 JPEG 模糊失真与噪点放大。ToolNexus 对合规的 JPEG 图像使用 <code>pdfDoc.embedJpg(arrayBuffer)</code>，直接将相机或扫描仪生成的原始压缩数据块装载入 PDF 的 XObject 字典流中；对 PNG 图像采用 <code>embedPng</code> 保持像素通道无损映射，从源头上杜绝了重采样引起的图像降质。
       </p>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>导入图片：</strong> 将需要装订成册的发票、合同扫描件、证件照或截图批量拖入上传列表。</li>
+          <li><strong>调整次序与排版：</strong> 使用卡片下方的 <em>←</em> 与 <em>→</em> 箭头调整页面顺序，并在配置栏选择纸张尺寸（A4、Letter 或自动适应图片）与页边距。</li>
+          <li><strong>点击合成：</strong> 点击 <em>⚡ 一键合成并下载 PDF</em> 按钮，底层引擎直接在浏览器内存中快速拼接并生成 PDF 结构流。</li>
+          <li><strong>秒级下载：</strong> 合成完毕后即刻触发下载保存，发票与私人证件无需上传第三方云端，隐私绝对安全。</li>
+        </ol>
+      </section>
+
       <!-- 常见问答 FAQ -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">

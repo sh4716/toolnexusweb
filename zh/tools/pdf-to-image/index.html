@@ -259,6 +259,17 @@
         PDF 标准内置以 72 pt/inch 为基础单位。ToolNexus 默认采用 <code>scale: 1.5</code> 视口渲染参数，等效于 108~150+ DPI 的物理清晰度，在常规高清显示屏和 Retina 视网膜屏上展现出无锯齿的印刷品质感。针对数十页的复杂文件，工具采用逐页流式渲染并即时释放非必要 DOM 节点的内存占用，最终通过 <code>JSZip</code> 在浏览器客户端内秒级打包归档，确保多页批量转换稳定不崩溃。
       </p>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>选择文件：</strong> 将需要提取图片的 PDF 报告或扫描件拖入上传区，唤醒内置本地渲染模块。</li>
+          <li><strong>配置画质参数：</strong> 选择输出格式（PNG 适合文字公章细腻锐利、JPG 适合轻量化分享），并选定渲染精度（150 DPI 标准或 300 DPI 印刷级超清）。</li>
+          <li><strong>极速渲染：</strong> 浏览器在本地多核并发渲染各页面，无需等待网络传输，实时生成转换缩略图。</li>
+          <li><strong>一键保存：</strong> 可单独点击单页下方按钮下载指定图片，亦可点击 <em>📦 打包下载全部图片 (ZIP)</em> 批量打包离线保存。</li>
+        </ol>
+      </section>
+
       <!-- 常见问答 FAQ -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">

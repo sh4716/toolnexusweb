@@ -284,6 +284,17 @@
         <li><strong>避免滥用场景：</strong> 大体积横幅照片或高清插图。由于 Base64 会使数据体积膨胀 33%，且无法享受浏览器独立的静态资源 HTTP 缓存（若 CSS 修改则图片必须全部重新下载），大图使用 Base64 反而会恶化 LCP 核心性能指标。</li>
       </ul>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>选择模式：</strong> 根据需求切换顶部标签栏：【文本 Base64 编解码】、【图片转 Base64】或【Base64 转图片】。</li>
+          <li><strong>输入或上传：</strong> 在左侧输入框粘贴待处理文本或 Base64 字符串，或上传本地图像提取包含 MIME 类型的 Data URI。</li>
+          <li><strong>点击转换：</strong> 点击 <em>编码 (Encode) →</em> 生成标准 ASCII 密文字符，或点击 <em>← 解码 (Decode)</em> 完美还原包含中文及 Emoji 的 UTF-8 明文。</li>
+          <li><strong>一键复制：</strong> 点击 <em>复制</em> 按钮将转换结果即时写入剪贴板，纯本地运算杜绝敏感数据网络嗅探。</li>
+        </ol>
+      </section>
+
       <!-- 常见问答 FAQ -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">
@@ -386,32 +397,107 @@
       return btoa(binString);
     }
 
-    function base64ToUtf8(base64) {
+    function safeBase64Decode(input, lang) {
+      const isZh = lang === 'zh';
+      let raw = (input || '').trim();
+      if (!raw) {
+        return {
+          success: false,
+          error: isZh ? '请先输入待解码的 Base64 字符串' : 'Please enter a Base64 string to decode'
+        };
+      }
+
+      // 移除 Data URL 前缀
+      raw = raw.replace(/^data:[^;]*;base64,/i, '').trim();
+
+      // 移除所有空白符（换行、空格、制表符等）
+      raw = raw.replace(/\s+/g, '');
+
+      // 支持 URL 安全的 Base64 (- 转 +, _ 转 /)
+      raw = raw.replace(/-/g, '+').replace(/_/g, '/');
+
+      // 校验非法字符
+      const illegalMatch = raw.match(/[^A-Za-z0-9+/=]/g);
+      if (illegalMatch) {
+        const uniqueBad = Array.from(new Set(illegalMatch));
+        const badDisplay = uniqueBad.slice(0, 5).map(c => '"' + c + '"').join('、');
+        return {
+          success: false,
+          error: isZh
+            ? `包含非法字符 ${badDisplay}（仅允许 A-Z、a-z、0-9、+、/ 及 =）`
+            : `Contains invalid character(s): ${badDisplay} (only A-Z, a-z, 0-9, +, /, and = allowed)`
+        };
+      }
+
+      // 校验并自动补齐 '=' 填充符
+      const unpadded = raw.replace(/=+$/, '');
+      const remainder = unpadded.length % 4;
+      if (remainder === 1) {
+        return {
+          success: false,
+          error: isZh
+            ? 'Base64 字符串残缺：字符位数异常（单个字符仅 6-bit，无法构成有效字节）'
+            : 'Truncated Base64 string: invalid length (single trailing character cannot form a byte)'
+        };
+      }
+
+      const padded = remainder === 0 ? unpadded : unpadded + '='.repeat(4 - remainder);
+
+      let binString;
       try {
-        const cleanB64 = base64.trim().replace(/^data:.*?;base64,/, '');
-        const binString = atob(cleanB64);
-        const bytes = Uint8Array.from(binString, (m) => m.charCodeAt(0));
-        return new TextDecoder().decode(bytes);
+        binString = atob(padded);
       } catch (err) {
-        throw new Error('无效的 Base64 字符串');
+        return {
+          success: false,
+          error: isZh
+            ? `Base64 解码异常：字符串残缺或格式损坏 (${err.message || '格式错误'})`
+            : `Base64 decode failed: corrupted or malformed string (${err.message || 'Invalid format'})`
+        };
+      }
+
+      // 安全转换为 UTF-8 文本（支持中文、Emoji 等多字节字符）
+      try {
+        const bytes = new Uint8Array(binString.length);
+        for (let i = 0; i < binString.length; i++) {
+          bytes[i] = binString.charCodeAt(i);
+        }
+        const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+        return { success: true, result: text };
+      } catch (e) {
+        return { success: true, result: binString };
       }
     }
 
     document.getElementById('btn-encode').addEventListener('click', () => {
       const val = textInput.value;
-      if (!val) return;
+      if (!val) {
+        Utils.showToast('请先输入待编码的文本', 'warning');
+        return;
+      }
       textOutput.value = utf8ToBase64(val);
       charStat.textContent = '字符统计: ' + textOutput.value.length + ' 字符';
+      Utils.showToast('Base64 编码成功！', 'success');
     });
 
     document.getElementById('btn-decode').addEventListener('click', () => {
-      const val = textInput.value;
-      if (!val) return;
-      try {
-        textOutput.value = base64ToUtf8(val);
+      let val = textInput.value;
+      // 容错回退：若左侧为空但右侧有输入，则自动读取右侧
+      if (!val.trim() && textOutput.value.trim()) {
+        val = textOutput.value;
+      }
+      if (!val.trim()) {
+        Utils.showToast('请先输入待解码的 Base64 字符串', 'warning');
+        return;
+      }
+      const res = safeBase64Decode(val, 'zh');
+      if (res.success) {
+        textOutput.value = res.result;
         charStat.textContent = '字符统计: ' + textOutput.value.length + ' 字符';
-      } catch (err) {
-        Utils.showToast('解码失败：' + err.message, 'error');
+        Utils.showToast('Base64 解码成功！', 'success');
+      } else {
+        textOutput.value = '【解码失败】' + res.error;
+        charStat.textContent = '解码失败: 格式异常';
+        Utils.showToast('解码失败：' + res.error, 'error');
       }
     });
 
@@ -495,13 +581,21 @@
         Utils.showToast('请先输入 Base64 字符串', 'warning');
         return;
       }
+      b64 = b64.replace(/\s+/g, '');
       if (!b64.startsWith('data:image/')) {
-        b64 = 'data:image/png;base64,' + b64;
+        b64 = 'data:image/png;base64,' + b64.replace(/^data:[^;]*;base64,/i, '');
       }
+      restoredImg.onload = () => {
+        restoredImgWrap.style.display = 'block';
+        btnDownloadRestored.style.display = 'inline-flex';
+        Utils.showToast('图片预览加载成功！', 'success');
+      };
+      restoredImg.onerror = () => {
+        restoredImgWrap.style.display = 'none';
+        btnDownloadRestored.style.display = 'none';
+        Utils.showToast('解码失败：无效或损坏的 Base64 图像数据', 'error');
+      };
       restoredImg.src = b64;
-      restoredImgWrap.style.display = 'block';
-      btnDownloadRestored.style.display = 'inline-flex';
-      Utils.showToast('图片预览加载成功！', 'success');
     });
 
     btnDownloadRestored.addEventListener('click', () => {

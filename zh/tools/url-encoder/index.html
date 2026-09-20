@@ -287,6 +287,17 @@
           <li><strong>防范 XSS 跨站脚本攻击：</strong> 从 <code>location.search</code> 中通过解码提取参数并直接插入页面 DOM（如 <code>innerHTML</code>）属于极高危操作。在前端展示前必须经过 HTML 转义或使用 <code>textContent</code>。</li>
         </ul>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>输入网址或文本：</strong> 将包含特殊符号、中文参数的完整 URL 或请求参数字符串粘贴到输入框中。</li>
+          <li><strong>选择编解码：</strong> 点击 <em>编码 (Encode) →</em> 将保留字符转为标准 <code>%XX</code> 百分号转义，或点击 <em>← 解码 (Decode)</em> 还原为人类可读文本。</li>
+          <li><strong>拆解与微调参数：</strong> 点击“拆解 URL 参数”可按键值对（Key-Value）可视化查看并追加修改特定参数。</li>
+          <li><strong>复制结果：</strong> 点击 <em>📋 复制结果</em> 即可直接用于前后端 API 请求联调或嵌入网页超链接。</li>
+        </ol>
+      </section>
+
         <!-- 常见问答 FAQ -->
         <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
         <div style="display: grid; gap: 1rem;">

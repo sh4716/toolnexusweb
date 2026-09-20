@@ -217,6 +217,17 @@
             </div>
           </div>
 
+      <!-- How-to Guide Section -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">How to Use This Mortgage Calculator</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>Input Loan Details:</strong> Enter the total home purchase price or principal loan amount.</li>
+          <li><strong>Adjust Down Payment & Term:</strong> Specify your down payment percentage or dollar value, and choose the loan duration (e.g. 15 or 30 years).</li>
+          <li><strong>Configure Interest Rate:</strong> Input the annual fixed or adjustable interest rate percentage (APR).</li>
+          <li><strong>Review Payment Breakdown:</strong> Inspect the calculated monthly payment, total interest paid over life of loan, and the full amortization schedule.</li>
+        </ol>
+      </section>
+
           <!-- FAQ Section -->
           <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
           <div style="display: grid; gap: 1rem;">
@@ -239,29 +250,100 @@
 
     <script>
       function calcMortgage() {
-        const amount = parseFloat(document.getElementById('mort-amount').value) || 0;
-        const down = parseFloat(document.getElementById('mort-down').value) || 0;
-        const termYears = parseInt(document.getElementById('mort-term').value) || 30;
-        const ratePct = parseFloat(document.getElementById('mort-rate').value) || 0;
+        const amountInput = document.getElementById('mort-amount');
+        const downInput = document.getElementById('mort-down');
+        const termInput = document.getElementById('mort-term');
+        const rateInput = document.getElementById('mort-rate');
 
-        const principal = Math.max(0, amount - down);
+        const elMonthly = document.getElementById('mort-monthly');
+        const elPrincipal = document.getElementById('mort-principal');
+        const elInterest = document.getElementById('mort-interest');
+        const elTotal = document.getElementById('mort-total');
+
+        function resetMortgage(msg) {
+          elMonthly.textContent = '--';
+          elMonthly.style.fontSize = '2.2rem';
+          elPrincipal.textContent = '--';
+          elInterest.textContent = '--';
+          elTotal.textContent = '--';
+          let warn = document.getElementById('mort-warning');
+          if (!warn) {
+            warn = document.createElement('div');
+            warn.id = 'mort-warning';
+            warn.style.cssText = 'font-size:0.85rem; color:#f59e0b; margin-top:0.5rem; font-weight:600; text-align:center;';
+            elMonthly.parentNode.appendChild(warn);
+          }
+          warn.textContent = msg || '';
+          warn.style.display = msg ? 'block' : 'none';
+        }
+
+        const amtVal = (amountInput.value || '').trim();
+        const downVal = (downInput.value || '').trim();
+        const rateVal = (rateInput.value || '').trim();
+
+        if (!amtVal || !rateVal) {
+          resetMortgage('Please enter loan amount and interest rate');
+          return;
+        }
+
+        const amount = parseFloat(amtVal);
+        const down = downVal ? parseFloat(downVal) : 0;
+        const termYears = parseInt(termInput.value, 10) || 30;
+        const ratePct = parseFloat(rateVal);
+
+        if (isNaN(amount) || isNaN(ratePct) || amount <= 0 || ratePct <= 0) {
+          resetMortgage('Amount and interest rate must be greater than 0');
+          return;
+        }
+
+        if (down < 0) {
+          resetMortgage('Down payment cannot be negative');
+          return;
+        }
+
+        if (down >= amount) {
+          resetMortgage('Down payment must be less than total property value');
+          return;
+        }
+
+        if (amount > 100000000) {
+          resetMortgage('Maximum loan amount supported is $100,000,000');
+          return;
+        }
+
+        if (ratePct > 30) {
+          resetMortgage('Interest rate cannot exceed 30%');
+          return;
+        }
+
+        const principal = amount - down;
         const monthlyRate = (ratePct / 100) / 12;
         const totalMonths = termYears * 12;
 
         let monthlyPayment = 0;
         if (monthlyRate > 0) {
-          monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+          const pow = Math.pow(1 + monthlyRate, totalMonths);
+          monthlyPayment = principal * (monthlyRate * pow) / (pow - 1);
         } else {
           monthlyPayment = principal / totalMonths;
+        }
+
+        if (!isFinite(monthlyPayment) || isNaN(monthlyPayment) || monthlyPayment <= 0) {
+          resetMortgage('Calculation error');
+          return;
         }
 
         const totalCost = monthlyPayment * totalMonths;
         const totalInterest = Math.max(0, totalCost - principal);
 
-        document.getElementById('mort-monthly').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
-        document.getElementById('mort-principal').textContent = '$' + Math.round(principal).toLocaleString();
-        document.getElementById('mort-interest').textContent = '$' + Math.round(totalInterest).toLocaleString();
-        document.getElementById('mort-total').textContent = '$' + Math.round(totalCost).toLocaleString();
+        const warn = document.getElementById('mort-warning');
+        if (warn) warn.style.display = 'none';
+
+        elMonthly.style.fontSize = '2.8rem';
+        elMonthly.textContent = '$' + Math.round(monthlyPayment).toLocaleString();
+        elPrincipal.textContent = '$' + Math.round(principal).toLocaleString();
+        elInterest.textContent = '$' + Math.round(totalInterest).toLocaleString();
+        elTotal.textContent = '$' + Math.round(totalCost).toLocaleString();
       }
 
       window.addEventListener('DOMContentLoaded', () => {
@@ -278,7 +360,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">

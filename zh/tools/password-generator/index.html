@@ -381,6 +381,17 @@
         </table>
       </div>
 
+          <!-- 快速使用步骤指南 -->
+          <section style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+            <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+              <li><strong>设定密码长度：</strong> 拖动长度滑块定制密码位数（针对重要账号，强烈推荐设置 16 位及以上）。</li>
+              <li><strong>勾选字符组合：</strong> 勾选所需的大写字母 (A-Z)、小写字母 (a-z)、数字 (0-9) 及特殊符号，并可开启“排除易混淆字符”剔除 <code>1/l/I</code> 与 <code>0/O</code>。</li>
+              <li><strong>生成强密码：</strong> 点击 <em>🔄 重新生成</em>，底层借助 <code>crypto.getRandomValues</code> 硬件级安全熵源瞬间生成高强度随机密码。</li>
+              <li><strong>一键复制：</strong> 点击 <em>📋 一键复制密码</em> 即可安全存入密码管理器；亦可切换至“批量生成”导出成批独立密码清单。</li>
+            </ol>
+          </section>
+
       <!-- 常见问答 FAQ -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">

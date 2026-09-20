@@ -520,6 +520,17 @@
         Browsers typically allocate up to 2 GB of heap memory per sandboxed tab. When merging dozens of multi-hundred-page documents containing embedded raster images, ToolNexus decodes files lazily as <code>ArrayBuffer</code> byte slices and immediately frees intermediate parsing references after serializing the finalized PDF stream. This maintains light memory pressure and guarantees stable operation across both mobile and desktop environments.
       </p>
 
+      <!-- How-to Guide Section -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">How to Use This PDF Merger</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>Select Files:</strong> Drag and drop multiple PDF documents into the drop zone or click to browse files simultaneously.</li>
+          <li><strong>Adjust Order:</strong> Use the <em>↑</em> and <em>↓</em> arrow buttons to sequence documents into your desired reading order, or click <em>✕</em> to delete unwanted items.</li>
+          <li><strong>Click Merge:</strong> Click the <em>⚡ Merge PDFs Now</em> button to stitch page object trees together in client-side memory without cloud latency.</li>
+          <li><strong>Download PDF:</strong> Your combined multi-document PDF builds instantaneously—save it directly to your device with original vector clarity preserved.</li>
+        </ol>
+      </section>
+
       <!-- FAQ Section -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">
@@ -551,7 +562,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">

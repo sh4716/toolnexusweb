@@ -250,6 +250,17 @@
             <li><strong>斜杠 (<code>/</code>)：</strong> 步长间隔计数，例如在分钟位配置 <code>*/10</code> 表示从 0 开始每 10 分钟循环一次。</li>
           </ul>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>输入 Cron 表达式：</strong> 在输入框填入标准的 5 段式 Cron 表达式（如 <code>0 9 * * 1-5</code>），亦可点击下方的“工作日每天上午 9:00”等常用预设。</li>
+          <li><strong>查验自然语言解读：</strong> 界面即刻将晦涩的通配符转换为通俗易懂的中文时间描述（如“在每周一至周五的 09:00 执行”）。</li>
+          <li><strong>核对未来执行批次：</strong> 观察下方自动推算出的“未来 5 次具体触发时间列表”，精准验证定时逻辑是否符合业务预期。</li>
+          <li><strong>复制使用：</strong> 点击 <em>复制表达式 📋</em> 即可安全部署至 Linux 服务器 crontab、K8s 定时任务或后端调度系统。</li>
+        </ol>
+      </section>
+
           <!-- 常见问答 FAQ -->
           <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
           <div style="display: grid; gap: 1rem;">
@@ -280,7 +291,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            面向个人与开发者的下一代纯前端极速工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何服务器上传文件，保障绝对隐私。
+            面向个人与开发者的下一代纯前端极速工具箱。所有数据 100% 在用户浏览器本地完成计算与转换，绝不向任何服务器上传文件，保障客户端数据隐私。
           </p>
         </div>
         <div class="footer-col">

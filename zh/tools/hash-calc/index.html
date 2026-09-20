@@ -237,6 +237,17 @@
           2004 年中国密码学权威王小云团队破解了 MD5 的碰撞抵抗性，2017 年 Google 团队实施了著名的 <em>SHAttered</em> 攻击，成功生成了两份哈希完全相同但正文条款迥异的合法 PDF 合同。这意味着中间人攻击者可以诱骗用户签署一份正常的合法文件，随后悄无声息地替换为包含恶意代码的文件而保持签名有效。因此，现代应用开发中，<strong>所有数字签名与敏感校验必须强制使用 SHA-256 或 SHA-3</strong>。
         </p>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>输入明文数据：</strong> 在输入框内键入或粘贴待计算校验和的文本字符串、密码明文或数据片段。</li>
+          <li><strong>实时并发计算：</strong> 无需等待或点击提交，底层借助 Web Crypto 硬件级算法库瞬间同步产出 MD5、SHA-256 和 SHA-512 等全套哈希摘要。</li>
+          <li><strong>切换大小写格式：</strong> 按目标系统对比需求，一键切换十六进制字符的大写（Uppercase）或小写（Lowercase）显示风格。</li>
+          <li><strong>一键复制结果：</strong> 点击对应算法条目右侧的 <em>复制</em> 按钮，获取哈希校验值用于比对数据完整性或开发接口签名。</li>
+        </ol>
+      </section>
+
         <!-- 常见问答 FAQ -->
         <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
         <div style="display: grid; gap: 1rem;">

@@ -239,6 +239,17 @@
           <li><strong>严禁在 Payload 存放敏感私密数据：</strong> Base64URL 仅仅是一种公开编码格式，并非加密。用户的登录密码明文、支付银行卡号、身份证号绝不能作为 Claim 存放在 Token 中。</li>
         </ul>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>粘贴 JWT 令牌：</strong> 将接口返回的 Bearer Token 或三段式 JWT 字符串粘贴至输入框，亦可点击 <em>载入示例 Token</em> 演示。</li>
+          <li><strong>三色结构拆解：</strong> 工具自动使用颜色高亮将令牌拆分为头部（Header / 算法规范）、载荷（Payload / 权限声明）与签名（Signature）。</li>
+          <li><strong>核查有效期与属性：</strong> 界面自动解析 <code>exp</code> 过期时间、<code>iat</code> 签发时间与用户标识，直观展示该 Token 当前是否处于有效期内。</li>
+          <li><strong>复制解析结果：</strong> 查阅格式化后的 JSON 结构，并随时复制字段用于本地 API 调试，数据 100% 本地运算不上传任何第三方。</li>
+        </ol>
+      </section>
+
         <!-- 常见问答 FAQ -->
         <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
         <div style="display: grid; gap: 1rem;">

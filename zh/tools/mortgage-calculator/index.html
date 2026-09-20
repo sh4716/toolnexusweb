@@ -272,6 +272,17 @@
       </div>
 
       <!-- FAQ 常见问题解答 -->
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>输入房屋总价或贷款额：</strong> 在金额框中输入房产总价或向银行申请的商业/公积金贷款总额。</li>
+          <li><strong>设定首付与贷款年限：</strong> 输入首付款金额或首付成数，并选定按揭年限（如 20 年或 30 年）。</li>
+          <li><strong>配置房贷年利率：</strong> 填入最新的商业贷款利率或公积金基准年利率百分比。</li>
+          <li><strong>查验还款月供明细：</strong> 界面即刻自动计算每月等额还款额、支付利息总和与本金占比，助您精细规划置业现金流。</li>
+        </ol>
+      </section>
+
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">
         <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
@@ -370,8 +381,30 @@
       calculate();
     });
 
+    function resetMortgage(msg) {
+      labelMonthly.textContent = '每月还款额 (月供)';
+      resMonthly.textContent = '--';
+      resTotalPrincipal.textContent = '-- 万元';
+      resTotalInterest.textContent = '-- 万元';
+      resTotalAll.textContent = '-- 万元';
+      resMonths.textContent = (parseInt(loanYears.value, 10) * 12) + ' 期 (' + loanYears.value + ' 年)';
+      methodTip.innerHTML = '⚠️ <strong>提示：</strong>' + (msg || '请输入有效的贷款金额与年利率');
+      methodTip.style.color = 'var(--accent-rose, #ef4444)';
+    }
+
     function calculatePart(principalYuan, annualRatePct, totalMonths, isEqualInstallment) {
       const monthlyRate = (annualRatePct / 100) / 12;
+      if (annualRatePct <= 0 || monthlyRate <= 0) {
+        const monthly = principalYuan / totalMonths;
+        return {
+          firstMonthly: monthly,
+          lastMonthly: monthly,
+          diff: 0,
+          isEqual: true,
+          totalInterest: 0,
+          totalPay: principalYuan
+        };
+      }
       if (isEqualInstallment) {
         // 等额本息
         const pow = Math.pow(1 + monthlyRate, totalMonths);
@@ -418,9 +451,56 @@
       let totalPay = 0;
       let monthlyStr = '';
 
+      // 边界与合法性校验
       if (type === 'business' || type === 'combo') {
-        const bAmount = parseFloat(bizAmount.value || 0) * 10000;
-        const bRate = parseFloat(bizRate.value || 0);
+        const bAmtVal = (bizAmount.value || '').trim();
+        const bRateVal = (bizRate.value || '').trim();
+        if (!bAmtVal || !bRateVal) {
+          resetMortgage('请输入商业贷款金额与年利率');
+          return;
+        }
+        const bAmountNum = parseFloat(bAmtVal);
+        const bRateNum = parseFloat(bRateVal);
+        if (isNaN(bAmountNum) || isNaN(bRateNum) || bAmountNum <= 0 || bRateNum <= 0) {
+          resetMortgage('商业贷款金额与年利率必须大于 0');
+          return;
+        }
+        if (bAmountNum > 10000) {
+          resetMortgage('商业贷款金额支持上限为 10,000 万元 (1 亿元)');
+          return;
+        }
+        if (bRateNum > 30) {
+          resetMortgage('商业贷款年利率不能超过 30%');
+          return;
+        }
+      }
+
+      if (type === 'fund' || type === 'combo') {
+        const fAmtVal = (fundAmount.value || '').trim();
+        const fRateVal = (fundRate.value || '').trim();
+        if (!fAmtVal || !fRateVal) {
+          resetMortgage('请输入公积金贷款金额与年利率');
+          return;
+        }
+        const fAmountNum = parseFloat(fAmtVal);
+        const fRateNum = parseFloat(fRateVal);
+        if (isNaN(fAmountNum) || isNaN(fRateNum) || fAmountNum <= 0 || fRateNum <= 0) {
+          resetMortgage('公积金贷款金额与年利率必须大于 0');
+          return;
+        }
+        if (fAmountNum > 10000) {
+          resetMortgage('公积金贷款金额支持上限为 10,000 万元 (1 亿元)');
+          return;
+        }
+        if (fRateNum > 30) {
+          resetMortgage('公积金年利率不能超过 30%');
+          return;
+        }
+      }
+
+      if (type === 'business' || type === 'combo') {
+        const bAmount = parseFloat(bizAmount.value) * 10000;
+        const bRate = parseFloat(bizRate.value);
         totalPrincipal += bAmount;
         const bRes = calculatePart(bAmount, bRate, months, isEqual);
         totalInterest += bRes.totalInterest;
@@ -433,8 +513,8 @@
       }
 
       if (type === 'fund' || type === 'combo') {
-        const fAmount = parseFloat(fundAmount.value || 0) * 10000;
-        const fRate = parseFloat(fundRate.value || 0);
+        const fAmount = parseFloat(fundAmount.value) * 10000;
+        const fRate = parseFloat(fundRate.value);
         if (type === 'fund') totalPrincipal = 0;
         totalPrincipal += fAmount;
         const fRes = calculatePart(fAmount, fRate, months, isEqual);
@@ -446,14 +526,15 @@
           totalInterest += fRes.totalInterest;
           totalPay += fRes.totalPay;
           // 组合贷款合并月供
-          const bAmount = parseFloat(bizAmount.value || 0) * 10000;
-          const bRate = parseFloat(bizRate.value || 0);
+          const bAmount = parseFloat(bizAmount.value) * 10000;
+          const bRate = parseFloat(bizRate.value);
           const bRes = calculatePart(bAmount, bRate, months, isEqual);
           const sumFirst = bRes.firstMonthly + fRes.firstMonthly;
           monthlyStr = isEqual ? ('￥' + sumFirst.toFixed(2)) : ('首月 ￥' + sumFirst.toFixed(2) + ' (逐月递减)');
         }
       }
 
+      methodTip.style.color = 'var(--text-muted)';
       labelMonthly.textContent = isEqual ? '每月固定月供额' : '首月月供还款额';
       resMonthly.textContent = monthlyStr;
       resTotalPrincipal.textContent = '￥' + (totalPrincipal / 10000).toFixed(2) + ' 万元';

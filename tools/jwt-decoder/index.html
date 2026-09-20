@@ -220,6 +220,17 @@
           </ul>
 
           <!-- Detailed FAQs -->
+      <!-- How-to Guide Section -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">How to Use This JWT Decoder</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>Input Token:</strong> Paste your JSON Web Token (JWT) string into the token input box or click <em>Load Sample Token</em> to test with demo data.</li>
+          <li><strong>Inspect Token Parts:</strong> The decoder automatically breaks the token into its 3 standard segments: Header (algorithm & token type), Payload (claims & permissions), and Signature.</li>
+          <li><strong>Review Expiration:</strong> Check the automated claim analysis to verify token validity, issued-at time (<code>iat</code>), and precise expiration date (<code>exp</code>).</li>
+          <li><strong>Copy JSON Claims:</strong> Read and copy the beautifully formatted JSON payload objects directly into your development workflow without exposing authorization secrets to cloud servers.</li>
+        </ol>
+      </section>
+
           <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
           <div style="display: grid; gap: 1rem;">
             <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
@@ -320,7 +331,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">

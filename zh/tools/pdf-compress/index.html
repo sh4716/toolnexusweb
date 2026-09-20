@@ -330,6 +330,17 @@
         ToolNexus 在架构上彻底解耦了对云端后端的依赖：通过 <code>PDF.js</code> 逐页解码光栅化、利用 HTML5 OffscreenCanvas 执行降采样重编码、最后通过 <code>pdf-lib</code> 重建紧凑型文档字典并生成二进制 ArrayBuffer。整个流水线具备逐页内存垃圾清理机制（GC Friendly），不仅有效杜绝浏览器标签页因内存溢出（OOM）崩溃，更赋予了您“拔掉网线、完全离线”亦可秒级压缩超大 PDF 的顶级隐私防护体验。
       </p>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>选择上传：</strong> 将需要瘦身的 PDF 文件拖入虚线上传区域，或点击选择本地文档载入。</li>
+          <li><strong>设定模式：</strong> 根据使用场景选择合适的压缩级别（推荐常规平衡模式、极限画质压缩或无损结构清理）。</li>
+          <li><strong>点击压缩：</strong> 点击 <em>⚡ 开始本地极速压缩</em> 按钮，底层算法将在本地内存中极速完成页面重采样与数据流精简。</li>
+          <li><strong>极速下载：</strong> 实时查验压缩后的文件体积与节省比例，点击 <em>💾 下载压缩后的 PDF</em> 保存到电脑。</li>
+        </ol>
+      </section>
+
       <!-- 常见问答 FAQ -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">

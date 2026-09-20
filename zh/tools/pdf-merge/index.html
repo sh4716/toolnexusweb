@@ -314,6 +314,17 @@
         浏览器沙箱分配给单一标签页的堆内存一般在 1.5GB~2GB 左右。在合并多份包含高分辨率图层的超大工程图纸时，ToolNexus 采用按需 <code>ArrayBuffer</code> 解码策略，在生成目标文档写入磁盘下载后，主动释放各源文档的解析实例，避免内存堆积溢出，确保数十个多页文档连续批处理的顺畅平稳。
       </p>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>添加文件：</strong> 点击上传区域或将多个 PDF 文件批量拖入列表，工具会自动解析并展示各文档卡片。</li>
+          <li><strong>调整次序：</strong> 使用条目右侧的 <em>↑</em> 和 <em>↓</em> 箭头调整合并前后顺序，或点击 <em>✕</em> 移除不需要的文件。</li>
+          <li><strong>点击合并：</strong> 点击 <em>⚡ 开始合并并下载 PDF</em> 按钮，底层引擎在本地瞬间拼接各文档的底层对象树。</li>
+          <li><strong>即时保存：</strong> 合并完成后浏览器自动弹出下载保存窗口，全程无网络排队，数据绝对离线安全。</li>
+        </ol>
+      </section>
+
       <!-- 常见问答 FAQ -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">

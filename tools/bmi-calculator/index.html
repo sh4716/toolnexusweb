@@ -273,6 +273,17 @@
           </ul>
 
           <!-- Detailed FAQs -->
+      <!-- How-to Guide Section -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">How to Use This BMI Calculator</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>Select Unit System:</strong> Toggle between <em>Metric (cm / kg)</em> and <em>Imperial (ft / lbs)</em>.</li>
+          <li><strong>Input Height & Weight:</strong> Enter your accurate height and current body weight.</li>
+          <li><strong>Review Real-Time BMI:</strong> The gauge automatically calculates your Body Mass Index (BMI) using WHO standard medical formulas.</li>
+          <li><strong>Check Healthy Range:</strong> Compare your result against the color-coded category scales (Underweight, Normal, Overweight, Obese) and inspect your personalized ideal weight bracket.</li>
+        </ol>
+      </section>
+
           <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
           <div style="display: grid; gap: 1rem;">
             <div style="background: var(--bg-surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
@@ -328,24 +339,85 @@
         let weightKg = 0;
         let heightM = 0;
 
+        const bmiNum = document.getElementById('bmi-num');
+        const bmiCat = document.getElementById('bmi-category');
+        const bmiPointer = document.getElementById('bmi-pointer');
+        const idealWeight = document.getElementById('ideal-weight');
+
+        function resetBmi(message, color) {
+          bmiNum.textContent = '--.-';
+          bmiNum.style.color = 'var(--text-muted)';
+          bmiCat.textContent = message || 'Enter Height & Weight';
+          bmiCat.style.color = color || 'var(--text-muted)';
+          bmiPointer.style.left = '0%';
+          idealWeight.textContent = '--';
+        }
+
         if (currentUnit === 'metric') {
-          const cm = parseFloat(document.getElementById('height-cm').value) || 0;
-          weightKg = parseFloat(document.getElementById('weight-kg').value) || 0;
+          const hVal = document.getElementById('height-cm').value.trim();
+          const wVal = document.getElementById('weight-kg').value.trim();
+          if (!hVal || !wVal) {
+            resetBmi('Please enter height & weight');
+            return;
+          }
+          const cm = parseFloat(hVal);
+          const kg = parseFloat(wVal);
+          if (isNaN(cm) || isNaN(kg) || cm <= 0 || kg <= 0) {
+            resetBmi('Height & weight must be greater than 0', '#f43f5e');
+            return;
+          }
+          if (cm < 50 || cm > 260) {
+            resetBmi('Height must be between 50 and 260 cm', '#f59e0b');
+            return;
+          }
+          if (kg < 2 || kg > 500) {
+            resetBmi('Weight must be between 2 and 500 kg', '#f59e0b');
+            return;
+          }
           heightM = cm / 100;
+          weightKg = kg;
         } else {
-          const ft = parseFloat(document.getElementById('height-ft').value) || 0;
-          const inc = parseFloat(document.getElementById('height-in').value) || 0;
-          const lbs = parseFloat(document.getElementById('weight-lbs').value) || 0;
+          const ftVal = document.getElementById('height-ft').value.trim();
+          const inVal = document.getElementById('height-in').value.trim();
+          const lbsVal = document.getElementById('weight-lbs').value.trim();
+          if (!lbsVal || (!ftVal && !inVal)) {
+            resetBmi('Please enter height & weight');
+            return;
+          }
+          const ft = parseFloat(ftVal) || 0;
+          const inc = parseFloat(inVal) || 0;
+          const lbs = parseFloat(lbsVal);
+          if (isNaN(lbs) || lbs <= 0 || (ft <= 0 && inc <= 0) || ft < 0 || inc < 0) {
+            resetBmi('Height & weight must be greater than 0', '#f43f5e');
+            return;
+          }
           const totalInches = (ft * 12) + inc;
+          if (totalInches < 20 || totalInches > 102) {
+            resetBmi('Height must be between 1 ft 8 in and 8 ft 6 in', '#f59e0b');
+            return;
+          }
+          if (lbs < 4.4 || lbs > 1100) {
+            resetBmi('Weight must be between 4.4 and 1,100 lbs', '#f59e0b');
+            return;
+          }
           heightM = totalInches * 0.0254;
           weightKg = lbs * 0.453592;
         }
 
-        if (heightM <= 0 || weightKg <= 0) return;
+        if (heightM <= 0 || weightKg <= 0) {
+          resetBmi('Invalid dimensions');
+          return;
+        }
 
         const bmi = weightKg / (heightM * heightM);
+        if (!isFinite(bmi) || isNaN(bmi)) {
+          resetBmi('Calculation error');
+          return;
+        }
+
         const formattedBmi = bmi.toFixed(1);
-        document.getElementById('bmi-num').textContent = formattedBmi;
+        bmiNum.textContent = formattedBmi;
+        bmiNum.style.color = 'var(--primary)';
 
         // Classification
         let cat = 'Normal Weight';
@@ -370,20 +442,20 @@
           leftPct = 75 + Math.min(25, ((bmi - 30) / 10) * 25);
         }
 
-        document.getElementById('bmi-category').textContent = cat;
-        document.getElementById('bmi-category').style.color = color;
-        document.getElementById('bmi-pointer').style.left = Math.max(2, Math.min(98, leftPct)) + '%';
+        bmiCat.textContent = cat;
+        bmiCat.style.color = color;
+        bmiPointer.style.left = Math.max(2, Math.min(98, leftPct)) + '%';
 
         // Ideal Weight
         const minIdealKg = 18.5 * (heightM * heightM);
         const maxIdealKg = 24.9 * (heightM * heightM);
 
         if (currentUnit === 'metric') {
-          document.getElementById('ideal-weight').textContent = minIdealKg.toFixed(1) + ' kg - ' + maxIdealKg.toFixed(1) + ' kg';
+          idealWeight.textContent = minIdealKg.toFixed(1) + ' kg - ' + maxIdealKg.toFixed(1) + ' kg';
         } else {
           const minLbs = minIdealKg * 2.20462;
           const maxLbs = maxIdealKg * 2.20462;
-          document.getElementById('ideal-weight').textContent = minLbs.toFixed(1) + ' lbs - ' + maxLbs.toFixed(1) + ' lbs';
+          idealWeight.textContent = minLbs.toFixed(1) + ' lbs - ' + maxLbs.toFixed(1) + ' lbs';
         }
       }
 
@@ -401,7 +473,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">

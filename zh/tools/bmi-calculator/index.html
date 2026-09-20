@@ -292,6 +292,17 @@
             <li><strong>孕妇与哺乳期妇女：</strong> 胎儿发育、羊水及血容量生理性增加，不适用于常规成人 BMI 评分。</li>
           </ul>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>选择计量单位：</strong> 在公制（厘米 / 千克）与英制（英尺 / 磅）之间自由切换。</li>
+          <li><strong>输入身高与体重：</strong> 在对应输入框内输入真实的身高数值与当前体重。</li>
+          <li><strong>即时查看 BMI 指数：</strong> 系统自动依据世界卫生组织 (WHO) 国际标准公式即时换算身体质量指数。</li>
+          <li><strong>核对健康区间：</strong> 对照色带刻度查看自身所处的健康范围（偏瘦、正常、超重、肥胖），并参考个性化理想体重建议。</li>
+        </ol>
+      </section>
+
           <!-- 常见问答 FAQ -->
           <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
           <div style="display: grid; gap: 1rem;">
@@ -378,12 +389,50 @@
     const bmiPointer = document.getElementById('bmi-pointer');
     const idealRange = document.getElementById('ideal-range');
 
-    function calcBmi() {
-      const h = parseFloat(bHeight.value) / 100;
-      const w = parseFloat(bWeight.value);
-      if (!h || !w || h <= 0) return;
+    function resetBmi(msg, color) {
+      bmiVal.textContent = '--.-';
+      bmiVal.style.color = 'var(--text-muted)';
+      bmiStatus.textContent = msg || '请输入身高与体重';
+      bmiStatus.style.color = color || 'var(--text-muted)';
+      bmiPointer.style.left = '0%';
+      idealRange.textContent = '--';
+    }
 
+    function calcBmi() {
+      const hStr = (bHeight.value || '').trim();
+      const wStr = (bWeight.value || '').trim();
+
+      if (!hStr || !wStr) {
+        resetBmi('请输入身高与体重');
+        return;
+      }
+
+      const hCm = parseFloat(hStr);
+      const wKg = parseFloat(wStr);
+
+      if (isNaN(hCm) || isNaN(wKg) || hCm <= 0 || wKg <= 0) {
+        resetBmi('身高和体重必须大于 0', 'var(--accent-rose, #ef4444)');
+        return;
+      }
+
+      if (hCm < 50 || hCm > 260) {
+        resetBmi('请输入真实合理的身高 (50~260 cm)', 'var(--accent-amber, #f59e0b)');
+        return;
+      }
+
+      if (wKg < 2 || wKg > 500) {
+        resetBmi('请输入真实合理的体重 (2~500 kg)', 'var(--accent-amber, #f59e0b)');
+        return;
+      }
+
+      const h = hCm / 100;
+      const w = wKg;
       const bmi = parseFloat((w / (h * h)).toFixed(1));
+      if (!isFinite(bmi) || isNaN(bmi)) {
+        resetBmi('计算数据异常');
+        return;
+      }
+
       bmiVal.textContent = bmi;
 
       // 理想体重区间 (18.5 ~ 23.9)

@@ -331,6 +331,17 @@
         Cloud-based converters upload confidential snapshots, employee ID badges, and copyrighted artwork to remote processing servers, risking data leaks. ToolNexus operates completely within client sandboxed V8 JavaScript engine. Each selected file is mapped via <code>URL.createObjectURL</code> to an off-screen HTML5 Canvas bitmap, transformed with GPU hardware acceleration, encoded directly via <code>canvas.toBlob()</code>, and bundled on-the-fly using <code>JSZip</code> without transmitting a single byte across the internet.
       </p>
 
+      <!-- How-to Guide Section -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">How to Use This Image Converter</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>Select Images:</strong> Click or drag one or multiple image files (JPG, PNG, WebP) into the batch conversion drop area.</li>
+          <li><strong>Adjust Target Format:</strong> Choose your desired output format from the dropdown menu (such as modern high-compression WebP, transparent PNG, or universal JPG).</li>
+          <li><strong>Click Convert:</strong> Transcode images instantaneously using the browser's hardware-accelerated Canvas engine.</li>
+          <li><strong>Download Files:</strong> Download individual converted images directly or click <em>📦 Download All as ZIP</em> to retrieve the entire batch in a single archive.</li>
+        </ol>
+      </section>
+
       <!-- FAQ Section -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">
@@ -362,7 +373,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">

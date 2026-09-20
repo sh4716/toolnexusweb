@@ -151,9 +151,10 @@
 
         <!-- Text Panel -->
         <div id="panel-text">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <button type="button" class="btn btn-primary btn-sm" onclick="encodeText()">Encode Text ➔</button>
             <button type="button" class="btn btn-secondary btn-sm" onclick="decodeText()">Decode Base64 ➔</button>
+            <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="swapB64()">⇄ Swap</button>
             <button type="button" class="btn btn-ghost btn-sm" style="border:1px solid var(--border-color);" onclick="clearB64()">Clear</button>
           </div>
 
@@ -235,6 +236,17 @@
             For example: <code>&lt;img src="data:image/png;base64,iVBORw0KGgo..." /&gt;</code> allows instant asset rendering without triggering additional DNS lookups or HTTP requests.
           </p>
 
+          <!-- How-to Guide Section -->
+          <section style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">How to Use This Base64 Converter</h3>
+            <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+              <li><strong>Select Mode:</strong> Choose between <em>Text Base64</em>, <em>File to Base64</em>, or <em>Base64 to Image</em> depending on your workflow.</li>
+              <li><strong>Input Data:</strong> Paste plain text or encoded Base64 strings into the editor, or upload an image file to extract its Data URI representation.</li>
+              <li><strong>Click Convert:</strong> Click <em>Encode Text ➔</em> to produce ASCII-safe Base64 strings or <em>Decode Base64 ➔</em> to restore raw text with full UTF-8 support.</li>
+              <li><strong>Copy or Save:</strong> Use the one-click <em>Copy</em> button to copy the encoded string or Data URI directly to your clipboard.</li>
+            </ol>
+          </section>
+
           <!-- Detailed FAQs -->
           <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">Frequently Asked Questions (FAQ)</h2>
           <div style="display: grid; gap: 1rem;">
@@ -271,14 +283,87 @@
         });
       }
 
+      function safeBase64Decode(input, lang) {
+        const isZh = lang === 'zh';
+        let raw = (input || '').trim();
+        if (!raw) {
+          return {
+            success: false,
+            error: isZh ? '请先输入待解码的 Base64 字符串' : 'Please enter a Base64 string to decode'
+          };
+        }
+
+        // Strip Data URL prefix if present (e.g. data:text/plain;base64, or data:image/png;base64,)
+        raw = raw.replace(/^data:[^;]*;base64,/i, '').trim();
+
+        // Strip all whitespace (spaces, newlines, carriage returns, tabs)
+        raw = raw.replace(/\s+/g, '');
+
+        // Support URL-safe Base64 (- to +, _ to /)
+        raw = raw.replace(/-/g, '+').replace(/_/g, '/');
+
+        // Check for illegal characters
+        const illegalMatch = raw.match(/[^A-Za-z0-9+/=]/g);
+        if (illegalMatch) {
+          const uniqueBad = Array.from(new Set(illegalMatch));
+          const badDisplay = uniqueBad.slice(0, 5).map(c => '"' + c + '"').join(', ');
+          return {
+            success: false,
+            error: isZh
+              ? `Base64 包含非法字符 ${badDisplay}（仅允许 A-Z、a-z、0-9、+、/ 及 =）`
+              : `Base64 contains invalid character(s): ${badDisplay} (only A-Z, a-z, 0-9, +, /, and = allowed)`
+          };
+        }
+
+        // Handle padding
+        const unpadded = raw.replace(/=+$/, '');
+        const remainder = unpadded.length % 4;
+        if (remainder === 1) {
+          return {
+            success: false,
+            error: isZh
+              ? 'Base64 字符串残缺：字符位数异常（单个字符仅 6-bit，无法构成有效字节）'
+              : 'Truncated Base64 string: invalid length (single trailing character cannot form a byte)'
+          };
+        }
+
+        // Auto-pad missing '='
+        const padded = remainder === 0 ? unpadded : unpadded + '='.repeat(4 - remainder);
+
+        let binString;
+        try {
+          binString = atob(padded);
+        } catch (err) {
+          return {
+            success: false,
+            error: isZh
+              ? `Base64 解码异常：字符串残缺或格式损坏 (${err.message || '格式错误'})`
+              : `Base64 decode failed: corrupted or malformed string (${err.message || 'Invalid format'})`
+          };
+        }
+
+        // Safely decode binary string to UTF-8 text
+        try {
+          const bytes = new Uint8Array(binString.length);
+          for (let i = 0; i < binString.length; i++) {
+            bytes[i] = binString.charCodeAt(i);
+          }
+          const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+          return { success: true, result: text };
+        } catch (e) {
+          return { success: true, result: binString };
+        }
+      }
+
       function renderB64Image() {
         let val = document.getElementById('input-b64-restore').value.trim();
         if (!val) {
           showToast('Please paste a Base64 string first', 'warning');
           return;
         }
+        val = val.replace(/\s+/g, '');
         if (!val.startsWith('data:image/')) {
-          val = 'data:image/png;base64,' + val;
+          val = 'data:image/png;base64,' + val.replace(/^data:[^;]*;base64,/i, '');
         }
         const img = document.getElementById('restore-img-el');
         img.onload = () => {
@@ -287,7 +372,9 @@
           showToast('Image rendered successfully!', 'success');
         };
         img.onerror = () => {
-          showToast('Invalid Base64 image data', 'error');
+          document.getElementById('restore-preview-box').style.display = 'none';
+          document.getElementById('btn-dl-restored').style.display = 'none';
+          showToast('Invalid or corrupted Base64 image data', 'error');
         };
         img.src = val;
       }
@@ -304,6 +391,10 @@
 
       function encodeText() {
         const text = document.getElementById('b64-plain').value;
+        if (!text) {
+          showToast('Please enter text to encode', 'warning');
+          return;
+        }
         try {
           const bytes = new TextEncoder().encode(text);
           let bin = '';
@@ -316,20 +407,38 @@
       }
 
       function decodeText() {
-        const b64 = document.getElementById('b64-encoded').value.trim();
-        try {
-          const bin = atob(b64);
-          const bytes = new Uint8Array(bin.length);
-          for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-          document.getElementById('b64-plain').value = new TextDecoder().decode(bytes);
+        let b64 = document.getElementById('b64-encoded').value;
+        const plainInput = document.getElementById('b64-plain').value;
+        // Fallback: if b64-encoded is empty and plain textarea has input
+        if (!b64.trim() && plainInput.trim()) {
+          b64 = plainInput;
+        }
+        const res = safeBase64Decode(b64, 'en');
+        if (res.success) {
+          document.getElementById('b64-plain').value = res.result;
           showToast('Decoded successfully!', 'success');
-        } catch (e) {
-          showToast('Invalid Base64 string', 'error');
+        } else {
+          document.getElementById('b64-plain').value = '[Decode Error] ' + res.error;
+          showToast(res.error, 'error');
         }
       }
 
+      function swapB64() {
+        const p = document.getElementById('b64-plain');
+        const e = document.getElementById('b64-encoded');
+        const tmp = p.value;
+        p.value = e.value;
+        e.value = tmp;
+        showToast('Swapped plain text and Base64', 'info');
+      }
+
       function copyB64() {
-        copyToClipboard(document.getElementById('b64-encoded').value);
+        const val = document.getElementById('b64-encoded').value;
+        if (!val) {
+          showToast('Nothing to copy', 'warning');
+          return;
+        }
+        copyToClipboard(val);
       }
 
       function clearB64() {
@@ -348,7 +457,12 @@
       }
 
       function copyDataUrl() {
-        copyToClipboard(document.getElementById('file-b64-out').value);
+        const val = document.getElementById('file-b64-out').value;
+        if (!val) {
+          showToast('No Data URL to copy', 'warning');
+          return;
+        }
+        copyToClipboard(val);
       }
 
       window.addEventListener('DOMContentLoaded', () => {
@@ -365,7 +479,7 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file tracking, absolute privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">

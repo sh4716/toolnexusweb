@@ -326,6 +326,17 @@
         为了彻底杜绝任何泄密隐患，本工具核心基于 HTML5 Canvas 2D 上下文渲染。用户选择文件后，通过 <code>FileReader.readAsDataURL</code> 将图像装载入浏览器 RAM 内存中，使用 <code>ctx.rotate(-25 * Math.PI / 180)</code> 与双重循环网格坐标系统进行栅格化平铺绘制，最后通过 <code>canvas.toBlob()</code> 直接由浏览器内核生成下载流。无论电脑处于有网或完全断网飞行模式，均可 100% 顺畅工作。
       </p>
 
+      <!-- 快速使用步骤指南 -->
+      <section style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--text-main);">快速使用步骤指南</h3>
+        <ol style="color: var(--text-muted); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li><strong>载入证件图：</strong> 点击上传或直接拖入身份证、护照、驾照、营业执照等重要证件图片。</li>
+          <li><strong>定制水印文案：</strong> 在水印文字框中输入规范防冒用声明（如“仅供办理某某业务核验使用 他用无效”），并根据证件背景深浅微调字号、透明度、颜色与倾斜度。</li>
+          <li><strong>实时排版校验：</strong> 观察画布中的全幅平铺效果，确认水印纹路致密覆盖头像、身份证号等要害部位，且不遮盖字迹可读性。</li>
+          <li><strong>安全下载：</strong> 点击 <em>💾 下载已加水印的高清证件图</em> 保存到本地，纯前端 Canvas 绘制，从源头杜绝个人隐私被黑产嗅探。</li>
+        </ol>
+      </section>
+
       <!-- FAQ 常见问题 -->
       <h2 style="font-size: 1.4rem; font-weight: 800; margin: 2rem 0 1rem; color: var(--text-main);">常见问题解答 (FAQ)</h2>
       <div style="display: grid; gap: 1rem;">
