@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
+
 <head>
+  <script src="/assets/js/theme.js"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFRY3P3VWN"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-MFRY3P3VWN');
@@ -15,19 +17,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="baidu-site-verification" content="codeva-EyuCxTBN4B">
-  <title>ToolNexus Web - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private</title>
-  <meta name="description" content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools: CSV/JSON Converter, Cron Parser, HTML Encoder, Zero-Width Inspector, Age Calculator, UUID Generator, Strong Password Generator, PDF Tools, and Image Compressors. 100% Client-Side. Zero Server Uploads.">
-  <meta name="keywords" content="free online tools, csv to json, cron parser, html encoder, zero width inspector, age calculator, percentage calculator, uuid generator, password generator, pdf merge, image compress, client side tools, private utilities">
-    <link rel="canonical" href="https://toolnexusweb.com/">
+  <title>ToolNexus Web - Fast, In-Browser Utility Toolkit | Private</title>
+  <meta name="description"
+    content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools: CSV/JSON Converter, Cron Parser, HTML Encoder, Zero-Width Inspector, Age Calculator, UUID Generator, Strong Password Generator, PDF Tools, and Image Compressors. 100% Client-Side. Zero Server Uploads.">
+  <meta name="keywords"
+    content="free online tools, csv to json, cron parser, html encoder, zero width inspector, age calculator, percentage calculator, uuid generator, password generator, pdf merge, image compress, client side tools, private utilities">
+  <link rel="canonical" href="https://toolnexusweb.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus Web">
   <meta property="og:url" content="https://toolnexusweb.com/">
-  <meta property="og:title" content="ToolNexus Web - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private">
-  <meta property="og:description" content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools. 100% Client-Side. Zero Server Uploads.">
+  <meta property="og:title"
+    content="ToolNexus Web - Fast, In-Browser Utility Toolkit | Private">
+  <meta property="og:description"
+    content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools. 100% Client-Side. Zero Server Uploads.">
   <meta property="og:image" content="https://toolnexusweb.com/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ToolNexus Web - Free, In-Browser Developer & Everyday Utility Toolkit | 100% Private">
-  <meta name="twitter:description" content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools. 100% Client-Side. Zero Server Uploads.">
+  <meta name="twitter:title"
+    content="ToolNexus Web - Fast, In-Browser Utility Toolkit | Private">
+  <meta name="twitter:description"
+    content="ToolNexus Web is an ultra-fast suite of in-browser productivity tools. 100% Client-Side. Zero Server Uploads.">
   <meta name="twitter:image" content="https://toolnexusweb.com/logo.png">
   <link rel="stylesheet" href="/assets/css/design-tokens.css">
   <link rel="stylesheet" href="/assets/css/common.css">
@@ -89,6 +97,7 @@
       max-width: 860px;
       margin: 0 auto;
     }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -103,6 +112,7 @@
       margin-bottom: 1.5rem;
       box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
     }
+
     .hero-title {
       font-size: 3rem;
       font-weight: 800;
@@ -113,16 +123,19 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     [data-theme="light"] .hero-title {
       background: linear-gradient(135deg, #0f172a 40%, #475569 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero-title span {
       background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero-desc {
       font-size: 1.15rem;
       color: var(--text-muted);
@@ -132,11 +145,13 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .hero-search-wrap {
       max-width: 600px;
       margin: 0 auto 2.5rem;
       position: relative;
     }
+
     .hero-search-input {
       width: 100%;
       padding: 1rem 1.25rem 1rem 3rem;
@@ -148,11 +163,13 @@
       box-shadow: var(--shadow-lg);
       transition: all var(--transition-base);
     }
+
     .hero-search-input:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
     }
+
     .hero-search-icon {
       position: absolute;
       left: 1.15rem;
@@ -170,6 +187,7 @@
       flex-wrap: wrap;
       margin-bottom: 2.5rem;
     }
+
     .cat-nav-btn {
       padding: 0.55rem 1.25rem;
       border-radius: var(--radius-full);
@@ -181,11 +199,13 @@
       cursor: pointer;
       transition: all var(--transition-fast);
     }
+
     .cat-nav-btn:hover {
       color: var(--text-main);
       border-color: var(--border-color);
       transform: translateY(-1px);
     }
+
     .cat-nav-btn.active {
       background: var(--primary);
       color: #ffffff;
@@ -200,6 +220,7 @@
       gap: 1.5rem;
       margin-bottom: 4rem;
     }
+
     .tool-item-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -212,11 +233,13 @@
       position: relative;
       overflow: hidden;
     }
+
     .tool-item-card:hover {
       border-color: var(--primary-border);
       transform: translateY(-3px);
       box-shadow: var(--shadow-lg);
     }
+
     .tool-icon-wrap {
       width: 48px;
       height: 48px;
@@ -229,18 +252,21 @@
       font-size: 1.6rem;
       margin-bottom: 1rem;
     }
+
     .tool-card-title {
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 0.4rem;
     }
+
     .tool-card-desc {
       font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.6;
       flex-grow: 1;
     }
+
     .tool-card-badges {
       margin-top: 1rem;
       display: flex;
@@ -255,23 +281,28 @@
       padding: 3rem 2rem;
       margin-bottom: 4rem;
     }
+
     .trust-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
     }
+
     .trust-card {
       text-align: center;
     }
+
     .trust-card-icon {
       font-size: 2.2rem;
       margin-bottom: 0.75rem;
     }
+
     .trust-card-title {
       font-size: 1.15rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
+
     .trust-card-desc {
       font-size: 0.88rem;
       color: var(--text-muted);
@@ -279,13 +310,18 @@
     }
   </style>
 
-  <script src="/assets/js/utils.js"></script></head>
+  <script src="/assets/js/utils.js"></script>
+</head>
+
 <body>
   <header class="site-header">
     <div class="header-inner" style="justify-content: flex-end;">
       <div class="header-actions">
-        <a href="/zh/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="切换至中文版">🌐 中文</a>
-        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme" title="Toggle Theme">
+        <a href="/zh/" id="lang-switcher" class="btn-sm btn-ghost"
+          style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);"
+          title="切换至中文版">🌐 中文</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()"
+          aria-label="Toggle Theme" title="Toggle Theme">
           <span class="theme-toggle-icon">🌙</span>
         </button>
       </div>
@@ -293,6 +329,15 @@
   </header>
 
   <main class="page-container" style="max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem;">
+    <!-- Brand Title (Top-Left) -->
+    <a href="/"
+      style="display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; margin-bottom: 0.5rem; opacity: 0.95; transition: opacity var(--transition-fast);"
+      onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.95'">
+      <img src="/favicon.svg" alt="ToolNexus" style="width: 50px; height: 50px; object-fit: contain; display: block;">
+      <span style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.02em;">ToolNexusWeb
+        Toolkit</span>
+    </a>
+
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-badge">
@@ -304,19 +349,24 @@
         <span>Everyday & Developer Tools</span>
       </h1>
       <p class="hero-desc">
-        Calculate ages, percentages, tips, and wages. Generate secure passwords and UUIDs. Compress images, format JSON, and merge PDFs entirely inside your browser memory.
+        Calculate ages, percentages, tips, and wages. Generate secure passwords and UUIDs. Compress images, format JSON,
+        and merge PDFs entirely inside your browser memory.
       </p>
 
       <div class="hero-search-wrap">
         <span class="hero-search-icon">🔍</span>
-        <input type="text" id="home-search" class="hero-search-input" placeholder="Search across all 39 tools... (e.g. age, percentage, tip, password, pdf, json)" oninput="filterTools(this.value)">
+        <input type="text" id="home-search" class="hero-search-input"
+          placeholder="Search across all 39 tools... (e.g. age, percentage, tip, password, pdf, json)"
+          oninput="filterTools(this.value)">
       </div>
 
       <!-- Category Tabs -->
       <div class="cat-nav-wrapper" id="category-tabs">
         <button class="cat-nav-btn active" data-cat="all" onclick="selectCategory('all', this)">All Tools (39)</button>
-        <button class="cat-nav-btn" data-cat="calculator" onclick="selectCategory('calculator', this)">Calculators & Finance</button>
-        <button class="cat-nav-btn" data-cat="developer" onclick="selectCategory('developer', this)">Developer & Security</button>
+        <button class="cat-nav-btn" data-cat="calculator" onclick="selectCategory('calculator', this)">Calculators &
+          Finance</button>
+        <button class="cat-nav-btn" data-cat="developer" onclick="selectCategory('developer', this)">Developer &
+          Security</button>
         <button class="cat-nav-btn" data-cat="pdf" onclick="selectCategory('pdf', this)">PDF & Documents</button>
         <button class="cat-nav-btn" data-cat="image" onclick="selectCategory('image', this)">Image Utilities</button>
         <button class="cat-nav-btn" data-cat="text" onclick="selectCategory('text', this)">Text & Writing</button>
@@ -328,134 +378,172 @@
       <div class="tools-grid" id="tools-container">
 
         <!-- Rotate PDF -->
-        <a href="/tools/pdf-rotate/" class="tool-item-card" data-cat="pdf" data-keywords="pdf rotate 90 180 degrees upside down orientation fix">
+        <a href="/tools/pdf-rotate/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf rotate 90 180 degrees upside down orientation fix">
           <div class="tool-icon-wrap">🔄</div>
           <div class="tool-card-title">Rotate PDF Pages</div>
-          <div class="tool-card-desc">Rotate all pages or individual upside-down pages clockwise or counter-clockwise (90°, 180°).</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span class="badge badge-success">Instant</span></div>
+          <div class="tool-card-desc">Rotate all pages or individual upside-down pages clockwise or counter-clockwise
+            (90°, 180°).</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span
+              class="badge badge-success">Instant</span></div>
         </a>
 
         <!-- Sign PDF -->
-        <a href="/tools/pdf-sign/" class="tool-item-card" data-cat="pdf" data-keywords="pdf sign signature electronic docusign contract draw handwriting legal">
+        <a href="/tools/pdf-sign/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf sign signature electronic docusign contract draw handwriting legal">
           <div class="tool-icon-wrap">✍️</div>
           <div class="tool-card-title">Sign PDF Document</div>
-          <div class="tool-card-desc">Draw handwritten signature or type cursive name, drag to position on contract, and download.</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">POPULAR</span><span class="badge badge-success">100% Private</span></div>
+          <div class="tool-card-desc">Draw handwritten signature or type cursive name, drag to position on contract, and
+            download.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">POPULAR</span><span
+              class="badge badge-success">100% Private</span></div>
         </a>
 
         <!-- Add Page Numbers -->
-        <a href="/tools/pdf-page-numbers/" class="tool-item-card" data-cat="pdf" data-keywords="pdf page numbers numbering header footer page 1 of n thesis legal">
+        <a href="/tools/pdf-page-numbers/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf page numbers numbering header footer page 1 of n thesis legal">
           <div class="tool-icon-wrap">🔢</div>
           <div class="tool-card-title">Add Page Numbers to PDF</div>
-          <div class="tool-card-desc">Automatically insert "Page 1 of N" or custom page numbering with position and font options.</div>
+          <div class="tool-card-desc">Automatically insert "Page 1 of N" or custom page numbering with position and font
+            options.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
         </a>
         <!-- 1. Age Calculator -->
-        <a href="/tools/age-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="age birth birthday calculate chronological zodiac days">
+        <a href="/tools/age-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="age birth birthday calculate chronological zodiac days">
           <div class="tool-icon-wrap">🎂</div>
           <div class="tool-card-title">Age Calculator</div>
-          <div class="tool-card-desc">Calculate exact age in years, months, and days, next birthday countdown, and life milestones.</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">HOT</span><span class="badge badge-success">100% Local</span></div>
+          <div class="tool-card-desc">Calculate exact age in years, months, and days, next birthday countdown, and life
+            milestones.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">HOT</span><span
+              class="badge badge-success">100% Local</span></div>
         </a>
 
         <!-- 2. Percentage Calculator -->
-        <a href="/tools/percentage-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="percentage percent increase decrease discount tax proportion math">
+        <a href="/tools/percentage-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="percentage percent increase decrease discount tax proportion math">
           <div class="tool-icon-wrap">📐</div>
           <div class="tool-card-title">Percentage Calculator</div>
-          <div class="tool-card-desc">Calculate what is X% of Y, percentage change, increase/decrease, and shopping discounts with sales tax.</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">HOT</span><span class="badge badge-success">Instant</span></div>
+          <div class="tool-card-desc">Calculate what is X% of Y, percentage change, increase/decrease, and shopping
+            discounts with sales tax.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">HOT</span><span
+              class="badge badge-success">Instant</span></div>
         </a>
 
         <!-- 3. Tip Calculator -->
-        <a href="/tools/tip-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="tip bill split restaurant dining food share">
+        <a href="/tools/tip-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="tip bill split restaurant dining food share">
           <div class="tool-icon-wrap">🧾</div>
           <div class="tool-card-title">Tip & Bill Splitter</div>
-          <div class="tool-card-desc">Calculate restaurant tips, split bills equally among friends, and round up per-person totals.</div>
+          <div class="tool-card-desc">Calculate restaurant tips, split bills equally among friends, and round up
+            per-person totals.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">HOT</span></div>
         </a>
 
         <!-- 4. Salary Calculator -->
-        <a href="/tools/salary-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="salary wage hourly annual pay overtime biweekly paycheck income">
+        <a href="/tools/salary-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="salary wage hourly annual pay overtime biweekly paycheck income">
           <div class="tool-icon-wrap">💼</div>
           <div class="tool-card-title">Salary & Wage Calculator</div>
-          <div class="tool-card-desc">Convert hourly wages to annual, monthly, bi-weekly, and daily income with 1.5x overtime options.</div>
+          <div class="tool-card-desc">Convert hourly wages to annual, monthly, bi-weekly, and daily income with 1.5x
+            overtime options.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">HOT</span></div>
         </a>
 
         <!-- 5. UUID Generator -->
-        <a href="/tools/uuid-generator/" class="tool-item-card" data-cat="developer" data-keywords="uuid guid v4 random rfc4122 crypto unique id identifier">
+        <a href="/tools/uuid-generator/" class="tool-item-card" data-cat="developer"
+          data-keywords="uuid guid v4 random rfc4122 crypto unique id identifier">
           <div class="tool-icon-wrap">🆔</div>
           <div class="tool-card-title">UUID / GUID Generator</div>
-          <div class="tool-card-desc">Bulk generate cryptographically secure RFC 4122 Version 4 UUIDs using crypto.randomUUID().</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span class="badge badge-success">Crypto Secure</span></div>
+          <div class="tool-card-desc">Bulk generate cryptographically secure RFC 4122 Version 4 UUIDs using
+            crypto.randomUUID().</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span
+              class="badge badge-success">Crypto Secure</span></div>
         </a>
 
         <!-- 6. Case Converter -->
-        <a href="/tools/case-converter/" class="tool-item-card" data-cat="text" data-keywords="case converter title uppercase lowercase camelcase snakecase capitalizer">
+        <a href="/tools/case-converter/" class="tool-item-card" data-cat="text"
+          data-keywords="case converter title uppercase lowercase camelcase snakecase capitalizer">
           <div class="tool-icon-wrap">🔤</div>
           <div class="tool-card-title">Text Case Converter</div>
-          <div class="tool-card-desc">Transform text to Title Case (AP/Chicago style), Sentence case, UPPERCASE, camelCase, and snake_case.</div>
+          <div class="tool-card-desc">Transform text to Title Case (AP/Chicago style), Sentence case, UPPERCASE,
+            camelCase, and snake_case.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
         </a>
 
         <!-- 7. Strong Password Generator -->
-        <a href="/tools/password-generator/" class="tool-item-card" data-cat="developer" data-keywords="password strong secure generator crypto random credentials">
+        <a href="/tools/password-generator/" class="tool-item-card" data-cat="developer"
+          data-keywords="password strong secure generator crypto random credentials">
           <div class="tool-icon-wrap">🔑</div>
           <div class="tool-card-title">Strong Password Generator</div>
-          <div class="tool-card-desc">Hardware-entropy random password generator with customizable length, symbols, and strength score.</div>
+          <div class="tool-card-desc">Hardware-entropy random password generator with customizable length, symbols, and
+            strength score.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">TOP 1</span></div>
         </a>
 
         <!-- 8. Mortgage Calculator -->
-        <a href="/tools/mortgage-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="mortgage loan home interest payment amortization house finance">
+        <a href="/tools/mortgage-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="mortgage loan home interest payment amortization house finance">
           <div class="tool-icon-wrap">🏠</div>
           <div class="tool-card-title">Mortgage Calculator</div>
-          <div class="tool-card-desc">Calculate monthly principal and interest payments, total loan cost, and amortization schedule.</div>
+          <div class="tool-card-desc">Calculate monthly principal and interest payments, total loan cost, and
+            amortization schedule.</div>
           <div class="tool-card-badges"><span class="badge badge-success">Finance</span></div>
         </a>
 
         <!-- 9. BMI Calculator -->
-        <a href="/tools/bmi-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="bmi body mass index weight height health fitness ideal weight">
+        <a href="/tools/bmi-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="bmi body mass index weight height health fitness ideal weight">
           <div class="tool-icon-wrap">🏃</div>
           <div class="tool-card-title">BMI Health Calculator</div>
-          <div class="tool-card-desc">Body Mass Index calculator with Metric and Imperial units, WHO standards, and healthy weight targets.</div>
+          <div class="tool-card-desc">Body Mass Index calculator with Metric and Imperial units, WHO standards, and
+            healthy weight targets.</div>
           <div class="tool-card-badges"><span class="badge badge-success">Health</span></div>
         </a>
 
         <!-- 10. Universal Unit Converter -->
-        <a href="/tools/unit-converter/" class="tool-item-card" data-cat="calculator" data-keywords="unit convert metric imperial length weight temp storage area speed">
+        <a href="/tools/unit-converter/" class="tool-item-card" data-cat="calculator"
+          data-keywords="unit convert metric imperial length weight temp storage area speed">
           <div class="tool-icon-wrap">📐</div>
           <div class="tool-card-title">Unit Converter</div>
-          <div class="tool-card-desc">All-in-one converter for length, weight, temperature, data storage, area, and speed.</div>
+          <div class="tool-card-desc">All-in-one converter for length, weight, temperature, data storage, area, and
+            speed.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 11. QR Code Generator -->
-        <a href="/tools/qrcode-generator/" class="tool-item-card" data-cat="developer" data-keywords="qr code qrcode generator wifi url text download png">
+        <a href="/tools/qrcode-generator/" class="tool-item-card" data-cat="developer"
+          data-keywords="qr code qrcode generator wifi url text download png">
           <div class="tool-icon-wrap">📱</div>
           <div class="tool-card-title">QR Code Generator</div>
-          <div class="tool-card-desc">Generate high-resolution custom QR codes for websites, plain text, and Wi-Fi networks.</div>
+          <div class="tool-card-desc">Generate high-resolution custom QR codes for websites, plain text, and Wi-Fi
+            networks.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 12. JSON Formatter -->
-        <a href="/tools/json-formatter/" class="tool-item-card" data-cat="developer" data-keywords="json format prettify minify validate parser debug syntax">
+        <a href="/tools/json-formatter/" class="tool-item-card" data-cat="developer"
+          data-keywords="json format prettify minify validate parser debug syntax">
           <div class="tool-icon-wrap">🌲</div>
           <div class="tool-card-title">JSON Formatter & Validator</div>
-          <div class="tool-card-desc">Prettify, minify, and validate JSON data with instant syntax error pinpointing.</div>
+          <div class="tool-card-desc">Prettify, minify, and validate JSON data with instant syntax error pinpointing.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 13. Unix Timestamp Converter -->
-        <a href="/tools/timestamp/" class="tool-item-card" data-cat="developer" data-keywords="timestamp unix epoch seconds milliseconds time clock date">
+        <a href="/tools/timestamp/" class="tool-item-card" data-cat="developer"
+          data-keywords="timestamp unix epoch seconds milliseconds time clock date">
           <div class="tool-icon-wrap">⏱️</div>
           <div class="tool-card-title">Unix Timestamp Converter</div>
-          <div class="tool-card-desc">Convert epoch timestamps to readable UTC and local dates with a live system clock.</div>
+          <div class="tool-card-desc">Convert epoch timestamps to readable UTC and local dates with a live system clock.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 14. Base64 Encoder / Decoder -->
-        <a href="/tools/base64-converter/" class="tool-item-card" data-cat="developer" data-keywords="base64 encode decode text image dataurl binary utf8">
+        <a href="/tools/base64-converter/" class="tool-item-card" data-cat="developer"
+          data-keywords="base64 encode decode text image dataurl binary utf8">
           <div class="tool-icon-wrap">⚡</div>
           <div class="tool-card-title">Base64 Encoder & Decoder</div>
           <div class="tool-card-desc">Encode and decode UTF-8 text and binary images into Base64 and DataURLs.</div>
@@ -463,95 +551,118 @@
         </a>
 
         <!-- 15. URL Encoder / Decoder -->
-        <a href="/tools/url-encoder/" class="tool-item-card" data-cat="developer" data-keywords="url encode decode uri query params escape">
+        <a href="/tools/url-encoder/" class="tool-item-card" data-cat="developer"
+          data-keywords="url encode decode uri query params escape">
           <div class="tool-icon-wrap">🔗</div>
           <div class="tool-card-title">URL Encoder & Decoder</div>
-          <div class="tool-card-desc">Encode and decode URI components and inspect URL query parameters in an editable table.</div>
+          <div class="tool-card-desc">Encode and decode URI components and inspect URL query parameters in an editable
+            table.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 16. Hash Calculator -->
-        <a href="/tools/hash-calc/" class="tool-item-card" data-cat="developer" data-keywords="hash sha256 sha512 sha1 md5 checksum crypto digest">
+        <a href="/tools/hash-calc/" class="tool-item-card" data-cat="developer"
+          data-keywords="hash sha256 sha512 sha1 md5 checksum crypto digest">
           <div class="tool-icon-wrap">🔒</div>
           <div class="tool-card-title">Hash Calculator (SHA-256)</div>
-          <div class="tool-card-desc">Compute cryptographic SHA-256, SHA-512, and SHA-1 checksums with hardware acceleration.</div>
+          <div class="tool-card-desc">Compute cryptographic SHA-256, SHA-512, and SHA-1 checksums with hardware
+            acceleration.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 17. JWT Token Decoder -->
-        <a href="/tools/jwt-decoder/" class="tool-item-card" data-cat="developer" data-keywords="jwt token decode header payload exp json web token auth">
+        <a href="/tools/jwt-decoder/" class="tool-item-card" data-cat="developer"
+          data-keywords="jwt token decode header payload exp json web token auth">
           <div class="tool-icon-wrap">🎫</div>
           <div class="tool-card-title">JWT Token Decoder</div>
-          <div class="tool-card-desc">Inspect JSON Web Token headers, claims, and token expiration status safely in your browser.</div>
+          <div class="tool-card-desc">Inspect JSON Web Token headers, claims, and token expiration status safely in your
+            browser.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 18. Word Counter -->
-        <a href="/tools/word-counter/" class="tool-item-card" data-cat="text" data-keywords="word count character count sentences reading time text stats">
+        <a href="/tools/word-counter/" class="tool-item-card" data-cat="text"
+          data-keywords="word count character count sentences reading time text stats">
           <div class="tool-icon-wrap">📊</div>
           <div class="tool-card-title">Word & Character Counter</div>
-          <div class="tool-card-desc">Real-time word, character, sentence, paragraph, and reading duration counter.</div>
+          <div class="tool-card-desc">Real-time word, character, sentence, paragraph, and reading duration counter.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 19. Color Converter -->
-        <a href="/tools/color-converter/" class="tool-item-card" data-cat="developer" data-keywords="color hex rgb hsl palette gradient css web design">
+        <a href="/tools/color-converter/" class="tool-item-card" data-cat="developer"
+          data-keywords="color hex rgb hsl palette gradient css web design">
           <div class="tool-icon-wrap">🎨</div>
           <div class="tool-card-title">Color Converter & Palette</div>
-          <div class="tool-card-desc">Convert colors between HEX, RGB, and HSL with visual palette picker and CSS code.</div>
+          <div class="tool-card-desc">Convert colors between HEX, RGB, and HSL with visual palette picker and CSS code.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 20. Lorem Ipsum Generator -->
-        <a href="/tools/lorem-generator/" class="tool-item-card" data-cat="text" data-keywords="lorem ipsum dummy text placeholder generator paragraphs">
+        <a href="/tools/lorem-generator/" class="tool-item-card" data-cat="text"
+          data-keywords="lorem ipsum dummy text placeholder generator paragraphs">
           <div class="tool-icon-wrap">📄</div>
           <div class="tool-card-title">Lorem Ipsum Generator</div>
-          <div class="tool-card-desc">Generate customized Latin dummy text by paragraphs, sentences, or word counts.</div>
+          <div class="tool-card-desc">Generate customized Latin dummy text by paragraphs, sentences, or word counts.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 21. Text Diff Checker -->
-        <a href="/tools/text-diff/" class="tool-item-card" data-cat="text" data-keywords="text diff compare difference git changes lines comparator">
+        <a href="/tools/text-diff/" class="tool-item-card" data-cat="text"
+          data-keywords="text diff compare difference git changes lines comparator">
           <div class="tool-icon-wrap">📝</div>
           <div class="tool-card-title">Text Diff Checker</div>
-          <div class="tool-card-desc">Compare two text snippets or code files with side-by-side addition and deletion highlights.</div>
+          <div class="tool-card-desc">Compare two text snippets or code files with side-by-side addition and deletion
+            highlights.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 22. Regex Tester -->
-        <a href="/tools/regex-tester/" class="tool-item-card" data-cat="developer" data-keywords="regex regular expression test match pattern flags group">
+        <a href="/tools/regex-tester/" class="tool-item-card" data-cat="developer"
+          data-keywords="regex regular expression test match pattern flags group">
           <div class="tool-icon-wrap">🎯</div>
           <div class="tool-card-title">Regex Tester</div>
-          <div class="tool-card-desc">Test regular expressions with real-time match highlighting and preset syntax templates.</div>
+          <div class="tool-card-desc">Test regular expressions with real-time match highlighting and preset syntax
+            templates.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 23. Image Compressor -->
-        <a href="/tools/image-compress/" class="tool-item-card" data-cat="image" data-keywords="image compress shrink jpg png webp optimize reduce size">
+        <a href="/tools/image-compress/" class="tool-item-card" data-cat="image"
+          data-keywords="image compress shrink jpg png webp optimize reduce size">
           <div class="tool-icon-wrap">🗜️</div>
           <div class="tool-card-title">Image Compressor</div>
-          <div class="tool-card-desc">Compress JPG, PNG, and WebP images client-side with quality sliders and instant preview.</div>
+          <div class="tool-card-desc">Compress JPG, PNG, and WebP images client-side with quality sliders and instant
+            preview.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">HOT</span></div>
         </a>
 
         <!-- 24. Image Format Converter -->
-        <a href="/tools/image-converter/" class="tool-item-card" data-cat="image" data-keywords="image convert jpg png webp bmp batch zip">
+        <a href="/tools/image-converter/" class="tool-item-card" data-cat="image"
+          data-keywords="image convert jpg png webp bmp batch zip">
           <div class="tool-icon-wrap">🔄</div>
           <div class="tool-card-title">Image Format Converter</div>
-          <div class="tool-card-desc">Convert images between JPG, PNG, WebP, and BMP in batch with ZIP archive download.</div>
+          <div class="tool-card-desc">Convert images between JPG, PNG, WebP, and BMP in batch with ZIP archive download.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 25. Document Watermark -->
-        <a href="/tools/id-watermark/" class="tool-item-card" data-cat="image" data-keywords="watermark document photo id passport anti theft security">
+        <a href="/tools/id-watermark/" class="tool-item-card" data-cat="image"
+          data-keywords="watermark document photo id passport anti theft security">
           <div class="tool-icon-wrap">🛡️</div>
           <div class="tool-card-title">Document Watermark</div>
-          <div class="tool-card-desc">Add semi-transparent diagonal anti-theft watermarks to sensitive ID cards and documents.</div>
+          <div class="tool-card-desc">Add semi-transparent diagonal anti-theft watermarks to sensitive ID cards and
+            documents.</div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 26. Image to PDF -->
-        <a href="/tools/image-to-pdf/" class="tool-item-card" data-cat="pdf" data-keywords="image to pdf photos convert merge a4 document">
+        <a href="/tools/image-to-pdf/" class="tool-item-card" data-cat="pdf"
+          data-keywords="image to pdf photos convert merge a4 document">
           <div class="tool-icon-wrap">📑</div>
           <div class="tool-card-title">Image to PDF</div>
           <div class="tool-card-desc">Combine multiple photos and scanned pages into a standard A4 PDF document.</div>
@@ -559,15 +670,18 @@
         </a>
 
         <!-- 27. PDF Merger -->
-        <a href="/tools/pdf-merge/" class="tool-item-card" data-cat="pdf" data-keywords="pdf merge combine join multiple documents">
+        <a href="/tools/pdf-merge/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf merge combine join multiple documents">
           <div class="tool-icon-wrap">📑</div>
           <div class="tool-card-title">PDF Merger</div>
-          <div class="tool-card-desc">Merge multiple PDF documents into a single file with drag-and-drop page ordering.</div>
+          <div class="tool-card-desc">Merge multiple PDF documents into a single file with drag-and-drop page ordering.
+          </div>
           <div class="tool-card-badges"><span class="badge badge-primary">HOT</span></div>
         </a>
 
         <!-- 28. PDF Splitter -->
-        <a href="/tools/pdf-split/" class="tool-item-card" data-cat="pdf" data-keywords="pdf split extract pages range separate">
+        <a href="/tools/pdf-split/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf split extract pages range separate">
           <div class="tool-icon-wrap">✂️</div>
           <div class="tool-card-title">PDF Splitter</div>
           <div class="tool-card-desc">Extract page ranges or split every page into separate PDF files in seconds.</div>
@@ -575,7 +689,8 @@
         </a>
 
         <!-- 29. PDF to Image -->
-        <a href="/tools/pdf-to-image/" class="tool-item-card" data-cat="pdf" data-keywords="pdf to image png jpg render pages high res">
+        <a href="/tools/pdf-to-image/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf to image png jpg render pages high res">
           <div class="tool-icon-wrap">🖼️</div>
           <div class="tool-card-title">PDF to Image</div>
           <div class="tool-card-desc">Render and extract all PDF pages into high-resolution JPG or PNG images.</div>
@@ -583,7 +698,8 @@
         </a>
 
         <!-- 30. PDF Compressor -->
-        <a href="/tools/pdf-compress/" class="tool-item-card" data-cat="pdf" data-keywords="pdf compress optimize reduce file size stream">
+        <a href="/tools/pdf-compress/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf compress optimize reduce file size stream">
           <div class="tool-icon-wrap">📦</div>
           <div class="tool-card-title">PDF Compressor</div>
           <div class="tool-card-desc">Optimize and compress PDF document streams right in your browser memory.</div>
@@ -591,50 +707,64 @@
         </a>
 
         <!-- 31. Ad Copy & Jargon Checker -->
-        <a href="/tools/ad-checker/" class="tool-item-card" data-cat="text" data-keywords="ad checker copy writing jargon claims buzzwords marketing">
+        <a href="/tools/ad-checker/" class="tool-item-card" data-cat="text"
+          data-keywords="ad checker copy writing jargon claims buzzwords marketing">
           <div class="tool-icon-wrap">⚠️</div>
           <div class="tool-card-title">Ad Copy Jargon Checker</div>
-          <div class="tool-card-desc">Scan marketing headlines and ad copy for high-risk claims and overused buzzwords.</div>
+          <div class="tool-card-desc">Scan marketing headlines and ad copy for high-risk claims and overused buzzwords.
+          </div>
           <div class="tool-card-badges"></div>
         </a>
 
         <!-- 32. CSV to JSON Converter (NEW) -->
-        <a href="/tools/csv-json/" class="tool-item-card" data-cat="developer" data-keywords="csv json tsv excel spreadsheet table convert array object parse">
+        <a href="/tools/csv-json/" class="tool-item-card" data-cat="developer"
+          data-keywords="csv json tsv excel spreadsheet table convert array object parse">
           <div class="tool-icon-wrap">📊</div>
           <div class="tool-card-title">CSV ↔ JSON Converter</div>
-          <div class="tool-card-desc">Bi-directional table converter. Parse spreadsheets into JSON arrays or serialize JSON into RFC 4180 CSV tables.</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span class="badge badge-success">Bi-Directional</span></div>
+          <div class="tool-card-desc">Bi-directional table converter. Parse spreadsheets into JSON arrays or serialize
+            JSON into RFC 4180 CSV tables.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span
+              class="badge badge-success">Bi-Directional</span></div>
         </a>
 
         <!-- 33. Cron Expression Parser (NEW) -->
-        <a href="/tools/cron-parser/" class="tool-item-card" data-cat="developer" data-keywords="cron crontab expression schedule parser timing job linux unix devops">
+        <a href="/tools/cron-parser/" class="tool-item-card" data-cat="developer"
+          data-keywords="cron crontab expression schedule parser timing job linux unix devops">
           <div class="tool-icon-wrap">⏰</div>
           <div class="tool-card-title">Cron Expression Parser</div>
-          <div class="tool-card-desc">Translate Linux crontab schedules into plain human English and forecast the next 5 execution timestamps.</div>
+          <div class="tool-card-desc">Translate Linux crontab schedules into plain human English and forecast the next 5
+            execution timestamps.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
         </a>
 
         <!-- 34. HTML Entity Encoder & Decoder (NEW) -->
-        <a href="/tools/html-encoder/" class="tool-item-card" data-cat="developer" data-keywords="html entity encode decode escape unescape xss special characters symbols">
+        <a href="/tools/html-encoder/" class="tool-item-card" data-cat="developer"
+          data-keywords="html entity encode decode escape unescape xss special characters symbols">
           <div class="tool-icon-wrap">🔤</div>
           <div class="tool-card-title">HTML Entity Encoder & Decoder</div>
-          <div class="tool-card-desc">Escape reserved HTML characters into named, decimal, or hex entities to prevent XSS injection.</div>
+          <div class="tool-card-desc">Escape reserved HTML characters into named, decimal, or hex entities to prevent
+            XSS injection.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
         </a>
 
         <!-- 35. Zero-Width Character Inspector (NEW) -->
-        <a href="/tools/unicode-inspector/" class="tool-item-card" data-cat="text" data-keywords="zero width space invisible unicode watermark hidden characters bom shy sanitize">
+        <a href="/tools/unicode-inspector/" class="tool-item-card" data-cat="text"
+          data-keywords="zero width space invisible unicode watermark hidden characters bom shy sanitize">
           <div class="tool-icon-wrap">🔍</div>
           <div class="tool-card-title">Invisible Character Inspector</div>
-          <div class="tool-card-desc">Detect and strip invisible Unicode tracking watermarks, zero-width spaces (ZWSP), and hidden BOM artifacts.</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span class="badge badge-success">Privacy</span></div>
+          <div class="tool-card-desc">Detect and strip invisible Unicode tracking watermarks, zero-width spaces (ZWSP),
+            and hidden BOM artifacts.</div>
+          <div class="tool-card-badges"><span class="badge badge-primary">NEW</span><span
+              class="badge badge-success">Privacy</span></div>
         </a>
 
         <!-- 36. WCAG Color Contrast Checker (NEW) -->
-        <a href="/tools/color-contrast/" class="tool-item-card" data-cat="text" data-keywords="color contrast wcag accessibility a11y ratio luminance compliance design">
+        <a href="/tools/color-contrast/" class="tool-item-card" data-cat="text"
+          data-keywords="color contrast wcag accessibility a11y ratio luminance compliance design">
           <div class="tool-icon-wrap">🎨</div>
           <div class="tool-card-title">Color Contrast Checker</div>
-          <div class="tool-card-desc">Calculate luminance contrast ratios and validate WCAG 2.1 AA / AAA accessibility compliance in real time.</div>
+          <div class="tool-card-desc">Calculate luminance contrast ratios and validate WCAG 2.1 AA / AAA accessibility
+            compliance in real time.</div>
           <div class="tool-card-badges"><span class="badge badge-primary">NEW</span></div>
         </a>
       </div>
@@ -646,17 +776,20 @@
         <div class="trust-card">
           <div class="trust-card-icon">🔒</div>
           <div class="trust-card-title">100% In-Browser Privacy</div>
-          <div class="trust-card-desc">All calculations, conversions, and cryptographic operations run locally in your browser memory. Your files never touch a cloud server.</div>
+          <div class="trust-card-desc">All calculations, conversions, and cryptographic operations run locally in your
+            browser memory. Your files never touch a cloud server.</div>
         </div>
         <div class="trust-card">
           <div class="trust-card-icon">⚡</div>
           <div class="trust-card-title">Zero Upload Latency</div>
-          <div class="trust-card-desc">No waiting for slow file uploads or server queue delays. Processing is instantaneous thanks to modern WebAssembly & Web Crypto APIs.</div>
+          <div class="trust-card-desc">No waiting for slow file uploads or server queue delays. Processing is
+            instantaneous thanks to modern WebAssembly & Web Crypto APIs.</div>
         </div>
         <div class="trust-card">
           <div class="trust-card-icon">💎</div>
           <div class="trust-card-title">Free Forever, No Sign-Up</div>
-          <div class="trust-card-desc">No accounts, no credit cards, and no daily usage caps. Bookmark ToolNexus and get your tasks done in seconds anytime, anywhere.</div>
+          <div class="trust-card-desc">No accounts, no credit cards, and no daily usage caps. Bookmark ToolNexus and get
+            your tasks done in seconds anytime, anywhere.</div>
         </div>
       </div>
     </section>
@@ -671,7 +804,8 @@
             <span class="nav-logo-text">Tool<span>Nexus</span></span>
           </div>
           <p class="footer-desc">
-            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory — zero server uploads, zero file storage, client-side data privacy.
+            Free, in-browser developer and productivity toolkit. All processing runs 100% locally in your browser memory
+            — zero server uploads, zero file storage, client-side data privacy.
           </p>
         </div>
         <div class="footer-col">
@@ -710,14 +844,14 @@
           © 2026 ToolNexus. All calculations execute client-side. Zero server logs.
         </div>
         <div class="footer-status">
-          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          <span
+            style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
           100% In-Browser Privacy Verified
         </div>
       </div>
     </div>
   </footer>
 
-  <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/utils.js"></script>
   <script src="/assets/js/global-nav.js"></script>
   <script>
@@ -799,4 +933,5 @@
     });
   </script>
 </body>
+
 </html>

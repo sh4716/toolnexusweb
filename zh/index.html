@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
+
 <head>
+  <script src="/assets/js/theme.js"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFRY3P3VWN"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-MFRY3P3VWN');
@@ -16,9 +18,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="baidu-site-verification" content="codeva-EyuCxTBN4B">
   <title>ToolNexus 实用工具箱 - 纯本地极速工具平台 | 零数据上传 · 强隐私 · 永久免费</title>
-  <meta name="description" content="ToolNexus 实用工具箱聚合了 CSV/JSON 互转、Cron 表达式解析、HTML 实体转义、零宽字符排查、颜色对比度、年龄计算、UUID 生成、图片压缩、PDF 合并拆分等近 40 款高频刚需工具。100% 浏览器本地运算，文件不离电脑。">
+  <meta name="description"
+    content="ToolNexus 实用工具箱聚合了 CSV/JSON 互转、Cron 表达式解析、HTML 实体转义、零宽字符排查、颜色对比度、年龄计算、UUID 生成、图片压缩、PDF 合并拆分等近 40 款高频刚需工具。100% 浏览器本地运算，文件不离电脑。">
   <meta name="keywords" content="实用工具箱,在线工具,csv转json,cron表达式解析,零宽字符检测,颜色对比度,年龄计算器,百分比计算器,uuid生成器,密码生成器,图片压缩,pdf合并">
-    <link rel="canonical" href="https://toolnexusweb.com/zh/">
+  <link rel="canonical" href="https://toolnexusweb.com/zh/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNexus 实用工具箱">
   <meta property="og:url" content="https://toolnexusweb.com/zh/">
@@ -89,6 +92,7 @@
       max-width: 860px;
       margin: 0 auto;
     }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -103,6 +107,7 @@
       margin-bottom: 1.5rem;
       box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
     }
+
     .hero-title {
       font-size: 3rem;
       font-weight: 800;
@@ -113,16 +118,19 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     [data-theme="light"] .hero-title {
       background: linear-gradient(135deg, #0f172a 40%, #475569 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero-title span {
       background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero-desc {
       font-size: 1.15rem;
       color: var(--text-muted);
@@ -132,11 +140,13 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .hero-search-wrap {
       max-width: 600px;
       margin: 0 auto 2.5rem;
       position: relative;
     }
+
     .hero-search-input {
       width: 100%;
       padding: 1rem 1.25rem 1rem 3rem;
@@ -148,11 +158,13 @@
       box-shadow: var(--shadow-lg);
       transition: all var(--transition-base);
     }
+
     .hero-search-input:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
     }
+
     .hero-search-icon {
       position: absolute;
       left: 1.15rem;
@@ -170,6 +182,7 @@
       flex-wrap: wrap;
       margin-bottom: 2.5rem;
     }
+
     .cat-nav-btn {
       padding: 0.55rem 1.25rem;
       border-radius: var(--radius-full);
@@ -181,11 +194,13 @@
       cursor: pointer;
       transition: all var(--transition-fast);
     }
+
     .cat-nav-btn:hover {
       color: var(--text-main);
       border-color: var(--border-color);
       transform: translateY(-1px);
     }
+
     .cat-nav-btn.active {
       background: var(--primary);
       color: #ffffff;
@@ -200,6 +215,7 @@
       gap: 1.5rem;
       margin-bottom: 4rem;
     }
+
     .tool-item-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -212,11 +228,13 @@
       position: relative;
       overflow: hidden;
     }
+
     .tool-item-card:hover {
       border-color: var(--primary-border);
       transform: translateY(-3px);
       box-shadow: var(--shadow-lg);
     }
+
     .tool-icon-wrap {
       width: 48px;
       height: 48px;
@@ -229,18 +247,21 @@
       font-size: 1.6rem;
       margin-bottom: 1rem;
     }
+
     .tool-card-title {
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 0.4rem;
     }
+
     .tool-card-desc {
       font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.6;
       flex-grow: 1;
     }
+
     .tool-card-badges {
       margin-top: 1rem;
       display: flex;
@@ -255,23 +276,28 @@
       padding: 3rem 2rem;
       margin-bottom: 4rem;
     }
+
     .trust-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
     }
+
     .trust-card {
       text-align: center;
     }
+
     .trust-card-icon {
       font-size: 2.2rem;
       margin-bottom: 0.75rem;
     }
+
     .trust-card-title {
       font-size: 1.15rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
+
     .trust-card-desc {
       font-size: 0.88rem;
       color: var(--text-muted);
@@ -279,13 +305,18 @@
     }
   </style>
 
-  <script src="/assets/js/utils.js"></script></head>
+  <script src="/assets/js/utils.js"></script>
+</head>
+
 <body>
   <header class="site-header">
     <div class="header-inner" style="justify-content: flex-end;">
       <div class="header-actions">
-        <a href="/" id="lang-switcher" class="btn-sm btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);" title="Switch to English">🌐 EN</a>
-        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换主题" title="切换明暗主题">
+        <a href="/" id="lang-switcher" class="btn-sm btn-ghost"
+          style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;font-weight:600;font-size:0.85rem;padding:0.4rem 0.65rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--text-main);"
+          title="Switch to English">🌐 EN</a>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换主题"
+          title="切换明暗主题">
           <span class="theme-toggle-icon">🌙</span>
         </button>
       </div>
@@ -293,6 +324,15 @@
   </header>
 
   <main class="page-container" style="max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem;">
+    <!-- Brand Title (Top-Left) -->
+    <a href="/zh/"
+      style="display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; margin-bottom: 0.5rem; opacity: 0.95; transition: opacity var(--transition-fast);"
+      onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.95'">
+      <img src="/favicon.svg" alt="ToolNexus" style="width: 50px; height: 50px; object-fit: contain; display: block;">
+      <span style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.02em;">ToolNexusWeb
+        工具箱</span>
+    </a>
+
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-badge">
@@ -309,7 +349,8 @@
 
       <div class="hero-search-wrap">
         <span class="hero-search-icon">🔍</span>
-        <input type="text" id="home-search" class="hero-search-input" placeholder="输入工具名称或功能描述... (例如: 年龄, 折扣, 密码, pdf, 压缩, base64)" oninput="filterTools(this.value)">
+        <input type="text" id="home-search" class="hero-search-input"
+          placeholder="输入工具名称或功能描述... (例如: 年龄, 折扣, 密码, pdf, 压缩, base64)" oninput="filterTools(this.value)">
       </div>
 
       <!-- Category Tabs -->
@@ -328,46 +369,56 @@
       <div class="tools-grid" id="tools-container">
 
         <!-- PDF 旋转 -->
-        <a href="/zh/tools/pdf-rotate/" class="tool-item-card" data-cat="pdf" data-keywords="pdf 旋转 纠正 倒置 90度 180度 顺时针 逆时针 页面">
+        <a href="/zh/tools/pdf-rotate/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf 旋转 纠正 倒置 90度 180度 顺时针 逆时针 页面">
           <div class="tool-icon-wrap">🔄</div>
           <div class="tool-card-title">PDF 自由旋转</div>
           <div class="tool-card-desc">顺时针/逆时针纠正倒立页面，支持单独旋转指定页面或全局一键旋转。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span class="badge badge-success">无损</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span
+              class="badge badge-success">无损</span></div>
         </a>
 
         <!-- PDF 电子签名 -->
-        <a href="/zh/tools/pdf-sign/" class="tool-item-card" data-cat="pdf" data-keywords="pdf 签名 手写 电子签名 盖章 合同 签署 签字 协议">
+        <a href="/zh/tools/pdf-sign/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf 签名 手写 电子签名 盖章 合同 签署 签字 协议">
           <div class="tool-icon-wrap">✍️</div>
           <div class="tool-card-title">PDF 手写电子签名</div>
           <div class="tool-card-desc">在线流畅手写或艺术字签名，自由拖拽缩放到合同任意指定横线签署。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">神器</span><span class="badge badge-success">纯本地处理</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">神器</span><span
+              class="badge badge-success">纯本地处理</span></div>
         </a>
 
         <!-- PDF 批量加页码 -->
-        <a href="/zh/tools/pdf-page-numbers/" class="tool-item-card" data-cat="pdf" data-keywords="pdf 页码 添加页码 编码 页眉 页脚 论文 标书 装订">
+        <a href="/zh/tools/pdf-page-numbers/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf 页码 添加页码 编码 页眉 页脚 论文 标书 装订">
           <div class="tool-icon-wrap">🔢</div>
           <div class="tool-card-title">PDF 批量添加页码</div>
           <div class="tool-card-desc">自定义页脚/页眉页码样式，支持 Page 1 of N、居中对齐与跳过封面。</div>
           <div class="tool-card-badges"><span class="badge badge-primary">办公必备</span></div>
         </a>
         <!-- 1. 年龄计算器 -->
-        <a href="/zh/tools/age-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="年龄 生日 计算器 周岁 虚岁 天数 星座 倒计时">
+        <a href="/zh/tools/age-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="年龄 生日 计算器 周岁 虚岁 天数 星座 倒计时">
           <div class="tool-icon-wrap">🎂</div>
           <div class="tool-card-title">年龄与生日计算器</div>
           <div class="tool-card-desc">精确计算实际周岁、已生活天数与小时、下次生日倒计时及黄道星座。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span class="badge badge-success">毫秒级</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span
+              class="badge badge-success">毫秒级</span></div>
         </a>
 
         <!-- 2. 百分比计算器 -->
-        <a href="/zh/tools/percentage-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="百分比 折扣 计算器 占比 增长率 下降率 消费税 省钱">
+        <a href="/zh/tools/percentage-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="百分比 折扣 计算器 占比 增长率 下降率 消费税 省钱">
           <div class="tool-icon-wrap">📐</div>
           <div class="tool-card-title">百分比与折扣计算器</div>
           <div class="tool-card-desc">四合一百分比精算：两数占比、百分比增减幅度、商品折扣与税费立省金额。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">刚需</span><span class="badge badge-success">本地</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">刚需</span><span
+              class="badge badge-success">本地</span></div>
         </a>
 
         <!-- 3. 小费计算器 -->
-        <a href="/zh/tools/tip-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="小费 账单 聚餐 aa 分账 抹零 餐饮">
+        <a href="/zh/tools/tip-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="小费 账单 聚餐 aa 分账 抹零 餐饮">
           <div class="tool-icon-wrap">🧾</div>
           <div class="tool-card-title">小费与聚餐分账计算器</div>
           <div class="tool-card-desc">餐厅小费比例自定义，聚餐人数快速 AA 均摊，支持向上取整抹零。</div>
@@ -375,7 +426,8 @@
         </a>
 
         <!-- 4. 时薪年薪计算器 -->
-        <a href="/zh/tools/salary-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="时薪 年薪 月薪 薪酬 工资 加班费 工时 职场">
+        <a href="/zh/tools/salary-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="时薪 年薪 月薪 薪酬 工资 加班费 工时 职场">
           <div class="tool-icon-wrap">💼</div>
           <div class="tool-card-title">时薪与年薪收入转换</div>
           <div class="tool-card-desc">按小时工资精确测算年薪、月薪、双周薪与日薪，支持 1.5x 加班倍率。</div>
@@ -383,15 +435,18 @@
         </a>
 
         <!-- 5. UUID 生成器 -->
-        <a href="/zh/tools/uuid-generator/" class="tool-item-card" data-cat="developer" data-keywords="uuid guid v4 批量 随机数 rfc4122 唯一标识符 密码学">
+        <a href="/zh/tools/uuid-generator/" class="tool-item-card" data-cat="developer"
+          data-keywords="uuid guid v4 批量 随机数 rfc4122 唯一标识符 密码学">
           <div class="tool-icon-wrap">🆔</div>
           <div class="tool-card-title">UUID / GUID 在线生成器</div>
           <div class="tool-card-desc">Web Crypto 硬件级随机数，批量生成符合 RFC 4122 标准的 Version 4 UUID。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">极速</span><span class="badge badge-success">安全</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">极速</span><span
+              class="badge badge-success">安全</span></div>
         </a>
 
         <!-- 6. 大小写转换器 -->
-        <a href="/zh/tools/case-converter/" class="tool-item-card" data-cat="text" data-keywords="大小写 标题首字母大写 title case 驼峰 下划线 英文排版">
+        <a href="/zh/tools/case-converter/" class="tool-item-card" data-cat="text"
+          data-keywords="大小写 标题首字母大写 title case 驼峰 下划线 英文排版">
           <div class="tool-icon-wrap">🔤</div>
           <div class="tool-card-title">英文大小写与 Title Case</div>
           <div class="tool-card-desc">美联社/芝加哥格式智能标题首字母大写，小驼峰、大驼峰、下划线快速转换。</div>
@@ -399,7 +454,8 @@
         </a>
 
         <!-- 7. 强密码生成器 -->
-        <a href="/zh/tools/password-generator/" class="tool-item-card" data-cat="developer" data-keywords="密码 强密码 随机密码 安全 长度 符号">
+        <a href="/zh/tools/password-generator/" class="tool-item-card" data-cat="developer"
+          data-keywords="密码 强密码 随机密码 安全 长度 符号">
           <div class="tool-icon-wrap">🔑</div>
           <div class="tool-card-title">强密码生成器</div>
           <div class="tool-card-desc">纯前端安全随机数，长度/符号定制，防混淆字符与密码强度实时评分。</div>
@@ -407,7 +463,8 @@
         </a>
 
         <!-- 8. 房贷与利息计算器 -->
-        <a href="/zh/tools/mortgage-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="房贷 利息 月供 等额本息 等额本金 贷款 公积金">
+        <a href="/zh/tools/mortgage-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="房贷 利息 月供 等额本息 等额本金 贷款 公积金">
           <div class="tool-icon-wrap">🏠</div>
           <div class="tool-card-title">房贷与利息计算器</div>
           <div class="tool-card-desc">商业贷款、公积金贷款及组合贷款月供精算，本息/本金还款计划明细。</div>
@@ -415,7 +472,8 @@
         </a>
 
         <!-- 9. BMI 计算器 -->
-        <a href="/zh/tools/bmi-calculator/" class="tool-item-card" data-cat="calculator" data-keywords="bmi 身体质量指数 身高 体重 体脂 理想体重 健康">
+        <a href="/zh/tools/bmi-calculator/" class="tool-item-card" data-cat="calculator"
+          data-keywords="bmi 身体质量指数 身高 体重 体脂 理想体重 健康">
           <div class="tool-icon-wrap">🏃</div>
           <div class="tool-card-title">BMI 健康体脂计算器</div>
           <div class="tool-card-desc">身体质量指数与理想健康体重区间测算，WHO与卫健委健康标准。</div>
@@ -423,7 +481,8 @@
         </a>
 
         <!-- 10. 全能单位换算 -->
-        <a href="/zh/tools/unit-converter/" class="tool-item-card" data-cat="calculator" data-keywords="单位换算 长度 面积 重量 温度 数据存储 速度 公制 英制">
+        <a href="/zh/tools/unit-converter/" class="tool-item-card" data-cat="calculator"
+          data-keywords="单位换算 长度 面积 重量 温度 数据存储 速度 公制 英制">
           <div class="tool-icon-wrap">📐</div>
           <div class="tool-card-title">全能单位换算</div>
           <div class="tool-card-desc">长度、重量、温度、数据存储、面积与速度多合一换算，毫秒级响应。</div>
@@ -431,7 +490,8 @@
         </a>
 
         <!-- 11. 二维码生成与美化 -->
-        <a href="/zh/tools/qrcode-generator/" class="tool-item-card" data-cat="developer" data-keywords="二维码 qrcode 生成 美化 wifi 网址 名片">
+        <a href="/zh/tools/qrcode-generator/" class="tool-item-card" data-cat="developer"
+          data-keywords="二维码 qrcode 生成 美化 wifi 网址 名片">
           <div class="tool-icon-wrap">📱</div>
           <div class="tool-card-title">二维码生成与美化</div>
           <div class="tool-card-desc">文本/URL/WiFi转二维码，配色与样式自定义，高清 PNG 导出。</div>
@@ -439,7 +499,8 @@
         </a>
 
         <!-- 12. JSON 格式化与校验 -->
-        <a href="/zh/tools/json-formatter/" class="tool-item-card" data-cat="developer" data-keywords="json 格式化 美化 压缩 校验 语法纠错 转义">
+        <a href="/zh/tools/json-formatter/" class="tool-item-card" data-cat="developer"
+          data-keywords="json 格式化 美化 压缩 校验 语法纠错 转义">
           <div class="tool-icon-wrap">🌲</div>
           <div class="tool-card-title">JSON 校验与美化</div>
           <div class="tool-card-desc">JSON 语法纠错、高亮展开折叠、一键压缩、错误行号精准提示。</div>
@@ -447,7 +508,8 @@
         </a>
 
         <!-- 13. 时间戳转换 -->
-        <a href="/zh/tools/timestamp/" class="tool-item-card" data-cat="developer" data-keywords="时间戳 timestamp unix epoch 秒 毫秒 时钟 时区">
+        <a href="/zh/tools/timestamp/" class="tool-item-card" data-cat="developer"
+          data-keywords="时间戳 timestamp unix epoch 秒 毫秒 时钟 时区">
           <div class="tool-icon-wrap">⏱️</div>
           <div class="tool-card-title">时间戳转换</div>
           <div class="tool-card-desc">Unix 秒/毫秒与可读时间互转，系统时钟动态流逝与相对时间指示。</div>
@@ -455,7 +517,8 @@
         </a>
 
         <!-- 14. Base64 编解码 -->
-        <a href="/zh/tools/base64-converter/" class="tool-item-card" data-cat="developer" data-keywords="base64 编码 解码 文本 图片 dataurl utf8">
+        <a href="/zh/tools/base64-converter/" class="tool-item-card" data-cat="developer"
+          data-keywords="base64 编码 解码 文本 图片 dataurl utf8">
           <div class="tool-icon-wrap">⚡</div>
           <div class="tool-card-title">Base64 编解码器</div>
           <div class="tool-card-desc">文本 UTF-8 与图片 DataURL 纯前端秒级互转，杜绝乱码。</div>
@@ -463,7 +526,8 @@
         </a>
 
         <!-- 15. URL 编解码 -->
-        <a href="/zh/tools/url-encoder/" class="tool-item-card" data-cat="developer" data-keywords="url encode decode uri query 参数 解析 转义">
+        <a href="/zh/tools/url-encoder/" class="tool-item-card" data-cat="developer"
+          data-keywords="url encode decode uri query 参数 解析 转义">
           <div class="tool-icon-wrap">🔗</div>
           <div class="tool-card-title">URL 编码与解码</div>
           <div class="tool-card-desc">URIComponent 实时转义与 Query 参数结构化表格解析与重构。</div>
@@ -471,7 +535,8 @@
         </a>
 
         <!-- 16. 哈希计算 -->
-        <a href="/zh/tools/hash-calc/" class="tool-item-card" data-cat="developer" data-keywords="hash sha256 sha512 sha1 md5 哈希 校验 散列">
+        <a href="/zh/tools/hash-calc/" class="tool-item-card" data-cat="developer"
+          data-keywords="hash sha256 sha512 sha1 md5 哈希 校验 散列">
           <div class="tool-icon-wrap">🔒</div>
           <div class="tool-card-title">MD5 / SHA 哈希计算</div>
           <div class="tool-card-desc">Web Crypto API 硬件加速本地计算 SHA-256/512 与完整性校验码。</div>
@@ -479,7 +544,8 @@
         </a>
 
         <!-- 17. JWT 令牌解码 -->
-        <a href="/zh/tools/jwt-decoder/" class="tool-item-card" data-cat="developer" data-keywords="jwt token 解码 header payload exp 过期 鉴权">
+        <a href="/zh/tools/jwt-decoder/" class="tool-item-card" data-cat="developer"
+          data-keywords="jwt token 解码 header payload exp 过期 鉴权">
           <div class="tool-icon-wrap">🎫</div>
           <div class="tool-card-title">JWT 令牌解码器</div>
           <div class="tool-card-desc">纯前端解析 Header 与 Payload，带过期时间指示，绝不外泄 Token。</div>
@@ -487,7 +553,8 @@
         </a>
 
         <!-- 18. 字数统计与排版分析 -->
-        <a href="/zh/tools/word-counter/" class="tool-item-card" data-cat="text" data-keywords="字数统计 字符数 段落 汉字 阅读耗时 文本分析">
+        <a href="/zh/tools/word-counter/" class="tool-item-card" data-cat="text"
+          data-keywords="字数统计 字符数 段落 汉字 阅读耗时 文本分析">
           <div class="tool-icon-wrap">📊</div>
           <div class="tool-card-title">字数统计与排版分析</div>
           <div class="tool-card-desc">中英文字数、无空格纯字符、段落统计及朗读与阅读耗时预估。</div>
@@ -495,7 +562,8 @@
         </a>
 
         <!-- 19. 颜色转换与调色板 -->
-        <a href="/zh/tools/color-converter/" class="tool-item-card" data-cat="developer" data-keywords="颜色转换 hex rgb hsl 调色板 css 渐变 设计">
+        <a href="/zh/tools/color-converter/" class="tool-item-card" data-cat="developer"
+          data-keywords="颜色转换 hex rgb hsl 调色板 css 渐变 设计">
           <div class="tool-icon-wrap">🎨</div>
           <div class="tool-card-title">颜色转换与调色板</div>
           <div class="tool-card-desc">HEX/RGB/HSL 互转，色阶取色板与 CSS 渐变代码在线生成。</div>
@@ -503,7 +571,8 @@
         </a>
 
         <!-- 20. 假文生成器 -->
-        <a href="/zh/tools/lorem-generator/" class="tool-item-card" data-cat="text" data-keywords="假文 lorem ipsum 占位符 排版 占位文本 设计">
+        <a href="/zh/tools/lorem-generator/" class="tool-item-card" data-cat="text"
+          data-keywords="假文 lorem ipsum 占位符 排版 占位文本 设计">
           <div class="tool-icon-wrap">📄</div>
           <div class="tool-card-title">Lorem Ipsum 假文生成</div>
           <div class="tool-card-desc">排版占位符生成器，段落数、句子数、单词数随心定制。</div>
@@ -519,7 +588,8 @@
         </a>
 
         <!-- 22. 正则测试器 -->
-        <a href="/zh/tools/regex-tester/" class="tool-item-card" data-cat="developer" data-keywords="regex 正则 表达式 测试 匹配 模板 修饰符">
+        <a href="/zh/tools/regex-tester/" class="tool-item-card" data-cat="developer"
+          data-keywords="regex 正则 表达式 测试 匹配 模板 修饰符">
           <div class="tool-icon-wrap">🎯</div>
           <div class="tool-card-title">Regex 正则测试器</div>
           <div class="tool-card-desc">常用正则模板库（邮箱、电话、IP），实时匹配高亮与捕获组。</div>
@@ -527,7 +597,8 @@
         </a>
 
         <!-- 23. 极速图片压缩 -->
-        <a href="/zh/tools/image-compress/" class="tool-item-card" data-cat="image" data-keywords="图片压缩 瘦身 jpg png webp 画质 尺寸">
+        <a href="/zh/tools/image-compress/" class="tool-item-card" data-cat="image"
+          data-keywords="图片压缩 瘦身 jpg png webp 画质 尺寸">
           <div class="tool-icon-wrap">🗜️</div>
           <div class="tool-card-title">极速图片压缩</div>
           <div class="tool-card-desc">纯前端画质与尺寸自适应压缩，实时双图对比，秒级瘦身省流量。</div>
@@ -535,7 +606,8 @@
         </a>
 
         <!-- 24. 图片格式快速互转 -->
-        <a href="/zh/tools/image-converter/" class="tool-item-card" data-cat="image" data-keywords="图片格式转换 jpg png webp bmp 批量 zip">
+        <a href="/zh/tools/image-converter/" class="tool-item-card" data-cat="image"
+          data-keywords="图片格式转换 jpg png webp bmp 批量 zip">
           <div class="tool-icon-wrap">🔄</div>
           <div class="tool-card-title">图片格式快速互转</div>
           <div class="tool-card-desc">JPG/PNG/WebP/BMP 纯本地 Canvas 互转，支持批量转码与 Zip 打包。</div>
@@ -543,7 +615,8 @@
         </a>
 
         <!-- 25. 身份证防盗水印 -->
-        <a href="/zh/tools/id-watermark/" class="tool-item-card" data-cat="image" data-keywords="水印 防盗水印 身份证 证件 户口本 营业执照 隐私">
+        <a href="/zh/tools/id-watermark/" class="tool-item-card" data-cat="image"
+          data-keywords="水印 防盗水印 身份证 证件 户口本 营业执照 隐私">
           <div class="tool-icon-wrap">🛡️</div>
           <div class="tool-card-title">身份证防盗水印</div>
           <div class="tool-card-desc">给证件照片加上“仅供XX办理使用”半透明斜向防盗水印，绝不泄密。</div>
@@ -575,7 +648,8 @@
         </a>
 
         <!-- 29. PDF 转高清图片 -->
-        <a href="/zh/tools/pdf-to-image/" class="tool-item-card" data-cat="pdf" data-keywords="pdf转图片 pdf转jpg pdf转png 渲染 导出">
+        <a href="/zh/tools/pdf-to-image/" class="tool-item-card" data-cat="pdf"
+          data-keywords="pdf转图片 pdf转jpg pdf转png 渲染 导出">
           <div class="tool-icon-wrap">🖼️</div>
           <div class="tool-card-title">PDF 转高清图片</div>
           <div class="tool-card-desc">PDF 文档逐页渲染提取为高清 JPG/PNG 图片，支持 Zip 打包。</div>
@@ -591,7 +665,8 @@
         </a>
 
         <!-- 31. 新广告法违禁词检测 -->
-        <a href="/zh/tools/ad-checker/" class="tool-item-card" data-cat="text" data-keywords="广告法 违禁词 极限词 敏感词 电商 文案 自媒体 排查">
+        <a href="/zh/tools/ad-checker/" class="tool-item-card" data-cat="text"
+          data-keywords="广告法 违禁词 极限词 敏感词 电商 文案 自媒体 排查">
           <div class="tool-icon-wrap">⚠️</div>
           <div class="tool-card-title">新广告法违禁词检测</div>
           <div class="tool-card-desc">内置 200+ 极限词库，电商详情页与自媒体文案一键高亮排查。</div>
@@ -599,15 +674,18 @@
         </a>
 
         <!-- 32. CSV ↔ JSON 极速互转 (NEW) -->
-        <a href="/zh/tools/csv-json/" class="tool-item-card" data-cat="developer" data-keywords="csv json tsv excel 表格 转换 数组 解析 导出 纯前端">
+        <a href="/zh/tools/csv-json/" class="tool-item-card" data-cat="developer"
+          data-keywords="csv json tsv excel 表格 转换 数组 解析 导出 纯前端">
           <div class="tool-icon-wrap">📊</div>
           <div class="tool-card-title">CSV ↔ JSON 互转</div>
           <div class="tool-card-desc">双向表格与数据格式转换。Excel 表格转 JSON 数组，或将 API 数据导出为标准 CSV。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span class="badge badge-success">双向互转</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span
+              class="badge badge-success">双向互转</span></div>
         </a>
 
         <!-- 33. Cron 表达式解析器 (NEW) -->
-        <a href="/zh/tools/cron-parser/" class="tool-item-card" data-cat="developer" data-keywords="cron crontab 定时任务 表达式 解析 时间 预测 运维 linux">
+        <a href="/zh/tools/cron-parser/" class="tool-item-card" data-cat="developer"
+          data-keywords="cron crontab 定时任务 表达式 解析 时间 预测 运维 linux">
           <div class="tool-icon-wrap">⏰</div>
           <div class="tool-card-title">Cron 表达式解析器</div>
           <div class="tool-card-desc">直观翻译 Linux crontab 定时语法为清晰中文，精准预测未来 5 次任务触发执行时间。</div>
@@ -615,7 +693,8 @@
         </a>
 
         <!-- 34. HTML 实体编解码 (NEW) -->
-        <a href="/zh/tools/html-encoder/" class="tool-item-card" data-cat="developer" data-keywords="html 实体 编码 解码 转义 反转义 xss 特殊字符">
+        <a href="/zh/tools/html-encoder/" class="tool-item-card" data-cat="developer"
+          data-keywords="html 实体 编码 解码 转义 反转义 xss 特殊字符">
           <div class="tool-icon-wrap">🔤</div>
           <div class="tool-card-title">HTML 实体编解码</div>
           <div class="tool-card-desc">特殊字符转为命名实体（&amp;lt;）或十进制/十六进制实体，防止 XSS 脚本注入。</div>
@@ -623,15 +702,18 @@
         </a>
 
         <!-- 35. 零宽与隐形字符检测器 (NEW) -->
-        <a href="/zh/tools/unicode-inspector/" class="tool-item-card" data-cat="text" data-keywords="零宽字符 隐形字符 水印 盲水印 bom 净化 过滤 排查 隐私">
+        <a href="/zh/tools/unicode-inspector/" class="tool-item-card" data-cat="text"
+          data-keywords="零宽字符 隐形字符 水印 盲水印 bom 净化 过滤 排查 隐私">
           <div class="tool-icon-wrap">🔍</div>
           <div class="tool-card-title">零宽隐形字符检测器</div>
           <div class="tool-card-desc">排查文本中潜伏的 Unicode 隐藏字符与数字盲水印指纹，一键无损深度净化。</div>
-          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span class="badge badge-success">隐私安全</span></div>
+          <div class="tool-card-badges"><span class="badge badge-primary">新上线</span><span
+              class="badge badge-success">隐私安全</span></div>
         </a>
 
         <!-- 36. WCAG 颜色对比度检查 (NEW) -->
-        <a href="/zh/tools/color-contrast/" class="tool-item-card" data-cat="text" data-keywords="颜色对比度 wcag 无障碍 a11y 明度 比值 评估 设计 ui">
+        <a href="/zh/tools/color-contrast/" class="tool-item-card" data-cat="text"
+          data-keywords="颜色对比度 wcag 无障碍 a11y 明度 比值 评估 设计 ui">
           <div class="tool-icon-wrap">🎨</div>
           <div class="tool-card-title">颜色无障碍对比度检查</div>
           <div class="tool-card-desc">依据 W3C WCAG 2.1 国际标准评估文字与背景相对明度，实时核验 AA / AAA 合规等级。</div>
@@ -710,14 +792,14 @@
           © 2026 ToolNexus. 100% 浏览器本地运算 · 零上传隐私保护
         </div>
         <div class="footer-status">
-          <span style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
+          <span
+            style="display:inline-block;width:8px;height:8px;background:var(--success);border-radius:50%;margin-right:6px;"></span>
           纯前端安全沙盒运行中
         </div>
       </div>
     </div>
   </footer>
 
-  <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/utils.js"></script>
   <script src="/assets/js/global-nav.js"></script>
   <script>
@@ -799,4 +881,5 @@
     });
   </script>
 </body>
+
 </html>

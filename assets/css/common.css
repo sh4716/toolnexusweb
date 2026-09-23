@@ -69,6 +69,14 @@ button, input, select, textarea {
   opacity: 0.9;
 }
 
+.logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
 .logo-icon {
   width: 34px;
   height: 34px;
