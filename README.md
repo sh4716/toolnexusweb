@@ -28,6 +28,20 @@ If you don't want to build or host it yourself, you can directly use the fully d
 
 ---
 
+## 📸 Screenshots & Preview
+
+### Homepage & Category Navigation
+![ToolNexusWeb Homepage](./docs/screenshots/hero-home.png)
+
+![Tool Cards Overview](./docs/screenshots/tools-grid.png)
+
+### 🌟 Featured Tools Showcase
+| ✍️ Client-Side PDF Signature | ✂️ PDF Page Split & Extraction |
+| :---: | :---: |
+| ![PDF Sign](./docs/screenshots/pdf-sign.png) | ![PDF Split](./docs/screenshots/pdf-split.png) |
+
+---
+
 ## 🌟 Key Features
 
 - **🔒 100% Privacy & Security:** All PDF manipulations, image processing, hash calculations, and text transformations run client-side via WebAssembly & JavaScript.

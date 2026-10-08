@@ -28,6 +28,20 @@
 
 ---
 
+## 📸 界面预览
+
+### 首页与工具分类
+![ToolNexusWeb 首页界面](./docs/screenshots/hero-home.png)
+
+![工具箱分类与卡片导航](./docs/screenshots/tools-grid.png)
+
+### 🌟 明星功能体验
+| ✍️ PDF 在线手写电子签名 | ✂️ PDF 自由拆分与提取 |
+| :---: | :---: |
+| ![PDF 在线手写电子签名](./docs/screenshots/pdf-sign.png) | ![PDF 自由拆分](./docs/screenshots/pdf-split.png) |
+
+---
+
 ## 🌟 核心特色
 
 - **🔒 100% 隐私安全：** 所有 PDF 处理、图片压缩与加水印、加解密运算均基于浏览器端 WebAssembly 和 JavaScript 运行，零服务端日志，保护隐私。
